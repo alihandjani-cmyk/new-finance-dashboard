@@ -815,7 +815,8 @@ def _roll_spread(closes):
     return s if 0 < s <= 5 else None
 
 def fetch_spread(ex_key, existing_history):
-    """Compute Roll implied spread for exchange. Returns updated history + marketAvg."""
+    """Compute Roll implied spread for exchange.
+    Returns (updated_history, marketAvg, top10_tight, top10_wide)."""
     cfg     = EXCHANGES[ex_key]
     tickers = cfg['tickers']
     names   = cfg['names']
@@ -823,18 +824,18 @@ def fetch_spread(ex_key, existing_history):
         raw = yf.download(tickers, period='35d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
-            return existing_history, None
+            return existing_history, None, [], []
         close_df = raw['Close'] if isinstance(raw.columns, pd.MultiIndex) else raw
     except Exception as exc:
         print(f'  ✗  {ex_key} spread download: {exc}')
-        return existing_history, None
+        return existing_history, None, [], []
 
     try:
         last_trade_date = close_df.dropna(how='all').index[-1].strftime('%d %b')
     except Exception:
         last_trade_date = _today()
 
-    spreads = []
+    stock_spreads = {}
     for sym in tickers:
         try:
             col = sym if sym in close_df.columns else None
@@ -843,19 +844,30 @@ def fetch_spread(ex_key, existing_history):
             closes = close_df[col].dropna().tolist()
             sp = _roll_spread(closes)
             if sp is not None:
-                spreads.append(sp)
+                stock_spreads[sym] = sp
         except Exception:
             continue
 
-    if not spreads:
+    if not stock_spreads:
         print(f'  ✗  {ex_key}: no Roll spread computed')
-        return existing_history, None
+        return existing_history, None, [], []
 
-    market_avg = round(sum(spreads)/len(spreads), 4)
+    market_avg = round(sum(stock_spreads.values()) / len(stock_spreads), 4)
     new_history = _push(existing_history,
                         {'date': last_trade_date, 'avgSpread': market_avg})
-    print(f'  {len(spreads)} stocks · Roll spread: {market_avg:.4f}% ({ex_key}, {last_trade_date})')
-    return new_history, market_avg
+
+    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
+    suf = suffix_map.get(ex_key)
+    def _sp_entry(sym, val):
+        tk = sym.replace(suf, '') if suf and sym.endswith(suf) else sym.split('.')[0]
+        return {'ticker': tk, 'name': names.get(sym, tk), 'spread': round(val, 4)}
+
+    sorted_s = sorted(stock_spreads.items(), key=lambda x: x[1])
+    top10_tight = [_sp_entry(s, v) for s, v in sorted_s[:10]]
+    top10_wide  = [_sp_entry(s, v) for s, v in reversed(sorted_s[-10:])]
+
+    print(f'  {len(stock_spreads)} stocks · Roll spread: {market_avg:.4f}% ({ex_key}, {last_trade_date})')
+    return new_history, market_avg, top10_tight, top10_wide
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  ABDI-RANALDO (2017) IMPLIED SPREAD  (generic — all 6 exchanges)
@@ -885,17 +897,19 @@ def _ar_spread(highs, lows, closes):
     return s if 0 < s <= 5 else None
 
 def fetch_ar_spread(ex_key, existing_history):
-    """Compute Abdi-Ranaldo spread for exchange. Returns updated history + marketAvg."""
+    """Compute Abdi-Ranaldo spread for exchange.
+    Returns (updated_history, marketAvg, top10_tight, top10_wide)."""
     cfg     = EXCHANGES[ex_key]
     tickers = cfg['tickers']
+    names   = cfg['names']
     try:
         raw = yf.download(tickers, period='35d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
-            return existing_history, None
+            return existing_history, None, [], []
     except Exception as exc:
         print(f'  ✗  {ex_key} AR download: {exc}')
-        return existing_history, None
+        return existing_history, None, [], []
 
     is_multi = isinstance(raw.columns, pd.MultiIndex)
     try:
@@ -903,12 +917,12 @@ def fetch_ar_spread(ex_key, existing_history):
         high_df  = raw['High']   if is_multi else None
         low_df   = raw['Low']    if is_multi else None
         if high_df is None or low_df is None:
-            return existing_history, None
+            return existing_history, None, [], []
         last_trade_date = close_df.dropna(how='all').index[-1].strftime('%d %b')
     except Exception:
         last_trade_date = _today()
 
-    spreads = []
+    stock_spreads = {}
     for sym in tickers:
         try:
             if sym not in close_df.columns:
@@ -919,19 +933,30 @@ def fetch_ar_spread(ex_key, existing_history):
             idx = cl.index.intersection(hi.index).intersection(lo.index)
             sp = _ar_spread(hi.loc[idx].tolist(), lo.loc[idx].tolist(), cl.loc[idx].tolist())
             if sp is not None:
-                spreads.append(sp)
+                stock_spreads[sym] = sp
         except Exception:
             continue
 
-    if not spreads:
+    if not stock_spreads:
         print(f'  ✗  {ex_key}: no AR spread computed')
-        return existing_history, None
+        return existing_history, None, [], []
 
-    market_avg = round(sum(spreads)/len(spreads), 4)
+    market_avg = round(sum(stock_spreads.values()) / len(stock_spreads), 4)
     new_history = _push(existing_history,
                         {'date': last_trade_date, 'avgSpread': market_avg})
-    print(f'  {len(spreads)} stocks · AR spread: {market_avg:.4f}% ({ex_key}, {last_trade_date})')
-    return new_history, market_avg
+
+    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
+    suf = suffix_map.get(ex_key)
+    def _ar_entry(sym, val):
+        tk = sym.replace(suf, '') if suf and sym.endswith(suf) else sym.split('.')[0]
+        return {'ticker': tk, 'name': names.get(sym, tk), 'spread': round(val, 4)}
+
+    sorted_s = sorted(stock_spreads.items(), key=lambda x: x[1])
+    top10_tight = [_ar_entry(s, v) for s, v in sorted_s[:10]]
+    top10_wide  = [_ar_entry(s, v) for s, v in reversed(sorted_s[-10:])]
+
+    print(f'  {len(stock_spreads)} stocks · AR spread: {market_avg:.4f}% ({ex_key}, {last_trade_date})')
+    return new_history, market_avg, top10_tight, top10_wide
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  RANKING COMPUTATION  (Python — pre-computed, stored in JSON)
@@ -1175,17 +1200,23 @@ def main():
 
         # Roll Spread
         print('   Roll spread...')
-        new_hist, mkt_avg = fetch_spread(ex_key, dash['spread'][ex_key].get('history', []))
-        dash['spread'][ex_key]['history']   = new_hist
+        new_hist, mkt_avg, top_tight, top_wide = fetch_spread(
+            ex_key, dash['spread'][ex_key].get('history', []))
+        dash['spread'][ex_key]['history'] = new_hist
         if mkt_avg is not None:
-            dash['spread'][ex_key]['marketAvg'] = mkt_avg
+            dash['spread'][ex_key]['marketAvg']   = mkt_avg
+            dash['spread'][ex_key]['top10_tight'] = top_tight
+            dash['spread'][ex_key]['top10_wide']  = top_wide
 
         # AR Spread
         print('   AR spread...')
-        new_hist, mkt_avg = fetch_ar_spread(ex_key, dash['ar_spread'][ex_key].get('history', []))
-        dash['ar_spread'][ex_key]['history']   = new_hist
+        new_hist, mkt_avg, top_tight, top_wide = fetch_ar_spread(
+            ex_key, dash['ar_spread'][ex_key].get('history', []))
+        dash['ar_spread'][ex_key]['history'] = new_hist
         if mkt_avg is not None:
-            dash['ar_spread'][ex_key]['marketAvg'] = mkt_avg
+            dash['ar_spread'][ex_key]['marketAvg']   = mkt_avg
+            dash['ar_spread'][ex_key]['top10_tight'] = top_tight
+            dash['ar_spread'][ex_key]['top10_wide']  = top_wide
 
     # ── Rankings ─────────────────────────────────────────────────────────────
     print('\n── Rankings')

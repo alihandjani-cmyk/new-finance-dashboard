@@ -357,6 +357,7 @@
       <div id="spreadSummary" class="spread-summary"></div>
       <div class="cw"><canvas id="spreadChart"></canvas></div>
     </div>
+    <div id="spreadStockTables" style="margin-top:13px"></div>
     <div class="card" style="margin-top:13px">
       <div class="ch"><div class="ct">📖 Methodology</div></div>
       <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
@@ -385,6 +386,7 @@
       <div id="arSummary" class="spread-summary"></div>
       <div class="cw"><canvas id="arChart"></canvas></div>
     </div>
+    <div id="arStockTables" style="margin-top:13px"></div>
     <div class="card" style="margin-top:13px">
       <div class="ch"><div class="ct">📖 Methodology</div></div>
       <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
@@ -829,9 +831,47 @@ function toggleIlliqScale() {
 // ─── Spread (Roll) ────────────────────────────────────────────────────────────
 function renderSpread() {
   _renderSpreadTab('spread', 'spreadChart', 'spreadSummary', 'spreadSource', 'Roll (1984) spread · 30-day close prices');
+  _renderSpreadStockTables('spread', 'spreadStockTables', 'Roll Spread', 'Tightest Spread', 'Widest Spread');
 }
 function renderArSpread() {
   _renderSpreadTab('ar_spread', 'arChart', 'arSummary', 'arSource', 'AR (2017) spread · 30-day OHLCV');
+  _renderSpreadStockTables('ar_spread', 'arStockTables', 'AR Spread', 'Tightest AR Spread', 'Widest AR Spread');
+}
+
+function _renderSpreadStockTables(dataKey, containerId, label, tightLabel, wideLabel) {
+  const data = DASH[dataKey] || {};
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = EX_KEYS.map(k => {
+    const d     = data[k] || {};
+    const tight = d.top10_tight || [];
+    const wide  = d.top10_wide  || [];
+    if (!tight.length && !wide.length) return '';
+    const makeRows = (rows, color) => rows.map((r, i) => `<tr>
+      <td><span class="rk">${i+1}</span></td>
+      <td class="sn">${esc(r.name)}</td>
+      <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
+      <td style="font-family:monospace;font-size:11px;color:${color}">${Number(r.spread).toFixed(4)}%</td>
+    </tr>`).join('');
+    return `<div class="card">
+      <div class="ch">
+        <div class="ct"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span>&nbsp;${EX_NAMES[k]} — ${label}</div>
+        <span class="cs">30-day estimate · lower = more liquid</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="border-right:1px solid #eaeef2">
+          <div style="padding:7px 12px;background:#f0fdf4;font-size:11px;font-weight:700;color:#1a7f37;border-bottom:1px solid #eaeef2">🟢 Top 10 ${tightLabel}</div>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Spread %</th></tr></thead>
+          <tbody>${makeRows(tight, '#1a7f37')}</tbody></table>
+        </div>
+        <div>
+          <div style="padding:7px 12px;background:#fff5f5;font-size:11px;font-weight:700;color:#cf222e;border-bottom:1px solid #eaeef2">🔴 Top 10 ${wideLabel}</div>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Spread %</th></tr></thead>
+          <tbody>${makeRows(wide, '#cf222e')}</tbody></table>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function _renderSpreadTab(dataKey, chartId, summaryId, sourceId, sourceLabel) {
