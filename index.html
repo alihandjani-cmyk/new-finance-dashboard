@@ -566,7 +566,7 @@ const FALLBACK  = {stale_fallback:true,news:[],tickers:{},gainers:{},market_cap:
 // ─── Data loading ────────────────────────────────────────────────────────────
 async function loadDashboard() {
   try {
-    const r = await fetch('dashboard_data.json?v=' + Date.now());
+    const r = await fetch('https://raw.githubusercontent.com/alihandjani-cmyk/new-finance-dashboard/main/dashboard_data.json?v=' + Date.now());
     DASH = await r.json();
   } catch(e) {
     console.warn('dashboard_data.json unavailable, using fallback', e);
