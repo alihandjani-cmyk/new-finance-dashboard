@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinancePulse — Live</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"
+          integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi"
+          crossorigin="anonymous"></script>
+  <style>
+    :root{color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:#f6f8fa;color:#24292f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;line-height:1.5}
+    header{background:#fff;border-bottom:1px solid #d0d7de;padding:9px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .logo{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:7px}
+    .logo-icon{background:linear-gradient(135deg,#1a7f37,#2ea043);color:#fff;border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:14px}
+    .hdr-r{display:flex;align-items:center;gap:10px}
+    .live-badge{background:#d1ffd9;color:#1a7f37;border:1px solid #a6e4b0;border-radius:12px;padding:2px 8px;font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px}
+    .ldot{width:6px;height:6px;border-radius:50%;background:#1a7f37;animation:blink 1.4s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    .rbtn{background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;color:#24292f;display:flex;align-items:center;gap:4px;transition:background .1s}
+    .rbtn:hover{background:#eaeef2}.rbtn:disabled{opacity:.5;cursor:not-allowed}
+    #lu{font-size:10.5px;color:#57606a}
+
+    .ticker{background:#fff;border-bottom:1px solid #d0d7de;overflow:hidden;position:relative}
+    .ticker-track{display:flex;align-items:center;padding:5px 0;width:max-content;animation:ticker-scroll 45s linear infinite}
+    .ticker:hover .ticker-track{animation-play-state:paused}
+    @keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .ti{display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;padding:0 20px;border-right:1px solid #e8eaed}
+    .tl{font-size:11px;color:#57606a;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+    .tv{font-size:11px;font-weight:600}.tc{font-size:10px}
+    .up{color:#1a7f37}.down{color:#cf222e}
+
+    .page-nav{background:#fff;border-bottom:1px solid #d0d7de;padding:0 16px;display:flex;overflow-x:auto}
+    .tab{background:none;border:none;border-bottom:3px solid transparent;padding:10px 18px;font-size:12.5px;font-weight:600;color:#57606a;cursor:pointer;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+    .tab:hover{color:#24292f}.tab.active{color:#0969da;border-bottom-color:#0969da}
+    .page{display:none}.page.active{display:block}
+
+    .markets-main{max-width:1600px;margin:0 auto;padding:13px 13px 56px}
+    .news-main{max-width:1200px;margin:0 auto;padding:13px 13px 56px;display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    @media(max-width:780px){.news-main{grid-template-columns:1fr}}
+
+    .card{background:#fff;border:1px solid #d0d7de;border-radius:10px;overflow:hidden;margin-top:13px}
+    .card:first-child{margin-top:0}
+    .ch{background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+    .ct{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px}
+    .cs{font-size:10.5px;color:#57606a}
+
+    #newsList{list-style:none}
+    .ni{padding:9px 14px;border-bottom:1px solid #eaeef2;display:flex;gap:9px;align-items:flex-start;transition:background .1s}
+    .ni:last-child{border-bottom:none}.ni:hover{background:#f6f8fa}
+    .nn{flex-shrink:0;font-size:10px;font-weight:700;color:#8c959f;width:18px;padding-top:2px}
+    .nb{flex:1;min-width:0}
+    .nt{font-size:12px;font-weight:600;color:#0969da;text-decoration:none;display:block;margin-bottom:2px;line-height:1.4}
+    .nt:hover{text-decoration:underline}
+    .nd{font-size:11px;color:#57606a;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .ndate{font-size:10px;color:#8c959f;margin-top:2px}
+
+    table{width:100%;border-collapse:collapse}
+    th{font-size:9.5px;font-weight:700;color:#57606a;text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:1px solid #eaeef2;background:#f6f8fa;text-align:left}
+    th:not(:first-child){text-align:right}
+    td{padding:8px 12px;font-size:11.5px;border-bottom:1px solid #eaeef2;vertical-align:middle}
+    td:not(:first-child){text-align:right}
+    tr:last-child td{border-bottom:none}tr:hover td{background:#f6f8fa}
+    .rk{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;background:#eaeef2;font-size:10px;font-weight:700;color:#57606a}
+    .sn{font-weight:600;font-size:12px}
+    .pill{display:inline-flex;align-items:center;padding:2px 6px;border-radius:4px;font-size:10.5px;font-weight:700;font-family:monospace}
+    .pill-up{background:#d1ffd9;color:#1a7f37}
+
+    .vsection-hdr{padding:10px 16px;display:flex;flex-direction:column;gap:3px;border-top:1px solid #eaeef2}
+    .vsection-hdr:first-of-type{border-top:none}
+    .vsection-hdr-real{background:#f0fdf4;border-left:4px solid #1a7f37}
+    .vsection-hdr-est{background:#fffbeb;border-left:4px solid #b08800}
+    .vsection-title{font-size:12px;font-weight:700;color:#24292f}
+    .vsection-note{font-size:10.5px;color:#57606a;line-height:1.5}
+    .vsection-note a{color:#0969da}
+
+    .vexchange-section{display:grid}
+    .vexchange-section .vexchange-panel{border-right:1px solid #eaeef2;border-bottom:1px solid #eaeef2}
+    .vexchange-real{grid-template-columns:1fr 1fr}
+    .vexchange-real .vexchange-panel:nth-child(2n){border-right:none}
+    .vexchange-real .vexchange-panel:nth-last-child(-n+2){border-bottom:none}
+    .vexchange-est{grid-template-columns:repeat(3,1fr)}
+    .vexchange-est .vexchange-panel:nth-child(3n){border-right:none}
+    .vexchange-est .vexchange-panel:nth-last-child(-n+3){border-bottom:none}
+    @media(max-width:1100px){
+      .vexchange-est{grid-template-columns:1fr 1fr}
+      .vexchange-est .vexchange-panel:nth-child(3n){border-right:1px solid #eaeef2}
+      .vexchange-est .vexchange-panel:nth-child(2n){border-right:none}
+      .vexchange-est .vexchange-panel:nth-last-child(-n+3){border-bottom:1px solid #eaeef2}
+      .vexchange-est .vexchange-panel:nth-last-child(-n+2){border-bottom:none}
+    }
+    @media(max-width:600px){
+      .vexchange-real,.vexchange-est{grid-template-columns:1fr}
+      .vexchange-section .vexchange-panel{border-right:none}
+      .vexchange-section .vexchange-panel:last-child{border-bottom:none}
+    }
+    .vexchange-label{padding:8px 14px 4px;font-size:11px;font-weight:700;color:#24292f;display:flex;align-items:center;gap:6px;border-bottom:1px solid #eaeef2;background:#f6f8fa}
+    .exbadge{font-size:10px;font-weight:700;padding:1px 5px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0}
+    .badge-lse{background:#ddf4ff;color:#0550ae}
+    .badge-nyse{background:#fff0b3;color:#7d4e17}
+    .badge-enx{background:#e8f0fe;color:#1967d2}
+    .badge-ndx{background:#f3e8ff;color:#6b21a8}
+    .badge-xetra{background:#ccfbf1;color:#0e7490}
+    .badge-six{background:#ffe4e6;color:#9f1239}
+    .badge-est{background:#f0f0f0;color:#6e7781;margin-left:5px;font-size:9px}
+
+    .vrow{display:grid;grid-template-columns:repeat(3,1fr)}
+    .vstat{padding:9px 12px;border-right:1px solid #eaeef2;border-bottom:1px solid #eaeef2}
+    .vstat:last-child{border-right:none}
+    .vl{font-size:10.5px;color:#57606a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+    .vv{font-size:14px;font-weight:700;font-family:monospace}
+    .vv.green{color:#1a7f37}.vv.amber{color:#b08800}.vv.red{color:#82071e}.vv.indigo{color:#1967d2}
+    .vs{font-size:10.5px;color:#8c959f;margin-top:1px}
+    .cw{padding:12px 14px}.cw canvas{max-height:170px}
+
+    .chart-loading{display:flex;align-items:center;justify-content:center;min-height:100px;padding:20px;font-size:11px;color:#57606a;gap:8px}
+    .spinner{display:inline-block;width:14px;height:14px;border:2px solid #d0d7de;border-top-color:#0969da;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Ranking cards */
+    .rank-cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:0 0 4px}
+    @media(max-width:900px){.rank-cards-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:500px){.rank-cards-grid{grid-template-columns:repeat(2,1fr)}}
+    .rank-card{background:#fff;border:1px solid #d0d7de;border-radius:10px;padding:12px;text-align:center}
+    .rank-medal{font-size:26px;margin-bottom:4px}
+    .rank-name{font-size:11px;font-weight:600;color:#24292f;margin:5px 0 6px}
+    .rank-metrics{display:flex;flex-direction:column;gap:3px}
+    .rank-sub{font-size:10px;color:#57606a;background:#f6f8fa;border-radius:4px;padding:1px 5px}
+
+    /* Heatmap */
+    .heatmap-table{border-collapse:collapse;font-size:11px;width:100%}
+    .heatmap-table th{background:#f6f8fa;font-size:10px;font-weight:700;color:#57606a;padding:5px 8px;text-transform:uppercase;letter-spacing:.04em}
+    .heatmap-table td{padding:6px 10px;text-align:center;font-weight:700;font-size:12px;cursor:default}
+    .heatmap-table td.ex-label{text-align:left;font-size:10.5px;font-weight:600;color:#24292f;background:#f6f8fa;padding:5px 10px}
+    .hm1{background:#2da44e;color:#fff}
+    .hm2{background:#4caf7d;color:#fff}
+    .hm3{background:#a8c99b;color:#000}
+    .hm4{background:#e8a84b;color:#fff}
+    .hm5{background:#e0704e;color:#fff}
+    .hm6{background:#cf222e;color:#fff}
+    .hm-null{background:#f6f8fa;color:#8c959f;font-weight:400}
+
+    .sbar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #d0d7de;padding:5px 16px;font-size:10.5px;color:#57606a;display:flex;justify-content:space-between;align-items:center;z-index:100}
+
+    .spread-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 16px;padding:10px 16px 0}
+    .spread-item{padding:6px 0}
+    .spread-label{font-size:10.5px;color:#57606a;margin-bottom:2px}
+    .spread-value{font-size:14px;font-weight:700;font-family:monospace;color:#24292f}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><div class="logo-icon">📈</div>FinancePulse — Live</div>
+  <div class="hdr-r">
+    <span class="live-badge"><span class="ldot"></span>Live ticker</span>
+    <button class="rbtn" id="rbtn" onclick="doRefresh()">⟳ Refresh</button>
+    <span id="lu">Loading…</span>
+  </div>
+</header>
+
+<!-- Ticker bar — duplicated for seamless scroll -->
+<div class="ticker" id="tickerBar">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ti"><span class="tl">FTSE 100</span> <span class="tv" id="tk-FTSE-p">—</span><span class="tc" id="tk-FTSE-c">…</span></div>
+    <div class="ti"><span class="tl">DAX</span>      <span class="tv" id="tk-DAX-p">—</span> <span class="tc" id="tk-DAX-c">…</span></div>
+    <div class="ti"><span class="tl">CAC 40</span>   <span class="tv" id="tk-CAC40-p">—</span><span class="tc" id="tk-CAC40-c">…</span></div>
+    <div class="ti"><span class="tl">SMI</span>      <span class="tv" id="tk-SMI-p">—</span> <span class="tc" id="tk-SMI-c">…</span></div>
+    <div class="ti"><span class="tl">Nasdaq</span>   <span class="tv" id="tk-NDX-p">—</span> <span class="tc" id="tk-NDX-c">…</span></div>
+    <div class="ti"><span class="tl">Dow Jones</span><span class="tv" id="tk-DJI-p">—</span> <span class="tc" id="tk-DJI-c">…</span></div>
+    <div class="ti"><span class="tl">GBP/USD</span> <span class="tv" id="tk-GBPUSD-p">—</span><span class="tc" id="tk-GBPUSD-c">…</span></div>
+    <div class="ti"><span class="tl">EUR/USD</span> <span class="tv" id="tk-EURUSD-p">—</span><span class="tc" id="tk-EURUSD-c">…</span></div>
+    <div class="ti"><span class="tl">USD/JPY</span> <span class="tv" id="tk-USDJPY-p">—</span><span class="tc" id="tk-USDJPY-c">…</span></div>
+    <div class="ti"><span class="tl">Gold</span>     <span class="tv" id="tk-GOLD-p">—</span> <span class="tc" id="tk-GOLD-c">…</span></div>
+    <div class="ti"><span class="tl">Oil (WTI)</span><span class="tv" id="tk-OIL-p">—</span> <span class="tc" id="tk-OIL-c">…</span></div>
+  </div>
+</div>
+
+<nav class="page-nav">
+  <button class="tab active" id="tab-rank"    onclick="showPage('rank')">🏆 Liquidity Ranking</button>
+  <button class="tab"        id="tab-liq"     onclick="showPage('liq')">💧 Amihud Illiquidity</button>
+  <button class="tab"        id="tab-markets" onclick="showPage('markets')">📊 Volume</button>
+  <button class="tab"        id="tab-spread"  onclick="showPage('spread')">↔️ Bid-Ask Spread</button>
+  <button class="tab"        id="tab-ar"      onclick="showPage('ar')">↗️ AR Spread</button>
+  <button class="tab"        id="tab-mcap"    onclick="showPage('mcap')">🏦 Market Cap</button>
+  <button class="tab"        id="tab-ndx"     onclick="showPage('ndx')">📈 Top 10 Gainers</button>
+  <button class="tab"        id="tab-news"    onclick="showPage('news')">📰 News</button>
+</nav>
+
+<!-- ═══════════════════════════════ RANKING ═══════════════════════════════ -->
+<div id="page-rank" class="page active">
+  <div class="markets-main">
+
+    <div class="card" style="margin-top:0">
+      <div class="ch">
+        <div class="ct">🤖 AI Market Commentary</div>
+        <span class="cs">Generated daily by Claude Haiku</span>
+      </div>
+      <div id="rankCommentaryBody" style="padding:12px 16px 14px;font-size:13px;line-height:1.85;color:#1f2328">
+        <span style="color:#8c959f;font-style:italic">Loading…</span>
+      </div>
+    </div>
+
+    <div class="vsection-hdr" style="border-top:none;margin-top:13px">
+      <div class="vsection-title" id="rankCardsTitle">🏆 Exchange Liquidity Ranking</div>
+      <div class="vsection-note">Last complete business day where all six exchanges have Amihud ILLIQ data. Composite of four signals: trading volume, Amihud ILLIQ, Roll (1984) spread, and Abdi-Ranaldo (2017) spread — equal ¼ weight each. Rank 1 = most liquid.</div>
+    </div>
+    <div id="rankCards" class="rank-cards-grid"></div>
+
+    <div class="vsection-hdr" style="margin-top:16px">
+      <div class="vsection-title">📅 10-Business-Day Composite Rank History</div>
+      <div class="vsection-note">Only days where all six exchanges have complete ILLIQ data. Each cell = composite rank. Hover for sub-ranks.</div>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <div class="ct">Composite Rank Heatmap</div>
+        <span class="cs">1 = most liquid · 6 = least liquid · hover for sub-ranks</span>
+      </div>
+      <div id="rankHeatmap" style="overflow-x:auto;padding:12px 16px 8px"></div>
+      <div style="padding:4px 16px 14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:11px;color:#57606a">
+        <span>Scale:</span>
+        <span style="background:#2da44e;color:#fff;border-radius:3px;padding:1px 8px">#1 most liquid</span>
+        <span style="background:#4caf7d;color:#fff;border-radius:3px;padding:1px 8px">#2</span>
+        <span style="background:#a8c99b;color:#fff;border-radius:3px;padding:1px 8px">#3</span>
+        <span style="background:#e8a84b;color:#fff;border-radius:3px;padding:1px 8px">#4</span>
+        <span style="background:#e0704e;color:#fff;border-radius:3px;padding:1px 8px">#5</span>
+        <span style="background:#cf222e;color:#fff;border-radius:3px;padding:1px 8px">#6 least liquid</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ AMIHUD ════════════════════════════════ -->
+<div id="page-liq" class="page">
+  <div class="markets-main">
+    <div class="vsection-hdr" style="border-top:none">
+      <div class="vsection-title">💧 Amihud Illiquidity (ILLIQ)</div>
+      <div class="vsection-note">ILLIQ = |Return| / Dollar Volume (per £1M / €1M / $1M / CHF1M traded). Lower = more liquid. Computed from 20-day OHLCV data via Yahoo Finance.</div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch">
+        <div class="ct">💧 ILLIQ History — All Exchanges</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="rbtn" id="illiqScaleBtn" onclick="toggleIlliqScale()" style="font-size:10px;padding:3px 8px">Log scale</button>
+          <span class="cs" id="illiqSource">Loading…</span>
+        </div>
+      </div>
+      <div class="cw"><canvas id="illiqChart"></canvas></div>
+    </div>
+    <div id="amihudCards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:13px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ VOLUME ════════════════════════════════ -->
+<div id="page-markets" class="page">
+  <div class="markets-main">
+    <div class="card" style="margin-top:0">
+      <div class="ch">
+        <div class="ct">📉 Daily Trading Volume — Last 5 Business Days</div>
+        <span class="cs" id="volPeriodLabel">Loading…</span>
+      </div>
+
+      <div class="vsection-hdr vsection-hdr-real">
+        <div class="vsection-title">🟢 Official Exchange Data</div>
+        <div class="vsection-note">LSE and Euronext: sourced from official daily publications, available next morning. Updated automatically at 07:30 UTC.</div>
+      </div>
+      <div class="vexchange-section vexchange-real">
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-lse">🇬🇧 LSE</span>London Stock Exchange</div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="lse-vol-latest">—</div><div class="vs">GBP Billions</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="lse-vol-avg">—</div><div class="vs">GBP Billions</div></div>
+            <div class="vstat"><div class="vl">Source</div><div class="vv" style="font-size:11px;color:#57606a">Order Book</div><div class="vs">Official LSE report</div></div>
+          </div>
+          <div class="cw"><canvas id="lseChart"></canvas></div>
+        </div>
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-enx">🇪🇺 ENX</span>Euronext</div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="enx-vol-latest">—</div><div class="vs">EUR Billions</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="enx-vol-avg">—</div><div class="vs">EUR Billions</div></div>
+            <div class="vstat"><div class="vl">Source</div><div class="vv" style="font-size:11px;color:#57606a">All Markets</div><div class="vs">Official ENX report</div></div>
+          </div>
+          <div class="cw"><canvas id="enxChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="vsection-hdr vsection-hdr-est">
+        <div class="vsection-title">🟡 Universe-Based Estimates</div>
+        <div class="vsection-note">Computed from constituent stock OHLCV data via Yahoo Finance. Updated up to 4× daily. Values represent aggregate turnover of the index universe.</div>
+      </div>
+      <div class="vexchange-section vexchange-est">
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-ndx">🇺🇸 NDX</span>Nasdaq 100 <span class="exbadge badge-est">EST</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="ndx-vol-latest">—</div><div class="vs">USD Billions</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="ndx-vol-avg">—</div><div class="vs">USD Billions</div></div>
+          </div>
+          <div class="cw"><canvas id="ndxChart"></canvas></div>
+        </div>
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-nyse">🇺🇸 NYSE</span>NYSE Large-Cap <span class="exbadge badge-est">EST</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="nyse-vol-latest">—</div><div class="vs">USD Billions</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="nyse-vol-avg">—</div><div class="vs">USD Billions</div></div>
+          </div>
+          <div class="cw"><canvas id="nyseChart"></canvas></div>
+        </div>
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-xetra">🇩🇪 XETRA</span>Xetra DAX <span class="exbadge badge-est">EST</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="xetra-vol-latest">—</div><div class="vs">EUR Billions</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="xetra-vol-avg">—</div><div class="vs">EUR Billions</div></div>
+          </div>
+          <div class="cw"><canvas id="xetraChart"></canvas></div>
+        </div>
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-six">🇨🇭 SIX</span>SIX Swiss <span class="exbadge badge-est">EST</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="six-vol-latest">—</div><div class="vs">CHF Billions</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="six-vol-avg">—</div><div class="vs">CHF Billions</div></div>
+          </div>
+          <div class="cw"><canvas id="sixChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ ROLL BID-ASK SPREAD ═══════════════════════ -->
+<div id="page-spread" class="page">
+  <div class="markets-main">
+    <div class="vsection-hdr" style="border-top:none">
+      <div class="vsection-title">↔️ Bid-Ask Spread (Roll 1984 Model)</div>
+      <div class="vsection-note">S% = 2 × √(−Cov(r_t, r_{t+1})) × 100 from daily close prices. Lower = tighter spread = more liquid.</div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch">
+        <div class="ct">↔️ Roll Implied Spread — All Exchanges</div>
+        <span class="cs" id="spreadSource">Loading…</span>
+      </div>
+      <div id="spreadSummary" class="spread-summary"></div>
+      <div class="cw"><canvas id="spreadChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ ABDI-RANALDO SPREAD ═══════════════════════ -->
+<div id="page-ar" class="page">
+  <div class="markets-main">
+    <div class="vsection-hdr" style="border-top:none">
+      <div class="vsection-title">↗️ Abdi-Ranaldo (2017) Range-Based Spread</div>
+      <div class="vsection-note">c_t = ln(C_t) − ½(ln(H_t)+ln(L_t)) &nbsp;·&nbsp; S% = 2 × √(−Cov(c_t, c_{t−1})) × 100. Uses daily High, Low and Close — outperforms Roll for liquid large-cap stocks.</div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch">
+        <div class="ct">↗️ AR Spread — All Exchanges</div>
+        <span class="cs" id="arSource">Loading…</span>
+      </div>
+      <div id="arSummary" class="spread-summary"></div>
+      <div class="cw"><canvas id="arChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MARKET CAP ════════════════════════════════ -->
+<div id="page-mcap" class="page">
+  <div class="markets-main" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:0">
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇬🇧 Top 10 LSE by Market Cap</div><span class="cs" id="mcapLseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapLseBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇪🇺 Top 10 Euronext by Market Cap</div><span class="cs" id="mcapEnxDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapEnxBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇺🇸 Top 10 Nasdaq 100 by Market Cap</div><span class="cs" id="mcapNdxDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapNdxBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇺🇸 Top 10 NYSE by Market Cap</div><span class="cs" id="mcapNyseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapNyseBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇩🇪 Top 10 Xetra by Market Cap</div><span class="cs" id="mcapXetraDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapXetraBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇨🇭 Top 10 SIX Swiss by Market Cap</div><span class="cs" id="mcapSixDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapSixBody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ TOP 10 GAINERS ════════════════════════════ -->
+<div id="page-ndx" class="page">
+  <div class="markets-main" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:0">
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇬🇧 Top 10 LSE Gainers</div><span class="cs" id="gainersLseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersLseBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇪🇺 Top 10 Euronext Gainers</div><span class="cs" id="gainersEnxDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersEnxBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇺🇸 Top 10 Nasdaq 100 Gainers</div><span class="cs" id="gainersNdxDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersNdxBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇺🇸 Top 10 NYSE Gainers</div><span class="cs" id="gainersNyseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersNyseBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇩🇪 Top 10 Xetra Gainers</div><span class="cs" id="gainersXetraDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersXetraBody"></tbody></table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇨🇭 Top 10 SIX Swiss Gainers</div><span class="cs" id="gainersSixDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersSixBody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ NEWS ═══════════════════════════════════════ -->
+<div id="page-news" class="page">
+  <div class="news-main">
+    <div class="card" style="grid-column:1/-1;margin-top:0">
+      <div class="ch">
+        <div class="ct">📰 Latest Financial News</div>
+        <span class="cs" id="newsDate">Loading…</span>
+      </div>
+      <ul id="newsList"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="sbar">
+  <span id="sbar-l">FinancePulse · Exchange Liquidity Dashboard</span>
+  <span id="sbar-r">Data: Yahoo Finance · LSE · Euronext · Anthropic Claude</span>
+</div>
+
+<script>
+// ─── State ──────────────────────────────────────────────────────────────────
+let DASH = null;
+let _illiqLogScale = false;
+let _charts = {};
+
+const EX_KEYS  = ['lse','enx','ndx','nyse','xetra','six'];
+const EX_NAMES = {lse:'London SE',enx:'Euronext',ndx:'Nasdaq 100',nyse:'NYSE',xetra:'Xetra',six:'SIX Swiss'};
+const EX_FLAGS = {lse:'🇬🇧',enx:'🇪🇺',ndx:'🇺🇸',nyse:'🇺🇸',xetra:'🇩🇪',six:'🇨🇭'};
+const EX_BADGE = {lse:'badge-lse',enx:'badge-enx',ndx:'badge-ndx',nyse:'badge-nyse',xetra:'badge-xetra',six:'badge-six'};
+const EX_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b08800',xetra:'#0e7490',six:'#9f1239'};
+const FALLBACK  = {stale_fallback:true,news:[],tickers:{},gainers:{},market_cap:{},vol:{},amihud:{},spread:{},ar_spread:{},current_ranking:{date:null,ranks:{}},ranking_history:[],commentary:null};
+
+// ─── Data loading ────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const r = await fetch('dashboard_data.json?v=' + Date.now());
+    DASH = await r.json();
+  } catch(e) {
+    console.warn('dashboard_data.json unavailable, using fallback', e);
+    DASH = FALLBACK;
+  }
+  renderAll();
+}
+
+function doRefresh() {
+  const btn = document.getElementById('rbtn');
+  btn.disabled = true;
+  btn.textContent = '⟳ Refreshing…';
+  // Destroy existing charts so they rebuild cleanly
+  Object.values(_charts).forEach(c => { try { c.destroy(); } catch(_){} });
+  _charts = {};
+  loadDashboard().finally(() => {
+    btn.disabled = false;
+    btn.innerHTML = '⟳ Refresh';
+  });
+}
+
+function renderAll() {
+  updateLastUpdated();
+  renderTickers();
+  renderNews();
+  renderGainers();
+  renderMarketCap();
+  renderVolume();
+  renderAmihud();
+  renderSpread();
+  renderArSpread();
+  renderRankings();
+}
+
+function updateLastUpdated() {
+  const el = document.getElementById('lu');
+  if (DASH.generated_at) {
+    const d = new Date(DASH.generated_at);
+    el.textContent = 'Updated ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + ' UTC';
+  } else {
+    el.textContent = DASH.stale_fallback ? 'Awaiting first update' : 'Unknown';
+  }
+}
+
+// ─── Tab switching ───────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ─── Ticker bar ──────────────────────────────────────────────────────────────
+const TICKER_FMT = {GBPUSD:4,EURUSD:4,USDJPY:2,GOLD:2,OIL:2};
+
+function renderTickers() {
+  const t = DASH.tickers || {};
+  Object.keys(t).forEach(key => {
+    const pp = document.getElementById('tk-' + key + '-p');
+    const pc = document.getElementById('tk-' + key + '-c');
+    if (!pp || !pc) return;
+    const d   = t[key];
+    const dec = TICKER_FMT[key] || 0;
+    pp.textContent = Number(d.price).toFixed(dec);
+    const pct = Number(d.pct);
+    pc.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+    pc.className   = 'tc ' + (pct >= 0 ? 'up' : 'down');
+  });
+  // Duplicate ticker items for seamless scroll
+  const track = document.getElementById('tickerTrack');
+  if (track && !track.dataset.duped) {
+    track.innerHTML += track.innerHTML;
+    track.dataset.duped = '1';
+  }
+}
+
+// ─── News ─────────────────────────────────────────────────────────────────────
+function safeHref(url) {
+  try {
+    const u = new URL(url);
+    return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : '#';
+  } catch(_) { return '#'; }
+}
+
+function renderNews() {
+  const list = DASH.news || [];
+  const el   = document.getElementById('newsList');
+  document.getElementById('newsDate').textContent = list.length ? `${list.length} articles` : 'No data';
+  if (!list.length) {
+    el.innerHTML = '<li class="ni"><div class="nb" style="color:#57606a;padding:12px">No news available — will update at next scheduled run.</div></li>';
+    return;
+  }
+  el.innerHTML = list.map((it, i) => `
+    <li class="ni">
+      <div class="nn">${i + 1}</div>
+      <div class="nb">
+        <a class="nt" href="${safeHref(it.link)}" target="_blank" rel="noopener noreferrer">${esc(it.title)}</a>
+        ${it.pubDate ? `<div class="ndate">${esc(it.pubDate)} · ${esc(it.source || '')}</div>` : ''}
+      </div>
+    </li>`).join('');
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Gainers ─────────────────────────────────────────────────────────────────
+function renderGainers() {
+  const gainers = DASH.gainers || {};
+  const date    = DASH.generated_at ? new Date(DASH.generated_at).toLocaleDateString('en-GB',{day:'2-digit',month:'short'}) : '—';
+  const pairs = [
+    ['lse','Lse'],['enx','Enx'],['ndx','Ndx'],['nyse','Nyse'],['xetra','Xetra'],['six','Six']
+  ];
+  pairs.forEach(([key, cap]) => {
+    const body = document.getElementById('gainers' + cap + 'Body');
+    const dateEl = document.getElementById('gainers' + cap + 'Date');
+    if (dateEl) dateEl.textContent = date;
+    const rows = gainers[key] || [];
+    if (!body) return;
+    if (!rows.length) { body.innerHTML = '<tr><td colspan="6" style="color:#57606a;text-align:center;padding:16px">No data</td></tr>'; return; }
+    body.innerHTML = rows.map((r, i) => `<tr>
+      <td><span class="rk">${i + 1}</span></td>
+      <td class="sn">${esc(r.name)}</td>
+      <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
+      <td>${esc(r.price)}</td>
+      <td style="color:#1a7f37">${esc(r.change)}</td>
+      <td><span class="pill pill-up">${esc(r.pct)}</span></td>
+    </tr>`).join('');
+  });
+}
+
+// ─── Market Cap ───────────────────────────────────────────────────────────────
+function renderMarketCap() {
+  const mcap = DASH.market_cap || {};
+  const pairs = [
+    ['lse','Lse'],['enx','Enx'],['ndx','Ndx'],['nyse','Nyse'],['xetra','Xetra'],['six','Six']
+  ];
+  pairs.forEach(([key, cap]) => {
+    const body   = document.getElementById('mcap' + cap + 'Body');
+    const dateEl = document.getElementById('mcap' + cap + 'Date');
+    const data   = mcap[key] || {};
+    if (dateEl) dateEl.textContent = data.date || '—';
+    if (!body) return;
+    const rows = data.top10 || [];
+    if (!rows.length) { body.innerHTML = '<tr><td colspan="5" style="color:#57606a;text-align:center;padding:16px">No data</td></tr>'; return; }
+    const cur = data.currency || '';
+    body.innerHTML = rows.map((r, i) => `<tr>
+      <td><span class="rk">${i + 1}</span></td>
+      <td class="sn">${esc(r.name)}</td>
+      <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
+      <td style="font-weight:700;font-family:monospace">${cur}${r.mcap_b}B</td>
+      <td style="color:#57606a">${esc(r.price)}</td>
+    </tr>`).join('');
+  });
+}
+
+// ─── Volume ───────────────────────────────────────────────────────────────────
+const VOL_CHART_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b08800',xetra:'#0e7490',six:'#9f1239'};
+
+function renderVolume() {
+  const vol     = DASH.vol || {};
+  const pairs   = [
+    ['lse','lse'],['enx','enx'],['ndx','ndx'],['nyse','nyse'],['xetra','xetra'],['six','six']
+  ];
+  let allDates = [];
+  pairs.forEach(([key]) => {
+    const dates = (vol[key] || {}).dates || [];
+    dates.forEach(d => { if (!allDates.includes(d)) allDates.push(d); });
+  });
+  allDates.sort((a,b) => _dateKey(a) - _dateKey(b));
+  document.getElementById('volPeriodLabel').textContent = allDates.length
+    ? allDates[0] + ' – ' + allDates[allDates.length - 1]
+    : 'No data';
+
+  pairs.forEach(([key, chartId]) => {
+    const data    = vol[key] || {};
+    const dates   = data.dates || [];
+    const values  = data.value || [];
+    const latest  = values.length ? values[values.length - 1] : null;
+    const avg     = values.length ? (values.reduce((s,v)=>s+v,0)/values.length).toFixed(2) : null;
+    const latestEl = document.getElementById(key + '-vol-latest');
+    const avgEl    = document.getElementById(key + '-vol-avg');
+    if (latestEl) latestEl.textContent = latest !== null ? latest.toFixed(2) : '—';
+    if (avgEl)    avgEl.textContent    = avg !== null ? avg : '—';
+
+    makeBarChart(chartId + 'Chart', dates, values, VOL_CHART_COLORS[key], data.currency || '');
+  });
+}
+
+function makeBarChart(canvasId, labels, data, color, unit) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  if (_charts[canvasId]) { try { _charts[canvasId].destroy(); } catch(_){} }
+  _charts[canvasId] = new Chart(canvas, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: color + '33', borderColor: color, borderWidth: 2, borderRadius: 4 }] },
+    options: {
+      responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.parsed.y.toFixed(2)} ${unit}` } } },
+      scales: { y: { beginAtZero: false, ticks: { font: { size: 10 } } }, x: { ticks: { font: { size: 10 } } } }
+    }
+  });
+}
+
+// ─── Amihud ───────────────────────────────────────────────────────────────────
+function renderAmihud() {
+  const amihud = DASH.amihud || {};
+  const datasets = [];
+  EX_KEYS.forEach(k => {
+    const hist = (amihud[k] || {}).history || [];
+    if (hist.length) datasets.push({ key: k, hist });
+  });
+
+  if (!datasets.length) return;
+  const allLabels = [...new Set(datasets.flatMap(d => d.hist.map(e => e.date)))].sort((a,b)=>_dateKey(a)-_dateKey(b));
+  const last10 = allLabels.slice(-10);
+
+  const canvas = document.getElementById('illiqChart');
+  if (canvas) {
+    if (_charts['illiq']) { try { _charts['illiq'].destroy(); } catch(_){} }
+    _charts['illiq'] = new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: last10,
+        datasets: datasets.map(d => ({
+          label: EX_NAMES[d.key],
+          data:  last10.map(dt => { const e = d.hist.find(h => h.date === dt); return e ? e.illiq : null; }),
+          borderColor: EX_COLORS[d.key], backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.2, spanGaps: true
+        }))
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            type: _illiqLogScale ? 'logarithmic' : 'linear',
+            ticks: { font: { size: 10 }, callback: v => v.toFixed(4) }
+          },
+          x: { ticks: { font: { size: 10 } } }
+        },
+        plugins: { legend: { labels: { font: { size: 11 } } }, tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(6)}` } } }
+      }
+    });
+  }
+
+  // Cards for each exchange
+  const container = document.getElementById('amihudCards');
+  if (container) {
+    container.innerHTML = EX_KEYS.map(k => {
+      const d = amihud[k] || {};
+      const avg = d.marketAvg != null ? d.marketAvg.toFixed(4) : '—';
+      return `<div class="card" style="margin-top:0">
+        <div class="ch"><div class="ct"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span> ${EX_NAMES[k]}</div></div>
+        <div style="padding:10px 16px">
+          <div class="vl">Market Avg ILLIQ (20-day)</div>
+          <div class="vv" style="margin-top:4px">${avg}</div>
+          <div class="vs">% move per 1M ${({ lse:'GBP',enx:'EUR',ndx:'USD',nyse:'USD',xetra:'EUR',six:'CHF' }[k])} traded</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const src = document.getElementById('illiqSource');
+  if (src) src.textContent = 'Yahoo Finance · 20-day OHLCV';
+}
+
+function toggleIlliqScale() {
+  _illiqLogScale = !_illiqLogScale;
+  document.getElementById('illiqScaleBtn').textContent = _illiqLogScale ? 'Linear scale' : 'Log scale';
+  if (_charts['illiq']) { _charts['illiq'].destroy(); delete _charts['illiq']; }
+  renderAmihud();
+}
+
+// ─── Spread (Roll) ────────────────────────────────────────────────────────────
+function renderSpread() {
+  _renderSpreadTab('spread', 'spreadChart', 'spreadSummary', 'spreadSource', 'Roll (1984) spread · 30-day close prices');
+}
+function renderArSpread() {
+  _renderSpreadTab('ar_spread', 'arChart', 'arSummary', 'arSource', 'AR (2017) spread · 30-day OHLCV');
+}
+
+function _renderSpreadTab(dataKey, chartId, summaryId, sourceId, sourceLabel) {
+  const data = DASH[dataKey] || {};
+  const summary = document.getElementById(summaryId);
+  if (summary) {
+    summary.innerHTML = EX_KEYS.map(k => {
+      const d   = data[k] || {};
+      const avg = d.marketAvg != null ? d.marketAvg.toFixed(4) + '%' : '—';
+      return `<div class="spread-item">
+        <div class="spread-label"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span> ${EX_NAMES[k]}</div>
+        <div class="spread-value">${avg}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const datasets = [];
+  EX_KEYS.forEach(k => {
+    const hist = (data[k] || {}).history || [];
+    if (hist.length) datasets.push({ key: k, hist });
+  });
+  if (!datasets.length) return;
+
+  const allLabels = [...new Set(datasets.flatMap(d => d.hist.map(e => e.date)))].sort((a,b)=>_dateKey(a)-_dateKey(b));
+  const last10    = allLabels.slice(-10);
+
+  const canvas = document.getElementById(chartId);
+  if (!canvas) return;
+  if (_charts[chartId]) { try { _charts[chartId].destroy(); } catch(_){} }
+  _charts[chartId] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: last10,
+      datasets: datasets.map(d => ({
+        label: EX_NAMES[d.key],
+        data:  last10.map(dt => { const e = d.hist.find(h => h.date === dt); return e ? e.avgSpread : null; }),
+        borderColor: EX_COLORS[d.key], backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.2, spanGaps: true
+      }))
+    },
+    options: {
+      responsive: true,
+      scales: { y: { ticks: { font:{size:10}, callback: v => v.toFixed(3)+'%' } }, x: { ticks: { font:{size:10} } } },
+      plugins: { legend: { labels: { font:{size:11} } }, tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(4)}%` } } }
+    }
+  });
+  const src = document.getElementById(sourceId);
+  if (src) src.textContent = sourceLabel;
+}
+
+// ─── Rankings ─────────────────────────────────────────────────────────────────
+function renderRankings() {
+  const cr   = DASH.current_ranking || {};
+  const hist = DASH.ranking_history  || [];
+  const ranks = cr.ranks || {};
+  const date  = cr.date;
+
+  // Title
+  const titleEl = document.getElementById('rankCardsTitle');
+  if (titleEl) titleEl.textContent = '🏆 Exchange Liquidity Ranking' + (date ? ' · ' + date : '');
+
+  // Commentary
+  const commEl = document.getElementById('rankCommentaryBody');
+  if (commEl) {
+    commEl.innerHTML = DASH.commentary
+      ? `<p>${esc(DASH.commentary)}</p>`
+      : '<span style="color:#8c959f;font-style:italic">Commentary will appear after the first morning update run.</span>';
+  }
+
+  // Ranking cards
+  const cardsEl = document.getElementById('rankCards');
+  if (cardsEl) {
+    if (!Object.keys(ranks).length) {
+      cardsEl.innerHTML = '<div style="padding:16px;color:#57606a">No ranking data yet — will appear after first update run.</div>';
+    } else {
+      const MEDALS = ['🥇','🥈','🥉','#4','#5','#6'];
+      const sorted = EX_KEYS.slice().sort((a,b) => (ranks[a]?.composite||99) - (ranks[b]?.composite||99));
+      cardsEl.innerHTML = sorted.map((k, i) => {
+        const r = ranks[k] || {};
+        const subs = [
+          r.illiq  != null ? `<span class="rank-sub">💧 ILLIQ #${r.illiq}</span>` : '',
+          r.spread != null ? `<span class="rank-sub">↔️ Roll #${r.spread}</span>` : '',
+          r.ar     != null ? `<span class="rank-sub">↗️ AR #${r.ar}</span>` : '',
+          r.vol    != null ? `<span class="rank-sub">📊 Vol #${r.vol}</span>` : '',
+        ].filter(Boolean).join('');
+        return `<div class="rank-card">
+          <div class="rank-medal">${MEDALS[i] || '#' + (i+1)}</div>
+          <div><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span></div>
+          <div class="rank-name">${EX_NAMES[k]}</div>
+          <div class="rank-metrics">${subs}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  // Heatmap
+  const heatEl = document.getElementById('rankHeatmap');
+  if (heatEl && hist.length) {
+    const last10 = hist.slice(-10);
+    const sorted = EX_KEYS.slice().sort((a,b) => {
+      const lr = last10[last10.length-1]?.ranks || {};
+      return (lr[a]?.composite||99) - (lr[b]?.composite||99);
+    });
+    const HM_CLS = ['','hm1','hm2','hm3','hm4','hm5','hm6'];
+    let html = '<table class="heatmap-table"><thead><tr><th>Exchange</th>';
+    last10.forEach(d => { html += `<th>${esc(d.date)}</th>`; });
+    html += '</tr></thead><tbody>';
+    sorted.forEach(k => {
+      html += `<tr><td class="ex-label"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]}</span> ${EX_NAMES[k]}</td>`;
+      last10.forEach(d => {
+        const r  = (d.ranks || {})[k] || {};
+        const c  = r.composite;
+        const cl = c != null ? HM_CLS[Math.round(c)] || '' : 'hm-null';
+        const tt = c != null
+          ? `title="ILLIQ #${r.illiq||'?'} · Roll #${r.spread||'?'} · AR #${r.ar||'?'} · Vol #${r.vol||'?'}"`
+          : '';
+        html += `<td class="${cl}" ${tt}>${c != null ? '#'+Math.round(c) : '—'}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    heatEl.innerHTML = html;
+  }
+}
+
+// ─── Utility ──────────────────────────────────────────────────────────────────
+function _dateKey(label) {
+  const mon = {Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+  try { const [d,m] = label.split(' '); return (mon[m]||0)*100 + parseInt(d); } catch(_){ return 0; }
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', loadDashboard);
+</script>
+</body>
+</html>
