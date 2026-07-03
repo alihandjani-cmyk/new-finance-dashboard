@@ -805,7 +805,11 @@ def fetch_amihud(ex_key, existing_history):
 
 def _roll_spread(closes):
     """Roll (1984) implied bid-ask spread from daily close prices.
-    Returns spread as % of price, or None."""
+    S% = 2 × √(−Cov(r_t, r_{t+1})) × 100
+    Uses the full 30-day window supplied by fetch_spread.  Bid-ask bounce
+    dominates over 20 trading days even in gently trending markets.
+    Returns spread as % of price, or None if cov ≥ 0.
+    """
     prices = [float(p) for p in closes if p and float(p) > 0]
     if len(prices) < 12:
         return None
@@ -813,12 +817,13 @@ def _roll_spread(closes):
     if len(log_ret) < 8:
         return None
     r1, r2 = log_ret[:-1], log_ret[1:]
-    m1, m2 = sum(r1)/len(r1), sum(r2)/len(r2)
-    cov = sum((a-m1)*(b-m2) for a, b in zip(r1, r2)) / (len(r1) - 1)
+    m1 = sum(r1) / len(r1)
+    m2 = sum(r2) / len(r2)
+    cov = sum((a - m1) * (b - m2) for a, b in zip(r1, r2)) / (len(r1) - 1)
     if cov >= 0:
         return None
     s = round(2 * ((-cov) ** 0.5) * 100, 4)
-    return s if 0 < s <= 5 else None
+    return s if 0 < s <= 5 else None   # cap at 5 % (outlier filter)
 
 def fetch_spread(ex_key, existing_history):
     """Compute Roll implied spread for exchange.
@@ -827,9 +832,9 @@ def fetch_spread(ex_key, existing_history):
     tickers = cfg['tickers']
     names   = cfg['names']
     try:
-        # 90d gives ~65 business days — long enough that bid-ask bounce averages
-        # out even in trending markets, keeping serial covariance negative.
-        raw = yf.download(tickers, period='90d', interval='1d', progress=False,
+        # 30 calendar days (~20 trading days) — short enough that bid-ask bounce
+        # dominates momentum; proven period from the original lse_updater.py.
+        raw = yf.download(tickers, period='30d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
             return existing_history, None, [], []
@@ -884,25 +889,30 @@ def fetch_spread(ex_key, existing_history):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _ar_spread(highs, lows, closes):
-    """Abdi-Ranaldo (2017) implied spread. Returns % or None."""
-    if len(closes) < 12 or len(highs) < 12 or len(lows) < 12:
+    """Abdi-Ranaldo (2017) range-based implied bid-ask spread.
+    c_t = ln(C_t) − 0.5×(ln(H_t)+ln(L_t))
+    S% = 2 × √(−Cov(c_t, c_{t-1})) × 100
+    c_t measures where the close lands within the day's H/L range — a pure
+    microstructure signal that is insensitive to trend direction, so 60 days
+    of data (≈42 trading days) reliably gives cov < 0 even in trending markets.
+    Returns spread as % of price, or None if cov ≥ 0.
+    """
+    data = [(float(c), float(h), float(l))
+            for c, h, l in zip(closes, highs, lows)
+            if c and h and l and float(c) > 0 and float(h) > 0 and float(l) > 0]
+    if len(data) < 12:
         return None
-    c_vals = []
-    for h, l, c in zip(highs, lows, closes):
-        try:
-            if h > 0 and l > 0 and c > 0:
-                c_vals.append(math.log(c) - 0.5 * (math.log(h) + math.log(l)))
-        except Exception:
-            continue
-    if len(c_vals) < 8:
+    ct = [math.log(c) - 0.5 * (math.log(h) + math.log(l)) for c, h, l in data]
+    if len(ct) < 8:
         return None
-    c1, c2 = c_vals[:-1], c_vals[1:]
-    m1, m2 = sum(c1)/len(c1), sum(c2)/len(c2)
-    cov = sum((a-m1)*(b-m2) for a, b in zip(c1, c2)) / (len(c1) - 1)
+    c1, c2 = ct[:-1], ct[1:]
+    m1 = sum(c1) / len(c1)
+    m2 = sum(c2) / len(c2)
+    cov = sum((a - m1) * (b - m2) for a, b in zip(c1, c2)) / (len(c1) - 1)
     if cov >= 0:
         return None
     s = round(2 * ((-cov) ** 0.5) * 100, 4)
-    return s if 0 < s <= 5 else None
+    return s if 0 < s <= 5 else None   # cap at 5 % (outlier filter)
 
 def fetch_ar_spread(ex_key, existing_history):
     """Compute Abdi-Ranaldo spread for exchange.
@@ -911,7 +921,9 @@ def fetch_ar_spread(ex_key, existing_history):
     tickers = cfg['tickers']
     names   = cfg['names']
     try:
-        raw = yf.download(tickers, period='90d', interval='1d', progress=False,
+        # 60 calendar days (~42 trading days) — c_t metric is trend-insensitive
+        # so 42 days reliably gives cov < 0 even in trending markets.
+        raw = yf.download(tickers, period='60d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
             return existing_history, None, [], []
