@@ -1,4 +1,4 @@
-name: Update Dashboard Data
+name: Update Dashboard Data — Full
 
 on:
   schedule:
@@ -9,8 +9,8 @@ on:
   workflow_dispatch:           # allow manual trigger from GitHub UI
 
 concurrency:
-  group: dashboard
-  cancel-in-progress: false    # never cancel a running update
+  group: dashboard-full
+  cancel-in-progress: false    # never cancel a running full update
 
 jobs:
   update:
@@ -42,6 +42,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add dashboard_data.json
-          git diff --cached --quiet || git commit -m "chore: update dashboard data [skip ci]"
+          git diff --cached --quiet || git commit -m "chore: full update — dashboard data [skip ci]"
           git push

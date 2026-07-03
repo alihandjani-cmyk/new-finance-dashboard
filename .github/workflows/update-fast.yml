@@ -1,0 +1,47 @@
+name: Update Dashboard Data — Fast
+
+on:
+  schedule:
+    - cron: '*/30 8-21 * * 1-5'  # every 30 min, 08:00–21:30 UTC Mon-Fri
+  workflow_dispatch:              # allow manual trigger from GitHub UI
+
+# Fast and full workflows use different concurrency groups so they never
+# block each other. cancel-in-progress: true drops a queued fast run if
+# another fast run is already waiting — price data from a skipped slot is
+# superseded anyway.
+concurrency:
+  group: dashboard-fast
+  cancel-in-progress: true
+
+jobs:
+  update-fast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: write   # needed to push dashboard_data.json back
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run updater (fast mode)
+        run: python updater.py --fast
+
+      - name: Commit & push dashboard_data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add dashboard_data.json
+          git diff --cached --quiet || git commit -m "chore: fast update — ticker/gainers/mcap [skip ci]"
+          git push

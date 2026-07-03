@@ -5,18 +5,20 @@ Finance Dashboard Updater
 Fetches data for all 6 exchanges and writes dashboard_data.json.
 The HTML reads this file on load — no HTML patching required.
 
-Run 4× daily via GitHub Actions (see .github/workflows/update.yml):
-  07:30 UTC  morning  — LSE/Euronext official data + AI commentary
-  10:30 UTC  mid-am   — East Asia / Gulf session
-  16:30 UTC  afternoon — Europe close
-  22:00 UTC  evening  — US close
+Usage:
+  python updater.py          # Full run — news, vol, ILLIQ, spreads, rankings, commentary
+  python updater.py --fast   # Fast run — ticker bar, top-10 gainers, market cap only
+
+Scheduled via two GitHub Actions workflows:
+  update.yml       — Full run 4× daily (07:30, 10:30, 16:30, 22:00 UTC Mon-Fri)
+  update-fast.yml  — Fast run every 30 min during market hours (08:00–21:30 UTC Mon-Fri)
 
 Requirements (requirements.txt):
     openpyxl>=3.1  yfinance>=0.2  pandas>=2.0  anthropic>=0.25
     requests>=2.31  certifi>=2024.2
 """
 
-import io, json, math, os, ssl, sys, urllib.request, urllib.error, urllib.parse
+import argparse, io, json, math, os, ssl, sys, urllib.request, urllib.error, urllib.parse
 from datetime import datetime, date, timedelta
 from pathlib import Path
 
@@ -1135,6 +1137,13 @@ Write a concise 3-4 sentence commentary (max 80 words) for a professional audien
 # ══════════════════════════════════════════════════════════════════════════════
 
 def main():
+    # ── CLI args ─────────────────────────────────────────────────────────────
+    parser = argparse.ArgumentParser(description='Finance Dashboard Updater')
+    parser.add_argument('--fast', action='store_true',
+                        help='Fast mode: update ticker bar, gainers, and market cap only')
+    args = parser.parse_args()
+    FAST_MODE = args.fast
+
     today_iso = date.today().isoformat()
     state     = {}
     if STATE_FILE.exists():
@@ -1143,16 +1152,18 @@ def main():
         except Exception:
             pass
 
+    mode_label = 'FAST (ticker / gainers / market cap)' if FAST_MODE else 'FULL'
     print('\n═══ Finance Dashboard Updater ═══')
-    print(f'Date: {date.today()} UTC\n')
+    print(f'Date: {date.today()} UTC   Mode: {mode_label}\n')
 
     dash = _load_dashboard()
 
-    # ── News ────────────────────────────────────────────────────────────────
-    print('── News')
-    news = fetch_news()
-    if news:
-        dash['news'] = news
+    # ── News (full only) ─────────────────────────────────────────────────────
+    if not FAST_MODE:
+        print('── News')
+        news = fetch_news()
+        if news:
+            dash['news'] = news
 
     # ── Ticker bar ──────────────────────────────────────────────────────────
     print('\n── Tickers')
@@ -1175,6 +1186,9 @@ def main():
         mcap = fetch_market_cap(ex_key)
         if mcap:
             dash['market_cap'][ex_key] = mcap
+
+        if FAST_MODE:
+            continue   # skip all analytics in fast mode
 
         # Volume
         print('   Volume...')
@@ -1223,26 +1237,27 @@ def main():
             dash['ar_spread'][ex_key]['top10_tight'] = top_tight
             dash['ar_spread'][ex_key]['top10_wide']  = top_wide
 
-    # ── Rankings ─────────────────────────────────────────────────────────────
-    print('\n── Rankings')
-    compute_rankings(dash)
+    if not FAST_MODE:
+        # ── Rankings ─────────────────────────────────────────────────────────
+        print('\n── Rankings')
+        compute_rankings(dash)
 
-    # ── AI Commentary ────────────────────────────────────────────────────────
-    print('\n── Commentary')
-    # Regenerate if: no commentary yet, new day, or ranking date changed
-    ranking_date = dash.get('current_ranking', {}).get('date')
-    stale = (state.get('commentary_date') != today_iso or
-             state.get('commentary_ranking_date') != ranking_date or
-             not dash.get('commentary'))
-    if not stale:
-        print('  ℹ  Reusing today\'s commentary')
-    else:
-        commentary = generate_commentary(dash)
-        if commentary:
-            dash['commentary']               = commentary
-            dash['commentary_date']          = today_iso
-            state['commentary_date']         = today_iso
-            state['commentary_ranking_date'] = ranking_date
+        # ── AI Commentary ────────────────────────────────────────────────────
+        print('\n── Commentary')
+        # Regenerate if: no commentary yet, new day, or ranking date changed
+        ranking_date = dash.get('current_ranking', {}).get('date')
+        stale = (state.get('commentary_date') != today_iso or
+                 state.get('commentary_ranking_date') != ranking_date or
+                 not dash.get('commentary'))
+        if not stale:
+            print('  ℹ  Reusing today\'s commentary')
+        else:
+            commentary = generate_commentary(dash)
+            if commentary:
+                dash['commentary']               = commentary
+                dash['commentary_date']          = today_iso
+                state['commentary_date']         = today_iso
+                state['commentary_ranking_date'] = ranking_date
 
     # ── Save ──────────────────────────────────────────────────────────────────
     _save_dashboard(dash)
