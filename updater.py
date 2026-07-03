@@ -77,8 +77,8 @@ FTSE_TICKERS = [
     'VOD.L','LLOY.L','NWG.L','PRU.L','NG.L','REL.L','EXPN.L','WPP.L','IMB.L','STAN.L',
     'BARC.L','AAL.L','CNA.L','IHG.L','JD.L','MKS.L','TSCO.L','SBRY.L','RKT.L','HLN.L',
     'ABF.L','ANTO.L','AUTO.L','RR.L','BA.L','CPG.L','BT-A.L','SSE.L','LAND.L','SGRO.L',
-    'FLTR.L','MNDI.L','SMDS.L','FRES.L','OCDO.L','PSON.L','WEIR.L','IMI.L','GLEN.L',
-    'BHP.L','BNZL.L','III.L','SMWH.L','KGF.L','INF.L','ADM.L','DLG.L','BDEV.L','TW.L',
+    'FLTR.L','MNDI.L','FRES.L','OCDO.L','PSON.L','WEIR.L','IMI.L','GLEN.L',
+    'BHP.L','BNZL.L','III.L','SMWH.L','KGF.L','INF.L','ADM.L','LGEN.L','BTRW.L','TW.L',
 ]
 LSE_NAMES = {
     'AZN.L':'AstraZeneca','SHEL.L':'Shell','HSBA.L':'HSBC Holdings','ULVR.L':'Unilever',
@@ -91,11 +91,12 @@ LSE_NAMES = {
     'RKT.L':'Reckitt','HLN.L':'Haleon','ABF.L':'Associated British Foods','ANTO.L':'Antofagasta',
     'AUTO.L':'Auto Trader','RR.L':'Rolls-Royce Holdings','BA.L':'BAE Systems','CPG.L':'Compass Group',
     'BT-A.L':'BT Group','SSE.L':'SSE','LAND.L':'Land Securities','SGRO.L':'Segro',
-    'FLTR.L':'Flutter Entertainment','MNDI.L':'Mondi','SMDS.L':'DS Smith','FRES.L':'Fresnillo',
+    'FLTR.L':'Flutter Entertainment','MNDI.L':'Mondi','FRES.L':'Fresnillo',
     'OCDO.L':'Ocado Group','PSON.L':'Pearson','WEIR.L':'Weir Group','IMI.L':'IMI',
     'GLEN.L':'Glencore','BHP.L':'BHP Group','BNZL.L':'Bunzl','III.L':'3i Group',
     'SMWH.L':'WH Smith','KGF.L':'Kingfisher','INF.L':'Informa','ADM.L':'Admiral Group',
-    'DLG.L':'Direct Line','BDEV.L':'Barratt Developments','TW.L':'Taylor Wimpey',
+    'LGEN.L':'Legal & General','BTRW.L':'Barratt Redrow','TW.L':'Taylor Wimpey',
+    'MNDI.L':'Mondi',
 }
 
 ENX_TICKERS = [
@@ -401,13 +402,23 @@ def fetch_gainers(ex_key):
     currency = cfg['currency']
     try:
         raw = yf.download(tickers, period='2d', interval='1d', progress=False,
-                          auto_adjust=True, threads=True, group_by='ticker')
+                          auto_adjust=True, threads=True)
+        # Default (no group_by): MultiIndex is (Price, Ticker) so raw['Close'] works.
     except Exception as exc:
         print(f'  ✗  {ex_key} gainers download: {exc}')
         return None
 
     is_multi = isinstance(raw.columns, pd.MultiIndex)
-    close_df = raw['Close'] if is_multi else raw
+    if is_multi:
+        if 'Close' not in raw.columns.get_level_values(0):
+            print(f'  ✗  {ex_key}: no Close column in yfinance result (all tickers failed?)')
+            return None
+        close_df = raw['Close']   # DataFrame: index=date, columns=tickers
+    else:
+        if 'Close' not in raw.columns:
+            print(f'  ✗  {ex_key}: no Close column in yfinance result')
+            return None
+        close_df = raw[['Close']].rename(columns={'Close': tickers[0]})
     results = []
     for sym in tickers:
         try:
