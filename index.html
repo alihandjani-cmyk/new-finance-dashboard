@@ -250,6 +250,19 @@
       <div class="cw"><canvas id="illiqChart"></canvas></div>
     </div>
     <div id="amihudCards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:13px"></div>
+
+    <div id="amihudStockTables" style="margin-top:13px"></div>
+
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📖 Methodology</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p><strong>Amihud (2002) Illiquidity Ratio (ILLIQ)</strong> measures price impact per unit of trading volume — the classic market microstructure proxy for illiquidity.</p>
+        <p style="margin-top:8px"><strong>Formula:</strong> ILLIQ<sub>i,t</sub> = |R<sub>i,t</sub> (%)| / DVOL<sub>i,t</sub> (local currency millions)</p>
+        <p style="margin-top:8px"><strong>Currency normalisation:</strong> LSE prices are quoted in pence, so DVOL = Close(p) × Volume / 100 / 1,000,000 (£M). All other exchanges: DVOL = Close × Volume / 1,000,000. Euronext .OL (Oslo) tickers are converted NOK→EUR using the live NOKEUR=X rate.</p>
+        <p style="margin-top:8px"><strong>Rolling window:</strong> Each day's ILLIQ is the equal-weighted average across all index constituents with sufficient data. The market average is the mean of each stock's 20-day average ILLIQ.</p>
+        <p style="margin-top:8px"><strong>Interpretation:</strong> Higher ILLIQ = less liquid (larger price move per £M/€M/$M traded). Rank 1 in the Liquidity Ranking tab = lowest ILLIQ = most liquid.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -263,8 +276,8 @@
       </div>
 
       <div class="vsection-hdr vsection-hdr-real">
-        <div class="vsection-title">🟢 Official Exchange Data</div>
-        <div class="vsection-note">LSE and Euronext: sourced from official daily publications, available next morning. Updated automatically at 07:30 UTC.</div>
+        <div class="vsection-title">🟢 Official Exchange Data — LSE &amp; Euronext</div>
+        <div class="vsection-note">Sourced from the official daily turnover publications released each morning. LSE publishes aggregate equity turnover by order book; Euronext publishes pan-European market statistics including Amsterdam, Brussels, Dublin, Lisbon, Milan, Oslo, and Paris. Downloaded automatically at 07:30 UTC. Values represent total exchange-wide equity turnover in GBP/EUR billions.</div>
       </div>
       <div class="vexchange-section vexchange-real">
         <div class="vexchange-panel">
@@ -288,8 +301,8 @@
       </div>
 
       <div class="vsection-hdr vsection-hdr-est">
-        <div class="vsection-title">🟡 Universe-Based Estimates</div>
-        <div class="vsection-note">Computed from constituent stock OHLCV data via Yahoo Finance. Updated up to 4× daily. Values represent aggregate turnover of the index universe.</div>
+        <div class="vsection-title">🟡 Universe-Based Estimates — Nasdaq 100, NYSE, Xetra, SIX</div>
+        <div class="vsection-note">Computed by summing individual constituent stock turnover (Close × Volume) from Yahoo Finance OHLCV data. These are estimates of the index universe's aggregate turnover — not the full exchange volume. Updated up to 4× daily at 07:30, 10:30, 16:30, and 22:00 UTC. <strong>Note:</strong> US markets (NDX, NYSE) trade 14:30–21:00 UTC; European markets (Xetra, SIX) trade 08:00–16:30 UTC. Same-day data may be partial until the close update runs.</div>
       </div>
       <div class="vexchange-section vexchange-est">
         <div class="vexchange-panel">
@@ -344,6 +357,16 @@
       <div id="spreadSummary" class="spread-summary"></div>
       <div class="cw"><canvas id="spreadChart"></canvas></div>
     </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📖 Methodology</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p><strong>Roll (1984) Implied Spread</strong> estimates the effective bid-ask spread from the serial covariance of price changes, using only daily close prices.</p>
+        <p style="margin-top:8px"><strong>Formula:</strong> S% = 2 × √(−Cov(r<sub>t</sub>, r<sub>t+1</sub>)) × 100, where r<sub>t</sub> = log return on day t.</p>
+        <p style="margin-top:8px"><strong>Intuition:</strong> In a frictionless market, successive returns should be uncorrelated. Negative serial covariance in prices (the "bid-ask bounce") reveals the effective half-spread. The Roll model assumes a constant spread and a random-walk fundamental value.</p>
+        <p style="margin-top:8px"><strong>Limitation:</strong> If Cov(r<sub>t</sub>, r<sub>t+1</sub>) ≥ 0 for a given stock (e.g. positive momentum), the spread cannot be estimated and that stock is excluded from the average. The Abdi-Ranaldo (2017) spread in the AR tab overcomes this by using intraday High/Low data.</p>
+        <p style="margin-top:8px"><strong>Data:</strong> 30 trading days of daily close prices via Yahoo Finance. Market average = equal-weighted mean across all index constituents with valid estimates.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -362,11 +385,32 @@
       <div id="arSummary" class="spread-summary"></div>
       <div class="cw"><canvas id="arChart"></canvas></div>
     </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📖 Methodology</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p><strong>Abdi &amp; Ranaldo (2017) Range-Based Spread</strong> improves on Roll by incorporating intraday price ranges (daily High and Low), making it more robust for liquid large-cap stocks where the bid-ask bounce in close prices is very small.</p>
+        <p style="margin-top:8px"><strong>Formula:</strong> c<sub>t</sub> = ln(C<sub>t</sub>) − ½(ln(H<sub>t</sub>) + ln(L<sub>t</sub>)), then S% = 2 × √(−Cov(c<sub>t</sub>, c<sub>t−1</sub>)) × 100.</p>
+        <p style="margin-top:8px"><strong>Intuition:</strong> c<sub>t</sub> captures the position of the close price within the day's trading range — a proxy for whether the day ended at the bid or the ask. Negative serial covariance in c<sub>t</sub> reflects the bid-ask bounce, amplified by the full intraday range.</p>
+        <p style="margin-top:8px"><strong>Advantage over Roll:</strong> Uses more price information (H, L, C) rather than close prices alone. Empirically outperforms Roll for highly liquid stocks and produces fewer missing estimates on trending days.</p>
+        <p style="margin-top:8px"><strong>Data:</strong> 30 trading days of daily OHLCV data via Yahoo Finance. Market average = equal-weighted mean across constituents with valid estimates (minimum 12 days required).</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ══════════════════════════ MARKET CAP ════════════════════════════════ -->
 <div id="page-mcap" class="page">
+  <div class="markets-main">
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🏦 About Market Capitalisation Data</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p>Market capitalisation = share price × shares outstanding, denominated in the exchange's home currency. Rankings show the top 10 constituents by market cap within each index universe as of the most recent trading session.</p>
+        <p style="margin-top:8px"><strong>Data source:</strong> Yahoo Finance OHLCV data via yfinance. Prices are as of the previous close (intraday prices are not used). Shares outstanding are sourced from Yahoo Finance's fast_info API.</p>
+        <p style="margin-top:8px"><strong>Currency note:</strong> LSE prices are quoted in pence (GBX); market cap is displayed in GBP billions. All other exchanges display in their native currency (EUR for Euronext and Xetra, USD for Nasdaq/NYSE, CHF for SIX Swiss).</p>
+        <p style="margin-top:8px"><strong>Update frequency:</strong> Refreshed up to 4× daily. Rankings may shift intraday as prices move but shares outstanding data updates less frequently.</p>
+      </div>
+    </div>
+  </div>
   <div class="markets-main" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:0">
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇬🇧 Top 10 LSE by Market Cap</div><span class="cs" id="mcapLseDate">Loading…</span></div>
@@ -394,9 +438,21 @@
     </div>
   </div>
 </div>
+</div>
 
 <!-- ══════════════════════════ TOP 10 GAINERS ════════════════════════════ -->
 <div id="page-ndx" class="page">
+  <div class="markets-main">
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">📈 About Top 10 Gainers</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p>Shows the top 10 stocks by percentage gain compared to the previous trading day's close, within each exchange's index universe. Only stocks with a positive return on the most recent trading day are included.</p>
+        <p style="margin-top:8px"><strong>Calculation:</strong> % Gain = (Today's Close − Previous Close) / Previous Close × 100. Requires at least 2 trading days of data to compute a valid return.</p>
+        <p style="margin-top:8px"><strong>LSE note:</strong> Prices are quoted in pence (p). The "Price" column shows pence, and the "Change" column shows the pence move.</p>
+        <p style="margin-top:8px"><strong>Data source:</strong> Yahoo Finance daily OHLCV (2-day window). Updated up to 4× daily — same-day prices are available from market open in the relevant timezone.</p>
+      </div>
+    </div>
+  </div>
   <div class="markets-main" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:0">
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇬🇧 Top 10 LSE Gainers</div><span class="cs" id="gainersLseDate">Loading…</span></div>
@@ -423,6 +479,7 @@
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersSixBody"></tbody></table>
     </div>
   </div>
+</div>
 </div>
 
 <!-- ══════════════════════════ NEWS ═══════════════════════════════════════ -->
@@ -722,6 +779,44 @@ function renderAmihud() {
 
   const src = document.getElementById('illiqSource');
   if (src) src.textContent = 'Yahoo Finance · 20-day OHLCV';
+
+  renderAmihudTables();
+}
+
+function renderAmihudTables() {
+  const amihud = DASH.amihud || {};
+  const container = document.getElementById('amihudStockTables');
+  if (!container) return;
+  container.innerHTML = EX_KEYS.map(k => {
+    const d     = amihud[k] || {};
+    const liq   = d.top10_liquid   || [];
+    const illiq = d.top10_illiquid || [];
+    if (!liq.length && !illiq.length) return '';
+    const makeRows = (rows, color) => rows.map((r, i) => `<tr>
+      <td><span class="rk">${i+1}</span></td>
+      <td class="sn">${esc(r.name)}</td>
+      <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
+      <td style="font-family:monospace;font-size:11px;color:${color}">${Number(r.illiq).toFixed(4)}</td>
+    </tr>`).join('');
+    return `<div class="card">
+      <div class="ch">
+        <div class="ct"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span>&nbsp;${EX_NAMES[k]} — Stock Liquidity Ranking</div>
+        <span class="cs">20-day avg ILLIQ · lower = more liquid</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="border-right:1px solid #eaeef2">
+          <div style="padding:7px 12px;background:#f0fdf4;font-size:11px;font-weight:700;color:#1a7f37;border-bottom:1px solid #eaeef2">🟢 Top 10 Most Liquid (Lowest ILLIQ)</div>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>ILLIQ</th></tr></thead>
+          <tbody>${makeRows(liq, '#1a7f37')}</tbody></table>
+        </div>
+        <div>
+          <div style="padding:7px 12px;background:#fff5f5;font-size:11px;font-weight:700;color:#cf222e;border-bottom:1px solid #eaeef2">🔴 Top 10 Least Liquid (Highest ILLIQ)</div>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>ILLIQ</th></tr></thead>
+          <tbody>${makeRows(illiq, '#cf222e')}</tbody></table>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function toggleIlliqScale() {

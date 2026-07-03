@@ -705,7 +705,7 @@ def _fetch_nok_eur():
 def fetch_amihud(ex_key, existing_history):
     """Compute per-day Amihud ILLIQ for the exchange universe.
     Appends new days to existing_history (90-day rolling window).
-    Returns updated history list and current marketAvg.
+    Returns (updated_history, marketAvg, top10_liquid, top10_illiquid).
     """
     cfg      = EXCHANGES[ex_key]
     tickers  = cfg['tickers']
@@ -761,7 +761,7 @@ def fetch_amihud(ex_key, existing_history):
 
     if not stock_avgs:
         print(f'  ✗  {ex_key}: no ILLIQ computed')
-        return existing_history, None
+        return existing_history, None, [], []
 
     market_avg = sum(stock_avgs.values()) / len(stock_avgs)
     today_label = _today()
@@ -774,9 +774,23 @@ def fetch_amihud(ex_key, existing_history):
         new_history = _push(new_history,
                             {'date': label, 'illiq': round(sum(vals)/len(vals), 6)})
 
+    # Per-stock rankings (most → least liquid)
+    sorted_stocks = sorted(stock_avgs.items(), key=lambda x: x[1])
+    def _stock_entry(sym, val):
+        suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
+        suf = suffix_map.get(ex_key)
+        ticker_clean = sym.replace(suf, '') if suf and sym.endswith(suf) else sym.split('.')[0]
+        return {
+            'ticker': ticker_clean,
+            'name': names.get(sym, ticker_clean),
+            'illiq': round(val, 6)
+        }
+    top10_liquid   = [_stock_entry(s, v) for s, v in sorted_stocks[:10]]
+    top10_illiquid = [_stock_entry(s, v) for s, v in reversed(sorted_stocks[-10:])]
+
     n = len(stock_avgs)
     print(f'  {n} stocks · market avg ILLIQ: {market_avg:.4f} ({ex_key})')
-    return new_history, round(market_avg, 6)
+    return new_history, round(market_avg, 6), top10_liquid, top10_illiquid
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  ROLL (1984) IMPLIED SPREAD  (generic — all 6 exchanges)
@@ -1151,10 +1165,13 @@ def main():
 
         # Amihud ILLIQ
         print('   Amihud ILLIQ...')
-        new_hist, mkt_avg = fetch_amihud(ex_key, dash['amihud'][ex_key].get('history', []))
-        dash['amihud'][ex_key]['history']   = new_hist
+        new_hist, mkt_avg, top_liq, top_illiq = fetch_amihud(
+            ex_key, dash['amihud'][ex_key].get('history', []))
+        dash['amihud'][ex_key]['history'] = new_hist
         if mkt_avg is not None:
-            dash['amihud'][ex_key]['marketAvg'] = mkt_avg
+            dash['amihud'][ex_key]['marketAvg']      = mkt_avg
+            dash['amihud'][ex_key]['top10_liquid']   = top_liq
+            dash['amihud'][ex_key]['top10_illiquid'] = top_illiq
 
         # Roll Spread
         print('   Roll spread...')
