@@ -2,54 +2,76 @@
   "generated_at": null,
   "stale_fallback": true,
   "commentary": null,
+
   "news": [],
+
   "tickers": {},
+
   "gainers": {
-    "ftse": [],
-    "enx": [],
-    "ndx": [],
-    "nyse": [],
+    "lse":   [],
+    "enx":   [],
+    "ndx":   [],
+    "nyse":  [],
     "xetra": [],
-    "six": []
+    "six":   []
   },
+
   "market_cap": {
-    "lse": {"top10": [], "date": null},
-    "enx": {"top10": [], "date": null},
-    "ndx": {"top10": [], "date": null},
-    "nyse": {"top10": [], "date": null},
-    "xetra": {"top10": [], "date": null},
-    "six": {"top10": [], "date": null}
+    "lse":   { "date": null, "currency": "GBP", "top10": [] },
+    "enx":   { "date": null, "currency": "EUR", "top10": [] },
+    "ndx":   { "date": null, "currency": "USD", "top10": [] },
+    "nyse":  { "date": null, "currency": "USD", "top10": [] },
+    "xetra": { "date": null, "currency": "EUR", "top10": [] },
+    "six":   { "date": null, "currency": "CHF", "top10": [] }
   },
+
   "vol": {
-    "lse":   {"dates": [], "turnover": []},
-    "enx":   {"dates": [], "value": []},
-    "ndx":   {"dates": [], "value": []},
-    "nyse":  {"dates": [], "value": []},
-    "xetra": {"dates": [], "value": []},
-    "six":   {"dates": [], "value": []}
+    "lse":   { "currency": "GBP B", "dates": [], "value": [] },
+    "enx":   { "currency": "EUR B", "dates": [], "value": [] },
+    "ndx":   { "currency": "USD B", "dates": [], "value": [] },
+    "nyse":  { "currency": "USD B", "dates": [], "value": [] },
+    "xetra": { "currency": "EUR B", "dates": [], "value": [] },
+    "six":   { "currency": "CHF B", "dates": [], "value": [] }
   },
+
   "amihud": {
-    "ftse":  {"history": [], "marketAvg": null},
-    "enx":   {"history": [], "marketAvg": null},
-    "ndx":   {"history": [], "marketAvg": null},
-    "nyse":  {"history": [], "marketAvg": null},
-    "xetra": {"history": [], "marketAvg": null},
-    "six":   {"history": [], "marketAvg": null}
+    "lse":   { "history": [], "marketAvg": null },
+    "enx":   { "history": [], "marketAvg": null },
+    "ndx":   { "history": [], "marketAvg": null },
+    "nyse":  { "history": [], "marketAvg": null },
+    "xetra": { "history": [], "marketAvg": null },
+    "six":   { "history": [], "marketAvg": null }
   },
+
   "spread": {
-    "ftse":  {"history": [], "marketAvg": null},
-    "enx":   {"history": [], "marketAvg": null},
-    "ndx":   {"history": [], "marketAvg": null},
-    "nyse":  {"history": [], "marketAvg": null},
-    "xetra": {"history": [], "marketAvg": null},
-    "six":   {"history": [], "marketAvg": null}
+    "lse":   { "history": [], "marketAvg": null },
+    "enx":   { "history": [], "marketAvg": null },
+    "ndx":   { "history": [], "marketAvg": null },
+    "nyse":  { "history": [], "marketAvg": null },
+    "xetra": { "history": [], "marketAvg": null },
+    "six":   { "history": [], "marketAvg": null }
   },
+
   "ar_spread": {
-    "ftse":  {"history": [], "marketAvg": null},
-    "enx":   {"history": [], "marketAvg": null},
-    "ndx":   {"history": [], "marketAvg": null},
-    "nyse":  {"history": [], "marketAvg": null},
-    "xetra": {"history": [], "marketAvg": null},
-    "six":   {"history": [], "marketAvg": null}
-  }
+    "lse":   { "history": [], "marketAvg": null },
+    "enx":   { "history": [], "marketAvg": null },
+    "ndx":   { "history": [], "marketAvg": null },
+    "nyse":  { "history": [], "marketAvg": null },
+    "xetra": { "history": [], "marketAvg": null },
+    "six":   { "history": [], "marketAvg": null }
+  },
+
+  "current_ranking": {
+    "date": null,
+    "ranks": {
+      "lse":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
+      "enx":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
+      "ndx":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
+      "nyse":  { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
+      "xetra": { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
+      "six":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null }
+    }
+  },
+
+  "ranking_history": []
 }
