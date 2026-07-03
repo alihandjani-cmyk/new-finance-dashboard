@@ -126,7 +126,7 @@
     .rank-medal{font-size:26px;margin-bottom:4px}
     .rank-name{font-size:11px;font-weight:600;color:#24292f;margin:5px 0 6px}
     .rank-metrics{display:flex;flex-direction:column;gap:3px}
-    .rank-sub{font-size:10px;color:#57606a;background:#f6f8fa;border-radius:4px;padding:1px 5px}
+    .rank-sub{font-size:10px;color:#57606a;background:#f6f8fa;border-radius:4px;padding:3px 6px;display:flex;align-items:center;justify-content:space-between;gap:6px;text-align:left}
 
     /* Heatmap */
     .heatmap-table{border-collapse:collapse;font-size:11px;width:100%}
@@ -1002,19 +1002,49 @@ function renderRankings() {
       cardsEl.innerHTML = '<div style="padding:16px;color:#57606a">No ranking data yet — will appear after first update run.</div>';
     } else {
       const MEDALS = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'];
+      const VOL_CURR = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B'};
+      // Pull live metric values for display alongside rank numbers
+      function _cardVals(k) {
+        const am = (DASH.amihud    || {})[k] || {};
+        const sp = (DASH.spread    || {})[k] || {};
+        const ar = (DASH.ar_spread || {})[k] || {};
+        const vl = (DASH.vol       || {})[k] || {};
+        const vArr = vl.value || [];
+        return {
+          illiq:  am.marketAvg != null ? am.marketAvg.toFixed(4)             : null,
+          spread: sp.marketAvg != null ? sp.marketAvg.toFixed(4)+'%'         : null,
+          ar:     ar.marketAvg != null ? ar.marketAvg.toFixed(4)+'%'         : null,
+          vol:    vArr.length   ? vArr[vArr.length-1].toFixed(1)+' '+(VOL_CURR[k]||'') : null,
+        };
+      }
+      function _sub(icon, label, val, rankNum) {
+        if (rankNum == null) return '';
+        const valHtml = val
+          ? `<span style="font-family:monospace;font-weight:700;font-size:10.5px;color:#24292f">${val}</span>`
+          : '';
+        return `<div class="rank-sub">
+          <span style="flex:1">${icon} ${label}</span>
+          <span style="display:flex;align-items:center;gap:4px">${valHtml}<span style="background:#eaeef2;border-radius:3px;padding:0 3px;font-size:9px;color:#57606a">#${rankNum}</span></span>
+        </div>`;
+      }
       const sorted = EX_KEYS.slice().sort((a,b) => (ranks[a]?.composite||99) - (ranks[b]?.composite||99));
       cardsEl.innerHTML = sorted.map((k, i) => {
-        const r = ranks[k] || {};
+        const r  = ranks[k] || {};
+        const mv = _cardVals(k);
         const subs = [
-          r.illiq  != null ? `<span class="rank-sub">💧 ILLIQ #${r.illiq}</span>` : '',
-          r.spread != null ? `<span class="rank-sub">↔️ Roll #${r.spread}</span>` : '',
-          r.ar     != null ? `<span class="rank-sub">↗️ AR #${r.ar}</span>` : '',
-          r.vol    != null ? `<span class="rank-sub">📊 Vol #${r.vol}</span>` : '',
+          _sub('💧','ILLIQ',  mv.illiq,  r.illiq),
+          _sub('↔️','Roll',   mv.spread, r.spread),
+          _sub('↗️','AR',     mv.ar,     r.ar),
+          _sub('📊','Vol',    mv.vol,    r.vol),
         ].filter(Boolean).join('');
+        const compBadge = r.composite != null
+          ? `<div style="font-size:10px;color:#57606a;margin:4px 0 6px">Composite rank <strong>#${Math.round(r.composite)}</strong></div>`
+          : '';
         return `<div class="rank-card">
-          <div class="rank-medal">${MEDALS[i] || '#' + (i+1)}</div>
+          <div class="rank-medal">${MEDALS[i] || '#'+(i+1)}</div>
           <div><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span></div>
           <div class="rank-name">${EX_NAMES[k]}</div>
+          ${compBadge}
           <div class="rank-metrics">${subs}</div>
         </div>`;
       }).join('');

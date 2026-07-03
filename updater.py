@@ -827,7 +827,9 @@ def fetch_spread(ex_key, existing_history):
     tickers = cfg['tickers']
     names   = cfg['names']
     try:
-        raw = yf.download(tickers, period='35d', interval='1d', progress=False,
+        # 90d gives ~65 business days — long enough that bid-ask bounce averages
+        # out even in trending markets, keeping serial covariance negative.
+        raw = yf.download(tickers, period='90d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
             return existing_history, None, [], []
@@ -909,7 +911,7 @@ def fetch_ar_spread(ex_key, existing_history):
     tickers = cfg['tickers']
     names   = cfg['names']
     try:
-        raw = yf.download(tickers, period='35d', interval='1d', progress=False,
+        raw = yf.download(tickers, period='90d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
             return existing_history, None, [], []
