@@ -229,6 +229,28 @@
       </div>
     </div>
 
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">ℹ️ Ranking Methodology</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p>The composite rank is the simple average of up to four independent liquidity sub-ranks for each exchange, equal ¼ weight each. Lower average rank = more liquid = closer to #1.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-top:10px">
+          <div>
+            <p><strong>📊 Volume rank</strong> — exchanges ranked by most recent daily turnover (highest = rank 1). LSE and Euronext use official exchange publications; Nasdaq 100, NYSE, Xetra, and SIX use universe-based yfinance estimates. Volume uses the latest available value per exchange rather than a date-matched lookup, since official files arrive next morning and date alignment would otherwise distort the composite.</p>
+          </div>
+          <div>
+            <p><strong>💧 Amihud ILLIQ rank</strong> — exchanges ranked by market-wide average Amihud (2002) illiquidity ratio (lowest = rank 1). Computed from 20-day daily OHLCV per stock, equal-weighted across all constituents. This is the richest time-series signal and drives most of the 10-day heatmap.</p>
+          </div>
+          <div>
+            <p><strong>↔️ Roll Spread rank</strong> — exchanges ranked by Roll (1984) implied bid-ask spread from daily close return autocorrelation (lowest = rank 1). Requires negative serial covariance; stocks with positive momentum are excluded from the average.</p>
+          </div>
+          <div>
+            <p><strong>↗️ AR Spread rank</strong> — exchanges ranked by Abdi-Ranaldo (2017) range-based spread using daily High, Low and Close (lowest = rank 1). Outperforms Roll for liquid large-cap stocks. Requires minimum 12 trading days of valid OHLCV data.</p>
+          </div>
+        </div>
+        <p style="margin-top:10px;padding:8px 12px;background:#f6f8fa;border-radius:6px;border-left:4px solid #0969da;font-size:11.5px"><strong>Data completeness policy:</strong> The ranking and heatmap only include trading days where all six exchanges have complete Amihud ILLIQ data. Today is excluded unconditionally — partial-day ILLIQ is not used. LSE and Euronext publish official volume statistics the following morning; US markets close at ~21:00 UTC. Cells marked — indicate a metric was unavailable for that exchange on that date (e.g. a market holiday, or spread history still accumulating in early runs).</p>
+      </div>
+    </div>
+
   </div>
 </div>
 

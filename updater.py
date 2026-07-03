@@ -983,11 +983,16 @@ def compute_rankings(dash):
                           for e in dash['amihud'][k].get('history', [])
                           if e.get('date') != today_label}
 
-    # Vol lookup: ex → date → value (last entry in vol dates list)
-    vol_by_ex = {}
+    # Vol lookup: ex → latest available value (single scalar, not date-matched).
+    # Official LSE/ENX files arrive next morning so exact date matching causes
+    # some exchanges to have vol=None on the ranking date while others don't,
+    # distorting the composite. Instead we use each exchange's most recent vol
+    # value as a stable proxy for its relative turnover.
+    vol_latest = {}
     for k in ex_keys:
         vd = dash['vol'][k]
-        vol_by_ex[k] = dict(zip(vd.get('dates', []), vd.get('value', [])))
+        vals = vd.get('value', [])
+        vol_latest[k] = vals[-1] if vals else None
 
     # Spread lookup
     spread_by_ex = {}
@@ -1017,7 +1022,7 @@ def compute_rankings(dash):
     history = []
     for d in complete_dates:
         illiq_vals  = {k: illiq_by_ex[k].get(d)  for k in ex_keys}
-        vol_vals    = {k: vol_by_ex[k].get(d)     for k in ex_keys}
+        vol_vals    = {k: vol_latest[k]            for k in ex_keys}  # latest vol, not date-matched
         spread_vals = {k: spread_by_ex[k].get(d)  for k in ex_keys}
         ar_vals     = {k: ar_by_ex[k].get(d)      for k in ex_keys}
 
@@ -1224,14 +1229,20 @@ def main():
 
     # ── AI Commentary ────────────────────────────────────────────────────────
     print('\n── Commentary')
-    if state.get('commentary_date') == today_iso and dash.get('commentary'):
+    # Regenerate if: no commentary yet, new day, or ranking date changed
+    ranking_date = dash.get('current_ranking', {}).get('date')
+    stale = (state.get('commentary_date') != today_iso or
+             state.get('commentary_ranking_date') != ranking_date or
+             not dash.get('commentary'))
+    if not stale:
         print('  ℹ  Reusing today\'s commentary')
     else:
         commentary = generate_commentary(dash)
         if commentary:
-            dash['commentary']      = commentary
-            dash['commentary_date'] = today_iso
-            state['commentary_date'] = today_iso
+            dash['commentary']               = commentary
+            dash['commentary_date']          = today_iso
+            state['commentary_date']         = today_iso
+            state['commentary_ranking_date'] = ranking_date
 
     # ── Save ──────────────────────────────────────────────────────────────────
     _save_dashboard(dash)
