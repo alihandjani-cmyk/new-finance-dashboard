@@ -806,8 +806,8 @@ def fetch_amihud(ex_key, existing_history):
 def _roll_spread(closes):
     """Roll (1984) implied bid-ask spread from daily close prices.
     S% = 2 × √(−Cov(r_t, r_{t+1})) × 100
-    Uses the full 30-day window supplied by fetch_spread.  Bid-ask bounce
-    dominates over 20 trading days even in gently trending markets.
+    Uses the full 60-day window supplied by fetch_spread (~42 trading days).
+    Bid-ask bounce dominates over this horizon, consistent with the AR period.
     Returns spread as % of price, or None if cov ≥ 0.
     """
     prices = [float(p) for p in closes if p and float(p) > 0]
@@ -832,9 +832,9 @@ def fetch_spread(ex_key, existing_history):
     tickers = cfg['tickers']
     names   = cfg['names']
     try:
-        # 30 calendar days (~20 trading days) — short enough that bid-ask bounce
-        # dominates momentum; proven period from the original lse_updater.py.
-        raw = yf.download(tickers, period='30d', interval='1d', progress=False,
+        # 60 calendar days (~42 trading days) — consistent with AR period;
+        # bid-ask bounce still dominates over this horizon.
+        raw = yf.download(tickers, period='60d', interval='1d', progress=False,
                           auto_adjust=True)
         if raw.empty:
             return existing_history, None, [], []

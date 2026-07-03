@@ -1018,13 +1018,16 @@ function renderRankings() {
         };
       }
       function _sub(icon, label, val, rankNum) {
-        if (rankNum == null) return '';
+        if (val == null && rankNum == null) return '';
         const valHtml = val
           ? `<span style="font-family:monospace;font-weight:700;font-size:10.5px;color:#24292f">${val}</span>`
           : '';
+        const rankHtml = rankNum != null
+          ? `<span style="background:#eaeef2;border-radius:3px;padding:0 3px;font-size:9px;color:#57606a">#${rankNum}</span>`
+          : '';
         return `<div class="rank-sub">
           <span style="flex:1">${icon} ${label}</span>
-          <span style="display:flex;align-items:center;gap:4px">${valHtml}<span style="background:#eaeef2;border-radius:3px;padding:0 3px;font-size:9px;color:#57606a">#${rankNum}</span></span>
+          <span style="display:flex;align-items:center;gap:4px">${valHtml}${rankHtml}</span>
         </div>`;
       }
       const sorted = EX_KEYS.slice().sort((a,b) => (ranks[a]?.composite||99) - (ranks[b]?.composite||99));
