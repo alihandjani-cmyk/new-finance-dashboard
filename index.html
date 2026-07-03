@@ -167,10 +167,12 @@
     <div class="ti"><span class="tl">DAX</span>      <span class="tv" id="tk-DAX-p">—</span> <span class="tc" id="tk-DAX-c">…</span></div>
     <div class="ti"><span class="tl">CAC 40</span>   <span class="tv" id="tk-CAC40-p">—</span><span class="tc" id="tk-CAC40-c">…</span></div>
     <div class="ti"><span class="tl">SMI</span>      <span class="tv" id="tk-SMI-p">—</span> <span class="tc" id="tk-SMI-c">…</span></div>
+    <div class="ti"><span class="tl">S&amp;P 500</span> <span class="tv" id="tk-SP500-p">—</span><span class="tc" id="tk-SP500-c">…</span></div>
     <div class="ti"><span class="tl">Nasdaq</span>   <span class="tv" id="tk-NDX-p">—</span> <span class="tc" id="tk-NDX-c">…</span></div>
     <div class="ti"><span class="tl">Dow Jones</span><span class="tv" id="tk-DJI-p">—</span> <span class="tc" id="tk-DJI-c">…</span></div>
     <div class="ti"><span class="tl">GBP/USD</span> <span class="tv" id="tk-GBPUSD-p">—</span><span class="tc" id="tk-GBPUSD-c">…</span></div>
     <div class="ti"><span class="tl">EUR/USD</span> <span class="tv" id="tk-EURUSD-p">—</span><span class="tc" id="tk-EURUSD-c">…</span></div>
+    <div class="ti"><span class="tl">EUR/GBP</span> <span class="tv" id="tk-EURGBP-p">—</span><span class="tc" id="tk-EURGBP-c">…</span></div>
     <div class="ti"><span class="tl">USD/JPY</span> <span class="tv" id="tk-USDJPY-p">—</span><span class="tc" id="tk-USDJPY-c">…</span></div>
     <div class="ti"><span class="tl">Gold</span>     <span class="tv" id="tk-GOLD-p">—</span> <span class="tc" id="tk-GOLD-c">…</span></div>
     <div class="ti"><span class="tl">Oil (WTI)</span><span class="tv" id="tk-OIL-p">—</span> <span class="tc" id="tk-OIL-c">…</span></div>
@@ -332,6 +334,7 @@
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="ndx-vol-latest">—</div><div class="vs">USD Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="ndx-vol-avg">—</div><div class="vs">USD Billions</div></div>
+            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="ndx-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
           </div>
           <div class="cw"><canvas id="ndxChart"></canvas></div>
         </div>
@@ -340,6 +343,7 @@
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="nyse-vol-latest">—</div><div class="vs">USD Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="nyse-vol-avg">—</div><div class="vs">USD Billions</div></div>
+            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="nyse-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
           </div>
           <div class="cw"><canvas id="nyseChart"></canvas></div>
         </div>
@@ -348,6 +352,7 @@
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="xetra-vol-latest">—</div><div class="vs">EUR Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="xetra-vol-avg">—</div><div class="vs">EUR Billions</div></div>
+            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="xetra-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
           </div>
           <div class="cw"><canvas id="xetraChart"></canvas></div>
         </div>
@@ -356,6 +361,7 @@
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="six-vol-latest">—</div><div class="vs">CHF Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="six-vol-avg">—</div><div class="vs">CHF Billions</div></div>
+            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="six-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
           </div>
           <div class="cw"><canvas id="sixChart"></canvas></div>
         </div>
@@ -390,6 +396,13 @@
         <p style="margin-top:8px"><strong>Data:</strong> 30 trading days of daily close prices via Yahoo Finance. Market average = equal-weighted mean across all index constituents with valid estimates.</p>
       </div>
     </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📚 Academic Reference</div></div>
+      <div style="padding:12px 16px;font-size:12px;line-height:1.85;color:#1f2328">
+        <p>Roll, R. (1984). "A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market." <em>The Journal of Finance</em>, 39(4), 1127–1139.<br>
+        <a href="https://doi.org/10.1111/j.1540-6261.1984.tb03897.x" target="_blank" rel="noopener" style="color:#0969da;font-size:11px">doi:10.1111/j.1540-6261.1984.tb03897.x</a></p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -419,6 +432,13 @@
         <p style="margin-top:8px"><strong>Data:</strong> 30 trading days of daily OHLCV data via Yahoo Finance. Market average = equal-weighted mean across constituents with valid estimates (minimum 12 days required).</p>
       </div>
     </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📚 Academic Reference</div></div>
+      <div style="padding:12px 16px;font-size:12px;line-height:1.85;color:#1f2328">
+        <p>Abdi, F. &amp; Ranaldo, A. (2017). "A Simple Estimation of Bid-Ask Spreads from Daily Close, High, and Low Prices." <em>The Review of Financial Studies</em>, 30(12), 4437–4480.<br>
+        <a href="https://doi.org/10.1093/rfs/hhx084" target="_blank" rel="noopener" style="color:#0969da;font-size:11px">doi:10.1093/rfs/hhx084</a></p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -438,26 +458,32 @@
   <div class="markets-main" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:0">
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇬🇧 Top 10 LSE by Market Cap</div><span class="cs" id="mcapLseDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">FTSE 100 index constituents · prices in GBP (pence converted)</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapLseBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇪🇺 Top 10 Euronext by Market Cap</div><span class="cs" id="mcapEnxDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">Pan-European large-cap universe (Amsterdam, Paris, Brussels, Dublin, Lisbon, Milan, Oslo) · EUR</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapEnxBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇺🇸 Top 10 Nasdaq 100 by Market Cap</div><span class="cs" id="mcapNdxDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">Nasdaq 100 index constituents (NDX) · USD</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapNdxBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇺🇸 Top 10 NYSE by Market Cap</div><span class="cs" id="mcapNyseDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">NYSE large-cap universe (50 blue-chip constituents) · USD</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapNyseBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇩🇪 Top 10 Xetra by Market Cap</div><span class="cs" id="mcapXetraDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">DAX 40 index constituents · EUR</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapXetraBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch"><div class="ct">🇨🇭 Top 10 SIX Swiss by Market Cap</div><span class="cs" id="mcapSixDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">SMI 20 index constituents · CHF</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapSixBody"></tbody></table>
     </div>
   </div>
@@ -594,7 +620,7 @@ function showPage(id) {
 }
 
 // ─── Ticker bar ──────────────────────────────────────────────────────────────
-const TICKER_FMT = {GBPUSD:4,EURUSD:4,USDJPY:2,GOLD:2,OIL:2};
+const TICKER_FMT = {GBPUSD:4,EURUSD:4,EURGBP:4,USDJPY:2,GOLD:2,OIL:2};
 
 function renderTickers() {
   const t = DASH.tickers || {};
@@ -721,10 +747,15 @@ function renderVolume() {
     const values  = data.value || [];
     const latest  = values.length ? values[values.length - 1] : null;
     const avg     = values.length ? (values.reduce((s,v)=>s+v,0)/values.length).toFixed(2) : null;
-    const latestEl = document.getElementById(key + '-vol-latest');
-    const avgEl    = document.getElementById(key + '-vol-avg');
+    const latestEl  = document.getElementById(key + '-vol-latest');
+    const avgEl     = document.getElementById(key + '-vol-avg');
+    const sharesEl  = document.getElementById(key + '-shares-latest');
     if (latestEl) latestEl.textContent = latest !== null ? latest.toFixed(2) : '—';
     if (avgEl)    avgEl.textContent    = avg !== null ? avg : '—';
+    if (sharesEl) {
+      const sl = data.shares_latest;
+      sharesEl.textContent = sl != null ? Number(sl).toLocaleString('en-GB', {maximumFractionDigits:0}) : '—';
+    }
 
     makeBarChart(chartId + 'Chart', dates, values, VOL_CHART_COLORS[key], data.currency || '');
   });
@@ -809,6 +840,7 @@ function renderAmihud() {
 
 function renderAmihudTables() {
   const amihud = DASH.amihud || {};
+  const ILLIQ_UNIT = {lse:'% / £1M',enx:'% / €1M',ndx:'% / $1M',nyse:'% / $1M',xetra:'% / €1M',six:'% / CHF1M'};
   const container = document.getElementById('amihudStockTables');
   if (!container) return;
   container.innerHTML = EX_KEYS.map(k => {
@@ -816,6 +848,7 @@ function renderAmihudTables() {
     const liq   = d.top10_liquid   || [];
     const illiq = d.top10_illiquid || [];
     if (!liq.length && !illiq.length) return '';
+    const unit = ILLIQ_UNIT[k] || '';
     const makeRows = (rows, color) => rows.map((r, i) => `<tr>
       <td><span class="rk">${i+1}</span></td>
       <td class="sn">${esc(r.name)}</td>
@@ -830,12 +863,12 @@ function renderAmihudTables() {
       <div style="display:grid;grid-template-columns:1fr 1fr">
         <div style="border-right:1px solid #eaeef2">
           <div style="padding:7px 12px;background:#f0fdf4;font-size:11px;font-weight:700;color:#1a7f37;border-bottom:1px solid #eaeef2">🟢 Top 10 Most Liquid (Lowest ILLIQ)</div>
-          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>ILLIQ</th></tr></thead>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>ILLIQ (${unit})</th></tr></thead>
           <tbody>${makeRows(liq, '#1a7f37')}</tbody></table>
         </div>
         <div>
           <div style="padding:7px 12px;background:#fff5f5;font-size:11px;font-weight:700;color:#cf222e;border-bottom:1px solid #eaeef2">🔴 Top 10 Least Liquid (Highest ILLIQ)</div>
-          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>ILLIQ</th></tr></thead>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>ILLIQ (${unit})</th></tr></thead>
           <tbody>${makeRows(illiq, '#cf222e')}</tbody></table>
         </div>
       </div>
@@ -968,7 +1001,7 @@ function renderRankings() {
     if (!Object.keys(ranks).length) {
       cardsEl.innerHTML = '<div style="padding:16px;color:#57606a">No ranking data yet — will appear after first update run.</div>';
     } else {
-      const MEDALS = ['🥇','🥈','🥉','#4','#5','#6'];
+      const MEDALS = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'];
       const sorted = EX_KEYS.slice().sort((a,b) => (ranks[a]?.composite||99) - (ranks[b]?.composite||99));
       cardsEl.innerHTML = sorted.map((k, i) => {
         const r = ranks[k] || {};

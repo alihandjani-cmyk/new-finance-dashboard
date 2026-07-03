@@ -258,10 +258,10 @@ EXCHANGES = {
 
 # ── Ticker-bar symbols (live prices shown in the top bar) ────────────────────
 TICKER_SYMBOLS = {
-    'FTSE':  '^FTSE', 'DAX': '^GDAXI', 'CAC40': '^FCHI', 'SMI': '^SSMI',
-    'NDX':   '^NDX',  'DJI': '^DJI',
-    'GBPUSD':'GBPUSD=X','EURUSD':'EURUSD=X','USDJPY':'JPY=X',
-    'GOLD':  'GC=F',  'OIL': 'CL=F',
+    'FTSE':  '^FTSE',    'DAX':    '^GDAXI',   'CAC40': '^FCHI',   'SMI': '^SSMI',
+    'SP500': '^GSPC',    'NDX':    '^NDX',      'DJI':   '^DJI',
+    'GBPUSD':'GBPUSD=X', 'EURUSD': 'EURUSD=X', 'EURGBP':'EURGBP=X','USDJPY':'JPY=X',
+    'GOLD':  'GC=F',     'OIL':    'CL=F',
 }
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -675,6 +675,8 @@ def fetch_vol_yf(ex_key):
         # Daily turnover = Σ(Close × Volume) / 1e9 for each trading day
         daily_turnover = (close_df * volume_df).sum(axis=1, min_count=1) / 1e9
         daily_turnover = daily_turnover.dropna()
+        # Daily shares traded = Σ(Volume) / 1e6 (millions of shares)
+        daily_shares = volume_df.sum(axis=1, min_count=1) / 1e6
         # Exclude today if market not closed yet
         today_str = _today()
         pts = []
@@ -683,7 +685,9 @@ def fetch_vol_yf(ex_key):
             if label == today_str:
                 continue  # skip today's incomplete intraday
             if val > 0:
-                pts.append({'label': label, 'value': round(float(val), 2)})
+                sh = float(daily_shares.get(ts, 0)) if ts in daily_shares.index else 0.0
+                pts.append({'label': label, 'value': round(float(val), 2),
+                            'shares_m': round(sh, 1) if sh > 0 else None})
         pts = pts[-5:]  # last 5 complete days
         print(f'  {len(pts)} vol days · last: {pts[-1]["value"]:.1f}B ({ex_key})' if pts else f'  ✗  {ex_key}: no vol points')
         return pts or None
@@ -1206,6 +1210,11 @@ def main():
             sorted_labels = sorted(vol_map.keys(), key=_date_key)[-5:]
             dash['vol'][ex_key]['dates'] = sorted_labels
             dash['vol'][ex_key]['value'] = [vol_map[l] for l in sorted_labels]
+            # Shares traded (yfinance exchanges only — file-based pts have no shares_m)
+            valid_sh = [pt['shares_m'] for pt in vol_pts if pt.get('shares_m') is not None]
+            if valid_sh:
+                dash['vol'][ex_key]['shares_latest'] = valid_sh[-1]
+                dash['vol'][ex_key]['shares_avg']    = round(sum(valid_sh) / len(valid_sh), 1)
 
         # Amihud ILLIQ
         print('   Amihud ILLIQ...')
