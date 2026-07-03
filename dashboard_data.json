@@ -1,77 +1,2456 @@
 {
-  "generated_at": null,
-  "stale_fallback": true,
-  "commentary": null,
-
+  "generated_at": "2026-07-03T11:01:54Z",
+  "stale_fallback": false,
+  "commentary": "# Exchange Liquidity Commentary – 02 Jul\n\nNYSE's commanding liquidity leadership is evident across all metrics, with ILLIQ of 0.0013 and AR spread of 0.56%, significantly outpacing Nasdaq 100. Conversely, the LSE substantially lags peers, particularly in price impact (ILLIQ=0.1909), roughly 150x higher than NYSE. Mid-tier European venues show heterogeneous performance—Xetra demonstrates superior efficiency despite lower composite ranking, while the Swiss Exchange trades with comparable spreads to Euronext despite higher price impact.",
   "news": [],
-
-  "tickers": {},
-
-  "gainers": {
-    "lse":   [],
-    "enx":   [],
-    "ndx":   [],
-    "nyse":  [],
-    "xetra": [],
-    "six":   []
-  },
-
-  "market_cap": {
-    "lse":   { "date": null, "currency": "GBP", "top10": [] },
-    "enx":   { "date": null, "currency": "EUR", "top10": [] },
-    "ndx":   { "date": null, "currency": "USD", "top10": [] },
-    "nyse":  { "date": null, "currency": "USD", "top10": [] },
-    "xetra": { "date": null, "currency": "EUR", "top10": [] },
-    "six":   { "date": null, "currency": "CHF", "top10": [] }
-  },
-
-  "vol": {
-    "lse":   { "currency": "GBP B", "dates": [], "value": [] },
-    "enx":   { "currency": "EUR B", "dates": [], "value": [] },
-    "ndx":   { "currency": "USD B", "dates": [], "value": [] },
-    "nyse":  { "currency": "USD B", "dates": [], "value": [] },
-    "xetra": { "currency": "EUR B", "dates": [], "value": [] },
-    "six":   { "currency": "CHF B", "dates": [], "value": [] }
-  },
-
-  "amihud": {
-    "lse":   { "history": [], "marketAvg": null },
-    "enx":   { "history": [], "marketAvg": null },
-    "ndx":   { "history": [], "marketAvg": null },
-    "nyse":  { "history": [], "marketAvg": null },
-    "xetra": { "history": [], "marketAvg": null },
-    "six":   { "history": [], "marketAvg": null }
-  },
-
-  "spread": {
-    "lse":   { "history": [], "marketAvg": null },
-    "enx":   { "history": [], "marketAvg": null },
-    "ndx":   { "history": [], "marketAvg": null },
-    "nyse":  { "history": [], "marketAvg": null },
-    "xetra": { "history": [], "marketAvg": null },
-    "six":   { "history": [], "marketAvg": null }
-  },
-
-  "ar_spread": {
-    "lse":   { "history": [], "marketAvg": null },
-    "enx":   { "history": [], "marketAvg": null },
-    "ndx":   { "history": [], "marketAvg": null },
-    "nyse":  { "history": [], "marketAvg": null },
-    "xetra": { "history": [], "marketAvg": null },
-    "six":   { "history": [], "marketAvg": null }
-  },
-
-  "current_ranking": {
-    "date": null,
-    "ranks": {
-      "lse":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
-      "enx":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
-      "ndx":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
-      "nyse":  { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
-      "xetra": { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null },
-      "six":   { "vol": null, "illiq": null, "spread": null, "ar": null, "composite": null }
+  "tickers": {
+    "FTSE": {
+      "price": 10619.4297,
+      "pct": -0.3142
+    },
+    "DAX": {
+      "price": 25689.3301,
+      "pct": 0.4239
+    },
+    "CAC40": {
+      "price": 8474.75,
+      "pct": -0.0013
+    },
+    "SMI": {
+      "price": 14329.7402,
+      "pct": -0.1619
+    },
+    "NDX": {
+      "price": 29329.2109,
+      "pct": -1.61
+    },
+    "DJI": {
+      "price": 52900.0703,
+      "pct": 1.1372
+    },
+    "GBPUSD": {
+      "price": 1.3358,
+      "pct": 0.5891
+    },
+    "EURUSD": {
+      "price": 1.1451,
+      "pct": 0.6401
+    },
+    "USDJPY": {
+      "price": 162.539,
+      "pct": 0.0
+    },
+    "GOLD": {
+      "price": 4187.5,
+      "pct": 1.8188
+    },
+    "OIL": {
+      "price": 68.65,
+      "pct": -0.0582
     }
   },
-
-  "ranking_history": []
+  "gainers": {
+    "lse": [
+      {
+        "name": "Weir Group",
+        "ticker": "WEIR",
+        "price": "2494p",
+        "change": "+50p",
+        "pct": "2.05%"
+      },
+      {
+        "name": "Fresnillo",
+        "ticker": "FRES",
+        "price": "2927p",
+        "change": "+48p",
+        "pct": "1.67%"
+      },
+      {
+        "name": "Mondi",
+        "ticker": "MNDI",
+        "price": "704p",
+        "change": "+11p",
+        "pct": "1.62%"
+      },
+      {
+        "name": "SSE",
+        "ticker": "SSE",
+        "price": "2492p",
+        "change": "+32p",
+        "pct": "1.30%"
+      },
+      {
+        "name": "BHP Group",
+        "ticker": "BHP",
+        "price": "3148p",
+        "change": "+37p",
+        "pct": "1.19%"
+      },
+      {
+        "name": "Flutter Entertainment",
+        "ticker": "FLTR",
+        "price": "7888p",
+        "change": "+90p",
+        "pct": "1.16%"
+      },
+      {
+        "name": "IMI",
+        "ticker": "IMI",
+        "price": "2948p",
+        "change": "+32p",
+        "pct": "1.10%"
+      },
+      {
+        "name": "Rolls-Royce Holdings",
+        "ticker": "RR",
+        "price": "1491p",
+        "change": "+15p",
+        "pct": "1.07%"
+      },
+      {
+        "name": "National Grid",
+        "ticker": "NG",
+        "price": "1241p",
+        "change": "+11p",
+        "pct": "0.93%"
+      },
+      {
+        "name": "Anglo American",
+        "ticker": "AAL",
+        "price": "3771p",
+        "change": "+30p",
+        "pct": "0.80%"
+      }
+    ],
+    "enx": [
+      {
+        "name": "ASML Holding",
+        "ticker": "ASML",
+        "price": "EUR1630.80",
+        "change": "+EUR53.00",
+        "pct": "3.36%"
+      },
+      {
+        "name": "Veolia",
+        "ticker": "VIE",
+        "price": "EUR37.16",
+        "change": "+EUR0.67",
+        "pct": "1.84%"
+      },
+      {
+        "name": "Engie",
+        "ticker": "ENGI",
+        "price": "EUR27.65",
+        "change": "+EUR0.48",
+        "pct": "1.77%"
+      },
+      {
+        "name": "Schneider Electric",
+        "ticker": "SU",
+        "price": "EUR279.30",
+        "change": "+EUR3.40",
+        "pct": "1.23%"
+      },
+      {
+        "name": "Randstad",
+        "ticker": "RAND",
+        "price": "EUR27.62",
+        "change": "+EUR0.32",
+        "pct": "1.17%"
+      },
+      {
+        "name": "Michelin",
+        "ticker": "ML",
+        "price": "EUR35.09",
+        "change": "+EUR0.37",
+        "pct": "1.07%"
+      },
+      {
+        "name": "Vinci",
+        "ticker": "DG",
+        "price": "EUR128.25",
+        "change": "+EUR1.35",
+        "pct": "1.06%"
+      },
+      {
+        "name": "Airbus",
+        "ticker": "AIR",
+        "price": "EUR205.95",
+        "change": "+EUR2.05",
+        "pct": "1.01%"
+      },
+      {
+        "name": "Philips",
+        "ticker": "PHIA",
+        "price": "EUR24.46",
+        "change": "+EUR0.24",
+        "pct": "0.99%"
+      },
+      {
+        "name": "Safran",
+        "ticker": "SAF",
+        "price": "EUR356.50",
+        "change": "+EUR3.20",
+        "pct": "0.91%"
+      }
+    ],
+    "ndx": [
+      {
+        "name": "Vertex Pharma",
+        "ticker": "VRTX",
+        "price": "USD528.04",
+        "change": "+USD30.03",
+        "pct": "6.03%"
+      },
+      {
+        "name": "Intuitive Surgical",
+        "ticker": "ISRG",
+        "price": "USD426.01",
+        "change": "+USD23.63",
+        "pct": "5.87%"
+      },
+      {
+        "name": "Apple",
+        "ticker": "AAPL",
+        "price": "USD308.63",
+        "change": "+USD14.25",
+        "pct": "4.84%"
+      },
+      {
+        "name": "Regeneron",
+        "ticker": "REGN",
+        "price": "USD654.27",
+        "change": "+USD29.55",
+        "pct": "4.73%"
+      },
+      {
+        "name": "Netflix",
+        "ticker": "NFLX",
+        "price": "USD77.65",
+        "change": "+USD3.46",
+        "pct": "4.66%"
+      },
+      {
+        "name": "Copart",
+        "ticker": "CPRT",
+        "price": "USD30.01",
+        "change": "+USD1.22",
+        "pct": "4.24%"
+      },
+      {
+        "name": "Gilead Sciences",
+        "ticker": "GILD",
+        "price": "USD131.27",
+        "change": "+USD5.30",
+        "pct": "4.21%"
+      },
+      {
+        "name": "Adobe",
+        "ticker": "ADBE",
+        "price": "USD219.72",
+        "change": "+USD8.74",
+        "pct": "4.14%"
+      },
+      {
+        "name": "Cintas",
+        "ticker": "CTAS",
+        "price": "USD181.37",
+        "change": "+USD7.14",
+        "pct": "4.10%"
+      },
+      {
+        "name": "Workday",
+        "ticker": "WDAY",
+        "price": "USD135.40",
+        "change": "+USD5.13",
+        "pct": "3.94%"
+      }
+    ],
+    "nyse": [
+      {
+        "name": "Accenture",
+        "ticker": "ACN",
+        "price": "USD137.35",
+        "change": "+USD6.22",
+        "pct": "4.74%"
+      },
+      {
+        "name": "Lockheed Martin",
+        "ticker": "LMT",
+        "price": "USD545.91",
+        "change": "+USD24.09",
+        "pct": "4.62%"
+      },
+      {
+        "name": "Stryker",
+        "ticker": "SYK",
+        "price": "USD326.54",
+        "change": "+USD13.15",
+        "pct": "4.20%"
+      },
+      {
+        "name": "Bristol-Myers Squibb",
+        "ticker": "BMY",
+        "price": "USD58.13",
+        "change": "+USD2.32",
+        "pct": "4.16%"
+      },
+      {
+        "name": "McDonald's",
+        "ticker": "MCD",
+        "price": "USD280.63",
+        "change": "+USD11.20",
+        "pct": "4.16%"
+      },
+      {
+        "name": "AbbVie",
+        "ticker": "ABBV",
+        "price": "USD261.07",
+        "change": "+USD10.01",
+        "pct": "3.99%"
+      },
+      {
+        "name": "Walt Disney",
+        "ticker": "DIS",
+        "price": "USD99.50",
+        "change": "+USD3.79",
+        "pct": "3.96%"
+      },
+      {
+        "name": "RTX Corp",
+        "ticker": "RTX",
+        "price": "USD199.25",
+        "change": "+USD7.47",
+        "pct": "3.90%"
+      },
+      {
+        "name": "Cigna",
+        "ticker": "CI",
+        "price": "USD287.77",
+        "change": "+USD10.70",
+        "pct": "3.86%"
+      },
+      {
+        "name": "Boeing",
+        "ticker": "BA",
+        "price": "USD226.49",
+        "change": "+USD7.91",
+        "pct": "3.62%"
+      }
+    ],
+    "xetra": [
+      {
+        "name": "Porsche AG",
+        "ticker": "P911",
+        "price": "EUR46.39",
+        "change": "+EUR1.19",
+        "pct": "2.63%"
+      },
+      {
+        "name": "Daimler Truck",
+        "ticker": "DTG",
+        "price": "EUR43.62",
+        "change": "+EUR0.55",
+        "pct": "1.28%"
+      }
+    ],
+    "six": [
+      {
+        "name": "VAT Group",
+        "ticker": "VACN",
+        "price": "CHF703.20",
+        "change": "+CHF13.60",
+        "pct": "1.97%"
+      },
+      {
+        "name": "ABB",
+        "ticker": "ABBN",
+        "price": "CHF86.48",
+        "change": "+CHF1.56",
+        "pct": "1.84%"
+      },
+      {
+        "name": "Holcim",
+        "ticker": "HOLN",
+        "price": "CHF75.94",
+        "change": "+CHF1.06",
+        "pct": "1.42%"
+      },
+      {
+        "name": "Kuehne+Nagel",
+        "ticker": "KNIN",
+        "price": "CHF207.50",
+        "change": "+CHF2.00",
+        "pct": "0.97%"
+      },
+      {
+        "name": "Straumann",
+        "ticker": "STMN",
+        "price": "CHF106.50",
+        "change": "+CHF0.60",
+        "pct": "0.57%"
+      },
+      {
+        "name": "Sonova",
+        "ticker": "SOON",
+        "price": "CHF203.00",
+        "change": "+CHF1.00",
+        "pct": "0.50%"
+      },
+      {
+        "name": "Partners Group",
+        "ticker": "PGHN",
+        "price": "CHF684.60",
+        "change": "+CHF3.00",
+        "pct": "0.44%"
+      },
+      {
+        "name": "Geberit",
+        "ticker": "GEBN",
+        "price": "CHF540.00",
+        "change": "+CHF2.20",
+        "pct": "0.41%"
+      },
+      {
+        "name": "Sika",
+        "ticker": "SIKA",
+        "price": "CHF173.40",
+        "change": "+CHF0.70",
+        "pct": "0.41%"
+      },
+      {
+        "name": "Lonza Group",
+        "ticker": "LOGN",
+        "price": "CHF76.52",
+        "change": "+CHF0.20",
+        "pct": "0.26%"
+      }
+    ]
+  },
+  "market_cap": {
+    "lse": {
+      "date": "03 Jul",
+      "currency": "GBP",
+      "top10": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "HSBA",
+          "mcap_b": 246.7,
+          "price": "1438p"
+        },
+        {
+          "name": "AstraZeneca",
+          "ticker": "AZN",
+          "mcap_b": 223.2,
+          "price": "14394p"
+        },
+        {
+          "name": "Shell",
+          "ticker": "SHEL",
+          "mcap_b": 160.4,
+          "price": "2894p"
+        },
+        {
+          "name": "BHP Group",
+          "ticker": "BHP",
+          "mcap_b": 159.9,
+          "price": "3148p"
+        },
+        {
+          "name": "Rolls-Royce Holdings",
+          "ticker": "RR",
+          "mcap_b": 123.6,
+          "price": "1491p"
+        },
+        {
+          "name": "Rio Tinto",
+          "ticker": "RIO",
+          "mcap_b": 115.1,
+          "price": "7076p"
+        },
+        {
+          "name": "Unilever",
+          "ticker": "ULVR",
+          "mcap_b": 98.5,
+          "price": "4573p"
+        },
+        {
+          "name": "British American Tobacco",
+          "ticker": "BATS",
+          "mcap_b": 92.9,
+          "price": "4586p"
+        },
+        {
+          "name": "GSK",
+          "ticker": "GSK",
+          "mcap_b": 80.2,
+          "price": "2001p"
+        },
+        {
+          "name": "BP",
+          "ticker": "BP",
+          "mcap_b": 71.7,
+          "price": "464p"
+        }
+      ]
+    },
+    "enx": {
+      "date": "03 Jul",
+      "currency": "EUR",
+      "top10": [
+        {
+          "name": "Equinor",
+          "ticker": "EQNR",
+          "mcap_b": 783.6,
+          "price": "EUR314.80"
+        },
+        {
+          "name": "ASML Holding",
+          "ticker": "ASML",
+          "mcap_b": 628.5,
+          "price": "EUR1630.60"
+        },
+        {
+          "name": "DNB Bank",
+          "ticker": "DNB",
+          "mcap_b": 423.9,
+          "price": "EUR295.70"
+        },
+        {
+          "name": "LVMH",
+          "ticker": "MC",
+          "mcap_b": 242.7,
+          "price": "EUR491.90"
+        },
+        {
+          "name": "L'Oréal",
+          "ticker": "OR",
+          "mcap_b": 200.0,
+          "price": "EUR375.70"
+        },
+        {
+          "name": "Hermès",
+          "ticker": "RMS",
+          "mcap_b": 169.1,
+          "price": "EUR1614.00"
+        },
+        {
+          "name": "Airbus",
+          "ticker": "AIR",
+          "mcap_b": 162.1,
+          "price": "EUR205.95"
+        },
+        {
+          "name": "Schneider Electric",
+          "ticker": "SU",
+          "mcap_b": 157.1,
+          "price": "EUR279.30"
+        },
+        {
+          "name": "TotalEnergies",
+          "ticker": "TTE",
+          "mcap_b": 148.4,
+          "price": "EUR66.72"
+        },
+        {
+          "name": "Safran",
+          "ticker": "SAF",
+          "mcap_b": 148.0,
+          "price": "EUR356.60"
+        }
+      ]
+    },
+    "ndx": {
+      "date": "03 Jul",
+      "currency": "USD",
+      "top10": [
+        {
+          "name": "NVIDIA",
+          "ticker": "NVDA",
+          "mcap_b": 4719.0,
+          "price": "USD194.83"
+        },
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "mcap_b": 4533.0,
+          "price": "USD308.63"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": "GOOGL",
+          "mcap_b": 4391.8,
+          "price": "USD359.91"
+        },
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "mcap_b": 2900.7,
+          "price": "USD390.49"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "mcap_b": 2610.4,
+          "price": "USD242.67"
+        },
+        {
+          "name": "Broadcom",
+          "ticker": "AVGO",
+          "mcap_b": 1714.9,
+          "price": "USD360.45"
+        },
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "mcap_b": 1479.6,
+          "price": "USD582.90"
+        },
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "mcap_b": 1477.7,
+          "price": "USD393.45"
+        },
+        {
+          "name": "Micron Technology",
+          "ticker": "MU",
+          "mcap_b": 1101.8,
+          "price": "USD975.56"
+        },
+        {
+          "name": "AMD",
+          "ticker": "AMD",
+          "mcap_b": 844.4,
+          "price": "USD517.82"
+        }
+      ]
+    },
+    "nyse": {
+      "date": "03 Jul",
+      "currency": "USD",
+      "top10": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": "BRK-B",
+          "mcap_b": 1095.2,
+          "price": "USD507.78"
+        },
+        {
+          "name": "Eli Lilly",
+          "ticker": "LLY",
+          "mcap_b": 1082.5,
+          "price": "USD1213.91"
+        },
+        {
+          "name": "JPMorgan Chase",
+          "ticker": "JPM",
+          "mcap_b": 896.2,
+          "price": "USD334.47"
+        },
+        {
+          "name": "Walmart",
+          "ticker": "WMT",
+          "mcap_b": 890.0,
+          "price": "USD111.84"
+        },
+        {
+          "name": "Visa",
+          "ticker": "V",
+          "mcap_b": 688.7,
+          "price": "USD362.13"
+        },
+        {
+          "name": "Johnson & Johnson",
+          "ticker": "JNJ",
+          "mcap_b": 633.2,
+          "price": "USD263.04"
+        },
+        {
+          "name": "ExxonMobil",
+          "ticker": "XOM",
+          "mcap_b": 568.2,
+          "price": "USD137.09"
+        },
+        {
+          "name": "Mastercard",
+          "ticker": "MA",
+          "mcap_b": 476.6,
+          "price": "USD539.39"
+        },
+        {
+          "name": "AbbVie",
+          "ticker": "ABBV",
+          "mcap_b": 461.3,
+          "price": "USD261.07"
+        },
+        {
+          "name": "Caterpillar",
+          "ticker": "CAT",
+          "mcap_b": 443.8,
+          "price": "USD963.53"
+        }
+      ]
+    },
+    "xetra": {
+      "date": "03 Jul",
+      "currency": "EUR",
+      "top10": [
+        {
+          "name": "Siemens",
+          "ticker": "SIE",
+          "mcap_b": 215.9,
+          "price": "EUR283.00"
+        },
+        {
+          "name": "SAP",
+          "ticker": "SAP",
+          "mcap_b": 162.8,
+          "price": "EUR139.42"
+        },
+        {
+          "name": "Allianz",
+          "ticker": "ALV",
+          "mcap_b": 158.7,
+          "price": "EUR418.50"
+        },
+        {
+          "name": "Siemens Energy",
+          "ticker": "ENR",
+          "mcap_b": 142.9,
+          "price": "EUR168.00"
+        },
+        {
+          "name": "Deutsche Telekom",
+          "ticker": "DTE",
+          "mcap_b": 120.6,
+          "price": "EUR24.92"
+        },
+        {
+          "name": "Infineon",
+          "ticker": "IFX",
+          "mcap_b": 100.7,
+          "price": "EUR77.48"
+        },
+        {
+          "name": "Merck KGaA",
+          "ticker": "MRK",
+          "mcap_b": 63.5,
+          "price": "EUR146.15"
+        },
+        {
+          "name": "Munich Re",
+          "ticker": "MUV2",
+          "mcap_b": 63.1,
+          "price": "EUR493.00"
+        },
+        {
+          "name": "DHL Group",
+          "ticker": "DHL",
+          "mcap_b": 62.1,
+          "price": "EUR55.52"
+        },
+        {
+          "name": "Deutsche Bank",
+          "ticker": "DBK",
+          "mcap_b": 60.9,
+          "price": "EUR31.83"
+        }
+      ]
+    },
+    "six": {
+      "date": "03 Jul",
+      "currency": "CHF",
+      "top10": [
+        {
+          "name": "Novartis",
+          "ticker": "NOVN",
+          "mcap_b": 243.4,
+          "price": "CHF127.56"
+        },
+        {
+          "name": "Nestlé",
+          "ticker": "NESN",
+          "mcap_b": 215.6,
+          "price": "CHF83.83"
+        },
+        {
+          "name": "ABB",
+          "ticker": "ABBN",
+          "mcap_b": 156.9,
+          "price": "CHF86.48"
+        },
+        {
+          "name": "UBS Group",
+          "ticker": "UBSG",
+          "mcap_b": 134.9,
+          "price": "CHF41.15"
+        },
+        {
+          "name": "Richemont",
+          "ticker": "CFR",
+          "mcap_b": 107.4,
+          "price": "CHF182.60"
+        },
+        {
+          "name": "Lindt & Spruengli",
+          "ticker": "LISN",
+          "mcap_b": 106.6,
+          "price": "CHF98100.00"
+        },
+        {
+          "name": "Zurich Insurance",
+          "ticker": "ZURN",
+          "mcap_b": 90.4,
+          "price": "CHF605.40"
+        },
+        {
+          "name": "Holcim",
+          "ticker": "HOLN",
+          "mcap_b": 42.0,
+          "price": "CHF75.94"
+        },
+        {
+          "name": "Swiss Re",
+          "ticker": "SREN",
+          "mcap_b": 38.0,
+          "price": "CHF128.85"
+        },
+        {
+          "name": "Givaudan",
+          "ticker": "GIVN",
+          "mcap_b": 32.1,
+          "price": "CHF3476.00"
+        }
+      ]
+    }
+  },
+  "vol": {
+    "lse": {
+      "currency": "GBP B",
+      "dates": [
+        "26 Jun",
+        "29 Jun",
+        "30 Jun",
+        "01 Jul",
+        "02 Jul"
+      ],
+      "value": [
+        6.35,
+        5.6,
+        7.36,
+        6.32,
+        6.7
+      ]
+    },
+    "enx": {
+      "currency": "EUR B",
+      "dates": [
+        "26 Jun",
+        "29 Jun",
+        "30 Jun",
+        "01 Jul",
+        "02 Jul"
+      ],
+      "value": [
+        14.87,
+        13.18,
+        16.89,
+        16.0,
+        17.12
+      ]
+    },
+    "ndx": {
+      "currency": "USD B",
+      "dates": [
+        "26 Jun",
+        "29 Jun",
+        "30 Jun",
+        "01 Jul",
+        "02 Jul"
+      ],
+      "value": [
+        597.26,
+        328.53,
+        321.4,
+        316.38,
+        325.1
+      ]
+    },
+    "nyse": {
+      "currency": "USD B",
+      "dates": [
+        "26 Jun",
+        "29 Jun",
+        "30 Jun",
+        "01 Jul",
+        "02 Jul"
+      ],
+      "value": [
+        145.58,
+        75.32,
+        88.25,
+        81.68,
+        73.39
+      ]
+    },
+    "xetra": {
+      "currency": "EUR B",
+      "dates": [
+        "26 Jun",
+        "29 Jun",
+        "30 Jun",
+        "01 Jul",
+        "02 Jul"
+      ],
+      "value": [
+        4.25,
+        3.83,
+        5.08,
+        4.08,
+        0.08
+      ]
+    },
+    "six": {
+      "currency": "CHF B",
+      "dates": [
+        "26 Jun",
+        "29 Jun",
+        "30 Jun",
+        "01 Jul",
+        "02 Jul"
+      ],
+      "value": [
+        2.77,
+        1.99,
+        2.6,
+        2.18,
+        2.48
+      ]
+    }
+  },
+  "amihud": {
+    "lse": {
+      "history": [
+        {
+          "date": "05 Jun",
+          "illiq": 2.503784
+        },
+        {
+          "date": "08 Jun",
+          "illiq": 0.0944
+        },
+        {
+          "date": "09 Jun",
+          "illiq": 0.12481
+        },
+        {
+          "date": "10 Jun",
+          "illiq": 0.124639
+        },
+        {
+          "date": "11 Jun",
+          "illiq": 0.122118
+        },
+        {
+          "date": "12 Jun",
+          "illiq": 0.256945
+        },
+        {
+          "date": "15 Jun",
+          "illiq": 0.121977
+        },
+        {
+          "date": "16 Jun",
+          "illiq": 0.070592
+        },
+        {
+          "date": "17 Jun",
+          "illiq": 0.137141
+        },
+        {
+          "date": "18 Jun",
+          "illiq": 0.070089
+        },
+        {
+          "date": "19 Jun",
+          "illiq": 0.08131
+        },
+        {
+          "date": "22 Jun",
+          "illiq": 0.096528
+        },
+        {
+          "date": "23 Jun",
+          "illiq": 0.065083
+        },
+        {
+          "date": "24 Jun",
+          "illiq": 0.127141
+        },
+        {
+          "date": "25 Jun",
+          "illiq": 0.06249
+        },
+        {
+          "date": "26 Jun",
+          "illiq": 0.086349
+        },
+        {
+          "date": "29 Jun",
+          "illiq": 0.118131
+        },
+        {
+          "date": "30 Jun",
+          "illiq": 0.047613
+        },
+        {
+          "date": "01 Jul",
+          "illiq": 0.174156
+        },
+        {
+          "date": "02 Jul",
+          "illiq": 0.07905
+        }
+      ],
+      "marketAvg": 0.190903
+    },
+    "enx": {
+      "history": [
+        {
+          "date": "05 Jun",
+          "illiq": 0.008042
+        },
+        {
+          "date": "08 Jun",
+          "illiq": 0.013022
+        },
+        {
+          "date": "09 Jun",
+          "illiq": 0.015405
+        },
+        {
+          "date": "10 Jun",
+          "illiq": 0.015865
+        },
+        {
+          "date": "11 Jun",
+          "illiq": 0.020423
+        },
+        {
+          "date": "12 Jun",
+          "illiq": 0.030622
+        },
+        {
+          "date": "15 Jun",
+          "illiq": 0.015523
+        },
+        {
+          "date": "16 Jun",
+          "illiq": 0.016489
+        },
+        {
+          "date": "17 Jun",
+          "illiq": 0.011159
+        },
+        {
+          "date": "18 Jun",
+          "illiq": 0.014566
+        },
+        {
+          "date": "19 Jun",
+          "illiq": 0.0075
+        },
+        {
+          "date": "22 Jun",
+          "illiq": 0.021562
+        },
+        {
+          "date": "23 Jun",
+          "illiq": 0.016891
+        },
+        {
+          "date": "24 Jun",
+          "illiq": 0.018901
+        },
+        {
+          "date": "25 Jun",
+          "illiq": 0.012747
+        },
+        {
+          "date": "26 Jun",
+          "illiq": 0.010865
+        },
+        {
+          "date": "29 Jun",
+          "illiq": 0.015763
+        },
+        {
+          "date": "30 Jun",
+          "illiq": 0.019319
+        },
+        {
+          "date": "01 Jul",
+          "illiq": 0.027836
+        },
+        {
+          "date": "02 Jul",
+          "illiq": 0.028688
+        }
+      ],
+      "marketAvg": 0.021579
+    },
+    "ndx": {
+      "history": [
+        {
+          "date": "04 Jun",
+          "illiq": 0.001757
+        },
+        {
+          "date": "05 Jun",
+          "illiq": 0.002732
+        },
+        {
+          "date": "08 Jun",
+          "illiq": 0.002203
+        },
+        {
+          "date": "09 Jun",
+          "illiq": 0.002432
+        },
+        {
+          "date": "10 Jun",
+          "illiq": 0.003121
+        },
+        {
+          "date": "11 Jun",
+          "illiq": 0.002779
+        },
+        {
+          "date": "12 Jun",
+          "illiq": 0.001855
+        },
+        {
+          "date": "15 Jun",
+          "illiq": 0.002018
+        },
+        {
+          "date": "16 Jun",
+          "illiq": 0.001945
+        },
+        {
+          "date": "17 Jun",
+          "illiq": 0.003597
+        },
+        {
+          "date": "18 Jun",
+          "illiq": 0.001103
+        },
+        {
+          "date": "22 Jun",
+          "illiq": 0.002433
+        },
+        {
+          "date": "23 Jun",
+          "illiq": 0.002432
+        },
+        {
+          "date": "24 Jun",
+          "illiq": 0.002084
+        },
+        {
+          "date": "25 Jun",
+          "illiq": 0.002448
+        },
+        {
+          "date": "26 Jun",
+          "illiq": 0.002276
+        },
+        {
+          "date": "29 Jun",
+          "illiq": 0.002148
+        },
+        {
+          "date": "30 Jun",
+          "illiq": 0.002162
+        },
+        {
+          "date": "01 Jul",
+          "illiq": 0.003028
+        },
+        {
+          "date": "02 Jul",
+          "illiq": 0.003224
+        }
+      ],
+      "marketAvg": 0.002389
+    },
+    "nyse": {
+      "history": [
+        {
+          "date": "04 Jun",
+          "illiq": 0.001775
+        },
+        {
+          "date": "05 Jun",
+          "illiq": 0.001386
+        },
+        {
+          "date": "08 Jun",
+          "illiq": 0.001326
+        },
+        {
+          "date": "09 Jun",
+          "illiq": 0.001603
+        },
+        {
+          "date": "10 Jun",
+          "illiq": 0.001449
+        },
+        {
+          "date": "11 Jun",
+          "illiq": 0.001747
+        },
+        {
+          "date": "12 Jun",
+          "illiq": 0.001215
+        },
+        {
+          "date": "15 Jun",
+          "illiq": 0.001074
+        },
+        {
+          "date": "16 Jun",
+          "illiq": 0.001027
+        },
+        {
+          "date": "17 Jun",
+          "illiq": 0.001693
+        },
+        {
+          "date": "18 Jun",
+          "illiq": 0.000843
+        },
+        {
+          "date": "22 Jun",
+          "illiq": 0.001277
+        },
+        {
+          "date": "23 Jun",
+          "illiq": 0.001421
+        },
+        {
+          "date": "24 Jun",
+          "illiq": 0.001383
+        },
+        {
+          "date": "25 Jun",
+          "illiq": 0.001231
+        },
+        {
+          "date": "26 Jun",
+          "illiq": 0.000924
+        },
+        {
+          "date": "29 Jun",
+          "illiq": 0.001161
+        },
+        {
+          "date": "30 Jun",
+          "illiq": 0.001092
+        },
+        {
+          "date": "01 Jul",
+          "illiq": 0.001174
+        },
+        {
+          "date": "02 Jul",
+          "illiq": 0.002065
+        }
+      ],
+      "marketAvg": 0.001343
+    },
+    "xetra": {
+      "history": [
+        {
+          "date": "03 Jun",
+          "illiq": 0.023326
+        },
+        {
+          "date": "04 Jun",
+          "illiq": 0.040976
+        },
+        {
+          "date": "05 Jun",
+          "illiq": 0.041314
+        },
+        {
+          "date": "08 Jun",
+          "illiq": 0.034152
+        },
+        {
+          "date": "09 Jun",
+          "illiq": 0.071786
+        },
+        {
+          "date": "10 Jun",
+          "illiq": 0.052499
+        },
+        {
+          "date": "11 Jun",
+          "illiq": 0.031498
+        },
+        {
+          "date": "12 Jun",
+          "illiq": 0.059551
+        },
+        {
+          "date": "15 Jun",
+          "illiq": 0.035591
+        },
+        {
+          "date": "16 Jun",
+          "illiq": 0.041532
+        },
+        {
+          "date": "17 Jun",
+          "illiq": 0.027605
+        },
+        {
+          "date": "18 Jun",
+          "illiq": 0.034657
+        },
+        {
+          "date": "19 Jun",
+          "illiq": 0.042966
+        },
+        {
+          "date": "22 Jun",
+          "illiq": 0.023972
+        },
+        {
+          "date": "23 Jun",
+          "illiq": 0.037157
+        },
+        {
+          "date": "24 Jun",
+          "illiq": 0.039311
+        },
+        {
+          "date": "25 Jun",
+          "illiq": 0.032394
+        },
+        {
+          "date": "26 Jun",
+          "illiq": 0.082876
+        },
+        {
+          "date": "29 Jun",
+          "illiq": 0.049849
+        },
+        {
+          "date": "30 Jun",
+          "illiq": 0.031429
+        },
+        {
+          "date": "01 Jul",
+          "illiq": 0.042401
+        },
+        {
+          "date": "02 Jul",
+          "illiq": 0.057901
+        }
+      ],
+      "marketAvg": 0.061035
+    },
+    "six": {
+      "history": [
+        {
+          "date": "08 Jun",
+          "illiq": 0.021232
+        },
+        {
+          "date": "09 Jun",
+          "illiq": 0.015938
+        },
+        {
+          "date": "10 Jun",
+          "illiq": 0.016904
+        },
+        {
+          "date": "11 Jun",
+          "illiq": 0.026147
+        },
+        {
+          "date": "12 Jun",
+          "illiq": 0.022287
+        },
+        {
+          "date": "15 Jun",
+          "illiq": 0.020837
+        },
+        {
+          "date": "16 Jun",
+          "illiq": 0.018311
+        },
+        {
+          "date": "17 Jun",
+          "illiq": 0.020597
+        },
+        {
+          "date": "18 Jun",
+          "illiq": 0.016828
+        },
+        {
+          "date": "19 Jun",
+          "illiq": 0.006472
+        },
+        {
+          "date": "22 Jun",
+          "illiq": 0.012205
+        },
+        {
+          "date": "23 Jun",
+          "illiq": 0.030528
+        },
+        {
+          "date": "24 Jun",
+          "illiq": 0.030032
+        },
+        {
+          "date": "25 Jun",
+          "illiq": 0.016731
+        },
+        {
+          "date": "26 Jun",
+          "illiq": 0.016759
+        },
+        {
+          "date": "29 Jun",
+          "illiq": 0.019511
+        },
+        {
+          "date": "30 Jun",
+          "illiq": 0.017517
+        },
+        {
+          "date": "01 Jul",
+          "illiq": 0.019034
+        },
+        {
+          "date": "02 Jul",
+          "illiq": 0.031077
+        }
+      ],
+      "marketAvg": 0.021819
+    }
+  },
+  "spread": {
+    "lse": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 1.3266
+        }
+      ],
+      "marketAvg": 1.3266
+    },
+    "enx": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 1.3505
+        }
+      ],
+      "marketAvg": 1.3505
+    },
+    "ndx": {
+      "history": [
+        {
+          "date": "02 Jul",
+          "avgSpread": 1.8322
+        }
+      ],
+      "marketAvg": 1.8322
+    },
+    "nyse": {
+      "history": [
+        {
+          "date": "02 Jul",
+          "avgSpread": 1.3459
+        }
+      ],
+      "marketAvg": 1.3459
+    },
+    "xetra": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 1.2002
+        }
+      ],
+      "marketAvg": 1.2002
+    },
+    "six": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 1.3543
+        }
+      ],
+      "marketAvg": 1.3543
+    }
+  },
+  "ar_spread": {
+    "lse": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 0.9869
+        }
+      ],
+      "marketAvg": 0.9869
+    },
+    "enx": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 0.6893
+        }
+      ],
+      "marketAvg": 0.6893
+    },
+    "ndx": {
+      "history": [
+        {
+          "date": "02 Jul",
+          "avgSpread": 0.8221
+        }
+      ],
+      "marketAvg": 0.8221
+    },
+    "nyse": {
+      "history": [
+        {
+          "date": "02 Jul",
+          "avgSpread": 0.5602
+        }
+      ],
+      "marketAvg": 0.5602
+    },
+    "xetra": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 0.5816
+        }
+      ],
+      "marketAvg": 0.5816
+    },
+    "six": {
+      "history": [
+        {
+          "date": "03 Jul",
+          "avgSpread": 0.5783
+        }
+      ],
+      "marketAvg": 0.5783
+    }
+  },
+  "current_ranking": {
+    "date": "02 Jul",
+    "ranks": {
+      "lse": {
+        "vol": 4,
+        "illiq": 6,
+        "spread": null,
+        "ar": null,
+        "composite": 5
+      },
+      "enx": {
+        "vol": 3,
+        "illiq": 3,
+        "spread": null,
+        "ar": null,
+        "composite": 3
+      },
+      "ndx": {
+        "vol": 1,
+        "illiq": 2,
+        "spread": 2,
+        "ar": 2,
+        "composite": 2
+      },
+      "nyse": {
+        "vol": 2,
+        "illiq": 1,
+        "spread": 1,
+        "ar": 1,
+        "composite": 1
+      },
+      "xetra": {
+        "vol": 6,
+        "illiq": 5,
+        "spread": null,
+        "ar": null,
+        "composite": 6
+      },
+      "six": {
+        "vol": 5,
+        "illiq": 4,
+        "spread": null,
+        "ar": null,
+        "composite": 4
+      }
+    }
+  },
+  "ranking_history": [
+    {
+      "date": "08 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "09 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "10 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "11 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "12 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        }
+      }
+    },
+    {
+      "date": "15 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "16 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "17 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "18 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "22 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        }
+      }
+    },
+    {
+      "date": "23 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "24 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "25 Jun",
+      "ranks": {
+        "lse": {
+          "vol": null,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "enx": {
+          "vol": null,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": null,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": null,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": null,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": null,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "26 Jun",
+      "ranks": {
+        "lse": {
+          "vol": 4,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        },
+        "enx": {
+          "vol": 3,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": 1,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "nyse": {
+          "vol": 2,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "xetra": {
+          "vol": 5,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": 6,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        }
+      }
+    },
+    {
+      "date": "29 Jun",
+      "ranks": {
+        "lse": {
+          "vol": 4,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        },
+        "enx": {
+          "vol": 3,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": 1,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "nyse": {
+          "vol": 2,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "xetra": {
+          "vol": 5,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "six": {
+          "vol": 6,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        }
+      }
+    },
+    {
+      "date": "30 Jun",
+      "ranks": {
+        "lse": {
+          "vol": 4,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "enx": {
+          "vol": 3,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": 1,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "nyse": {
+          "vol": 2,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "xetra": {
+          "vol": 5,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "six": {
+          "vol": 6,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "01 Jul",
+      "ranks": {
+        "lse": {
+          "vol": 4,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "enx": {
+          "vol": 3,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": 1,
+          "illiq": 2,
+          "spread": null,
+          "ar": null,
+          "composite": 1
+        },
+        "nyse": {
+          "vol": 2,
+          "illiq": 1,
+          "spread": null,
+          "ar": null,
+          "composite": 2
+        },
+        "xetra": {
+          "vol": 5,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "six": {
+          "vol": 6,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    },
+    {
+      "date": "02 Jul",
+      "ranks": {
+        "lse": {
+          "vol": 4,
+          "illiq": 6,
+          "spread": null,
+          "ar": null,
+          "composite": 5
+        },
+        "enx": {
+          "vol": 3,
+          "illiq": 3,
+          "spread": null,
+          "ar": null,
+          "composite": 3
+        },
+        "ndx": {
+          "vol": 1,
+          "illiq": 2,
+          "spread": 2,
+          "ar": 2,
+          "composite": 2
+        },
+        "nyse": {
+          "vol": 2,
+          "illiq": 1,
+          "spread": 1,
+          "ar": 1,
+          "composite": 1
+        },
+        "xetra": {
+          "vol": 6,
+          "illiq": 5,
+          "spread": null,
+          "ar": null,
+          "composite": 6
+        },
+        "six": {
+          "vol": 5,
+          "illiq": 4,
+          "spread": null,
+          "ar": null,
+          "composite": 4
+        }
+      }
+    }
+  ],
+  "commentary_date": "2026-07-03"
 }
