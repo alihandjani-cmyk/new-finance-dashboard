@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+
+# Downloaded exchange data files (fetched fresh each run)
+*.xlsx
+
+# Runtime state files (not source code — regenerated each run)
+updater_state.json
+lse_state.json
+
+# Legacy/old data files
+lse_vol_data.json
+vol_data.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
