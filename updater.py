@@ -331,26 +331,42 @@ def _prev_bday(dt=None, n=1):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def fetch_news():
-    """Fetch top 10 financial news headlines from Reuters RSS."""
+    """Fetch top 10 financial news headlines from multiple RSS feeds.
+
+    Reuters deprecated their public RSS feeds (feeds.reuters.com) in 2020 —
+    those URLs return 403.  We now pull from BBC Business, Google News
+    (financial search), MarketWatch, and CNBC as fallback sources.
+    """
     import xml.etree.ElementTree as ET
+    # (url, default_source) — use None for default_source when the feed's
+    # <source> element already carries the real publisher name (Google News).
     feeds = [
-        'https://feeds.reuters.com/reuters/businessNews',
-        'https://feeds.reuters.com/news/wealth',
+        ('https://feeds.bbci.co.uk/news/business/rss.xml', 'BBC Business'),
+        ('https://news.google.com/rss/search?q=stock+market+finance&hl=en-US&gl=US&ceid=US:en', None),
+        ('https://feeds.marketwatch.com/marketwatch/topstories/', 'MarketWatch'),
+        ('https://feeds.cnbc.com/cnbc/ID/100003114/device/rss/rss.html', 'CNBC'),
     ]
     items = []
-    for url in feeds:
+    for url, default_src in feeds:
+        if len(items) >= 10:
+            break
         raw = _get(url, xlsx=False)
         if not raw:
             continue
         try:
             root = ET.fromstring(raw)
-            ns = {'atom': 'http://www.w3.org/2005/Atom'}
             for item in root.iter('item'):
                 title = (item.findtext('title') or '').strip()
                 link  = (item.findtext('link') or '').strip()
                 pub   = (item.findtext('pubDate') or '').strip()
+                # Google News items carry a <source> element with the real outlet name
+                src_el = item.find('source')
+                source = (
+                    (src_el.text.strip() if src_el is not None and src_el.text else None)
+                    or default_src or 'News'
+                )
                 if title and link and link.startswith('https://'):
-                    items.append({'title': title, 'link': link, 'pubDate': pub, 'source': 'Reuters'})
+                    items.append({'title': title, 'link': link, 'pubDate': pub, 'source': source})
         except Exception as exc:
             print(f'  ⚠  RSS parse error: {exc}')
     seen, out = set(), []
