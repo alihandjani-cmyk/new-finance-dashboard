@@ -569,8 +569,9 @@ def _lse_parse(raw):
             continue
         if header and isinstance(row[1], datetime) and row[4] is not None:
             rows.append({
-                'label': row[1].strftime('%d %b'),
-                'value': round(float(row[5]) / 1e9, 2),   # £B
+                'label':  row[1].strftime('%d %b'),
+                'value':  round(float(row[5]) / 1e9, 2),        # £B turnover
+                'trades': round(int(row[4]) / 1000, 1),         # thousands of trades
             })
         if len(rows) >= 5:
             break
@@ -596,13 +597,22 @@ def _enx_parse(raw):
     rows = list(ws.iter_rows(values_only=True))
     date_row     = rows[4]    # row 5
     turnover_row = rows[6]    # row 7 — TOTAL TURNOVER (mln €)
+    trades_row   = rows[22] if len(rows) > 22 else None  # row 23 — TOTAL TRADES
     pts = []
     for col in [4, 3, 2]:    # E→D→C (oldest→newest)
         d = date_row[col]
         v = turnover_row[col]
         if isinstance(d, datetime) and v is not None:
-            pts.append({'label': d.strftime('%d %b'),
-                        'value': round(float(v) / 1000, 2)})  # mln€ → B€
+            pt = {'label': d.strftime('%d %b'),
+                  'value': round(float(v) / 1000, 2)}   # mln€ → B€
+            if trades_row is not None:
+                try:
+                    t = trades_row[col]
+                    if t is not None:
+                        pt['trades'] = round(float(t) / 1_000_000, 2)  # → millions
+                except Exception:
+                    pass
+            pts.append(pt)
     return pts
 
 def fetch_vol_file(ex_key, state):
@@ -1229,6 +1239,11 @@ def main():
             if valid_sh:
                 dash['vol'][ex_key]['shares_latest'] = valid_sh[-1]
                 dash['vol'][ex_key]['shares_avg']    = round(sum(valid_sh) / len(valid_sh), 1)
+            # Trades count (file-based exchanges: LSE in thousands, ENX in millions)
+            valid_tr = [pt['trades'] for pt in vol_pts if pt.get('trades') is not None]
+            if valid_tr:
+                dash['vol'][ex_key]['trades_latest'] = valid_tr[-1]
+                dash['vol'][ex_key]['trades_avg']    = round(sum(valid_tr) / len(valid_tr), 1)
 
         # Amihud ILLIQ
         print('   Amihud ILLIQ...')

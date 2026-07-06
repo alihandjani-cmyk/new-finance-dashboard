@@ -309,6 +309,7 @@
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="lse-vol-latest">—</div><div class="vs">GBP Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="lse-vol-avg">—</div><div class="vs">GBP Billions</div></div>
+            <div class="vstat"><div class="vl">Trades (k)</div><div class="vv" id="lse-trades-latest" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="lse-trades-avg">—</span>k</div></div>
             <div class="vstat"><div class="vl">Source</div><div class="vv" style="font-size:11px;color:#57606a">Order Book</div><div class="vs">Official LSE report</div></div>
           </div>
           <div class="cw"><canvas id="lseChart"></canvas></div>
@@ -318,6 +319,7 @@
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="enx-vol-latest">—</div><div class="vs">EUR Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="enx-vol-avg">—</div><div class="vs">EUR Billions</div></div>
+            <div class="vstat"><div class="vl">Trades (M)</div><div class="vv" id="enx-trades-latest" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="enx-trades-avg">—</span>M</div></div>
             <div class="vstat"><div class="vl">Source</div><div class="vv" style="font-size:11px;color:#57606a">All Markets</div><div class="vs">Official ENX report</div></div>
           </div>
           <div class="cw"><canvas id="enxChart"></canvas></div>
@@ -749,12 +751,22 @@ function renderVolume() {
     const avg     = values.length ? (values.reduce((s,v)=>s+v,0)/values.length).toFixed(2) : null;
     const latestEl  = document.getElementById(key + '-vol-latest');
     const avgEl     = document.getElementById(key + '-vol-avg');
-    const sharesEl  = document.getElementById(key + '-shares-latest');
+    const sharesEl       = document.getElementById(key + '-shares-latest');
+    const tradesLatestEl = document.getElementById(key + '-trades-latest');
+    const tradesAvgEl    = document.getElementById(key + '-trades-avg');
     if (latestEl) latestEl.textContent = latest !== null ? latest.toFixed(2) : '—';
     if (avgEl)    avgEl.textContent    = avg !== null ? avg : '—';
     if (sharesEl) {
       const sl = data.shares_latest;
       sharesEl.textContent = sl != null ? Number(sl).toLocaleString('en-GB', {maximumFractionDigits:0}) : '—';
+    }
+    if (tradesLatestEl) {
+      const tl = data.trades_latest;
+      tradesLatestEl.textContent = tl != null ? tl.toLocaleString('en-GB', {maximumFractionDigits:1}) : '—';
+    }
+    if (tradesAvgEl) {
+      const ta = data.trades_avg;
+      tradesAvgEl.textContent = ta != null ? ta.toLocaleString('en-GB', {maximumFractionDigits:1}) : '—';
     }
 
     makeBarChart(chartId + 'Chart', dates, values, VOL_CHART_COLORS[key], data.currency || '');
@@ -770,7 +782,10 @@ function makeBarChart(canvasId, labels, data, color, unit) {
     data: { labels, datasets: [{ data, backgroundColor: color + '33', borderColor: color, borderWidth: 2, borderRadius: 4 }] },
     options: {
       responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.parsed.y.toFixed(2)} ${unit}` } } },
-      scales: { y: { beginAtZero: false, ticks: { font: { size: 10 } } }, x: { ticks: { font: { size: 10 } } } }
+      scales: {
+        y: { beginAtZero: true, title: { display: true, text: unit, font: { size: 10 }, color: '#57606a' }, ticks: { font: { size: 10 } } },
+        x: { ticks: { font: { size: 10 } } }
+      }
     }
   });
 }
