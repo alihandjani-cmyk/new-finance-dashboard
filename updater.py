@@ -782,6 +782,16 @@ def fetch_amihud(ex_key, existing_history):
     market_avg = sum(stock_avgs.values()) / len(stock_avgs)
     today_label = _today()
 
+    # Determine last completed trading date from yfinance data
+    try:
+        last_trade_date = raw.dropna(how='all').index[-1].strftime('%d %b')
+    except Exception:
+        last_trade_date = None
+
+    # Debug: show last 3 dates found in daily_buckets
+    bucket_dates = sorted(daily_buckets.keys(), key=_date_key)
+    print(f'  bucket dates (last 3): {bucket_dates[-3:]} · last_trade: {last_trade_date} ({ex_key})')
+
     new_history = list(existing_history)
     for label in sorted(daily_buckets, key=_date_key):
         if label == today_label:
@@ -789,6 +799,15 @@ def fetch_amihud(ex_key, existing_history):
         vals = daily_buckets[label]
         new_history = _push(new_history,
                             {'date': label, 'illiq': round(sum(vals)/len(vals), 6)})
+
+    # Fallback: guarantee the last trading date is always in history.
+    # If high-ILLIQ filtering knocked it out of daily_buckets entirely, add it
+    # using the 20-day market_avg as a proxy so the ranking date can still advance.
+    if (last_trade_date and last_trade_date != today_label and
+            not any(e.get('date') == last_trade_date for e in new_history)):
+        print(f'  ⚠  {ex_key}: {last_trade_date} absent from daily_buckets — injecting market_avg as fallback')
+        new_history = _push(new_history,
+                            {'date': last_trade_date, 'illiq': round(market_avg, 6)})
 
     # Per-stock rankings (most → least liquid)
     sorted_stocks = sorted(stock_avgs.items(), key=lambda x: x[1])
@@ -1034,6 +1053,11 @@ def compute_rankings(dash):
     for k in ex_keys:
         ar_by_ex[k] = {e['date']: e['avgSpread']
                        for e in dash['ar_spread'][k].get('history', [])}
+
+    # Debug: show latest ILLIQ dates per exchange to identify gaps
+    for k in ex_keys:
+        dates = sorted(illiq_by_ex[k].keys(), key=_date_key)
+        print(f'  ILLIQ {k}: {len(dates)} dates · latest 3: {dates[-3:] if len(dates) >= 3 else dates}')
 
     # Date spine: days where all 6 exchanges have ILLIQ (complete days only)
     all_dates = set()
