@@ -1021,51 +1021,56 @@ def _rank6(vals_dict, ascending=True):
 
 def compute_rankings(dash):
     """Build current_ranking and ranking_history from stored metric histories.
-    Uses only complete days (all 6 exchanges have Amihud ILLIQ) and excludes today."""
+    Uses dates where at least 4/6 exchanges have ILLIQ data, excluding today.
+    Exchanges missing a date's data (e.g. closed for a market holiday) fall back
+    to their most recent prior value so the ranking date always advances."""
     ex_keys     = list(EXCHANGES.keys())
     today_label = _today()
 
-    # Build per-exchange ILLIQ lookup: date → illiq
+    # Build per-exchange ILLIQ lookup: date → illiq (exclude today's partial data)
     illiq_by_ex = {}
     for k in ex_keys:
         illiq_by_ex[k] = {e['date']: e['illiq']
                           for e in dash['amihud'][k].get('history', [])
                           if e.get('date') != today_label}
 
-    # Vol lookup: ex → latest available value (single scalar, not date-matched).
-    # Official LSE/ENX files arrive next morning so exact date matching causes
-    # some exchanges to have vol=None on the ranking date while others don't,
-    # distorting the composite. Instead we use each exchange's most recent vol
-    # value as a stable proxy for its relative turnover.
+    # Vol lookup: latest available value per exchange (not date-matched).
     vol_latest = {}
     for k in ex_keys:
         vd = dash['vol'][k]
         vals = vd.get('value', [])
         vol_latest[k] = vals[-1] if vals else None
 
-    # Spread lookup
+    # Spread and AR lookups (exclude today — spread/AR use last_trade_date which
+    # could be today's partial bar when US markets are open during the run)
     spread_by_ex = {}
     for k in ex_keys:
         spread_by_ex[k] = {e['date']: e['avgSpread']
-                           for e in dash['spread'][k].get('history', [])}
+                           for e in dash['spread'][k].get('history', [])
+                           if e.get('date') != today_label}
 
     ar_by_ex = {}
     for k in ex_keys:
         ar_by_ex[k] = {e['date']: e['avgSpread']
-                       for e in dash['ar_spread'][k].get('history', [])}
+                       for e in dash['ar_spread'][k].get('history', [])
+                       if e.get('date') != today_label}
 
     # Debug: show latest ILLIQ dates per exchange to identify gaps
     for k in ex_keys:
         dates = sorted(illiq_by_ex[k].keys(), key=_date_key)
         print(f'  ILLIQ {k}: {len(dates)} dates · latest 3: {dates[-3:] if len(dates) >= 3 else dates}')
 
-    # Date spine: days where all 6 exchanges have ILLIQ (complete days only)
+    # Date spine: dates where at least 4 of 6 exchanges have ILLIQ.
+    # This tolerates single-market holidays (e.g. US observed Independence Day,
+    # UK bank holidays) where 1–2 exchanges have no data for that date.
     all_dates = set()
     for k in ex_keys:
         all_dates.update(illiq_by_ex[k].keys())
 
+    min_open = max(3, len(ex_keys) - 2)   # at least 4 of 6
     complete_dates = sorted(
-        [d for d in all_dates if all(d in illiq_by_ex[k] for k in ex_keys)],
+        [d for d in all_dates
+         if sum(1 for k in ex_keys if d in illiq_by_ex[k]) >= min_open],
         key=_date_key
     )
 
@@ -1073,12 +1078,23 @@ def compute_rankings(dash):
         print('  ⚠  Rankings: no complete dates found')
         return
 
+    def _best_on_or_before(lookup, d):
+        """Return lookup[d] if present; else the most recent entry with date ≤ d."""
+        v = lookup.get(d)
+        if v is not None:
+            return v
+        prior = sorted([dt for dt in lookup if _date_key(dt) <= _date_key(d)],
+                       key=_date_key)
+        return lookup[prior[-1]] if prior else None
+
     history = []
     for d in complete_dates:
-        illiq_vals  = {k: illiq_by_ex[k].get(d)  for k in ex_keys}
-        vol_vals    = {k: vol_latest[k]            for k in ex_keys}  # latest vol, not date-matched
-        spread_vals = {k: spread_by_ex[k].get(d)  for k in ex_keys}
-        ar_vals     = {k: ar_by_ex[k].get(d)      for k in ex_keys}
+        # Use exact date if available; fall back to most recent prior value
+        # so a closed exchange (holiday) is ranked on its last trading day.
+        illiq_vals  = {k: _best_on_or_before(illiq_by_ex[k],  d) for k in ex_keys}
+        vol_vals    = {k: vol_latest[k]                            for k in ex_keys}
+        spread_vals = {k: _best_on_or_before(spread_by_ex[k], d) for k in ex_keys}
+        ar_vals     = {k: _best_on_or_before(ar_by_ex[k],     d) for k in ex_keys}
 
         r_illiq  = _rank6(illiq_vals,  ascending=True)   # lower ILLIQ = rank 1
         r_spread = _rank6(spread_vals, ascending=True)   # lower spread = rank 1
@@ -1092,7 +1108,7 @@ def compute_rankings(dash):
             avail = [x for x in sub if x is not None]
             if avail:
                 composites[k] = sum(avail) / len(avail)
-        r_comp = _rank6(composites, ascending=True)  # lower avg-rank = rank 1
+        r_comp = _rank6(composites, ascending=True)
 
         ranks = {}
         for k in ex_keys:
