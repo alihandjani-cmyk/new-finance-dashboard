@@ -66,6 +66,7 @@
     .sn{font-weight:600;font-size:12px}
     .pill{display:inline-flex;align-items:center;padding:2px 6px;border-radius:4px;font-size:10.5px;font-weight:700;font-family:monospace}
     .pill-up{background:#d1ffd9;color:#1a7f37}
+    .pill-dn{background:#ffd7d7;color:#cf222e}
 
     .vsection-hdr{padding:10px 16px;display:flex;flex-direction:column;gap:3px;border-top:1px solid #eaeef2}
     .vsection-hdr:first-of-type{border-top:none}
@@ -186,7 +187,7 @@
   <button class="tab"        id="tab-spread"  onclick="showPage('spread')">↔️ Bid-Ask Spread</button>
   <button class="tab"        id="tab-ar"      onclick="showPage('ar')">↗️ AR Spread</button>
   <button class="tab"        id="tab-mcap"    onclick="showPage('mcap')">🏦 Market Cap</button>
-  <button class="tab"        id="tab-ndx"     onclick="showPage('ndx')">📈 Top 10 Gainers</button>
+  <button class="tab"        id="tab-ndx"     onclick="showPage('ndx')">📈 Top 10 Movers</button>
   <button class="tab"        id="tab-news"    onclick="showPage('news')">📰 News</button>
 </nav>
 
@@ -267,7 +268,10 @@
       <div class="ch">
         <div class="ct">💧 ILLIQ History — All Exchanges</div>
         <div style="display:flex;gap:8px;align-items:center">
-          <button class="rbtn" id="illiqScaleBtn" onclick="toggleIlliqScale()" style="font-size:10px;padding:3px 8px">Log scale</button>
+          <span style="font-size:10px;color:#57606a">Scale:</span>
+          <div style="display:flex">
+            <button class="rbtn" id="illiqLinearBtn" onclick="setIlliqScale(false)" style="font-size:10px;padding:2px 8px;border-radius:6px 0 0 6px;background:#0969da;color:#fff;border-color:#0969da">Linear</button><button class="rbtn" id="illiqLogBtn" onclick="setIlliqScale(true)" style="font-size:10px;padding:2px 8px;border-radius:0 6px 6px 0;margin-left:-1px">Log</button>
+          </div>
           <span class="cs" id="illiqSource">Loading…</span>
         </div>
       </div>
@@ -496,9 +500,9 @@
 <div id="page-ndx" class="page">
   <div class="markets-main">
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">📈 About Top 10 Gainers</div></div>
+      <div class="ch"><div class="ct">📈 About Top 10 Movers</div></div>
       <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
-        <p>Shows the top 10 stocks by percentage gain compared to the previous trading day's close, within each exchange's index universe. Only stocks with a positive return on the most recent trading day are included.</p>
+        <p>Shows the top 10 stocks by percentage change compared to the previous trading day's close, within each exchange's index universe. Positive moves are shown in green, negative moves in red. On very quiet days some slots may be filled by small decliners.</p>
         <p style="margin-top:8px"><strong>Calculation:</strong> % Gain = (Today's Close − Previous Close) / Previous Close × 100. Requires at least 2 trading days of data to compute a valid return.</p>
         <p style="margin-top:8px"><strong>LSE note:</strong> Prices are quoted in pence (p). The "Price" column shows pence, and the "Change" column shows the pence move.</p>
         <p style="margin-top:8px"><strong>Data source:</strong> Yahoo Finance daily OHLCV (2-day window). Updated up to 4× daily — same-day prices are available from market open in the relevant timezone.</p>
@@ -507,28 +511,28 @@
   </div>
   <div class="markets-main" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:0">
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">🇬🇧 Top 10 LSE Gainers</div><span class="cs" id="gainersLseDate">Loading…</span></div>
-      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersLseBody"></tbody></table>
+      <div class="ch"><div class="ct">🇬🇧 Top 10 LSE Movers</div><span class="cs" id="gainersLseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersLseBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">🇪🇺 Top 10 Euronext Gainers</div><span class="cs" id="gainersEnxDate">Loading…</span></div>
-      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersEnxBody"></tbody></table>
+      <div class="ch"><div class="ct">🇪🇺 Top 10 Euronext Movers</div><span class="cs" id="gainersEnxDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersEnxBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">🇺🇸 Top 10 Nasdaq 100 Gainers</div><span class="cs" id="gainersNdxDate">Loading…</span></div>
-      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersNdxBody"></tbody></table>
+      <div class="ch"><div class="ct">🇺🇸 Top 10 Nasdaq 100 Movers</div><span class="cs" id="gainersNdxDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersNdxBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">🇺🇸 Top 10 NYSE Gainers</div><span class="cs" id="gainersNyseDate">Loading…</span></div>
-      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersNyseBody"></tbody></table>
+      <div class="ch"><div class="ct">🇺🇸 Top 10 NYSE Movers</div><span class="cs" id="gainersNyseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersNyseBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">🇩🇪 Top 10 Xetra Gainers</div><span class="cs" id="gainersXetraDate">Loading…</span></div>
-      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersXetraBody"></tbody></table>
+      <div class="ch"><div class="ct">🇩🇪 Top 10 Xetra Movers</div><span class="cs" id="gainersXetraDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersXetraBody"></tbody></table>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="ch"><div class="ct">🇨🇭 Top 10 SIX Swiss Gainers</div><span class="cs" id="gainersSixDate">Loading…</span></div>
-      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Gain</th></tr></thead><tbody id="gainersSixBody"></tbody></table>
+      <div class="ch"><div class="ct">🇨🇭 Top 10 SIX Swiss Movers</div><span class="cs" id="gainersSixDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersSixBody"></tbody></table>
     </div>
   </div>
 </div>
@@ -689,14 +693,19 @@ function renderGainers() {
     const rows = gainers[key] || [];
     if (!body) return;
     if (!rows.length) { body.innerHTML = '<tr><td colspan="6" style="color:#57606a;text-align:center;padding:16px">No data</td></tr>'; return; }
-    body.innerHTML = rows.map((r, i) => `<tr>
-      <td><span class="rk">${i + 1}</span></td>
-      <td class="sn">${esc(r.name)}</td>
-      <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
-      <td>${esc(r.price)}</td>
-      <td style="color:#1a7f37">${esc(r.change)}</td>
-      <td><span class="pill pill-up">${esc(r.pct)}</span></td>
-    </tr>`).join('');
+    body.innerHTML = rows.map((r, i) => {
+      const isUp = !String(r.pct).startsWith('-');
+      const clr  = isUp ? '#1a7f37' : '#cf222e';
+      const pill = isUp ? 'pill pill-up' : 'pill pill-dn';
+      return `<tr>
+        <td><span class="rk">${i + 1}</span></td>
+        <td class="sn">${esc(r.name)}</td>
+        <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
+        <td>${esc(r.price)}</td>
+        <td style="color:${clr}">${esc(r.change)}</td>
+        <td><span class="${pill}">${esc(r.pct)}</span></td>
+      </tr>`;
+    }).join('');
   });
 }
 
@@ -891,9 +900,12 @@ function renderAmihudTables() {
   }).join('');
 }
 
-function toggleIlliqScale() {
-  _illiqLogScale = !_illiqLogScale;
-  document.getElementById('illiqScaleBtn').textContent = _illiqLogScale ? 'Linear scale' : 'Log scale';
+function setIlliqScale(log) {
+  _illiqLogScale = log;
+  const lb = document.getElementById('illiqLinearBtn');
+  const lg = document.getElementById('illiqLogBtn');
+  if (lb) { lb.style.background = log ? '#f6f8fa' : '#0969da'; lb.style.color = log ? '#24292f' : '#fff'; lb.style.borderColor = log ? '#d0d7de' : '#0969da'; }
+  if (lg) { lg.style.background = log ? '#0969da' : '#f6f8fa'; lg.style.color = log ? '#fff' : '#24292f'; lg.style.borderColor = log ? '#0969da' : '#d0d7de'; }
   if (_charts['illiq']) { _charts['illiq'].destroy(); delete _charts['illiq']; }
   renderAmihud();
 }

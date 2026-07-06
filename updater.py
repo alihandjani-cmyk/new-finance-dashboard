@@ -438,8 +438,6 @@ def fetch_gainers(ex_key):
                 continue
             pct = (curr - prev) / prev * 100
             chg = curr - prev
-            if pct <= 0:
-                continue
             results.append({'sym': sym, 'price': curr, 'chg': chg, 'pct': pct})
         except Exception:
             continue
@@ -1220,18 +1218,17 @@ def main():
         except Exception:
             pass
 
-    mode_label = 'FAST (ticker / gainers / market cap)' if FAST_MODE else 'FULL'
+    mode_label = 'FAST (news / ticker / gainers / market cap)' if FAST_MODE else 'FULL'
     print('\n═══ Finance Dashboard Updater ═══')
     print(f'Date: {date.today()} UTC   Mode: {mode_label}\n')
 
     dash = _load_dashboard()
 
-    # ── News (full only) ─────────────────────────────────────────────────────
-    if not FAST_MODE:
-        print('── News')
-        news = fetch_news()
-        if news:
-            dash['news'] = news
+    # ── News (every run — headlines rarely change within an hour) ────────────
+    print('── News')
+    news = fetch_news()
+    if news:
+        dash['news'] = news
 
     # ── Ticker bar ──────────────────────────────────────────────────────────
     print('\n── Tickers')
