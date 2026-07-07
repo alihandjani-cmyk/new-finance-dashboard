@@ -701,13 +701,10 @@ def fetch_vol_yf(ex_key):
         daily_turnover = daily_turnover.dropna()
         # Daily shares traded = Σ(Volume) / 1e6 (millions of shares)
         daily_shares = volume_df.sum(axis=1, min_count=1) / 1e6
-        # Exclude today if market not closed yet
-        today_str = _today()
         pts = []
         for ts, val in daily_turnover.items():
             label = ts.strftime('%d %b')
-            if label == today_str:
-                continue  # skip today's incomplete intraday
+            # Include today — compute_rankings applies its own time-aware exclusion.
             if val > 0:
                 sh = float(daily_shares.get(ts, 0)) if ts in daily_shares.index else 0.0
                 pts.append({'label': label, 'value': round(float(val), 2),
@@ -808,8 +805,8 @@ def fetch_amihud(ex_key, existing_history):
 
     new_history = list(existing_history)
     for label in sorted(daily_buckets, key=_date_key):
-        if label == today_label:
-            continue  # exclude today (may be incomplete)
+        # Store all days including today — compute_rankings applies its own
+        # time-aware exclusion so intraday data never affects live rankings.
         vals = daily_buckets[label]
         new_history = _push(new_history,
                             {'date': label, 'illiq': round(sum(vals)/len(vals), 6)})
@@ -817,7 +814,7 @@ def fetch_amihud(ex_key, existing_history):
     # Fallback: guarantee the last trading date is always in history.
     # If high-ILLIQ filtering knocked it out of daily_buckets entirely, add it
     # using the 20-day market_avg as a proxy so the ranking date can still advance.
-    if (last_trade_date and last_trade_date != today_label and
+    if (last_trade_date and
             not any(e.get('date') == last_trade_date for e in new_history)):
         print(f'  ⚠  {ex_key}: {last_trade_date} absent from daily_buckets — injecting market_avg as fallback')
         new_history = _push(new_history,
@@ -1035,18 +1032,29 @@ def _rank6(vals_dict, ascending=True):
 
 def compute_rankings(dash):
     """Build current_ranking and ranking_history from stored metric histories.
-    Uses dates where at least 4/6 exchanges have ILLIQ data, excluding today.
+    Uses dates where at least 4/6 exchanges have ILLIQ data.
     Exchanges missing a date's data (e.g. closed for a market holiday) fall back
-    to their most recent prior value so the ranking date always advances."""
+    to their most recent prior value so the ranking date always advances.
+
+    Today is only excluded while markets are still open.  Once all major
+    exchanges have closed (after 20:00 UTC — NYSE/NASDAQ close at ~20:00 UTC),
+    today's complete end-of-day data is included so the ranking date advances
+    to the current calendar day on the 22:00 UTC full run.
+    """
     ex_keys     = list(EXCHANGES.keys())
     today_label = _today()
 
-    # Build per-exchange ILLIQ lookup: date → illiq (exclude today's partial data)
+    # After 20:00 UTC all major exchanges are closed; include today's complete data.
+    # Before 20:00 UTC some markets are still open; exclude today's intraday bar.
+    _utc_hour = datetime.utcnow().hour
+    _exclude_today = today_label if _utc_hour < 20 else '__never_match__'
+
+    # Build per-exchange ILLIQ lookup: date → illiq
     illiq_by_ex = {}
     for k in ex_keys:
         illiq_by_ex[k] = {e['date']: e['illiq']
                           for e in dash['amihud'][k].get('history', [])
-                          if e.get('date') != today_label}
+                          if e.get('date') != _exclude_today}
 
     # Vol lookup: latest available value per exchange (not date-matched).
     vol_latest = {}
@@ -1055,19 +1063,18 @@ def compute_rankings(dash):
         vals = vd.get('value', [])
         vol_latest[k] = vals[-1] if vals else None
 
-    # Spread and AR lookups (exclude today — spread/AR use last_trade_date which
-    # could be today's partial bar when US markets are open during the run)
+    # Spread and AR lookups (same time-aware today exclusion)
     spread_by_ex = {}
     for k in ex_keys:
         spread_by_ex[k] = {e['date']: e['avgSpread']
                            for e in dash['spread'][k].get('history', [])
-                           if e.get('date') != today_label}
+                           if e.get('date') != _exclude_today}
 
     ar_by_ex = {}
     for k in ex_keys:
         ar_by_ex[k] = {e['date']: e['avgSpread']
                        for e in dash['ar_spread'][k].get('history', [])
-                       if e.get('date') != today_label}
+                       if e.get('date') != _exclude_today}
 
     # Debug: show latest ILLIQ dates per exchange to identify gaps
     for k in ex_keys:
