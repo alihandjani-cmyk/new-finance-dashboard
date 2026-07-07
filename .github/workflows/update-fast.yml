@@ -41,9 +41,10 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git stash
+          cp dashboard_data.json /tmp/dashboard_data_new.json
+          git checkout -- dashboard_data.json
           git pull --rebase origin main
-          git stash pop
+          cp /tmp/dashboard_data_new.json dashboard_data.json
           git add dashboard_data.json
           git diff --cached --quiet || git commit -m "chore: fast update — ticker/gainers/mcap [skip ci]"
           git push
