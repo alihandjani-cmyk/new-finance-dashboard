@@ -285,8 +285,9 @@ def _load_dashboard():
         'vol':        {k: {'currency': v['vol_currency'], 'dates': [], 'value': []} for k, v in EXCHANGES.items()},
         'amihud':     {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
         'spread':     {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
-        'ar_spread':  {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
-        'current_ranking': {'date': None, 'ranks': {k: {'vol':None,'illiq':None,'spread':None,'ar':None,'composite':None} for k in EXCHANGES}},
+        'ar_spread':       {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
+        'turnover_ratio':  {k: {'history': []} for k in EXCHANGES},
+        'current_ranking': {'date': None, 'ranks': {k: {'vol':None,'illiq':None,'tr':None,'ar':None,'composite':None} for k in EXCHANGES}},
         'ranking_history': [],
     }
 
@@ -1063,13 +1064,14 @@ def compute_rankings(dash):
         vals = vd.get('value', [])
         vol_latest[k] = vals[-1] if vals else None
 
-    # Spread and AR lookups (same time-aware today exclusion)
-    spread_by_ex = {}
+    # Turnover ratio lookup — replaces Roll spread in composite (higher = more liquid)
+    tr_by_ex = {}
     for k in ex_keys:
-        spread_by_ex[k] = {e['date']: e['avgSpread']
-                           for e in dash['spread'][k].get('history', [])
-                           if e.get('date') != _exclude_today}
+        tr_by_ex[k] = {e['date']: e['ratio']
+                       for e in dash.get('turnover_ratio', {}).get(k, {}).get('history', [])
+                       if e.get('date') != _exclude_today}
 
+    # AR spread lookup (same time-aware today exclusion)
     ar_by_ex = {}
     for k in ex_keys:
         ar_by_ex[k] = {e['date']: e['avgSpread']
@@ -1112,20 +1114,20 @@ def compute_rankings(dash):
     for d in complete_dates:
         # Use exact date if available; fall back to most recent prior value
         # so a closed exchange (holiday) is ranked on its last trading day.
-        illiq_vals  = {k: _best_on_or_before(illiq_by_ex[k],  d) for k in ex_keys}
-        vol_vals    = {k: vol_latest[k]                            for k in ex_keys}
-        spread_vals = {k: _best_on_or_before(spread_by_ex[k], d) for k in ex_keys}
-        ar_vals     = {k: _best_on_or_before(ar_by_ex[k],     d) for k in ex_keys}
+        illiq_vals = {k: _best_on_or_before(illiq_by_ex[k], d) for k in ex_keys}
+        vol_vals   = {k: vol_latest[k]                           for k in ex_keys}
+        tr_vals    = {k: _best_on_or_before(tr_by_ex[k],    d) for k in ex_keys}
+        ar_vals    = {k: _best_on_or_before(ar_by_ex[k],    d) for k in ex_keys}
 
-        r_illiq  = _rank6(illiq_vals,  ascending=True)   # lower ILLIQ = rank 1
-        r_spread = _rank6(spread_vals, ascending=True)   # lower spread = rank 1
-        r_ar     = _rank6(ar_vals,     ascending=True)   # lower AR = rank 1
-        r_vol    = _rank6(vol_vals,    ascending=False)  # higher vol = rank 1
+        r_illiq = _rank6(illiq_vals, ascending=True)   # lower ILLIQ = rank 1
+        r_tr    = _rank6(tr_vals,    ascending=False)  # higher T/O ratio = rank 1
+        r_ar    = _rank6(ar_vals,    ascending=True)   # lower AR = rank 1
+        r_vol   = _rank6(vol_vals,   ascending=False)  # higher vol = rank 1
 
         # Composite: average of available sub-ranks, then re-rank 1-6
         composites = {}
         for k in ex_keys:
-            sub = [r_illiq.get(k), r_spread.get(k), r_ar.get(k), r_vol.get(k)]
+            sub = [r_illiq.get(k), r_tr.get(k), r_ar.get(k), r_vol.get(k)]
             avail = [x for x in sub if x is not None]
             if avail:
                 composites[k] = sum(avail) / len(avail)
@@ -1134,10 +1136,10 @@ def compute_rankings(dash):
         ranks = {}
         for k in ex_keys:
             ranks[k] = {
-                'vol':      r_vol.get(k),
-                'illiq':    r_illiq.get(k),
-                'spread':   r_spread.get(k),
-                'ar':       r_ar.get(k),
+                'vol':       r_vol.get(k),
+                'illiq':     r_illiq.get(k),
+                'tr':        r_tr.get(k),
+                'ar':        r_ar.get(k),
                 'composite': r_comp.get(k),
             }
         history.append({'date': d, 'ranks': ranks})
@@ -1336,6 +1338,26 @@ def main():
             dash['ar_spread'][ex_key]['top10_wide']  = top_wide
 
     if not FAST_MODE:
+        # ── Turnover Ratios ───────────────────────────────────────────────────
+        print('\n── Turnover Ratios')
+        if 'turnover_ratio' not in dash:
+            dash['turnover_ratio'] = {k: {'history': []} for k in EXCHANGES}
+        for ek in EXCHANGES:
+            vol_dates  = dash['vol'][ek].get('dates', [])
+            vol_vals   = dash['vol'][ek].get('value', [])
+            mcap_list  = dash['market_cap'][ek].get('top10', [])
+            total_mcap = sum(t.get('mcap_b', 0) for t in mcap_list)
+            if vol_vals and total_mcap > 0:
+                for d, v in zip(vol_dates, vol_vals):
+                    ratio = round(v / total_mcap * 100, 4)
+                    dash['turnover_ratio'][ek]['history'] = _push(
+                        dash['turnover_ratio'][ek].get('history', []),
+                        {'date': d, 'ratio': ratio})
+                latest = dash['turnover_ratio'][ek]['history'][-1]
+                print(f'  {EXCHANGES[ek]["name"]}: {latest["ratio"]:.4f}% ({latest["date"]})')
+            else:
+                print(f'  {EXCHANGES[ek]["name"]}: insufficient data')
+
         # ── Rankings ─────────────────────────────────────────────────────────
         print('\n── Rankings')
         compute_rankings(dash)

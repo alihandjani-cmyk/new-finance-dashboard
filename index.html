@@ -186,6 +186,7 @@
   <button class="tab"        id="tab-markets" onclick="showPage('markets')">📊 Volume</button>
   <button class="tab"        id="tab-spread"  onclick="showPage('spread')">↔️ Bid-Ask Spread</button>
   <button class="tab"        id="tab-ar"      onclick="showPage('ar')">↗️ AR Spread</button>
+  <button class="tab"        id="tab-tr"      onclick="showPage('tr')">🔄 Turnover Ratio</button>
   <button class="tab"        id="tab-mcap"    onclick="showPage('mcap')">🏦 Market Cap</button>
   <button class="tab"        id="tab-ndx"     onclick="showPage('ndx')">📈 Top 10 Movers</button>
   <button class="tab"        id="tab-news"    onclick="showPage('news')">📰 News</button>
@@ -207,7 +208,7 @@
 
     <div class="vsection-hdr" style="border-top:none;margin-top:13px">
       <div class="vsection-title" id="rankCardsTitle">🏆 Exchange Liquidity Ranking</div>
-      <div class="vsection-note">Last complete business day where all six exchanges have Amihud ILLIQ data. Composite of four signals: trading volume, Amihud ILLIQ, Roll (1984) spread, and Abdi-Ranaldo (2017) spread — equal ¼ weight each. Rank 1 = most liquid.</div>
+      <div class="vsection-note">Last complete business day where all six exchanges have Amihud ILLIQ data. Composite of four signals: trading volume, Amihud ILLIQ, Turnover Ratio, and Abdi-Ranaldo (2017) AR spread — equal ¼ weight each. Rank 1 = most liquid.</div>
     </div>
     <div id="rankCards" class="rank-cards-grid"></div>
 
@@ -244,13 +245,13 @@
             <p><strong>💧 Amihud ILLIQ rank</strong> — exchanges ranked by market-wide average Amihud (2002) illiquidity ratio (lowest = rank 1). Computed from 20-day daily OHLCV per stock, equal-weighted across all constituents. This is the richest time-series signal and drives most of the 10-day heatmap.</p>
           </div>
           <div>
-            <p><strong>↔️ Roll Spread rank</strong> — exchanges ranked by Roll (1984) implied bid-ask spread from daily close return autocorrelation (lowest = rank 1). Requires negative serial covariance; stocks with positive momentum are excluded from the average.</p>
+            <p><strong>🔄 Turnover Ratio rank</strong> — exchanges ranked by daily trading volume as a percentage of total market capitalisation (highest = rank 1). A market where a higher fraction of its capitalisation trades each day is considered more liquid. Computed as aggregate daily turnover (£/€/) divided by the sum of market caps across index constituents.</p>
           </div>
           <div>
             <p><strong>↗️ AR Spread rank</strong> — exchanges ranked by Abdi-Ranaldo (2017) range-based spread using daily High, Low and Close (lowest = rank 1). Outperforms Roll for liquid large-cap stocks. Requires minimum 12 trading days of valid OHLCV data.</p>
           </div>
         </div>
-        <p style="margin-top:10px;padding:8px 12px;background:#f6f8fa;border-radius:6px;border-left:4px solid #0969da;font-size:11.5px"><strong>Data completeness policy:</strong> The ranking and heatmap only include trading days where all six exchanges have complete Amihud ILLIQ data. Today is excluded unconditionally — partial-day ILLIQ is not used. LSE and Euronext publish official volume statistics the following morning; US markets close at ~21:00 UTC. Cells marked — indicate a metric was unavailable for that exchange on that date (e.g. a market holiday, or spread history still accumulating in early runs).</p>
+        <p style="margin-top:10px;padding:8px 12px;background:#f6f8fa;border-radius:6px;border-left:4px solid #0969da;font-size:11.5px"><strong>Data completeness policy:</strong> The ranking and heatmap only include trading days where all six exchanges have complete Amihud ILLIQ data. Today is excluded from rankings while markets are open (before 20:00 UTC); after NYSE close all end-of-day data is included. LSE and Euronext publish official volume statistics the following morning; US markets close at ~21:00 UTC. Cells marked — indicate a metric was unavailable for that exchange on that date (e.g. a market holiday, or spread history still accumulating in early runs).</p>
       </div>
     </div>
 
@@ -448,6 +449,41 @@
   </div>
 </div>
 
+<!-- ══════════════════════════ TURNOVER RATIO ════════════════════════════════ -->
+<div id="page-tr" class="page">
+  <div class="markets-main">
+    <div class="vsection-hdr" style="border-top:none">
+      <div class="vsection-title">🔄 Daily Turnover Ratio</div>
+      <div class="vsection-note">Turnover Ratio = Daily Trading Volume (currency B) ÷ Total Market Cap (currency B) × 100%. Higher ratio = more actively traded relative to market size = more liquid.</div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch">
+        <div class="ct">🔄 Turnover Ratio — All Exchanges</div>
+        <span class="cs" id="trSource">Loading…</span>
+      </div>
+      <div id="trSummary" class="spread-summary"></div>
+      <div class="cw"><canvas id="trChart"></canvas></div>
+    </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📖 Methodology</div></div>
+      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
+        <p><strong>Turnover Ratio</strong> normalises trading activity by market size. Raw daily volume (in £/€/$ billions) reflects absolute size — a large exchange naturally has more volume. Dividing by total market capitalisation shows how actively traded the market is <em>relative to its size</em>: a ratio of 0.1% means 0.1% of the entire market changed hands that day.</p>
+        <p style="margin-top:8px"><strong>Formula:</strong> TR% = (Σ Close<sub>i</sub> × Volume<sub>i</sub>) / (Σ Market Cap<sub>i</sub>) × 100, where the sum is over all index constituents tracked by the dashboard.</p>
+        <p style="margin-top:8px"><strong>Why it matters:</strong> Two exchanges with identical raw volume can have very different liquidity profiles if one is much larger than the other. Turnover ratio corrects for this, giving a size-neutral view of market activity. Academic literature (Datar, Naik &amp; Radcliffe 1998) shows stocks with higher turnover ratios command lower liquidity premiums.</p>
+        <p style="margin-top:8px"><strong>Data:</strong> Volume is computed from yfinance OHLCV data for each exchange's index constituents. Market cap is the sum of (price × shares outstanding) across the same universe. Both refreshed on each full workflow run (4× daily). Currency is native to each exchange (GBP for LSE, EUR for Euronext/Xetra, USD for Nasdaq/NYSE, CHF for SIX).</p>
+        <p style="margin-top:8px"><strong>Role in ranking:</strong> Turnover Ratio replaces Roll (1984) spread as the third of four composite signals, alongside Amihud ILLIQ, Abdi-Ranaldo (2017) AR spread, and raw Volume — giving the composite four conceptually distinct dimensions: price impact, transaction cost, relative activity, and absolute activity.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📚 Academic Reference</div></div>
+      <div style="padding:12px 16px;font-size:12px;line-height:1.85;color:#1f2328">
+        <p>Datar, V. T., Naik, N. Y., &amp; Radcliffe, R. (1998). "Liquidity and stock returns: An alternative test." <em>Journal of Financial Markets</em>, 1(2), 203–219.</p>
+        <p style="margin-top:6px">Amihud, Y. &amp; Mendelson, H. (1986). "Asset pricing and the bid-ask spread." <em>Journal of Financial Economics</em>, 17(2), 223–249.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════════════════ MARKET CAP ════════════════════════════════ -->
 <div id="page-mcap" class="page">
   <div class="markets-main">
@@ -604,6 +640,7 @@ function renderAll() {
   renderAmihud();
   renderSpread();
   renderArSpread();
+  renderTurnoverRatio();
   renderRankings();
 }
 
@@ -910,6 +947,71 @@ function setIlliqScale(log) {
   renderAmihud();
 }
 
+// ─── Turnover Ratio ──────────────────────────────────────────────────────────
+function renderTurnoverRatio() {
+  const trData = DASH.turnover_ratio || {};
+  const EX_COLORS = {lse:'#0969da',enx:'#2da44e',ndx:'#8250df',nyse:'#e16f24',xetra:'#cf222e',six:'#1a7f37'};
+  const currency  = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B'};
+
+  // Summary pills
+  const summEl = document.getElementById('trSummary');
+  if (summEl) {
+    summEl.innerHTML = EX_KEYS.map(k => {
+      const hist = (trData[k] || {}).history || [];
+      if (!hist.length) return '';
+      const latest = hist[hist.length - 1];
+      return `<div class="spread-item">
+        <div class="spread-label">${EX_FLAGS[k]} ${EX_NAMES[k]}</div>
+        <div class="spread-value">${latest.ratio.toFixed(4)}%</div>
+        <div style="font-size:9.5px;color:#8c959f">${latest.date}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Chart — turnover ratio over time, all exchanges
+  const ctx = document.getElementById('trChart');
+  if (!ctx) return;
+  if (_charts['tr']) { _charts['tr'].destroy(); delete _charts['tr']; }
+
+  const allDates = [...new Set(EX_KEYS.flatMap(k => ((trData[k]||{}).history||[]).map(e=>e.date)))]
+    .sort(_dateKey);
+
+  const datasets = EX_KEYS.map(k => {
+    const hist = (trData[k] || {}).history || [];
+    const map  = Object.fromEntries(hist.map(e => [e.date, e.ratio]));
+    return {
+      label: EX_NAMES[k],
+      data:  allDates.map(d => map[d] ?? null),
+      borderColor: EX_COLORS[k],
+      backgroundColor: EX_COLORS[k] + '22',
+      fill: false, tension: 0.3, pointRadius: 3, spanGaps: true,
+    };
+  });
+
+  _charts['tr'] = new Chart(ctx, {
+    type: 'line',
+    data: { labels: allDates, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', labels: { font: { size: 11 } } },
+                 tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.y != null ? c.parsed.y.toFixed(4)+'%' : 'n/a'}` } } },
+      scales: {
+        x: { ticks: { font: { size: 10 } } },
+        y: { ticks: { font: { size: 10 }, callback: v => v.toFixed(3)+'%' },
+             title: { display: true, text: 'Daily Turnover / Market Cap (%)', font: { size: 10 } } }
+      }
+    }
+  });
+
+  // Source label
+  const srcEl = document.getElementById('trSource');
+  if (srcEl) {
+    const lastDates = EX_KEYS.map(k => { const h=(trData[k]||{}).history||[]; return h.length?h[h.length-1].date:''; });
+    const latest = lastDates.filter(Boolean).sort(_dateKey).pop();
+    if (srcEl) srcEl.textContent = latest ? 'Latest: ' + latest : 'Loading…';
+  }
+}
+
 // ─── Spread (Roll) ────────────────────────────────────────────────────────────
 function renderSpread() {
   _renderSpreadTab('spread', 'spreadChart', 'spreadSummary', 'spreadSource', 'Roll (1984) spread · 30-day close prices');
@@ -1032,16 +1134,17 @@ function renderRankings() {
       const VOL_CURR = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B'};
       // Pull live metric values for display alongside rank numbers
       function _cardVals(k) {
-        const am = (DASH.amihud    || {})[k] || {};
-        const sp = (DASH.spread    || {})[k] || {};
-        const ar = (DASH.ar_spread || {})[k] || {};
-        const vl = (DASH.vol       || {})[k] || {};
-        const vArr = vl.value || [];
+        const am = (DASH.amihud         || {})[k] || {};
+        const ar = (DASH.ar_spread      || {})[k] || {};
+        const vl = (DASH.vol            || {})[k] || {};
+        const trData = (DASH.turnover_ratio || {})[k] || {};
+        const vArr   = vl.value || [];
+        const trHist = trData.history || [];
         return {
-          illiq:  am.marketAvg != null ? am.marketAvg.toFixed(4)             : null,
-          spread: sp.marketAvg != null ? sp.marketAvg.toFixed(4)+'%'         : null,
-          ar:     ar.marketAvg != null ? ar.marketAvg.toFixed(4)+'%'         : null,
-          vol:    vArr.length   ? vArr[vArr.length-1].toFixed(1)+' '+(VOL_CURR[k]||'') : null,
+          illiq: am.marketAvg != null ? am.marketAvg.toFixed(4)                          : null,
+          tr:    trHist.length        ? trHist[trHist.length-1].ratio.toFixed(4)+'%'   : null,
+          ar:    ar.marketAvg != null ? ar.marketAvg.toFixed(4)+'%'                    : null,
+          vol:   vArr.length          ? vArr[vArr.length-1].toFixed(1)+' '+(VOL_CURR[k]||'') : null,
         };
       }
       function _sub(icon, label, val, rankNum) {
@@ -1063,7 +1166,7 @@ function renderRankings() {
         const mv = _cardVals(k);
         const subs = [
           _sub('💧','ILLIQ',  mv.illiq,  r.illiq),
-          _sub('↔️','Roll',   mv.spread, r.spread),
+          _sub('🔄','T/O',    mv.tr,     r.tr),
           _sub('↗️','AR',     mv.ar,     r.ar),
           _sub('📊','Vol',    mv.vol,    r.vol),
         ].filter(Boolean).join('');
@@ -1100,7 +1203,7 @@ function renderRankings() {
         const c  = r.composite;
         const cl = c != null ? HM_CLS[Math.round(c)] || '' : 'hm-null';
         const tt = c != null
-          ? `title="ILLIQ #${r.illiq||'?'} · Roll #${r.spread||'?'} · AR #${r.ar||'?'} · Vol #${r.vol||'?'}"`
+          ? `title="ILLIQ #${r.illiq||'?'} · T/O #${r.tr||'?'} · AR #${r.ar||'?'} · Vol #${r.vol||'?'}"`
           : '';
         html += `<td class="${cl}" ${tt}>${c != null ? '#'+Math.round(c) : '—'}</td>`;
       });
