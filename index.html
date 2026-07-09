@@ -184,8 +184,8 @@
   <button class="tab active" id="tab-rank"    onclick="showPage('rank')">🏆 Liquidity Ranking</button>
   <button class="tab"        id="tab-liq"     onclick="showPage('liq')">💧 Amihud Illiquidity</button>
   <button class="tab"        id="tab-markets" onclick="showPage('markets')">📊 Volume</button>
-  <button class="tab"        id="tab-spread"  onclick="showPage('spread')">↔️ Bid-Ask Spread</button>
-  <button class="tab"        id="tab-ar"      onclick="showPage('ar')">↗️ AR Spread</button>
+  <button class="tab"        id="tab-spread"  onclick="showPage('spread')">↔️ Roll Implied Spread</button>
+  <button class="tab"        id="tab-ar"      onclick="showPage('ar')">↗️ Abdi-Ranaldo Spread</button>
   <button class="tab"        id="tab-tr"      onclick="showPage('tr')">🔄 Turnover Ratio</button>
   <button class="tab"        id="tab-mcap"    onclick="showPage('mcap')">🏦 Market Cap</button>
   <button class="tab"        id="tab-ndx"     onclick="showPage('ndx')">📈 Top 10 Movers</button>
@@ -248,7 +248,7 @@
             <p><strong>🔄 Turnover Ratio rank</strong> — exchanges ranked by daily trading volume as a percentage of total market capitalisation (highest = rank 1). A market where a higher fraction of its capitalisation trades each day is considered more liquid. Computed as aggregate daily turnover (£/€/) divided by the sum of market caps across index constituents.</p>
           </div>
           <div>
-            <p><strong>↗️ AR Spread rank</strong> — exchanges ranked by Abdi-Ranaldo (2017) range-based spread using daily High, Low and Close (lowest = rank 1). Outperforms Roll for liquid large-cap stocks. Requires minimum 12 trading days of valid OHLCV data.</p>
+            <p><strong>↗️ Abdi-Ranaldo Spread rank</strong> — exchanges ranked by Abdi-Ranaldo (2017) range-based spread using daily High, Low and Close (lowest = rank 1). Outperforms Roll for liquid large-cap stocks. Requires minimum 12 trading days of valid OHLCV data.</p>
           </div>
         </div>
         <p style="margin-top:10px;padding:8px 12px;background:#f6f8fa;border-radius:6px;border-left:4px solid #0969da;font-size:11.5px"><strong>Data completeness policy:</strong> The ranking and heatmap only include trading days where all six exchanges have complete Amihud ILLIQ data. Today is excluded from rankings while markets are open (before 20:00 UTC); after NYSE close all end-of-day data is included. LSE and Euronext publish official volume statistics the following morning; US markets close at ~21:00 UTC. Cells marked — indicate a metric was unavailable for that exchange on that date (e.g. a market holiday, or spread history still accumulating in early runs).</p>
@@ -290,6 +290,13 @@
         <p style="margin-top:8px"><strong>Currency normalisation:</strong> LSE prices are quoted in pence, so DVOL = Close(p) × Volume / 100 / 1,000,000 (£M). All other exchanges: DVOL = Close × Volume / 1,000,000. Euronext .OL (Oslo) tickers are converted NOK→EUR using the live NOKEUR=X rate.</p>
         <p style="margin-top:8px"><strong>Rolling window:</strong> Each day's ILLIQ is the equal-weighted average across all index constituents with sufficient data. The market average is the mean of each stock's 20-day average ILLIQ.</p>
         <p style="margin-top:8px"><strong>Interpretation:</strong> Higher ILLIQ = less liquid (larger price move per £M/€M/$M traded). Rank 1 in the Liquidity Ranking tab = lowest ILLIQ = most liquid.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:13px">
+      <div class="ch"><div class="ct">📚 Academic Reference</div></div>
+      <div style="padding:12px 16px;font-size:12px;line-height:1.85;color:#1f2328">
+        <p>Amihud, Y. (2002). "Illiquidity and stock returns: Cross-section and time-series effects." <em>Journal of Financial Markets</em>, 5(1), 31–56.<br>
+        <a href="https://doi.org/10.1016/S1386-4181(01)00024-6" target="_blank" rel="noopener" style="color:#0969da;font-size:11px">doi:10.1016/S1386-4181(01)00024-6</a></p>
       </div>
     </div>
   </div>
@@ -381,7 +388,7 @@
 <div id="page-spread" class="page">
   <div class="markets-main">
     <div class="vsection-hdr" style="border-top:none">
-      <div class="vsection-title">↔️ Bid-Ask Spread (Roll 1984 Model)</div>
+      <div class="vsection-title">↔️ Roll Implied Spread (Roll 1984 Model)</div>
       <div class="vsection-note">S% = 2 × √(−Cov(r_t, r_{t+1})) × 100 from daily close prices. Lower = tighter spread = more liquid.</div>
     </div>
     <div class="card" style="margin-top:0">
@@ -422,7 +429,7 @@
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch">
-        <div class="ct">↗️ AR Spread — All Exchanges</div>
+        <div class="ct">↗️ Abdi-Ranaldo Spread — All Exchanges</div>
         <span class="cs" id="arSource">Loading…</span>
       </div>
       <div id="arSummary" class="spread-summary"></div>
@@ -1060,7 +1067,7 @@ function renderSpread() {
 }
 function renderArSpread() {
   _renderSpreadTab('ar_spread', 'arChart', 'arSummary', 'arSource', 'AR (2017) spread · 30-day OHLCV');
-  _renderSpreadStockTables('ar_spread', 'arStockTables', 'AR Spread', 'Tightest AR Spread', 'Widest AR Spread');
+  _renderSpreadStockTables('ar_spread', 'arStockTables', 'Abdi-Ranaldo Spread', 'Tightest Spread', 'Widest Spread');
 }
 
 function _renderSpreadStockTables(dataKey, containerId, label, tightLabel, wideLabel) {
