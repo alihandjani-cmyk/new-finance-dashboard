@@ -464,6 +464,8 @@
       <div id="trSummary" class="spread-summary"></div>
       <div class="cw"><canvas id="trChart"></canvas></div>
     </div>
+    <div id="trStockTables" style="margin-top:13px"></div>
+
     <div class="card" style="margin-top:13px">
       <div class="ch"><div class="ct">📖 Methodology</div></div>
       <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
@@ -974,7 +976,7 @@ function renderTurnoverRatio() {
   if (_charts['tr']) { _charts['tr'].destroy(); delete _charts['tr']; }
 
   const allDates = [...new Set(EX_KEYS.flatMap(k => ((trData[k]||{}).history||[]).map(e=>e.date)))]
-    .sort(_dateKey);
+    .sort((a, b) => _dateKey(a) - _dateKey(b));
 
   const datasets = EX_KEYS.map(k => {
     const hist = (trData[k] || {}).history || [];
@@ -1009,6 +1011,45 @@ function renderTurnoverRatio() {
     const lastDates = EX_KEYS.map(k => { const h=(trData[k]||{}).history||[]; return h.length?h[h.length-1].date:''; });
     const latest = lastDates.filter(Boolean).sort(_dateKey).pop();
     if (srcEl) srcEl.textContent = latest ? 'Latest: ' + latest : 'Loading…';
+  }
+
+  // Per-exchange stock tables
+  const tblEl = document.getElementById('trStockTables');
+  if (tblEl) {
+    const VOL_UNIT = {lse:'£M/day',enx:'€M/day',ndx:'$M/day',nyse:'$M/day',xetra:'€M/day',six:'CHF M/day'};
+    tblEl.innerHTML = EX_KEYS.map(k => {
+      const d      = trData[k] || {};
+      const active = d.top10_active   || [];
+      const inact  = d.top10_inactive || [];
+      if (!active.length && !inact.length) return '';
+      const unit = VOL_UNIT[k] || 'M/day';
+      function rows(list) {
+        return list.map((r,i) => `<tr>
+          <td><span class="rk">${i+1}</span></td>
+          <td class="sn">${esc(r.name)}</td>
+          <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
+          <td style="text-align:right;font-family:monospace;font-size:11px">${Number(r.dvol_m).toFixed(1)}</td>
+        </tr>`).join('');
+      }
+      return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px">
+        <div class="card" style="margin-top:0">
+          <div class="ch">
+            <div class="ct">🟢 Most Traded · <span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span></div>
+            <span class="cs">Avg daily vol · ${unit}</span>
+          </div>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th style="text-align:right">${unit}</th></tr></thead>
+          <tbody>${rows(active)}</tbody></table>
+        </div>
+        <div class="card" style="margin-top:0">
+          <div class="ch">
+            <div class="ct">🔴 Least Traded · <span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span></div>
+            <span class="cs">Avg daily vol · ${unit}</span>
+          </div>
+          <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th style="text-align:right">${unit}</th></tr></thead>
+          <tbody>${rows(inact)}</tbody></table>
+        </div>
+      </div>`;
+    }).join('');
   }
 }
 

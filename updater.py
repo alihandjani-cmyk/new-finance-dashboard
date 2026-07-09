@@ -754,6 +754,7 @@ def fetch_amihud(ex_key, existing_history):
 
     daily_buckets = {}   # date_label → [per-stock ILLIQ values]
     stock_avgs    = {}   # sym → 20-day avg ILLIQ (for current marketAvg)
+    dvol_avgs     = {}   # sym → 20-day avg dvol_m (for turnover stock tables)
 
     for sym in tickers:
         try:
@@ -779,6 +780,7 @@ def fetch_amihud(ex_key, existing_history):
                 continue
 
             stock_avgs[sym] = float(illiq.mean())
+            dvol_avgs[sym]  = float(dvol_m.iloc[-20:].mean())
             for ts, val in illiq.items():
                 if pd.isna(val):
                     continue
@@ -835,9 +837,20 @@ def fetch_amihud(ex_key, existing_history):
     top10_liquid   = [_stock_entry(s, v) for s, v in sorted_stocks[:10]]
     top10_illiquid = [_stock_entry(s, v) for s, v in reversed(sorted_stocks[-10:])]
 
+    # Per-stock dvol rankings (for Turnover Ratio tab)
+    def _dvol_entry(sym, val):
+        suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
+        suf = suffix_map.get(ex_key)
+        ticker_clean = sym.replace(suf, '') if suf and sym.endswith(suf) else sym.split('.')[0]
+        return {'ticker': ticker_clean, 'name': names.get(sym, ticker_clean),
+                'dvol_m': round(val, 2)}
+    sorted_dvol    = sorted(dvol_avgs.items(), key=lambda x: x[1])
+    top10_active   = [_dvol_entry(s, v) for s, v in reversed(sorted_dvol[-10:])]
+    top10_inactive = [_dvol_entry(s, v) for s, v in sorted_dvol[:10]]
+
     n = len(stock_avgs)
     print(f'  {n} stocks · market avg ILLIQ: {market_avg:.4f} ({ex_key})')
-    return new_history, round(market_avg, 6), top10_liquid, top10_illiquid
+    return new_history, round(market_avg, 6), top10_liquid, top10_illiquid, top10_active, top10_inactive
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  ROLL (1984) IMPLIED SPREAD  (generic — all 6 exchanges)
@@ -1309,13 +1322,18 @@ def main():
 
         # Amihud ILLIQ
         print('   Amihud ILLIQ...')
-        new_hist, mkt_avg, top_liq, top_illiq = fetch_amihud(
+        new_hist, mkt_avg, top_liq, top_illiq, top_active, top_inactive = fetch_amihud(
             ex_key, dash['amihud'][ex_key].get('history', []))
         dash['amihud'][ex_key]['history'] = new_hist
         if mkt_avg is not None:
             dash['amihud'][ex_key]['marketAvg']      = mkt_avg
             dash['amihud'][ex_key]['top10_liquid']   = top_liq
             dash['amihud'][ex_key]['top10_illiquid'] = top_illiq
+        # Store per-stock dvol for Turnover Ratio tab
+        if 'turnover_ratio' not in dash:
+            dash['turnover_ratio'] = {k: {'history': []} for k in EXCHANGES}
+        dash['turnover_ratio'][ex_key]['top10_active']   = top_active
+        dash['turnover_ratio'][ex_key]['top10_inactive'] = top_inactive
 
         # Roll Spread
         print('   Roll spread...')
