@@ -19,7 +19,7 @@ Requirements (requirements.txt):
 """
 
 import argparse, io, json, math, os, ssl, sys, urllib.request, urllib.error, urllib.parse
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 from pathlib import Path
 
 # ─── Fail fast on missing dependencies ───────────────────────────────────────
@@ -292,32 +292,23 @@ def _load_dashboard():
     }
 
 def _save_dashboard(data):
-    data['generated_at'] = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    data['generated_at'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     data['stale_fallback'] = False
     DATA_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     print(f'\n  ✓  Saved {DATA_FILE} ({DATA_FILE.stat().st_size // 1024} KB)')
 
 # ─── Date / history utilities ─────────────────────────────────────────────────
 
-def _date_key(label):
-    """'02 Jul' → int for chronological sorting."""
-    mon = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,
-           'Jul':7,'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12}
-    try:
-        d, m = label.strip().split()
-        return mon.get(m, 0) * 100 + int(d)
-    except Exception:
-        return 0
-
 def _push(lst, entry, key='date', maxn=DAYS):
-    """Append/update entry (matched by key), sort, trim to maxn."""
+    """Append/update entry (matched by key), sort by ISO date string, trim to maxn.
+    Dates MUST be ISO (YYYY-MM-DD) — plain string sort is chronological for ISO."""
     out = [e for e in lst if e.get(key) != entry.get(key)]
     out.append(entry)
-    out.sort(key=lambda e: _date_key(e.get(key, '')))
+    out.sort(key=lambda e: e.get(key, ''))
     return out[-maxn:]
 
 def _today():
-    return date.today().strftime('%d %b')
+    return date.today().isoformat()
 
 def _prev_bday(dt=None, n=1):
     d = dt or date.today()
@@ -584,7 +575,7 @@ def _lse_parse(raw):
             continue
         if header and isinstance(row[1], datetime) and row[4] is not None:
             rows.append({
-                'label':  row[1].strftime('%d %b'),
+                'label':  row[1].strftime('%Y-%m-%d'),
                 'value':  round(float(row[5]) / 1e9, 2),        # £B turnover
                 'trades': round(int(row[4]) / 1000, 1),         # thousands of trades
             })
@@ -618,7 +609,7 @@ def _enx_parse(raw):
         d = date_row[col]
         v = turnover_row[col]
         if isinstance(d, datetime) and v is not None:
-            pt = {'label': d.strftime('%d %b'),
+            pt = {'label': d.strftime('%Y-%m-%d'),
                   'value': round(float(v) / 1000, 2)}   # mln€ → B€
             if trades_row is not None:
                 try:
@@ -704,7 +695,7 @@ def fetch_vol_yf(ex_key):
         daily_shares = volume_df.sum(axis=1, min_count=1) / 1e6
         pts = []
         for ts, val in daily_turnover.items():
-            label = ts.strftime('%d %b')
+            label = ts.strftime('%Y-%m-%d')
             # Include today — compute_rankings applies its own time-aware exclusion.
             if val > 0:
                 sh = float(daily_shares.get(ts, 0)) if ts in daily_shares.index else 0.0
@@ -747,10 +738,11 @@ def fetch_amihud(ex_key, existing_history):
                           auto_adjust=True, threads=True)
         if raw.empty:
             print(f'  ✗  {ex_key} amihud: no data')
-            return existing_history, None
+            # NB: must be a 6-tuple — main() unpacks 6 values.
+            return existing_history, None, [], [], [], []
     except Exception as exc:
         print(f'  ✗  {ex_key} amihud download: {exc}')
-        return existing_history, None
+        return existing_history, None, [], [], [], []
 
     daily_buckets = {}   # date_label → [per-stock ILLIQ values]
     stock_avgs    = {}   # sym → 20-day avg ILLIQ (for current marketAvg)
@@ -784,7 +776,7 @@ def fetch_amihud(ex_key, existing_history):
             for ts, val in illiq.items():
                 if pd.isna(val):
                     continue
-                label = ts.strftime('%d %b')
+                label = ts.strftime('%Y-%m-%d')
                 daily_buckets.setdefault(label, []).append(float(val))
         except Exception:
             continue
@@ -798,16 +790,16 @@ def fetch_amihud(ex_key, existing_history):
 
     # Determine last completed trading date from yfinance data
     try:
-        last_trade_date = raw.dropna(how='all').index[-1].strftime('%d %b')
+        last_trade_date = raw.dropna(how='all').index[-1].strftime('%Y-%m-%d')
     except Exception:
         last_trade_date = None
 
     # Debug: show last 3 dates found in daily_buckets
-    bucket_dates = sorted(daily_buckets.keys(), key=_date_key)
+    bucket_dates = sorted(daily_buckets.keys())
     print(f'  bucket dates (last 3): {bucket_dates[-3:]} · last_trade: {last_trade_date} ({ex_key})')
 
     new_history = list(existing_history)
-    for label in sorted(daily_buckets, key=_date_key):
+    for label in sorted(daily_buckets):
         # Store all days including today — compute_rankings applies its own
         # time-aware exclusion so intraday data never affects live rankings.
         vals = daily_buckets[label]
@@ -898,7 +890,7 @@ def fetch_spread(ex_key, existing_history):
         return existing_history, None, [], []
 
     try:
-        last_trade_date = close_df.dropna(how='all').index[-1].strftime('%d %b')
+        last_trade_date = close_df.dropna(how='all').index[-1].strftime('%Y-%m-%d')
     except Exception:
         last_trade_date = _today()
 
@@ -992,7 +984,7 @@ def fetch_ar_spread(ex_key, existing_history):
         low_df   = raw['Low']    if is_multi else None
         if high_df is None or low_df is None:
             return existing_history, None, [], []
-        last_trade_date = close_df.dropna(how='all').index[-1].strftime('%d %b')
+        last_trade_date = close_df.dropna(how='all').index[-1].strftime('%Y-%m-%d')
     except Exception:
         last_trade_date = _today()
 
@@ -1060,7 +1052,7 @@ def compute_rankings(dash):
 
     # After 20:00 UTC all major exchanges are closed; include today's complete data.
     # Before 20:00 UTC some markets are still open; exclude today's intraday bar.
-    _utc_hour = datetime.utcnow().hour
+    _utc_hour = datetime.now(timezone.utc).hour
     _exclude_today = today_label if _utc_hour < 20 else '__never_match__'
 
     # Build per-exchange ILLIQ lookup: date → illiq
@@ -1093,7 +1085,7 @@ def compute_rankings(dash):
 
     # Debug: show latest ILLIQ dates per exchange to identify gaps
     for k in ex_keys:
-        dates = sorted(illiq_by_ex[k].keys(), key=_date_key)
+        dates = sorted(illiq_by_ex[k].keys())
         print(f'  ILLIQ {k}: {len(dates)} dates · latest 3: {dates[-3:] if len(dates) >= 3 else dates}')
 
     # Date spine: dates where at least 4 of 6 exchanges have ILLIQ.
@@ -1106,8 +1098,7 @@ def compute_rankings(dash):
     min_open = max(3, len(ex_keys) - 2)   # at least 4 of 6
     complete_dates = sorted(
         [d for d in all_dates
-         if sum(1 for k in ex_keys if d in illiq_by_ex[k]) >= min_open],
-        key=_date_key
+         if sum(1 for k in ex_keys if d in illiq_by_ex[k]) >= min_open]
     )
 
     if not complete_dates:
@@ -1115,12 +1106,12 @@ def compute_rankings(dash):
         return
 
     def _best_on_or_before(lookup, d):
-        """Return lookup[d] if present; else the most recent entry with date ≤ d."""
+        """Return lookup[d] if present; else the most recent entry with date ≤ d.
+        Requires ISO dates (YYYY-MM-DD) — plain string comparison is chronological."""
         v = lookup.get(d)
         if v is not None:
             return v
-        prior = sorted([dt for dt in lookup if _date_key(dt) <= _date_key(d)],
-                       key=_date_key)
+        prior = sorted(dt for dt in lookup if dt <= d)
         return lookup[prior[-1]] if prior else None
 
     history = []
@@ -1249,8 +1240,12 @@ def main():
     FAST_MODE = args.fast
 
     today_iso = date.today().isoformat()
-    state     = {}
-    if STATE_FILE.exists():
+    # State persists inside dashboard_data.json under '_state' key.
+    # CI runners are ephemeral; updater_state.json would reset on every run.
+    dash_for_state = _load_dashboard()
+    state = dash_for_state.pop('_state', {})
+    # Migration: also read legacy local updater_state.json once (never written again)
+    if not state and STATE_FILE.exists():
         try:
             state = json.loads(STATE_FILE.read_text())
         except Exception:
@@ -1306,7 +1301,7 @@ def main():
             vol_map = dict(zip(existing_dates, existing_vals))
             for pt in vol_pts:
                 vol_map[pt['label']] = pt['value']
-            sorted_labels = sorted(vol_map.keys(), key=_date_key)[-5:]
+            sorted_labels = sorted(vol_map.keys())[-5:]
             dash['vol'][ex_key]['dates'] = sorted_labels
             dash['vol'][ex_key]['value'] = [vol_map[l] for l in sorted_labels]
             # Shares traded (yfinance exchanges only — file-based pts have no shares_m)
@@ -1397,10 +1392,10 @@ def main():
                 state['commentary_date']         = today_iso
                 state['commentary_ranking_date'] = ranking_date
 
-    # ── Save ──────────────────────────────────────────────────────────────────
+    # ── Save (state travels inside dashboard_data.json) ────────────────────────
+    dash['_state'] = state
     _save_dashboard(dash)
-    STATE_FILE.write_text(json.dumps(state, indent=2))
-    print('  ✓  State saved')
+    print('  ✓  State saved (dashboard_data.json "_state")')
     print('\n═══ Done ═══\n')
 
 if __name__ == '__main__':

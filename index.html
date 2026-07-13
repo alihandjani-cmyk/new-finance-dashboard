@@ -616,13 +616,19 @@ const FALLBACK  = {stale_fallback:true,news:[],tickers:{},gainers:{},market_cap:
 
 // ─── Data loading ────────────────────────────────────────────────────────────
 async function loadDashboard() {
+  // Try 1: raw.githubusercontent (freshest, CDN-cached ~5 min)
   try {
     const r = await fetch('https://raw.githubusercontent.com/alihandjani-cmyk/new-finance-dashboard/main/dashboard_data.json?v=' + Date.now());
-    DASH = await r.json();
-  } catch(e) {
-    console.warn('dashboard_data.json unavailable, using fallback', e);
-    DASH = FALLBACK;
-  }
+    if (r.ok) { DASH = await r.json(); renderAll(); return; }
+  } catch(e) { console.warn('raw fetch failed', e); }
+  // Try 2: same-origin (served by GitHub Pages; may lag — Pages only redeploys on index.html changes)
+  try {
+    const r = await fetch('./dashboard_data.json?v=' + Date.now());
+    if (r.ok) { DASH = await r.json(); renderAll(); return; }
+  } catch(e) { console.warn('same-origin fetch failed', e); }
+  // Fallback: empty skeleton
+  console.warn('Both fetches failed — using empty fallback');
+  DASH = FALLBACK;
   renderAll();
 }
 
@@ -687,11 +693,17 @@ function renderTickers() {
     pc.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
     pc.className   = 'tc ' + (pct >= 0 ? 'up' : 'down');
   });
-  // Duplicate ticker items for seamless scroll
+  // Rebuild id-less clones for seamless scroll (avoids duplicate IDs after refresh)
   const track = document.getElementById('tickerTrack');
-  if (track && !track.dataset.duped) {
-    track.innerHTML += track.innerHTML;
-    track.dataset.duped = '1';
+  if (track) {
+    const origItems = Array.from(track.children).filter(el => el.dataset.clone !== '1');
+    Array.from(track.children).filter(el => el.dataset.clone === '1').forEach(el => el.remove());
+    origItems.forEach(el => {
+      const clone = el.cloneNode(true);
+      clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
+      clone.dataset.clone = '1';
+      track.appendChild(clone);
+    });
   }
 }
 
@@ -765,7 +777,7 @@ function renderMarketCap() {
     const body   = document.getElementById('mcap' + cap + 'Body');
     const dateEl = document.getElementById('mcap' + cap + 'Date');
     const data   = mcap[key] || {};
-    if (dateEl) dateEl.textContent = data.date || '—';
+    if (dateEl) dateEl.textContent = fmtDay(data.date) || '—';
     if (!body) return;
     const rows = data.top10 || [];
     if (!rows.length) { body.innerHTML = '<tr><td colspan="5" style="color:#57606a;text-align:center;padding:16px">No data</td></tr>'; return; }
@@ -793,9 +805,9 @@ function renderVolume() {
     const dates = (vol[key] || {}).dates || [];
     dates.forEach(d => { if (!allDates.includes(d)) allDates.push(d); });
   });
-  allDates.sort((a,b) => _dateKey(a) - _dateKey(b));
+  allDates.sort();
   document.getElementById('volPeriodLabel').textContent = allDates.length
-    ? allDates[0] + ' – ' + allDates[allDates.length - 1]
+    ? fmtDay(allDates[0]) + ' – ' + fmtDay(allDates[allDates.length - 1])
     : 'No data';
 
   pairs.forEach(([key, chartId]) => {
@@ -824,7 +836,7 @@ function renderVolume() {
       tradesAvgEl.textContent = ta != null ? ta.toLocaleString('en-GB', {maximumFractionDigits:1}) : '—';
     }
 
-    makeBarChart(chartId + 'Chart', dates, values, VOL_CHART_COLORS[key], data.currency || '');
+    makeBarChart(chartId + 'Chart', dates.map(fmtDay), values, VOL_CHART_COLORS[key], data.currency || '');
   });
 }
 
@@ -855,7 +867,7 @@ function renderAmihud() {
   });
 
   if (!datasets.length) return;
-  const allLabels = [...new Set(datasets.flatMap(d => d.hist.map(e => e.date)))].sort((a,b)=>_dateKey(a)-_dateKey(b));
+  const allLabels = [...new Set(datasets.flatMap(d => d.hist.map(e => e.date)))].sort();
   const last10 = allLabels.slice(-10);
 
   const canvas = document.getElementById('illiqChart');
@@ -864,7 +876,7 @@ function renderAmihud() {
     _charts['illiq'] = new Chart(canvas, {
       type: 'line',
       data: {
-        labels: last10,
+        labels: last10.map(fmtDay),
         datasets: datasets.map(d => ({
           label: EX_NAMES[d.key],
           data:  last10.map(dt => { const e = d.hist.find(h => h.date === dt); return e ? e.illiq : null; }),
@@ -972,7 +984,7 @@ function renderTurnoverRatio() {
       return `<div class="spread-item">
         <div class="spread-label">${EX_FLAGS[k]} ${EX_NAMES[k]}</div>
         <div class="spread-value">${latest.ratio.toFixed(4)}%</div>
-        <div style="font-size:9.5px;color:#8c959f">${latest.date}</div>
+        <div style="font-size:9.5px;color:#8c959f">${fmtDay(latest.date)}</div>
       </div>`;
     }).join('');
   }
@@ -983,7 +995,7 @@ function renderTurnoverRatio() {
   if (_charts['tr']) { _charts['tr'].destroy(); delete _charts['tr']; }
 
   const allDates = [...new Set(EX_KEYS.flatMap(k => ((trData[k]||{}).history||[]).map(e=>e.date)))]
-    .sort((a, b) => _dateKey(a) - _dateKey(b));
+    .sort();
 
   const datasets = EX_KEYS.map(k => {
     const hist = (trData[k] || {}).history || [];
@@ -1016,8 +1028,8 @@ function renderTurnoverRatio() {
   const srcEl = document.getElementById('trSource');
   if (srcEl) {
     const lastDates = EX_KEYS.map(k => { const h=(trData[k]||{}).history||[]; return h.length?h[h.length-1].date:''; });
-    const latest = lastDates.filter(Boolean).sort(_dateKey).pop();
-    if (srcEl) srcEl.textContent = latest ? 'Latest: ' + latest : 'Loading…';
+    const latest = lastDates.filter(Boolean).sort().pop();
+    if (srcEl) srcEl.textContent = latest ? 'Latest: ' + fmtDay(latest) : 'Loading…';
   }
 
   // Per-exchange stock tables
@@ -1127,7 +1139,7 @@ function _renderSpreadTab(dataKey, chartId, summaryId, sourceId, sourceLabel) {
   });
   if (!datasets.length) return;
 
-  const allLabels = [...new Set(datasets.flatMap(d => d.hist.map(e => e.date)))].sort((a,b)=>_dateKey(a)-_dateKey(b));
+  const allLabels = [...new Set(datasets.flatMap(d => d.hist.map(e => e.date)))].sort();
   const last10    = allLabels.slice(-10);
 
   const canvas = document.getElementById(chartId);
@@ -1136,7 +1148,7 @@ function _renderSpreadTab(dataKey, chartId, summaryId, sourceId, sourceLabel) {
   _charts[chartId] = new Chart(canvas, {
     type: 'line',
     data: {
-      labels: last10,
+      labels: last10.map(fmtDay),
       datasets: datasets.map(d => ({
         label: EX_NAMES[d.key],
         data:  last10.map(dt => { const e = d.hist.find(h => h.date === dt); return e ? e.avgSpread : null; }),
@@ -1162,7 +1174,7 @@ function renderRankings() {
 
   // Title
   const titleEl = document.getElementById('rankCardsTitle');
-  if (titleEl) titleEl.textContent = '🏆 Exchange Liquidity Ranking' + (date ? ' · ' + date : '');
+  if (titleEl) titleEl.textContent = '🏆 Exchange Liquidity Ranking' + (date ? ' · ' + fmtDay(date) : '');
 
   // Commentary
   const commEl = document.getElementById('rankCommentaryBody');
@@ -1242,7 +1254,7 @@ function renderRankings() {
     });
     const HM_CLS = ['','hm1','hm2','hm3','hm4','hm5','hm6'];
     let html = '<table class="heatmap-table"><thead><tr><th>Exchange</th>';
-    last10.forEach(d => { html += `<th>${esc(d.date)}</th>`; });
+    last10.forEach(d => { html += `<th>${esc(fmtDay(d.date))}</th>`; });
     html += '</tr></thead><tbody>';
     sorted.forEach(k => {
       html += `<tr><td class="ex-label"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]}</span> ${EX_NAMES[k]}</td>`;
@@ -1263,9 +1275,12 @@ function renderRankings() {
 }
 
 // ─── Utility ──────────────────────────────────────────────────────────────────
-function _dateKey(label) {
-  const mon = {Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
-  try { const [d,m] = label.split(' '); return (mon[m]||0)*100 + parseInt(d); } catch(_){ return 0; }
+// All dates in dashboard_data.json are ISO (YYYY-MM-DD). Plain string sort is
+// chronological for ISO. fmtDay converts ISO → display label (e.g. '13 Jul').
+function fmtDay(iso) {
+  if (!iso) return '';
+  const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  try { const [,m,d] = iso.split('-'); return d.replace(/^0/,'') + ' ' + (mon[+m-1]||''); } catch(_){ return iso; }
 }
 
 // ─── Boot ─────────────────────────────────────────────────────────────────────
