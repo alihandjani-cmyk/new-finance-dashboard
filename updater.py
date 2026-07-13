@@ -299,6 +299,65 @@ def _save_dashboard(data):
 
 # ─── Date / history utilities ─────────────────────────────────────────────────
 
+def _migrate_dates(dash):
+    """One-time migration: convert any remaining 'dd Mon' dates in the loaded
+    dashboard to ISO (YYYY-MM-DD). Already-ISO entries pass through unchanged.
+    Called once at startup so the first full run after the ISO switch heals the
+    existing history without waiting 90 days for old entries to age out."""
+    mon_map = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
+               'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'}
+    today = date.today()
+
+    def _to_iso(label):
+        if not label or '-' in str(label):
+            return label          # already ISO or empty
+        try:
+            parts = str(label).strip().split()
+            if len(parts) != 2:
+                return label
+            d_str, m_str = parts
+            m_num = mon_map.get(m_str)
+            if not m_num:
+                return label
+            d_num = int(d_str)
+            year = today.year
+            # If converted date would be in the future, it belongs to last year
+            if int(m_num) > today.month or (int(m_num) == today.month and d_num > today.day):
+                year -= 1
+            return f'{year}-{m_num}-{d_num:02d}'
+        except Exception:
+            return label
+
+    migrated = 0
+    for section in ('amihud', 'spread', 'ar_spread', 'turnover_ratio'):
+        for ex in dash.get(section, {}).values():
+            for entry in ex.get('history', []):
+                if 'date' in entry and '-' not in str(entry['date']):
+                    entry['date'] = _to_iso(entry['date'])
+                    migrated += 1
+
+    for ex in dash.get('vol', {}).values():
+        old_dates = ex.get('dates', [])
+        new_dates = [_to_iso(d) for d in old_dates]
+        if new_dates != old_dates:
+            ex['dates'] = new_dates
+            migrated += len(old_dates)
+
+    for entry in dash.get('ranking_history', []):
+        if 'date' in entry and '-' not in str(entry['date']):
+            entry['date'] = _to_iso(entry['date'])
+            migrated += 1
+
+    cr = dash.get('current_ranking', {})
+    if cr.get('date') and '-' not in str(cr['date']):
+        cr['date'] = _to_iso(cr['date'])
+        migrated += 1
+
+    if migrated:
+        print(f'  ℹ  Migrated {migrated} legacy date labels to ISO format')
+    return dash
+
+
 def _push(lst, entry, key='date', maxn=DAYS):
     """Append/update entry (matched by key), sort by ISO date string, trim to maxn.
     Dates MUST be ISO (YYYY-MM-DD) — plain string sort is chronological for ISO."""
@@ -1256,6 +1315,7 @@ def main():
     print(f'Date: {date.today()} UTC   Mode: {mode_label}\n')
 
     dash = _load_dashboard()
+    _migrate_dates(dash)   # no-op once all dates are ISO
 
     # ── News (every run — headlines rarely change within an hour) ────────────
     print('── News')

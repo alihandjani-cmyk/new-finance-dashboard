@@ -1011,7 +1011,7 @@ function renderTurnoverRatio() {
 
   _charts['tr'] = new Chart(ctx, {
     type: 'line',
-    data: { labels: allDates, datasets },
+    data: { labels: allDates.map(fmtDay), datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { position: 'top', labels: { font: { size: 11 } } },
