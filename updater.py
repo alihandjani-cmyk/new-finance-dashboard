@@ -448,7 +448,7 @@ _NAME_ALIASES   = ['company','name','security','company name','stock','constitue
 
 def _find_col(df, aliases):
     """Return the first df column whose lowercased name matches an alias, or None."""
-    lc = {c.lower().strip(): c for c in df.columns}
+    lc = {str(c).lower().strip(): c for c in df.columns}
     for a in aliases:
         if a in lc:
             return lc[a]
