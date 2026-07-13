@@ -72,6 +72,7 @@
     .vsection-hdr:first-of-type{border-top:none}
     .vsection-hdr-real{background:#f0fdf4;border-left:4px solid #1a7f37}
     .vsection-hdr-est{background:#fffbeb;border-left:4px solid #b08800}
+    .vsection-hdr-cmp{background:#eff6ff;border-left:4px solid #1d4ed8}
     .vsection-title{font-size:12px;font-weight:700;color:#24292f}
     .vsection-note{font-size:10.5px;color:#57606a;line-height:1.5}
     .vsection-note a{color:#0969da}
@@ -105,8 +106,10 @@
     .badge-xetra{background:#ccfbf1;color:#0e7490}
     .badge-six{background:#ffe4e6;color:#9f1239}
     .badge-est{background:#f0f0f0;color:#6e7781;margin-left:5px;font-size:9px}
+    .badge-cmp{background:#dbeafe;color:#1d4ed8;margin-left:5px;font-size:9px}
 
     .vrow{display:grid;grid-template-columns:repeat(3,1fr)}
+    .vrow-4{grid-template-columns:repeat(4,1fr)}
     .vstat{padding:9px 12px;border-right:1px solid #eaeef2;border-bottom:1px solid #eaeef2}
     .vstat:last-child{border-right:none}
     .vl{font-size:10.5px;color:#57606a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
@@ -339,8 +342,8 @@
       </div>
 
       <div class="vsection-hdr vsection-hdr-est">
-        <div class="vsection-title">🟡 Universe-Based Estimates — Nasdaq 100, NYSE, Xetra, SIX</div>
-        <div class="vsection-note">Computed by summing individual constituent stock turnover (Close × Volume) from Yahoo Finance OHLCV data. These are estimates of the index universe's aggregate turnover — not the full exchange volume. Updated up to 4× daily at 07:30, 10:30, 16:30, and 22:00 UTC. <strong>Note:</strong> US markets (NDX, NYSE) trade 14:30–21:00 UTC; European markets (Xetra, SIX) trade 08:00–16:30 UTC. Same-day data may be partial until the close update runs.</div>
+        <div class="vsection-title">🟡 Legacy Universe Estimates — Nasdaq 100, NYSE, Xetra, SIX</div>
+        <div class="vsection-note">Historical aggregate turnover estimated from individual constituent stock data (Close × Volume) via Yahoo Finance. These use earlier hardcoded universes and are shown for continuity only. The Comparable Liquid Universe section below (🔵) is what the Liquidity Ranking uses. <strong>Note:</strong> US markets (NDX, NYSE) trade 14:30–21:00 UTC; European markets (Xetra, SIX) trade 08:00–16:30 UTC. Same-day data may be partial until the close update runs.</div>
       </div>
       <div class="vexchange-section vexchange-est">
         <div class="vexchange-panel">
@@ -362,7 +365,7 @@
           <div class="cw"><canvas id="nyseChart"></canvas></div>
         </div>
         <div class="vexchange-panel">
-          <div class="vexchange-label"><span class="exbadge badge-xetra">🇩🇪 XETRA</span>Xetra DAX <span class="exbadge badge-est">EST</span></div>
+          <div class="vexchange-label"><span class="exbadge badge-xetra">🇩🇪 XETRA</span>Xetra <span class="exbadge badge-est">EST</span></div>
           <div class="vrow">
             <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="xetra-vol-latest">—</div><div class="vs">EUR Billions</div></div>
             <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="xetra-vol-avg">—</div><div class="vs">EUR Billions</div></div>
@@ -380,9 +383,90 @@
           <div class="cw"><canvas id="sixChart"></canvas></div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
+      <!-- ── Comparable Liquid Universe ───────────────────────────────────── -->
+      <div class="vsection-hdr vsection-hdr-cmp">
+        <div class="vsection-title">🔵 Comparable Liquid Universe — All 6 Exchanges</div>
+        <div class="vsection-note">
+          Turnover computed using the <strong>same methodology for all six exchanges</strong>: index constituents filtered to stocks with average daily traded value &gt; $10M USD (refreshed monthly from official index constituent lists).
+          Values are shown in local currency and converted to USD for cross-exchange comparison.
+          <strong>This is the series used in the Liquidity Ranking.</strong>
+          For LSE and Euronext, you can compare this against the Official Exchange Data above to see how much of total exchange volume the liquid universe captures.
+          Universe details (index source, stock count, last refresh) are shown per exchange below.
+        </div>
+      </div>
+      <div class="vexchange-section vexchange-cmp">
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-lse">🇬🇧 LSE</span>London Stock Exchange <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow vrow-4">
+            <div class="vstat"><div class="vl">Latest (GBP B)</div><div class="vv" id="lse-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="lse-vc-usd">—</div><div class="vs">For ranking</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="lse-vc-n" style="font-size:13px">—</div><div class="vs" id="lse-vc-source" style="max-width:110px">—</div></div>
+            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="lse-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          </div>
+          <div class="cw"><canvas id="lseVcChart"></canvas></div>
+        </div>
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-enx">🇪🇺 ENX</span>Euronext <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest (EUR B)</div><div class="vv" id="enx-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="enx-vc-usd">—</div><div class="vs">For ranking</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="enx-vc-n" style="font-size:13px">—</div><div class="vs" id="enx-vc-source" style="max-width:110px">—</div></div>
+            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="enx-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          </div>
+          <div class="cw"><canvas id="enxVcChart"></canvas></div>
+        </div>
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-ndx">🇺🇸 NDX</span>Nasdaq 100 <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="ndx-vc-local">—</div><div class="vs">Local = USD</div></div>
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="ndx-vc-usd">—</div><div class="vs">For ranking</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="ndx-vc-n" style="font-size:13px">—</div><div class="vs" id="ndx-vc-source" style="max-width:110px">—</div></div>
+            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="ndx-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          </div>
+          <div class="cw"><canvas id="ndxVcChart"></canvas></div>
+        </div>
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-nyse">🇺🇸 NYSE</span>NYSE <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="nyse-vc-local">—</div><div class="vs">Local = USD</div></div>
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="nyse-vc-usd">—</div><div class="vs">For ranking</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="nyse-vc-n" style="font-size:13px">—</div><div class="vs" id="nyse-vc-source" style="max-width:110px">—</div></div>
+            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="nyse-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          </div>
+          <div class="cw"><canvas id="nyseVcChart"></canvas></div>
+        </div>
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-xetra">🇩🇪 XETRA</span>Xetra <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest (EUR B)</div><div class="vv" id="xetra-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="xetra-vc-usd">—</div><div class="vs">For ranking</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="xetra-vc-n" style="font-size:13px">—</div><div class="vs" id="xetra-vc-source" style="max-width:110px">—</div></div>
+            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="xetra-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          </div>
+          <div class="cw"><canvas id="xetraVcChart"></canvas></div>
+        </div>
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-six">🇨🇭 SIX</span>SIX Swiss <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow">
+            <div class="vstat"><div class="vl">Latest (CHF B)</div><div class="vv" id="six-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="six-vc-usd">—</div><div class="vs">For ranking</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="six-vc-n" style="font-size:13px">—</div><div class="vs" id="six-vc-source" style="max-width:110px">—</div></div>
+            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="six-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          </div>
+          <div class="cw"><canvas id="sixVcChart"></canvas></div>
+        </div>
+
+      </div><!-- .vexchange-section.vexchange-cmp -->
+    </div><!-- .card -->
+  </div><!-- .markets-main -->
+</div><!-- #page-markets -->
 
 <!-- ══════════════════════════ ROLL BID-ASK SPREAD ═══════════════════════ -->
 <div id="page-spread" class="page">
@@ -652,6 +736,7 @@ function renderAll() {
   renderGainers();
   renderMarketCap();
   renderVolume();
+  renderVolComparable();
   renderAmihud();
   renderSpread();
   renderArSpread();
@@ -837,6 +922,32 @@ function renderVolume() {
     }
 
     makeBarChart(chartId + 'Chart', dates.map(fmtDay), values, VOL_CHART_COLORS[key], data.currency || '');
+  });
+}
+
+function renderVolComparable() {
+  const vc  = DASH.vol_comparable || {};
+  const uni = DASH.universes      || {};
+
+  EX_KEYS.forEach(k => {
+    const data     = vc[k]  || {};
+    const u        = uni[k] || {};
+    const dates    = data.dates     || [];
+    const valLocal = data.value     || [];
+    const valUsd   = data.value_usd || [];
+
+    const latestLocal = valLocal.length ? valLocal[valLocal.length - 1] : null;
+    const latestUsd   = valUsd.length   ? valUsd[valUsd.length - 1]     : null;
+
+    const el = id => document.getElementById(id);
+    if (el(k+'-vc-local'))    el(k+'-vc-local').textContent    = latestLocal != null ? latestLocal.toFixed(2) : '—';
+    if (el(k+'-vc-usd'))      el(k+'-vc-usd').textContent      = latestUsd   != null ? latestUsd.toFixed(2)   : '—';
+    if (el(k+'-vc-n'))        el(k+'-vc-n').textContent        = u.n_universe != null ? u.n_universe + ' stocks' : '—';
+    if (el(k+'-vc-source'))   el(k+'-vc-source').textContent   = u.index_source || '—';
+    if (el(k+'-vc-refreshed')) el(k+'-vc-refreshed').textContent = u.refreshed ? fmtDay(u.refreshed) : '—';
+
+    // Bar chart uses USD values for visual comparability across exchanges
+    makeBarChart(k+'VcChart', dates.map(fmtDay), valUsd, VOL_CHART_COLORS[k], 'USD B');
   });
 }
 

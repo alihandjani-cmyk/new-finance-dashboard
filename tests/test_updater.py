@@ -86,3 +86,56 @@ def test_rank6_ascending_and_none_excluded():
 def test_rank6_descending():
     ranks = u._rank6({'a': 1.0, 'b': 3.0}, ascending=False)
     assert ranks == {'b': 1, 'a': 2}
+
+
+# ── Universe / ADV filter helpers ─────────────────────────────────────────────
+
+def test_clean_ticker_strips_footnotes():
+    assert u._clean_ticker('AAPL[1]') == 'AAPL'
+    assert u._clean_ticker('MC(a)') == 'MC'
+    assert u._clean_ticker('') == ''
+    assert u._clean_ticker('nan') == ''
+
+
+def test_clean_ticker_rejects_long_strings():
+    # Strings > 15 chars are not tickers (probably company names)
+    assert u._clean_ticker('ThisIsTooLongToBeATicker') == ''
+
+
+def test_find_col_case_insensitive():
+    import pandas as pd
+    df = pd.DataFrame({'Ticker': ['A'], 'Company': ['Foo']})
+    assert u._find_col(df, u._TICKER_ALIASES) == 'Ticker'
+    assert u._find_col(df, u._NAME_ALIASES)   == 'Company'
+
+
+def test_find_col_returns_none_when_missing():
+    import pandas as pd
+    df = pd.DataFrame({'Price': [1.0], 'Volume': [1000]})
+    assert u._find_col(df, u._TICKER_ALIASES) is None
+
+
+def test_get_universe_falls_back_to_hardcoded():
+    # With empty universes dict, should return fallback tickers
+    dash = {'universes': {}}
+    tickers, names = u._get_universe(dash, 'six')
+    assert len(tickers) > 0
+    assert 'NESN.SW' in tickers   # known fallback ticker
+
+
+def test_get_universe_uses_dynamic_when_present():
+    dash = {'universes': {'six': {
+        'tickers': ['NESN.SW', 'NOVN.SW'],
+        'names':   {'NESN.SW': 'Nestlé', 'NOVN.SW': 'Novartis'},
+        'n_universe': 2, 'n_constituents': 50, 'refreshed': '2026-07-13',
+    }}}
+    tickers, names = u._get_universe(dash, 'six')
+    assert tickers == ['NESN.SW', 'NOVN.SW']
+    assert names['NESN.SW'] == 'Nestlé'
+
+
+def test_build_universe_returns_none_on_empty_constituents(monkeypatch):
+    # If _fetch_constituents returns empty, build_universe should return None
+    monkeypatch.setattr(u, '_fetch_constituents', lambda ex_key: {})
+    result = u.build_universe('six', {'GBP': 1.27, 'EUR': 1.08, 'CHF': 1.11, 'USD': 1.0})
+    assert result is None
