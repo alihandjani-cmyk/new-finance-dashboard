@@ -2,6 +2,8 @@ name: Update Dashboard Data — Full
 
 on:
   workflow_dispatch:   # triggered by cron-job.org (4× daily) and manual runs
+  schedule:
+    - cron: '15 22 * * 1-5'   # backup full run — keeps data flowing if cron-job.org ever lapses
 
 concurrency:
   group: dashboard-full
