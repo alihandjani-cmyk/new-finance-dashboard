@@ -316,7 +316,6 @@ def _load_dashboard():
             'dates': [], 'value': [], 'value_usd': [], 'shares': [], 'n_universe': 0,
         } for k, v in EXCHANGES.items()},
         'amihud':     {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
-        'spread':     {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
         'ar_spread':       {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
         'turnover_ratio':  {k: {'history': []} for k in EXCHANGES},
         'current_ranking': {'date': None, 'ranks': {k: {
@@ -1138,6 +1137,16 @@ def fetch_vol_comparable(ex_key, tickers, fx_rates):
         })
 
     pts = pts[-5:]
+
+    # Drop today's point while global markets are still trading. The yfinance
+    # 'today' bar during market hours only reflects volume so far, not the
+    # full session — including it would skew the Latest/5-day-avg figures
+    # shown here, and the vol sub-rank in the Liquidity Ranking (which reads
+    # this same series). Same coarse UTC-hour cutoff used in compute_rankings.
+    today_iso = date.today().isoformat()
+    if pts and pts[-1]['date'] == today_iso and datetime.now(timezone.utc).hour < 20:
+        pts = pts[:-1]
+
     if pts:
         print(f'  vol_comparable {ex_key}: {pts[-1]["value_local"]:.2f}B local / '
               f'{pts[-1]["value_usd"]:.2f}B USD ({len(tickers)} stocks)')
@@ -1254,80 +1263,9 @@ def fetch_amihud(ex_key, tickers, names, existing_history):
     return new_history, round(market_avg, 6), top10_liquid, top10_illiquid, top10_active, top10_inactive
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  ROLL (1984) IMPLIED SPREAD  (uses dynamic universe)
-# ══════════════════════════════════════════════════════════════════════════════
-
-def _roll_spread(closes):
-    prices = [float(p) for p in closes if p and float(p) > 0]
-    if len(prices) < 12:
-        return None
-    log_ret = [math.log(prices[i] / prices[i-1]) for i in range(1, len(prices))]
-    if len(log_ret) < 8:
-        return None
-    r1, r2 = log_ret[:-1], log_ret[1:]
-    m1 = sum(r1) / len(r1)
-    m2 = sum(r2) / len(r2)
-    cov = sum((a - m1) * (b - m2) for a, b in zip(r1, r2)) / (len(r1) - 1)
-    if cov >= 0:
-        return None
-    s = round(2 * ((-cov) ** 0.5) * 100, 4)
-    return s if 0 < s <= 5 else None
-
-def fetch_spread(ex_key, tickers, names, existing_history):
-    """Compute Roll implied spread for exchange universe.
-    Returns (updated_history, marketAvg, top10_tight, top10_wide).
-    """
-    try:
-        raw = yf.download(tickers, period='60d', interval='1d', progress=False,
-                          auto_adjust=True)
-        if raw.empty:
-            return existing_history, None, [], []
-        close_df = raw['Close'] if isinstance(raw.columns, pd.MultiIndex) else raw
-    except Exception as exc:
-        print(f'  ✗  {ex_key} spread download: {exc}')
-        return existing_history, None, [], []
-
-    try:
-        last_trade_date = close_df.dropna(how='all').index[-1].strftime('%Y-%m-%d')
-    except Exception:
-        last_trade_date = _today()
-
-    stock_spreads = {}
-    for sym in tickers:
-        try:
-            col = sym if sym in close_df.columns else None
-            if col is None:
-                continue
-            closes = close_df[col].dropna().tolist()
-            sp = _roll_spread(closes)
-            if sp is not None:
-                stock_spreads[sym] = sp
-        except Exception:
-            continue
-
-    if not stock_spreads:
-        print(f'  ✗  {ex_key}: no Roll spread computed')
-        return existing_history, None, [], []
-
-    market_avg  = round(sum(stock_spreads.values()) / len(stock_spreads), 4)
-    new_history = _push(existing_history, {'date': last_trade_date, 'avgSpread': market_avg})
-
-    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
-    suf = suffix_map.get(ex_key)
-
-    def _sp_entry(sym, val):
-        tk = sym.replace(suf, '') if suf and sym.endswith(suf) else sym.split('.')[0]
-        return {'ticker': tk, 'name': names.get(sym, tk), 'spread': round(val, 4)}
-
-    sorted_s    = sorted(stock_spreads.items(), key=lambda x: x[1])
-    top10_tight = [_sp_entry(s, v) for s, v in sorted_s[:10]]
-    top10_wide  = [_sp_entry(s, v) for s, v in reversed(sorted_s[-10:])]
-
-    print(f'  {len(stock_spreads)} stocks · Roll spread: {market_avg:.4f}% ({ex_key}, {last_trade_date})')
-    return new_history, market_avg, top10_tight, top10_wide
-
-# ══════════════════════════════════════════════════════════════════════════════
 #  ABDI-RANALDO (2017) IMPLIED SPREAD  (uses dynamic universe)
+#  Replaced the Roll (1984) implied spread — AR is more robust for liquid
+#  large-caps since it uses intraday High/Low, not just close-to-close.
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _ar_spread(highs, lows, closes):
@@ -1767,16 +1705,6 @@ def main():
             dash['turnover_ratio'] = {k: {'history': []} for k in EXCHANGES}
         dash['turnover_ratio'][ex_key]['top10_active']   = top_active
         dash['turnover_ratio'][ex_key]['top10_inactive'] = top_inactive
-
-        # Roll Spread
-        print('   Roll spread...')
-        new_hist, mkt_avg, top_tight, top_wide = fetch_spread(
-            ex_key, tickers, names, dash['spread'][ex_key].get('history', []))
-        dash['spread'][ex_key]['history'] = new_hist
-        if mkt_avg is not None:
-            dash['spread'][ex_key]['marketAvg']   = mkt_avg
-            dash['spread'][ex_key]['top10_tight'] = top_tight
-            dash['spread'][ex_key]['top10_wide']  = top_wide
 
         # AR Spread
         print('   AR spread...')

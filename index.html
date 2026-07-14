@@ -191,7 +191,6 @@
   <button class="tab active" id="tab-rank"    onclick="showPage('rank')">🏆 Liquidity Ranking</button>
   <button class="tab"        id="tab-liq"     onclick="showPage('liq')">💧 Amihud Illiquidity</button>
   <button class="tab"        id="tab-markets" onclick="showPage('markets')">📊 Volume</button>
-  <button class="tab"        id="tab-spread"  onclick="showPage('spread')">↔️ Roll Implied Spread</button>
   <button class="tab"        id="tab-ar"      onclick="showPage('ar')">↗️ Abdi-Ranaldo Spread</button>
   <button class="tab"        id="tab-tr"      onclick="showPage('tr')">🔄 Turnover Ratio</button>
   <button class="tab"        id="tab-mcap"    onclick="showPage('mcap')">🏦 Market Cap</button>
@@ -440,41 +439,6 @@
 </div><!-- #page-markets -->
 
 <!-- ══════════════════════════ ROLL BID-ASK SPREAD ═══════════════════════ -->
-<div id="page-spread" class="page">
-  <div class="markets-main">
-    <div class="vsection-hdr" style="border-top:none">
-      <div class="vsection-title">↔️ Roll Implied Spread (Roll 1984 Model)</div>
-      <div class="vsection-note">S% = 2 × √(−Cov(r_t, r_{t+1})) × 100 from daily close prices. Lower = tighter spread = more liquid.</div>
-    </div>
-    <div class="card" style="margin-top:0">
-      <div class="ch">
-        <div class="ct">↔️ Roll Implied Spread — All Exchanges</div>
-        <span class="cs" id="spreadSource">Loading…</span>
-      </div>
-      <div id="spreadSummary" class="spread-summary"></div>
-      <div class="cw"><canvas id="spreadChart"></canvas></div>
-    </div>
-    <div id="spreadStockTables" style="margin-top:13px"></div>
-    <div class="card" style="margin-top:13px">
-      <div class="ch"><div class="ct">📖 Methodology</div></div>
-      <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
-        <p><strong>Roll (1984) Implied Spread</strong> estimates the effective bid-ask spread from the serial covariance of price changes, using only daily close prices.</p>
-        <p style="margin-top:8px"><strong>Formula:</strong> S% = 2 × √(−Cov(r<sub>t</sub>, r<sub>t+1</sub>)) × 100, where r<sub>t</sub> = log return on day t.</p>
-        <p style="margin-top:8px"><strong>Intuition:</strong> In a frictionless market, successive returns should be uncorrelated. Negative serial covariance in prices (the "bid-ask bounce") reveals the effective half-spread. The Roll model assumes a constant spread and a random-walk fundamental value.</p>
-        <p style="margin-top:8px"><strong>Limitation:</strong> If Cov(r<sub>t</sub>, r<sub>t+1</sub>) ≥ 0 for a given stock (e.g. positive momentum), the spread cannot be estimated and that stock is excluded from the average. The Abdi-Ranaldo (2017) spread in the AR tab overcomes this by using intraday High/Low data.</p>
-        <p style="margin-top:8px"><strong>Data:</strong> 30 trading days of daily close prices via Yahoo Finance. Market average = equal-weighted mean across all index constituents with valid estimates.</p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:13px">
-      <div class="ch"><div class="ct">📚 Academic Reference</div></div>
-      <div style="padding:12px 16px;font-size:12px;line-height:1.85;color:#1f2328">
-        <p>Roll, R. (1984). "A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market." <em>The Journal of Finance</em>, 39(4), 1127–1139.<br>
-        <a href="https://doi.org/10.1111/j.1540-6261.1984.tb03897.x" target="_blank" rel="noopener" style="color:#0969da;font-size:11px">doi:10.1111/j.1540-6261.1984.tb03897.x</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ══════════════════════════ ABDI-RANALDO SPREAD ═══════════════════════ -->
 <div id="page-ar" class="page">
   <div class="markets-main">
@@ -710,7 +674,6 @@ function renderAll() {
   renderVolComparable();
   renderAllVolUsd();
   renderAmihud();
-  renderSpread();
   renderArSpread();
   renderTurnoverRatio();
   renderRankings();
@@ -1220,10 +1183,6 @@ function renderTurnoverRatio() {
 }
 
 // ─── Spread (Roll) ────────────────────────────────────────────────────────────
-function renderSpread() {
-  _renderSpreadTab('spread', 'spreadChart', 'spreadSummary', 'spreadSource', 'Roll (1984) spread · 30-day close prices');
-  _renderSpreadStockTables('spread', 'spreadStockTables', 'Roll Spread', 'Tightest Spread', 'Widest Spread');
-}
 function renderArSpread() {
   _renderSpreadTab('ar_spread', 'arChart', 'arSummary', 'arSource', 'AR (2017) spread · 30-day OHLCV');
   _renderSpreadStockTables('ar_spread', 'arStockTables', 'Abdi-Ranaldo Spread', 'Tightest Spread', 'Widest Spread');

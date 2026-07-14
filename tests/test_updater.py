@@ -42,23 +42,28 @@ def test_push_dedupes_same_date():
     assert len(hist) == 1 and hist[0]['illiq'] == 2.0
 
 
-# ── Roll (1984) implied spread ────────────────────────────────────────────────
+# ── _trim_stale_dates: drop leftover dates orphaned by a fetch gap ───────────
 
-def test_roll_spread_detects_bidask_bounce():
-    # Alternating closes around 100 → strong negative autocovariance
-    closes = [99 if i % 2 else 101 for i in range(30)]
-    s = u._roll_spread(closes)
-    assert s is not None and 0 < s <= 5
-
-
-def test_roll_spread_none_on_trend():
-    # Smooth uptrend → constant log returns → cov = 0 → no estimate
-    closes = [100 * (1.01 ** i) for i in range(30)]
-    assert u._roll_spread(closes) is None
+def test_trim_stale_dates_drops_isolated_old_entry():
+    # Regression: a stale '2026-07-03' lingered in ENX volume history for days
+    # after a mid-week fetch gap, instead of being pushed out once only 4 new
+    # dates (not 5) had accumulated since.
+    dates = ['2026-07-03', '2026-07-08', '2026-07-09', '2026-07-10', '2026-07-13']
+    assert u._trim_stale_dates(dates) == ['2026-07-08', '2026-07-09', '2026-07-10', '2026-07-13']
 
 
-def test_roll_spread_none_on_short_series():
-    assert u._roll_spread([100, 101, 99]) is None
+def test_trim_stale_dates_keeps_full_contiguous_window():
+    dates = ['2026-07-07', '2026-07-08', '2026-07-09', '2026-07-10', '2026-07-13']
+    assert u._trim_stale_dates(dates) == dates
+
+
+def test_trim_stale_dates_caps_at_n():
+    dates = ['2026-07-06', '2026-07-07', '2026-07-08', '2026-07-09', '2026-07-10', '2026-07-13']
+    assert u._trim_stale_dates(dates) == ['2026-07-07', '2026-07-08', '2026-07-09', '2026-07-10', '2026-07-13']
+
+
+def test_trim_stale_dates_empty_input():
+    assert u._trim_stale_dates([]) == []
 
 
 # ── Abdi-Ranaldo (2017) implied spread ────────────────────────────────────────
