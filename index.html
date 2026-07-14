@@ -86,15 +86,18 @@
     .vexchange-est{grid-template-columns:repeat(3,1fr)}
     .vexchange-est .vexchange-panel:nth-child(3n){border-right:none}
     .vexchange-est .vexchange-panel:nth-last-child(-n+3){border-bottom:none}
-    .vexchange-cmp{grid-template-columns:repeat(3,1fr)}
-    .vexchange-cmp .vexchange-panel:nth-child(3n){border-right:none}
-    .vexchange-cmp .vexchange-panel:nth-last-child(-n+3){border-bottom:none}
+    /* .vexchange-cmp uses independent bordered cards + gap (not shared nth-child
+       borders like -real/-est) since its exchange count isn't always a clean
+       multiple of the column count — this stays correct for any N. */
+    .vexchange-cmp{grid-template-columns:repeat(3,1fr);gap:13px;padding:13px}
+    .vexchange-cmp .vexchange-panel{border:1px solid #eaeef2;border-radius:8px;overflow:hidden}
     @media(max-width:1100px){
-      .vexchange-est,.vexchange-cmp{grid-template-columns:1fr 1fr}
-      .vexchange-est .vexchange-panel:nth-child(3n),.vexchange-cmp .vexchange-panel:nth-child(3n){border-right:1px solid #eaeef2}
-      .vexchange-est .vexchange-panel:nth-child(2n),.vexchange-cmp .vexchange-panel:nth-child(2n){border-right:none}
-      .vexchange-est .vexchange-panel:nth-last-child(-n+3),.vexchange-cmp .vexchange-panel:nth-last-child(-n+3){border-bottom:1px solid #eaeef2}
-      .vexchange-est .vexchange-panel:nth-last-child(-n+2),.vexchange-cmp .vexchange-panel:nth-last-child(-n+2){border-bottom:none}
+      .vexchange-est{grid-template-columns:1fr 1fr}
+      .vexchange-est .vexchange-panel:nth-child(3n){border-right:1px solid #eaeef2}
+      .vexchange-est .vexchange-panel:nth-child(2n){border-right:none}
+      .vexchange-est .vexchange-panel:nth-last-child(-n+3){border-bottom:1px solid #eaeef2}
+      .vexchange-est .vexchange-panel:nth-last-child(-n+2){border-bottom:none}
+      .vexchange-cmp{grid-template-columns:1fr 1fr}
     }
     @media(max-width:600px){
       .vexchange-real,.vexchange-est,.vexchange-cmp{grid-template-columns:1fr}
@@ -109,6 +112,7 @@
     .badge-ndx{background:#f3e8ff;color:#6b21a8}
     .badge-xetra{background:#ccfbf1;color:#0e7490}
     .badge-six{background:#ffe4e6;color:#9f1239}
+    .badge-tse{background:#ffe9d6;color:#9a4a1c}
     .badge-est{background:#f0f0f0;color:#6e7781;margin-left:5px;font-size:9px}
     .badge-cmp{background:#dbeafe;color:#1d4ed8;margin-left:5px;font-size:9px}
 
@@ -127,7 +131,8 @@
     @keyframes spin{to{transform:rotate(360deg)}}
 
     /* Ranking cards */
-    .rank-cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:0 0 4px}
+    .rank-cards-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;padding:0 0 4px}
+    @media(max-width:1100px){.rank-cards-grid{grid-template-columns:repeat(4,1fr)}}
     @media(max-width:900px){.rank-cards-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:500px){.rank-cards-grid{grid-template-columns:repeat(2,1fr)}}
     .rank-card{background:#fff;border:1px solid #d0d7de;border-radius:10px;padding:12px;text-align:center}
@@ -178,6 +183,7 @@
     <div class="ti"><span class="tl">S&amp;P 500</span> <span class="tv" id="tk-SP500-p">—</span><span class="tc" id="tk-SP500-c">…</span></div>
     <div class="ti"><span class="tl">Nasdaq</span>   <span class="tv" id="tk-NDX-p">—</span> <span class="tc" id="tk-NDX-c">…</span></div>
     <div class="ti"><span class="tl">Dow Jones</span><span class="tv" id="tk-DJI-p">—</span> <span class="tc" id="tk-DJI-c">…</span></div>
+    <div class="ti"><span class="tl">Nikkei 225</span><span class="tv" id="tk-NIKKEI-p">—</span> <span class="tc" id="tk-NIKKEI-c">…</span></div>
     <div class="ti"><span class="tl">GBP/USD</span> <span class="tv" id="tk-GBPUSD-p">—</span><span class="tc" id="tk-GBPUSD-c">…</span></div>
     <div class="ti"><span class="tl">EUR/USD</span> <span class="tv" id="tk-EURUSD-p">—</span><span class="tc" id="tk-EURUSD-c">…</span></div>
     <div class="ti"><span class="tl">EUR/GBP</span> <span class="tv" id="tk-EURGBP-p">—</span><span class="tc" id="tk-EURGBP-c">…</span></div>
@@ -214,13 +220,13 @@
 
     <div class="vsection-hdr" style="border-top:none;margin-top:13px">
       <div class="vsection-title" id="rankCardsTitle">🏆 Exchange Liquidity Ranking</div>
-      <div class="vsection-note">Last complete business day where all six exchanges have Amihud ILLIQ data. Composite of four signals: trading volume, Amihud ILLIQ, Turnover Ratio, and Abdi-Ranaldo (2017) AR spread — equal ¼ weight each. Rank 1 = most liquid.</div>
+      <div class="vsection-note">Last complete business day where all seven exchanges have Amihud ILLIQ data. Composite of four signals: trading volume, Amihud ILLIQ, Turnover Ratio, and Abdi-Ranaldo (2017) AR spread — equal ¼ weight each. Rank 1 = most liquid.</div>
     </div>
     <div id="rankCards" class="rank-cards-grid"></div>
 
     <div class="vsection-hdr" style="margin-top:16px">
       <div class="vsection-title">📅 10-Business-Day Composite Rank History</div>
-      <div class="vsection-note">Only days where all six exchanges have complete ILLIQ data. Each cell = composite rank. Hover for sub-ranks.</div>
+      <div class="vsection-note">Only days where all seven exchanges have complete ILLIQ data. Each cell = composite rank. Hover for sub-ranks.</div>
     </div>
     <div class="card">
       <div class="ch">
@@ -257,7 +263,7 @@
             <p><strong>↗️ Abdi-Ranaldo Spread rank</strong> — exchanges ranked by Abdi-Ranaldo (2017) range-based spread using daily High, Low and Close (lowest = rank 1). Outperforms Roll for liquid large-cap stocks. Requires minimum 12 trading days of valid OHLCV data.</p>
           </div>
         </div>
-        <p style="margin-top:10px;padding:8px 12px;background:#f6f8fa;border-radius:6px;border-left:4px solid #0969da;font-size:11.5px"><strong>Data completeness policy:</strong> The ranking and heatmap only include trading days where all six exchanges have complete Amihud ILLIQ data. Today is excluded from rankings while markets are open (before 20:00 UTC); after NYSE close all end-of-day data is included. LSE and Euronext publish official volume statistics the following morning; US markets close at ~21:00 UTC. Cells marked — indicate a metric was unavailable for that exchange on that date (e.g. a market holiday, or spread history still accumulating in early runs).</p>
+        <p style="margin-top:10px;padding:8px 12px;background:#f6f8fa;border-radius:6px;border-left:4px solid #0969da;font-size:11.5px"><strong>Data completeness policy:</strong> The ranking and heatmap only include trading days where all seven exchanges have complete Amihud ILLIQ data. Today is excluded from rankings while markets are open (before 20:00 UTC); after NYSE close all end-of-day data is included. LSE and Euronext publish official volume statistics the following morning; US markets close at ~21:00 UTC. Cells marked — indicate a metric was unavailable for that exchange on that date (e.g. a market holiday, or spread history still accumulating in early runs).</p>
       </div>
     </div>
 
@@ -346,7 +352,7 @@
 
       <div class="vsection-hdr vsection-hdr-usd">
         <div class="vsection-title">🟣 All-Exchange Volume Comparison — USD</div>
-        <div class="vsection-note">Comparable liquid-universe turnover for all six exchanges (🔵 section below), converted to USD at each day's FX rate and plotted together so relative trading activity across venues can be compared directly on one chart. NYSE and Nasdaq trade several times the USD volume of the other four venues — switch to a log scale to see the smaller exchanges more clearly.</div>
+        <div class="vsection-note">Comparable liquid-universe turnover for all seven exchanges (🔵 section below), converted to USD at each day's FX rate and plotted together so relative trading activity across venues can be compared directly on one chart. NYSE and Nasdaq trade several times the USD volume of the other four venues — switch to a log scale to see the smaller exchanges more clearly.</div>
       </div>
       <div class="cw" style="padding:16px 16px 18px">
         <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
@@ -357,9 +363,9 @@
 
       <!-- ── Comparable Liquid Universe ───────────────────────────────────── -->
       <div class="vsection-hdr vsection-hdr-cmp">
-        <div class="vsection-title">🔵 Comparable Liquid Universe — All 6 Exchanges</div>
+        <div class="vsection-title">🔵 Comparable Liquid Universe — All 7 Exchanges</div>
         <div class="vsection-note">
-          Turnover computed using the <strong>same methodology for all six exchanges</strong>: index constituents filtered to stocks with average daily traded value &gt; $10M USD (refreshed monthly from official index constituent lists).
+          Turnover computed using the <strong>same methodology for all seven exchanges</strong>: index constituents filtered to stocks with average daily traded value &gt; $10M USD (refreshed monthly from official index constituent lists).
           Values below are shown in each exchange's own local currency.
           <strong>This is the series used in the Liquidity Ranking</strong> (converted to USD internally — see the 🟣 chart above for the cross-exchange USD comparison).
           For LSE and Euronext, you can compare this against the Official Exchange Data above to see how much of total exchange volume the liquid universe captures.
@@ -431,6 +437,17 @@
             <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="six-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="six-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="sixVcChart"></canvas></div>
+        </div>
+
+        <div class="vexchange-panel">
+          <div class="vexchange-label"><span class="exbadge badge-tse">🇯🇵 TSE</span>Tokyo Stock Exchange <span class="exbadge badge-cmp">CMP</span></div>
+          <div class="vrow vrow-4">
+            <div class="vstat"><div class="vl">Latest (JPY B)</div><div class="vv" id="tse-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (JPY B)</div><div class="vv" id="tse-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="tse-vc-n" style="font-size:13px">—</div><div class="vs" id="tse-vc-source">—</div><div class="vs" id="tse-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="tse-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="tse-vc-shares-avg">—</span>M</div></div>
+          </div>
+          <div class="cw"><canvas id="tseVcChart"></canvas></div>
         </div>
 
       </div><!-- .vexchange-section.vexchange-cmp -->
@@ -556,6 +573,11 @@
       <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">SMI 20 index constituents · CHF</div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapSixBody"></tbody></table>
     </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇯🇵 Top 10 Tokyo by Market Cap</div><span class="cs" id="mcapTseDate">Loading…</span></div>
+      <div style="padding:4px 12px 5px;font-size:10.5px;color:#57606a;border-bottom:1px solid #eaeef2">Nikkei 225 index constituents · JPY</div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Market Cap</th><th>Price</th></tr></thead><tbody id="mcapTseBody"></tbody></table>
+    </div>
   </div>
 </div>
 </div>
@@ -598,6 +620,10 @@
       <div class="ch"><div class="ct">🇨🇭 Top 10 SIX Swiss Movers</div><span class="cs" id="gainersSixDate">Loading…</span></div>
       <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersSixBody"></tbody></table>
     </div>
+    <div class="card" style="margin-top:0">
+      <div class="ch"><div class="ct">🇯🇵 Top 10 Tokyo Movers</div><span class="cs" id="gainersTseDate">Loading…</span></div>
+      <table><thead><tr><th>#</th><th>Company</th><th>Ticker</th><th>Price</th><th>Change</th><th>% Chg</th></tr></thead><tbody id="gainersTseBody"></tbody></table>
+    </div>
   </div>
 </div>
 </div>
@@ -626,12 +652,12 @@ let DASH = null;
 let _illiqLogScale = false;
 let _charts = {};
 
-const EX_KEYS  = ['lse','enx','ndx','nyse','xetra','six'];
-const EX_NAMES = {lse:'London SE',enx:'Euronext',ndx:'Nasdaq 100',nyse:'NYSE',xetra:'Xetra',six:'SIX Swiss'};
-const EX_FLAGS = {lse:'🇬🇧',enx:'🇪🇺',ndx:'🇺🇸',nyse:'🇺🇸',xetra:'🇩🇪',six:'🇨🇭'};
-const EX_BADGE = {lse:'badge-lse',enx:'badge-enx',ndx:'badge-ndx',nyse:'badge-nyse',xetra:'badge-xetra',six:'badge-six'};
-const EX_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b08800',xetra:'#0e7490',six:'#9f1239'};
-const FALLBACK  = {stale_fallback:true,news:[],tickers:{},gainers:{},market_cap:{},vol:{},amihud:{},spread:{},ar_spread:{},current_ranking:{date:null,ranks:{}},ranking_history:[],commentary:null};
+const EX_KEYS  = ['lse','enx','ndx','nyse','xetra','six','tse'];
+const EX_NAMES = {lse:'London SE',enx:'Euronext',ndx:'Nasdaq 100',nyse:'NYSE',xetra:'Xetra',six:'SIX Swiss',tse:'Tokyo SE'};
+const EX_FLAGS = {lse:'🇬🇧',enx:'🇪🇺',ndx:'🇺🇸',nyse:'🇺🇸',xetra:'🇩🇪',six:'🇨🇭',tse:'🇯🇵'};
+const EX_BADGE = {lse:'badge-lse',enx:'badge-enx',ndx:'badge-ndx',nyse:'badge-nyse',xetra:'badge-xetra',six:'badge-six',tse:'badge-tse'};
+const EX_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b08800',xetra:'#0e7490',six:'#9f1239',tse:'#9a4a1c'};
+const FALLBACK  = {stale_fallback:true,news:[],tickers:{},gainers:{},market_cap:{},vol:{},amihud:{},ar_spread:{},current_ranking:{date:null,ranks:{}},ranking_history:[],commentary:null};
 
 // ─── Data loading ────────────────────────────────────────────────────────────
 async function loadDashboard() {
@@ -762,7 +788,7 @@ function renderGainers() {
   const gainers = DASH.gainers || {};
   const date    = DASH.generated_at ? new Date(DASH.generated_at).toLocaleDateString('en-GB',{day:'2-digit',month:'short'}) : '—';
   const pairs = [
-    ['lse','Lse'],['enx','Enx'],['ndx','Ndx'],['nyse','Nyse'],['xetra','Xetra'],['six','Six']
+    ['lse','Lse'],['enx','Enx'],['ndx','Ndx'],['nyse','Nyse'],['xetra','Xetra'],['six','Six'],['tse','Tse']
   ];
   pairs.forEach(([key, cap]) => {
     const body = document.getElementById('gainers' + cap + 'Body');
@@ -791,7 +817,7 @@ function renderGainers() {
 function renderMarketCap() {
   const mcap = DASH.market_cap || {};
   const pairs = [
-    ['lse','Lse'],['enx','Enx'],['ndx','Ndx'],['nyse','Nyse'],['xetra','Xetra'],['six','Six']
+    ['lse','Lse'],['enx','Enx'],['ndx','Ndx'],['nyse','Nyse'],['xetra','Xetra'],['six','Six'],['tse','Tse']
   ];
   pairs.forEach(([key, cap]) => {
     const body   = document.getElementById('mcap' + cap + 'Body');
@@ -813,7 +839,7 @@ function renderMarketCap() {
 }
 
 // ─── Volume ───────────────────────────────────────────────────────────────────
-const VOL_CHART_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b08800',xetra:'#0e7490',six:'#9f1239'};
+const VOL_CHART_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b08800',xetra:'#0e7490',six:'#9f1239',tse:'#9a4a1c'};
 
 function renderVolume() {
   const vol     = DASH.vol || {};
@@ -893,7 +919,7 @@ function renderVolComparable() {
   });
 }
 
-// Single chart comparing all 6 exchanges' comparable-universe turnover in USD
+// Single chart comparing all 7 exchanges' comparable-universe turnover in USD
 let allVolUsdScaleType = 'linear';
 
 function toggleAllVolUsdScale() {
@@ -1081,7 +1107,7 @@ function setIlliqScale(log) {
 // ─── Turnover Ratio ──────────────────────────────────────────────────────────
 function renderTurnoverRatio() {
   const trData = DASH.turnover_ratio || {};
-  const EX_COLORS = {lse:'#0969da',enx:'#2da44e',ndx:'#8250df',nyse:'#e16f24',xetra:'#cf222e',six:'#1a7f37'};
+  const EX_COLORS = {lse:'#0969da',enx:'#2da44e',ndx:'#8250df',nyse:'#e16f24',xetra:'#cf222e',six:'#1a7f37',tse:'#9a4a1c'};
   const currency  = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B'};
 
   // Summary pills

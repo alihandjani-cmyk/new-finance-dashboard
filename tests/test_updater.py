@@ -66,6 +66,35 @@ def test_trim_stale_dates_empty_input():
     assert u._trim_stale_dates([]) == []
 
 
+# ── _clean_ticker: numeric-code exchanges (TSE) vs letter-code exchanges ─────
+
+def test_clean_ticker_rejects_digit_led_by_default():
+    # Western index pages: a stray numeric cell (footnote, etc.) must not be
+    # treated as a ticker.
+    assert u._clean_ticker('7203') == ''
+
+
+def test_clean_ticker_allow_numeric_plain_code():
+    assert u._clean_ticker('7203', allow_numeric=True) == '7203'
+
+
+def test_clean_ticker_allow_numeric_alphanumeric_code():
+    # TSE's newer 4-char codes end in a letter once numeric codes run out.
+    assert u._clean_ticker('543A', allow_numeric=True) == '543A'
+
+
+def test_clean_ticker_allow_numeric_extracts_from_prefixed_text():
+    # Regression: naive '(...)' stripping deletes the code itself when the
+    # whole 'TYO: 7203' is wrapped in one set of parens.
+    assert u._clean_ticker('TYO: 7203', allow_numeric=True) == '7203'
+    assert u._clean_ticker('(TYO: 543A)', allow_numeric=True) == '543A'
+
+
+def test_clean_ticker_allow_numeric_rejects_junk():
+    assert u._clean_ticker('N/A', allow_numeric=True) == ''
+    assert u._clean_ticker('nan', allow_numeric=True) == ''
+
+
 # ── Abdi-Ranaldo (2017) implied spread ────────────────────────────────────────
 
 def test_ar_spread_positive_on_bounce():

@@ -2,7 +2,7 @@
 """
 Finance Dashboard Updater
 =========================
-Fetches data for all 6 exchanges and writes dashboard_data.json.
+Fetches data for all 7 exchanges and writes dashboard_data.json.
 The HTML reads this file on load — no HTML patching required.
 
 Usage:
@@ -121,12 +121,14 @@ EXCHANGES = {
                'vol_method':'yf',  'pence':False,'nok_eur':False},
     'six':   {'name':'SIX Swiss Exchange',  'currency':'CHF','vol_currency':'CHF B',
                'vol_method':'yf',  'pence':False,'nok_eur':False},
+    'tse':   {'name':'Tokyo Stock Exchange','currency':'JPY','vol_currency':'JPY B',
+               'vol_method':'yf',  'pence':False,'nok_eur':False},
 }
 
 # ── Ticker-bar symbols (live prices shown in the top bar) ────────────────────
 TICKER_SYMBOLS = {
     'FTSE':  '^FTSE',    'DAX':    '^GDAXI',   'CAC40': '^FCHI',   'SMI': '^SSMI',
-    'SP500': '^GSPC',    'NDX':    '^NDX',      'DJI':   '^DJI',
+    'SP500': '^GSPC',    'NDX':    '^NDX',      'DJI':   '^DJI',   'NIKKEI': '^N225',
     'GBPUSD':'GBPUSD=X', 'EURUSD': 'EURUSD=X', 'EURGBP':'EURGBP=X','USDJPY':'JPY=X',
     'GOLD':  'GC=F',     'OIL':    'CL=F',
 }
@@ -183,6 +185,15 @@ _FALLBACK_TICKERS = {
         'GEBN.SW','GIVN.SW','LOGN.SW','PGHN.SW','SCMN.SW','SIKA.SW','SLHN.SW',
         'SOON.SW','CFR.SW','ZURN.SW','HOLN.SW','STMN.SW','VACN.SW','KNIN.SW',
         'LISN.SW','BALN.SW',
+    ],
+    'tse': [
+        '7203.T','6758.T','8306.T','9984.T','6861.T','7974.T','9983.T','9432.T',
+        '9433.T','4502.T','7267.T','7201.T','7751.T','6752.T','6501.T','8058.T',
+        '8031.T','8001.T','8316.T','8411.T','8035.T','6857.T','6098.T','4568.T',
+        '4519.T','4063.T','6954.T','6981.T','6594.T','6902.T','5108.T','4452.T',
+        '9020.T','9022.T','9202.T','8604.T','8766.T','3382.T','4755.T','4911.T',
+        '6301.T','6506.T','6326.T','5401.T','8802.T','8801.T','9531.T','6367.T',
+        '4523.T','6273.T',
     ],
 }
 
@@ -289,6 +300,26 @@ _FALLBACK_NAMES = {
         'CFR.SW':'Richemont','ZURN.SW':'Zurich Insurance','HOLN.SW':'Holcim',
         'STMN.SW':'Straumann','VACN.SW':'VAT Group','KNIN.SW':'Kuehne+Nagel',
         'LISN.SW':'Lindt & Spruengli','BALN.SW':'Baloise',
+    },
+    'tse': {
+        '7203.T':'Toyota Motor','6758.T':'Sony Group','8306.T':'Mitsubishi UFJ Financial',
+        '9984.T':'SoftBank Group','6861.T':'Keyence','7974.T':'Nintendo',
+        '9983.T':'Fast Retailing','9432.T':'Nippon Telegraph & Telephone','9433.T':'KDDI',
+        '4502.T':'Takeda Pharmaceutical','7267.T':'Honda Motor','7201.T':'Nissan Motor',
+        '7751.T':'Canon','6752.T':'Panasonic Holdings','6501.T':'Hitachi',
+        '8058.T':'Mitsubishi Corp','8031.T':'Mitsui & Co','8001.T':'Itochu',
+        '8316.T':'Sumitomo Mitsui Financial','8411.T':'Mizuho Financial',
+        '8035.T':'Tokyo Electron','6857.T':'Advantest','6098.T':'Recruit Holdings',
+        '4568.T':'Daiichi Sankyo','4519.T':'Chugai Pharmaceutical',
+        '4063.T':'Shin-Etsu Chemical','6954.T':'Fanuc','6981.T':'Murata Manufacturing',
+        '6594.T':'Nidec','6902.T':'Denso','5108.T':'Bridgestone','4452.T':'Kao',
+        '9020.T':'East Japan Railway','9022.T':'Central Japan Railway',
+        '9202.T':'ANA Holdings','8604.T':'Nomura Holdings','8766.T':'Tokio Marine Holdings',
+        '3382.T':'Seven & I Holdings','4755.T':'Rakuten Group','4911.T':'Shiseido',
+        '6301.T':'Komatsu','6506.T':'Yaskawa Electric','6326.T':'Kubota',
+        '5401.T':'Nippon Steel','8802.T':'Mitsubishi Estate','8801.T':'Mitsui Fudosan',
+        '9531.T':'Tokyo Gas','6367.T':'Daikin Industries','4523.T':'Eisai',
+        '6273.T':'SMC Corp',
     },
 }
 
@@ -460,7 +491,16 @@ _WIKI_SOURCES = {
         ('https://en.wikipedia.org/wiki/Swiss_Market_Index', '.SW'),
         ('https://en.wikipedia.org/wiki/SMIM',               '.SW'),
     ],
+    'tse':   [
+        ('https://en.wikipedia.org/wiki/Nikkei_225', '.T'),
+    ],
 }
+
+# Exchanges whose native ticker codes are numeric (or digit-led alphanumeric,
+# e.g. TSE's newer 4-char codes like '543A') rather than letters. _clean_ticker
+# rejects digit-led values by default to filter out stray footnote numbers on
+# Western index pages — these exchanges opt out of that check.
+_NUMERIC_TICKER_EXCHANGES = {'tse'}
 
 # Column name aliases used to locate ticker and name columns in Wikipedia tables
 _TICKER_ALIASES = ['ticker','symbol','epic','code','stock ticker','ticker symbol',
@@ -476,8 +516,19 @@ def _find_col(df, aliases):
             return lc[a]
     return None
 
-def _clean_ticker(raw):
-    """Strip footnote markers, whitespace; return cleaned ticker string or ''."""
+def _clean_ticker(raw, allow_numeric=False):
+    """Strip footnote markers, whitespace; return cleaned ticker string or ''.
+
+    allow_numeric : for exchanges whose native codes are digit-led (e.g. TSE's
+    4-character codes: '7203', or newer alphanumeric ones like '543A'). The
+    raw cell may carry extra text or wrap the code in parens ('(TYO: 7203)'),
+    so this searches for the code pattern directly rather than stripping
+    parens first (which would delete the code itself) or requiring the whole
+    cleaned cell to equal it.
+    """
+    if allow_numeric:
+        m = re.search(r'\b(\d{3}[0-9A-Z])\b', str(raw).upper())
+        return m.group(1) if m else ''
     s = re.sub(r'\[.*?\]|\(.*?\)', '', str(raw)).strip()
     # Reject obviously non-ticker values
     if not s or s in ('nan', 'NaN', '-', '—', 'N/A') or len(s) > 15:
@@ -486,11 +537,12 @@ def _clean_ticker(raw):
         return ''
     return s
 
-def _parse_wiki_table(url, suffix, filter_nyse=False):
+def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False):
     """Fetch a Wikipedia page and extract the constituent ticker→name dict.
 
-    suffix      : string appended to raw ticker if ticker has no '.', or None.
-    filter_nyse : if True, skip rows where Exchange column contains 'nasdaq'.
+    suffix        : string appended to raw ticker if ticker has no '.', or None.
+    filter_nyse   : if True, skip rows where Exchange column contains 'nasdaq'.
+    allow_numeric : if True, accept digit-led ticker codes (see _clean_ticker).
     Returns {yf_ticker: display_name} or {} on failure.
     """
     raw = _get(url, xlsx=False)
@@ -518,7 +570,7 @@ def _parse_wiki_table(url, suffix, filter_nyse=False):
 
         result = {}
         for _, row in tbl.iterrows():
-            raw_tk = _clean_ticker(row[ticker_col])
+            raw_tk = _clean_ticker(row[ticker_col], allow_numeric=allow_numeric)
             if not raw_tk:
                 continue
 
@@ -554,10 +606,11 @@ def _fetch_constituents(ex_key):
     """
     sources = _WIKI_SOURCES.get(ex_key, [])
     combined = {}
+    allow_numeric = ex_key in _NUMERIC_TICKER_EXCHANGES
 
     for url, suffix in sources:
         print(f'    Wikipedia: {url.split("/")[-1].replace("%26", "&")}')
-        chunk = _parse_wiki_table(url, suffix, filter_nyse=(ex_key == 'nyse'))
+        chunk = _parse_wiki_table(url, suffix, filter_nyse=(ex_key == 'nyse'), allow_numeric=allow_numeric)
         if chunk:
             combined.update(chunk)
             print(f'      → {len(chunk)} tickers ({len(combined)} total)')
@@ -579,12 +632,14 @@ def _fetch_constituents(ex_key):
 
 
 def _fetch_fx_rates():
-    """Fetch GBPUSD, EURUSD, CHFUSD (and NOKEUR) for ADV threshold conversion.
+    """Fetch GBPUSD, EURUSD, CHFUSD, JPYUSD (and NOKEUR) for ADV threshold conversion.
     Returns dict: currency_code → USD rate (e.g. {'GBP': 1.27, 'EUR': 1.08, ...}).
     """
     fx_map  = {'GBP': 'GBPUSD=X', 'EUR': 'EURUSD=X', 'CHF': 'CHFUSD=X', 'NOK': 'NOKUSD=X'}
+    # Yahoo quotes JPY as USD/JPY ('JPY=X', ~150), not JPY/USD — invert below.
+    inverse_fx_map = {'JPY': 'JPY=X'}
     rates   = {'USD': 1.0}
-    syms    = list(fx_map.values())
+    syms    = list(fx_map.values()) + list(inverse_fx_map.values())
     try:
         raw = yf.download(syms, period='2d', interval='1d',
                           progress=False, auto_adjust=True, threads=True)
@@ -596,14 +651,23 @@ def _fetch_fx_rates():
                         rates[ccy] = float(close[sym].dropna().iloc[-1])
                 except Exception:
                     pass
+            for ccy, sym in inverse_fx_map.items():
+                try:
+                    if sym in close.columns:
+                        usd_per_unit = float(close[sym].dropna().iloc[-1])
+                        if usd_per_unit > 0:
+                            rates[ccy] = 1.0 / usd_per_unit
+                except Exception:
+                    pass
     except Exception as exc:
         print(f'  ⚠  FX rates fetch failed ({exc}); using fallback rates')
     rates.setdefault('GBP', 1.27)
     rates.setdefault('EUR', 1.08)
     rates.setdefault('CHF', 1.11)
     rates.setdefault('NOK', 0.086)
+    rates.setdefault('JPY', 0.0067)
     print(f'  FX: GBP={rates["GBP"]:.4f} EUR={rates["EUR"]:.4f} '
-          f'CHF={rates["CHF"]:.4f} NOK={rates["NOK"]:.4f}')
+          f'CHF={rates["CHF"]:.4f} NOK={rates["NOK"]:.4f} JPY={rates["JPY"]:.5f}')
     return rates
 
 
@@ -693,6 +757,7 @@ def build_universe(ex_key, fx_rates):
         'nyse':  'S&P 500 (NYSE + NYSE Arca)',
         'xetra': 'DAX 40 + MDAX 60',
         'six':   'SMI 20 + SMIM 30',
+        'tse':   'Nikkei 225',
     }
     print(f'  Building universe: {ex_key} ({_INDEX_LABEL.get(ex_key, ex_key)})')
 
@@ -851,7 +916,7 @@ def fetch_gainers(ex_key, tickers, names):
         return None
     results.sort(key=lambda x: x['pct'], reverse=True)
 
-    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW'}
+    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW', 'tse': '.T'}
     suffix = suffix_map.get(ex_key)
     output = []
     for r in results[:10]:
@@ -903,7 +968,7 @@ def fetch_market_cap(ex_key, tickers, names):
         return None
     results.sort(key=lambda x: x['mc'], reverse=True)
 
-    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW'}
+    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW', 'tse': '.T'}
     suffix = suffix_map.get(ex_key)
     top10  = []
     for r in results[:10]:
@@ -1079,7 +1144,7 @@ def fetch_vol_yf(ex_key, tickers):
         return None
 
 # ──────────────────────────────────────────────────────────────────────────────
-#  COMPARABLE VOLUME  (all 6 exchanges — same liquid universe)
+#  COMPARABLE VOLUME  (all 7 exchanges — same liquid universe)
 # ──────────────────────────────────────────────────────────────────────────────
 
 def fetch_vol_comparable(ex_key, tickers, fx_rates):
@@ -1241,7 +1306,7 @@ def fetch_amihud(ex_key, tickers, names, existing_history):
 
     sorted_stocks = sorted(stock_avgs.items(), key=lambda x: x[1])
 
-    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
+    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW','tse':'.T'}
     suf = suffix_map.get(ex_key)
 
     def _stock_entry(sym, val):
@@ -1332,7 +1397,7 @@ def fetch_ar_spread(ex_key, tickers, names, existing_history):
     market_avg  = round(sum(stock_spreads.values()) / len(stock_spreads), 4)
     new_history = _push(existing_history, {'date': last_trade_date, 'avgSpread': market_avg})
 
-    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW'}
+    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW','tse':'.T'}
     suf = suffix_map.get(ex_key)
 
     def _ar_entry(sym, val):
@@ -1352,7 +1417,7 @@ def fetch_ar_spread(ex_key, tickers, names, existing_history):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _rank6(vals_dict, ascending=True):
-    """Rank 6 exchange values 1–6. ascending=True → lowest value = rank 1."""
+    """Rank exchange values 1–N. ascending=True → lowest value = rank 1."""
     items = [(k, v) for k, v in vals_dict.items() if v is not None]
     items.sort(key=lambda x: x[1], reverse=not ascending)
     return {k: i+1 for i, (k, _) in enumerate(items)}
@@ -1609,7 +1674,7 @@ def main():
                     print(f'  ⚠  {ex_key}: keeping cached universe')
             if built > 0:
                 state['universe_refresh_date'] = today_iso
-                print(f'  ✓  Universe refresh complete ({built}/6 exchanges updated)')
+                print(f'  ✓  Universe refresh complete ({built}/{len(EXCHANGES)} exchanges updated)')
         else:
             days_since = (date.today() - date.fromisoformat(last_refresh)).days
             print(f'  ℹ  Universe current (refreshed {days_since}d ago, next refresh in {30-days_since}d)')
@@ -1662,7 +1727,7 @@ def main():
                 dash['vol'][ex_key]['trades_latest'] = valid_tr[-1]
                 dash['vol'][ex_key]['trades_avg']    = round(sum(valid_tr) / len(valid_tr), 1)
 
-        # Comparable Volume (same liquid universe for all 6 exchanges)
+        # Comparable Volume (same liquid universe for all exchanges)
         print('   Volume (comparable universe)...')
         if 'vol_comparable' not in dash:
             dash['vol_comparable'] = {k: {
