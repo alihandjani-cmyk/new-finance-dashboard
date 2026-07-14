@@ -96,6 +96,24 @@ def test_clean_ticker_allow_numeric_rejects_junk():
     assert u._clean_ticker('nan', allow_numeric=True) == ''
 
 
+# ── _clean_ticker: zero-padded numeric exchanges (HKEX) ──────────────────────
+
+def test_clean_ticker_numeric_pad_extracts_and_pads():
+    # HKEX's Wikipedia table lists bare codes like 'SEHK: 5', but Yahoo
+    # requires the 4-digit zero-padded form ('0005.HK').
+    assert u._clean_ticker('SEHK: 5', numeric_pad=4) == '0005'
+    assert u._clean_ticker('SEHK: 388', numeric_pad=4) == '0388'
+
+
+def test_clean_ticker_numeric_pad_full_width_unchanged():
+    assert u._clean_ticker('SEHK: 9999', numeric_pad=4) == '9999'
+
+
+def test_clean_ticker_numeric_pad_rejects_junk():
+    assert u._clean_ticker('N/A', numeric_pad=4) == ''
+    assert u._clean_ticker('nan', numeric_pad=4) == ''
+
+
 # ── _backfill_new_exchanges: adding an exchange to a pre-existing dash ───────
 
 def _old_dash(keys):
