@@ -276,6 +276,29 @@ def test_clean_ticker_rejects_long_strings():
     assert u._clean_ticker('ThisIsTooLongToBeATicker') == ''
 
 
+# ── _clean_ticker: share-class dot notation and dual-class cells ─────────────
+
+def test_clean_ticker_converts_share_class_dot_to_dash():
+    # Regression: LSE/NYSE Wikipedia tables list share classes with a dot
+    # ('BT.A', 'BRK.B', 'BF.B'), but Yahoo requires a dash ('BT-A', 'BRK-B',
+    # 'BF-B'). Left unconverted, the presence of '.' also wrongly signals to
+    # _parse_wiki_table that an exchange suffix is already present, so the
+    # raw broken ticker gets sent to yfinance as-is (observed live: '$BT.A:
+    # possibly delisted').
+    assert u._clean_ticker('BT.A') == 'BT-A'
+    assert u._clean_ticker('BRK.B') == 'BRK-B'
+    assert u._clean_ticker('BF.B') == 'BF-B'
+
+
+def test_clean_ticker_splits_dual_class_cell():
+    # Regression: some Wikipedia cells list two share classes together
+    # ('SCHN / SCHP' for Schindler, 'LISN / LISP' for Lindt & Sprüngli) —
+    # take the first/primary one instead of passing the garbled string
+    # through (observed live: '$SCHN / SCHP.SW: possibly delisted').
+    assert u._clean_ticker('SCHN / SCHP') == 'SCHN'
+    assert u._clean_ticker('LISN / LISP') == 'LISN'
+
+
 def test_find_col_case_insensitive():
     import pandas as pd
     df = pd.DataFrame({'Ticker': ['A'], 'Company': ['Foo']})

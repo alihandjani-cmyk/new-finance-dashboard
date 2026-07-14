@@ -681,11 +681,24 @@ def _clean_ticker(raw, allow_numeric=False, numeric_pad=None, numeric_width=4):
         m = re.search(r'\b(\d[0-9A-Z]{%d})\b' % (numeric_width - 1), str(raw).upper())
         return m.group(1) if m else ''
     s = re.sub(r'\[.*?\]|\(.*?\)', '', str(raw)).strip()
+    # Some Wikipedia cells list two share classes in one cell, e.g. Schindler's
+    # 'SCHN / SCHP' (registered vs participation shares) or Lindt's
+    # 'LISN / LISP' — take the first/primary one rather than passing the
+    # whole garbled string through to yfinance.
+    if '/' in s:
+        s = s.split('/')[0].strip()
     # Reject obviously non-ticker values
     if not s or s in ('nan', 'NaN', '-', '—', 'N/A') or len(s) > 15:
         return ''
     if s[0].isdigit():
         return ''
+    # Share-class dot notation is the native LSE/NYSE ticker format ('BT.A',
+    # 'BRK.B', 'BF.B') but Yahoo uses a dash ('BT-A', 'BRK-B', 'BF-B'). Must
+    # convert here, before the caller appends its exchange suffix — a raw
+    # ticker containing '.' would otherwise be (wrongly) treated as already
+    # suffixed and left bare.
+    if re.match(r'^[A-Z0-9]{1,10}\.[A-Z]$', s):
+        s = s.replace('.', '-')
     return s
 
 def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numeric_pad=None, numeric_width=4):

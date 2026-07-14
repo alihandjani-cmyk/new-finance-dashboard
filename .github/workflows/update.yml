@@ -12,7 +12,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40   # 9 exchanges (Wikipedia + yfinance per exchange) — 20min was too tight after TSE/HKG/KRX
 
     permissions:
       contents: write          # needed to push dashboard_data.json back
