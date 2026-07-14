@@ -73,6 +73,7 @@
     .vsection-hdr-real{background:#f0fdf4;border-left:4px solid #1a7f37}
     .vsection-hdr-est{background:#fffbeb;border-left:4px solid #b08800}
     .vsection-hdr-cmp{background:#eff6ff;border-left:4px solid #1d4ed8}
+    .vsection-hdr-usd{background:#f5f3ff;border-left:4px solid #6d28d9}
     .vsection-title{font-size:12px;font-weight:700;color:#24292f}
     .vsection-note{font-size:10.5px;color:#57606a;line-height:1.5}
     .vsection-note a{color:#0969da}
@@ -85,15 +86,18 @@
     .vexchange-est{grid-template-columns:repeat(3,1fr)}
     .vexchange-est .vexchange-panel:nth-child(3n){border-right:none}
     .vexchange-est .vexchange-panel:nth-last-child(-n+3){border-bottom:none}
+    .vexchange-cmp{grid-template-columns:repeat(3,1fr)}
+    .vexchange-cmp .vexchange-panel:nth-child(3n){border-right:none}
+    .vexchange-cmp .vexchange-panel:nth-last-child(-n+3){border-bottom:none}
     @media(max-width:1100px){
-      .vexchange-est{grid-template-columns:1fr 1fr}
-      .vexchange-est .vexchange-panel:nth-child(3n){border-right:1px solid #eaeef2}
-      .vexchange-est .vexchange-panel:nth-child(2n){border-right:none}
-      .vexchange-est .vexchange-panel:nth-last-child(-n+3){border-bottom:1px solid #eaeef2}
-      .vexchange-est .vexchange-panel:nth-last-child(-n+2){border-bottom:none}
+      .vexchange-est,.vexchange-cmp{grid-template-columns:1fr 1fr}
+      .vexchange-est .vexchange-panel:nth-child(3n),.vexchange-cmp .vexchange-panel:nth-child(3n){border-right:1px solid #eaeef2}
+      .vexchange-est .vexchange-panel:nth-child(2n),.vexchange-cmp .vexchange-panel:nth-child(2n){border-right:none}
+      .vexchange-est .vexchange-panel:nth-last-child(-n+3),.vexchange-cmp .vexchange-panel:nth-last-child(-n+3){border-bottom:1px solid #eaeef2}
+      .vexchange-est .vexchange-panel:nth-last-child(-n+2),.vexchange-cmp .vexchange-panel:nth-last-child(-n+2){border-bottom:none}
     }
     @media(max-width:600px){
-      .vexchange-real,.vexchange-est{grid-template-columns:1fr}
+      .vexchange-real,.vexchange-est,.vexchange-cmp{grid-template-columns:1fr}
       .vexchange-section .vexchange-panel{border-right:none}
       .vexchange-section .vexchange-panel:last-child{border-bottom:none}
     }
@@ -341,58 +345,20 @@
         </div>
       </div>
 
-      <div class="vsection-hdr vsection-hdr-est">
-        <div class="vsection-title">🟡 Legacy Universe Estimates — Nasdaq 100, NYSE, Xetra, SIX</div>
-        <div class="vsection-note">Historical aggregate turnover estimated from individual constituent stock data (Close × Volume) via Yahoo Finance. These use earlier hardcoded universes and are shown for continuity only. The Comparable Liquid Universe section below (🔵) is what the Liquidity Ranking uses. <strong>Note:</strong> US markets (NDX, NYSE) trade 14:30–21:00 UTC; European markets (Xetra, SIX) trade 08:00–16:30 UTC. Same-day data may be partial until the close update runs.</div>
+      <div class="vsection-hdr vsection-hdr-usd">
+        <div class="vsection-title">🟣 All-Exchange Volume Comparison — USD</div>
+        <div class="vsection-note">Comparable liquid-universe turnover for all six exchanges (🔵 section below), converted to USD at each day's FX rate and plotted together so relative trading activity across venues can be compared directly on one chart.</div>
       </div>
-      <div class="vexchange-section vexchange-est">
-        <div class="vexchange-panel">
-          <div class="vexchange-label"><span class="exbadge badge-ndx">🇺🇸 NDX</span>Nasdaq 100 <span class="exbadge badge-est">EST</span></div>
-          <div class="vrow">
-            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="ndx-vol-latest">—</div><div class="vs">USD Billions</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="ndx-vol-avg">—</div><div class="vs">USD Billions</div></div>
-            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="ndx-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
-          </div>
-          <div class="cw"><canvas id="ndxChart"></canvas></div>
-        </div>
-        <div class="vexchange-panel">
-          <div class="vexchange-label"><span class="exbadge badge-nyse">🇺🇸 NYSE</span>NYSE Large-Cap <span class="exbadge badge-est">EST</span></div>
-          <div class="vrow">
-            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="nyse-vol-latest">—</div><div class="vs">USD Billions</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="nyse-vol-avg">—</div><div class="vs">USD Billions</div></div>
-            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="nyse-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
-          </div>
-          <div class="cw"><canvas id="nyseChart"></canvas></div>
-        </div>
-        <div class="vexchange-panel">
-          <div class="vexchange-label"><span class="exbadge badge-xetra">🇩🇪 XETRA</span>Xetra <span class="exbadge badge-est">EST</span></div>
-          <div class="vrow">
-            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="xetra-vol-latest">—</div><div class="vs">EUR Billions</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="xetra-vol-avg">—</div><div class="vs">EUR Billions</div></div>
-            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="xetra-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
-          </div>
-          <div class="cw"><canvas id="xetraChart"></canvas></div>
-        </div>
-        <div class="vexchange-panel">
-          <div class="vexchange-label"><span class="exbadge badge-six">🇨🇭 SIX</span>SIX Swiss <span class="exbadge badge-est">EST</span></div>
-          <div class="vrow">
-            <div class="vstat"><div class="vl">Latest Day</div><div class="vv" id="six-vol-latest">—</div><div class="vs">CHF Billions</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg</div><div class="vv" id="six-vol-avg">—</div><div class="vs">CHF Billions</div></div>
-            <div class="vstat"><div class="vl">Shares (M)</div><div class="vv" id="six-shares-latest" style="font-size:13px">—</div><div class="vs">Est. shares traded</div></div>
-          </div>
-          <div class="cw"><canvas id="sixChart"></canvas></div>
-        </div>
-      </div>
+      <div class="cw" style="padding:16px 16px 18px"><canvas id="allVolUsdChart" style="max-height:300px"></canvas></div>
 
       <!-- ── Comparable Liquid Universe ───────────────────────────────────── -->
       <div class="vsection-hdr vsection-hdr-cmp">
         <div class="vsection-title">🔵 Comparable Liquid Universe — All 6 Exchanges</div>
         <div class="vsection-note">
           Turnover computed using the <strong>same methodology for all six exchanges</strong>: index constituents filtered to stocks with average daily traded value &gt; $10M USD (refreshed monthly from official index constituent lists).
-          Values are shown in local currency and converted to USD for cross-exchange comparison.
-          <strong>This is the series used in the Liquidity Ranking.</strong>
+          Values below are shown in each exchange's own local currency.
+          <strong>This is the series used in the Liquidity Ranking</strong> (converted to USD internally — see the 🟣 chart above for the cross-exchange USD comparison).
           For LSE and Euronext, you can compare this against the Official Exchange Data above to see how much of total exchange volume the liquid universe captures.
-          Universe details (index source, stock count, last refresh) are shown per exchange below.
         </div>
       </div>
       <div class="vexchange-section vexchange-cmp">
@@ -401,64 +367,64 @@
           <div class="vexchange-label"><span class="exbadge badge-lse">🇬🇧 LSE</span>London Stock Exchange <span class="exbadge badge-cmp">CMP</span></div>
           <div class="vrow vrow-4">
             <div class="vstat"><div class="vl">Latest (GBP B)</div><div class="vv" id="lse-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="lse-vc-usd">—</div><div class="vs">For ranking</div></div>
-            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="lse-vc-n" style="font-size:13px">—</div><div class="vs" id="lse-vc-source" style="max-width:110px">—</div></div>
-            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="lse-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (GBP B)</div><div class="vv" id="lse-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="lse-vc-n" style="font-size:13px">—</div><div class="vs" id="lse-vc-source">—</div><div class="vs" id="lse-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="lse-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="lse-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="lseVcChart"></canvas></div>
         </div>
 
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-enx">🇪🇺 ENX</span>Euronext <span class="exbadge badge-cmp">CMP</span></div>
-          <div class="vrow">
+          <div class="vrow vrow-4">
             <div class="vstat"><div class="vl">Latest (EUR B)</div><div class="vv" id="enx-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="enx-vc-usd">—</div><div class="vs">For ranking</div></div>
-            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="enx-vc-n" style="font-size:13px">—</div><div class="vs" id="enx-vc-source" style="max-width:110px">—</div></div>
-            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="enx-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (EUR B)</div><div class="vv" id="enx-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="enx-vc-n" style="font-size:13px">—</div><div class="vs" id="enx-vc-source">—</div><div class="vs" id="enx-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="enx-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="enx-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="enxVcChart"></canvas></div>
         </div>
 
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-ndx">🇺🇸 NDX</span>Nasdaq 100 <span class="exbadge badge-cmp">CMP</span></div>
-          <div class="vrow">
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="ndx-vc-local">—</div><div class="vs">Local = USD</div></div>
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="ndx-vc-usd">—</div><div class="vs">For ranking</div></div>
-            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="ndx-vc-n" style="font-size:13px">—</div><div class="vs" id="ndx-vc-source" style="max-width:110px">—</div></div>
-            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="ndx-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          <div class="vrow vrow-4">
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="ndx-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (USD B)</div><div class="vv" id="ndx-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="ndx-vc-n" style="font-size:13px">—</div><div class="vs" id="ndx-vc-source">—</div><div class="vs" id="ndx-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="ndx-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="ndx-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="ndxVcChart"></canvas></div>
         </div>
 
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-nyse">🇺🇸 NYSE</span>NYSE <span class="exbadge badge-cmp">CMP</span></div>
-          <div class="vrow">
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="nyse-vc-local">—</div><div class="vs">Local = USD</div></div>
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="nyse-vc-usd">—</div><div class="vs">For ranking</div></div>
-            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="nyse-vc-n" style="font-size:13px">—</div><div class="vs" id="nyse-vc-source" style="max-width:110px">—</div></div>
-            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="nyse-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+          <div class="vrow vrow-4">
+            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="nyse-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (USD B)</div><div class="vv" id="nyse-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="nyse-vc-n" style="font-size:13px">—</div><div class="vs" id="nyse-vc-source">—</div><div class="vs" id="nyse-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="nyse-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="nyse-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="nyseVcChart"></canvas></div>
         </div>
 
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-xetra">🇩🇪 XETRA</span>Xetra <span class="exbadge badge-cmp">CMP</span></div>
-          <div class="vrow">
+          <div class="vrow vrow-4">
             <div class="vstat"><div class="vl">Latest (EUR B)</div><div class="vv" id="xetra-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="xetra-vc-usd">—</div><div class="vs">For ranking</div></div>
-            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="xetra-vc-n" style="font-size:13px">—</div><div class="vs" id="xetra-vc-source" style="max-width:110px">—</div></div>
-            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="xetra-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (EUR B)</div><div class="vv" id="xetra-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="xetra-vc-n" style="font-size:13px">—</div><div class="vs" id="xetra-vc-source">—</div><div class="vs" id="xetra-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="xetra-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="xetra-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="xetraVcChart"></canvas></div>
         </div>
 
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-six">🇨🇭 SIX</span>SIX Swiss <span class="exbadge badge-cmp">CMP</span></div>
-          <div class="vrow">
+          <div class="vrow vrow-4">
             <div class="vstat"><div class="vl">Latest (CHF B)</div><div class="vv" id="six-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">Latest (USD B)</div><div class="vv" id="six-vc-usd">—</div><div class="vs">For ranking</div></div>
-            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="six-vc-n" style="font-size:13px">—</div><div class="vs" id="six-vc-source" style="max-width:110px">—</div></div>
-            <div class="vstat"><div class="vl">Refreshed</div><div class="vv" id="six-vc-refreshed" style="font-size:12px">—</div><div class="vs">Monthly</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (CHF B)</div><div class="vv" id="six-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Universe</div><div class="vv" id="six-vc-n" style="font-size:13px">—</div><div class="vs" id="six-vc-source">—</div><div class="vs" id="six-vc-refreshed">—</div></div>
+            <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="six-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="six-vc-shares-avg">—</span>M</div></div>
           </div>
           <div class="cw"><canvas id="sixVcChart"></canvas></div>
         </div>
@@ -737,6 +703,7 @@ function renderAll() {
   renderMarketCap();
   renderVolume();
   renderVolComparable();
+  renderAllVolUsd();
   renderAmihud();
   renderSpread();
   renderArSpread();
@@ -883,7 +850,7 @@ const VOL_CHART_COLORS = {lse:'#0969da',enx:'#1967d2',ndx:'#6b21a8',nyse:'#b0880
 function renderVolume() {
   const vol     = DASH.vol || {};
   const pairs   = [
-    ['lse','lse'],['enx','enx'],['ndx','ndx'],['nyse','nyse'],['xetra','xetra'],['six','six']
+    ['lse','lse'],['enx','enx']
   ];
   let allDates = [];
   pairs.forEach(([key]) => {
@@ -934,20 +901,68 @@ function renderVolComparable() {
     const u        = uni[k] || {};
     const dates    = data.dates     || [];
     const valLocal = data.value     || [];
-    const valUsd   = data.value_usd || [];
+    const shares   = data.shares    || [];
 
     const latestLocal = valLocal.length ? valLocal[valLocal.length - 1] : null;
-    const latestUsd   = valUsd.length   ? valUsd[valUsd.length - 1]     : null;
+    const avgLocal     = valLocal.length ? valLocal.reduce((s,v)=>s+v,0) / valLocal.length : null;
+    const validShares  = shares.filter(s => s != null);
+    const latestShares = data.shares_latest != null ? data.shares_latest
+                        : (validShares.length ? validShares[validShares.length - 1] : null);
+    const avgShares     = data.shares_avg != null ? data.shares_avg
+                        : (validShares.length ? validShares.reduce((s,v)=>s+v,0) / validShares.length : null);
 
     const el = id => document.getElementById(id);
     if (el(k+'-vc-local'))    el(k+'-vc-local').textContent    = latestLocal != null ? latestLocal.toFixed(2) : '—';
-    if (el(k+'-vc-usd'))      el(k+'-vc-usd').textContent      = latestUsd   != null ? latestUsd.toFixed(2)   : '—';
+    if (el(k+'-vc-avg'))      el(k+'-vc-avg').textContent      = avgLocal    != null ? avgLocal.toFixed(2)    : '—';
     if (el(k+'-vc-n'))        el(k+'-vc-n').textContent        = u.n_universe != null ? u.n_universe + ' stocks' : '—';
     if (el(k+'-vc-source'))   el(k+'-vc-source').textContent   = u.index_source || '—';
-    if (el(k+'-vc-refreshed')) el(k+'-vc-refreshed').textContent = u.refreshed ? fmtDay(u.refreshed) : '—';
+    if (el(k+'-vc-refreshed')) el(k+'-vc-refreshed').textContent = u.refreshed ? 'Refreshed ' + fmtDay(u.refreshed) : '—';
+    if (el(k+'-vc-shares'))     el(k+'-vc-shares').textContent     = latestShares != null ? Number(latestShares).toLocaleString('en-GB', {maximumFractionDigits:0}) : '—';
+    if (el(k+'-vc-shares-avg')) el(k+'-vc-shares-avg').textContent = avgShares    != null ? Number(avgShares).toLocaleString('en-GB', {maximumFractionDigits:0})    : '—';
 
-    // Bar chart uses USD values for visual comparability across exchanges
-    makeBarChart(k+'VcChart', dates.map(fmtDay), valUsd, VOL_CHART_COLORS[k], 'USD B');
+    // Bar chart shows local-currency values so each exchange's panel matches its own currency
+    makeBarChart(k+'VcChart', dates.map(fmtDay), valLocal, VOL_CHART_COLORS[k], data.currency || '');
+  });
+}
+
+// Single chart comparing all 6 exchanges' comparable-universe turnover in USD
+function renderAllVolUsd() {
+  const vc = DASH.vol_comparable || {};
+  const canvas = document.getElementById('allVolUsdChart');
+  if (!canvas) return;
+
+  const allDates = [...new Set(EX_KEYS.flatMap(k => (vc[k] || {}).dates || []))].sort();
+
+  const datasets = EX_KEYS.map(k => {
+    const data = vc[k] || {};
+    const dateToVal = {};
+    (data.dates || []).forEach((d, i) => { dateToVal[d] = (data.value_usd || [])[i]; });
+    const color = VOL_CHART_COLORS[k];
+    return {
+      label: k.toUpperCase(),
+      data: allDates.map(d => dateToVal[d] ?? null),
+      backgroundColor: color + '33',
+      borderColor: color,
+      borderWidth: 2,
+      borderRadius: 3,
+    };
+  });
+
+  if (_charts['allVolUsd']) { try { _charts['allVolUsd'].destroy(); } catch(_){} }
+  _charts['allVolUsd'] = new Chart(canvas, {
+    type: 'bar',
+    data: { labels: allDates.map(fmtDay), datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true, position: 'top', labels: { font: { size: 10 }, boxWidth: 10, usePointStyle: true } },
+        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) : '—'} USD B` } }
+      },
+      scales: {
+        y: { beginAtZero: true, title: { display: true, text: 'USD Billions', font: { size: 10 }, color: '#57606a' }, ticks: { font: { size: 10 } } },
+        x: { ticks: { font: { size: 10 } } }
+      }
+    }
   });
 }
 

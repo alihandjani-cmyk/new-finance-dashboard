@@ -313,7 +313,7 @@ def _load_dashboard():
         'vol':        {k: {'currency': v['vol_currency'], 'dates': [], 'value': []} for k, v in EXCHANGES.items()},
         'vol_comparable': {k: {
             'currency': v['vol_currency'], 'currency_usd': 'USD B',
-            'dates': [], 'value': [], 'value_usd': [], 'n_universe': 0,
+            'dates': [], 'value': [], 'value_usd': [], 'shares': [], 'n_universe': 0,
         } for k, v in EXCHANGES.items()},
         'amihud':     {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
         'spread':     {k: {'history': [], 'marketAvg': None} for k in EXCHANGES},
@@ -1098,17 +1098,20 @@ def fetch_vol_comparable(ex_key, tickers, fx_rates):
         for t in ol_cols:
             daily_val[t] = daily_val[t] * nok_eur_rate   # NOK → EUR
 
-    daily_total_local = daily_val.sum(axis=1, min_count=1).dropna()
+    daily_total_local  = daily_val.sum(axis=1, min_count=1).dropna()
+    daily_shares_total = volume_df.sum(axis=1, min_count=1)   # total shares traded, universe-wide
 
     pts = []
     for ts, val_local in daily_total_local.items():
         if val_local <= 0:
             continue
         val_usd = float(val_local) * fx_usd
+        sh = float(daily_shares_total.get(ts, 0)) if ts in daily_shares_total.index else 0.0
         pts.append({
             'date':        ts.strftime('%Y-%m-%d'),
             'value_local': round(float(val_local) / 1e9, 3),   # → local currency billions
             'value_usd':   round(val_usd / 1e9, 3),            # → USD billions
+            'shares_m':    round(sh / 1e6, 1) if sh > 0 else None,   # → millions of shares
         })
 
     pts = pts[-5:]
@@ -1703,22 +1706,30 @@ def main():
         if 'vol_comparable' not in dash:
             dash['vol_comparable'] = {k: {
                 'currency': EXCHANGES[k]['vol_currency'], 'currency_usd': 'USD B',
-                'dates': [], 'value': [], 'value_usd': [], 'n_universe': 0,
+                'dates': [], 'value': [], 'value_usd': [], 'shares': [], 'n_universe': 0,
             } for k in EXCHANGES}
         vc_pts = fetch_vol_comparable(ex_key, tickers, fx_rates)
         if vc_pts:
             vc = dash['vol_comparable'][ex_key]
             # Merge into existing comparable vol history (keep last 5)
-            vc_map_local = dict(zip(vc.get('dates', []), vc.get('value', [])))
-            vc_map_usd   = dict(zip(vc.get('dates', []), vc.get('value_usd', [])))
+            vc_map_local  = dict(zip(vc.get('dates', []), vc.get('value', [])))
+            vc_map_usd    = dict(zip(vc.get('dates', []), vc.get('value_usd', [])))
+            vc_map_shares = dict(zip(vc.get('dates', []), vc.get('shares', [])))
             for pt in vc_pts:
                 vc_map_local[pt['date']] = pt['value_local']
                 vc_map_usd[pt['date']]   = pt['value_usd']
+                if pt.get('shares_m') is not None:
+                    vc_map_shares[pt['date']] = pt['shares_m']
             sorted_vc_dates = sorted(vc_map_local.keys())[-5:]
             vc['dates']      = sorted_vc_dates
             vc['value']      = [vc_map_local[d] for d in sorted_vc_dates]
             vc['value_usd']  = [vc_map_usd[d]   for d in sorted_vc_dates]
+            vc['shares']     = [vc_map_shares.get(d) for d in sorted_vc_dates]
             vc['n_universe'] = len(tickers)
+            valid_shares = [s for s in vc['shares'] if s is not None]
+            if valid_shares:
+                vc['shares_latest'] = valid_shares[-1]
+                vc['shares_avg']    = round(sum(valid_shares) / len(valid_shares), 1)
 
         # Amihud ILLIQ
         print('   Amihud ILLIQ...')
