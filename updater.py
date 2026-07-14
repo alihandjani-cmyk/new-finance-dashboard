@@ -102,7 +102,7 @@ DATA_FILE  = _ROOT / 'dashboard_data.json'
 STATE_FILE = _ROOT / 'updater_state.json'  # gitignored — legacy, no longer written
 DAYS       = 90    # rolling history window (business days)
 
-METHODOLOGY_VERSION = 'v2_dynamic_universe'
+METHODOLOGY_VERSION = 'v3_usd_normalized_illiq'
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  EXCHANGE CONFIG — metadata only (no hardcoded tickers)
@@ -1407,13 +1407,20 @@ def _fetch_nok_eur():
     except Exception:
         return 0.086
 
-def fetch_amihud(ex_key, tickers, names, existing_history):
+def fetch_amihud(ex_key, tickers, names, existing_history, fx_rates):
     """Compute per-day Amihud ILLIQ for the exchange universe.
     Returns (updated_history, marketAvg, top10_liquid, top10_illiquid, top10_active, top10_inactive).
     """
     cfg      = EXCHANGES[ex_key]
     is_pence = cfg['pence']
     nok_eur  = _fetch_nok_eur() if cfg['nok_eur'] else None
+    # ILLIQ's denominator is normalized to USD-equivalent value traded so the
+    # ratio is comparable across exchanges regardless of currency (1M KRW is
+    # not economically the same as 1M GBP — without this, low-value-per-unit
+    # currencies like KRW/JPY produce structurally tiny ILLIQ numbers that
+    # aren't a real liquidity signal, just a unit-scale artifact, and would
+    # always rank as "most liquid" on the ILLIQ sub-rank regardless of truth).
+    fx_usd   = fx_rates.get(cfg['currency'], 1.0)
 
     try:
         raw = yf.download(tickers, period='40d', interval='1d', progress=False,
@@ -1442,8 +1449,12 @@ def fetch_amihud(ex_key, tickers, names, existing_history):
                 dvol_m = df['Close'] * df['Volume'] / 1_000_000
                 if cfg['nok_eur'] and sym.endswith('.OL') and nok_eur:
                     dvol_m = dvol_m * nok_eur
+            # dvol_m stays in local currency (still the natural unit for the
+            # per-stock "most/least active" tables below); dvol_m_usd is the
+            # FX-normalized version used only for the ILLIQ ratio itself.
+            dvol_m_usd = dvol_m * fx_usd
             ret_pct = df['Close'].pct_change().abs() * 100
-            illiq   = (ret_pct / dvol_m).replace([float('inf'), float('-inf')], float('nan')).dropna()
+            illiq   = (ret_pct / dvol_m_usd).replace([float('inf'), float('-inf')], float('nan')).dropna()
             illiq   = illiq.iloc[-20:]
             if len(illiq) < 5:
                 continue
@@ -1534,7 +1545,7 @@ def fetch_ar_spread(ex_key, tickers, names, existing_history):
     """
     try:
         raw = yf.download(tickers, period='60d', interval='1d', progress=False,
-                          auto_adjust=True)
+                          auto_adjust=True, threads=True)
         if raw.empty:
             return existing_history, None, [], []
     except Exception as exc:
@@ -1933,7 +1944,7 @@ def main():
         # Amihud ILLIQ
         print('   Amihud ILLIQ...')
         new_hist, mkt_avg, top_liq, top_illiq, top_active, top_inactive = fetch_amihud(
-            ex_key, tickers, names, dash['amihud'][ex_key].get('history', []))
+            ex_key, tickers, names, dash['amihud'][ex_key].get('history', []), fx_rates)
         dash['amihud'][ex_key]['history'] = new_hist
         if mkt_avg is not None:
             dash['amihud'][ex_key]['marketAvg']      = mkt_avg

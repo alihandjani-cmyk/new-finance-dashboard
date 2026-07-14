@@ -282,7 +282,7 @@
   <div class="markets-main">
     <div class="vsection-hdr" style="border-top:none">
       <div class="vsection-title">💧 Amihud Illiquidity (ILLIQ)</div>
-      <div class="vsection-note">ILLIQ = |Return| / Dollar Volume (per £1M / €1M / $1M / CHF1M traded). Lower = more liquid. Computed from 20-day OHLCV data via Yahoo Finance.</div>
+      <div class="vsection-note">ILLIQ = |Return| / Dollar Volume (per $1M traded, FX-normalized to USD so all exchanges are directly comparable regardless of currency). Lower = more liquid. Computed from 20-day OHLCV data via Yahoo Finance.</div>
     </div>
     <div class="card" style="margin-top:0">
       <div class="ch">
@@ -305,10 +305,10 @@
       <div class="ch"><div class="ct">📖 Methodology</div></div>
       <div style="padding:13px 16px;font-size:12.5px;line-height:1.85;color:#1f2328">
         <p><strong>Amihud (2002) Illiquidity Ratio (ILLIQ)</strong> measures price impact per unit of trading volume — the classic market microstructure proxy for illiquidity.</p>
-        <p style="margin-top:8px"><strong>Formula:</strong> ILLIQ<sub>i,t</sub> = |R<sub>i,t</sub> (%)| / DVOL<sub>i,t</sub> (local currency millions)</p>
-        <p style="margin-top:8px"><strong>Currency normalisation:</strong> LSE prices are quoted in pence, so DVOL = Close(p) × Volume / 100 / 1,000,000 (£M). All other exchanges: DVOL = Close × Volume / 1,000,000. Euronext .OL (Oslo) tickers are converted NOK→EUR using the live NOKEUR=X rate.</p>
+        <p style="margin-top:8px"><strong>Formula:</strong> ILLIQ<sub>i,t</sub> = |R<sub>i,t</sub> (%)| / DVOL<sub>i,t</sub> (USD millions)</p>
+        <p style="margin-top:8px"><strong>Currency normalisation:</strong> LSE prices are quoted in pence, so local DVOL = Close(p) × Volume / 100 / 1,000,000 (£M); all other exchanges: DVOL = Close × Volume / 1,000,000 (local currency M). Euronext .OL (Oslo) tickers are converted NOK→EUR using the live NOKEUR=X rate. DVOL is then converted to USD millions using each run's live FX rates before computing ILLIQ — this keeps the ratio comparable across exchanges regardless of currency (1M KRW and 1M GBP aren't the same amount of money, so ranking on raw local-currency DVOL would unfairly favor exchanges denominated in low-value currencies).</p>
         <p style="margin-top:8px"><strong>Rolling window:</strong> Each day's ILLIQ is the equal-weighted average across all index constituents with sufficient data. The market average is the mean of each stock's 20-day average ILLIQ.</p>
-        <p style="margin-top:8px"><strong>Interpretation:</strong> Higher ILLIQ = less liquid (larger price move per £M/€M/$M traded). Rank 1 in the Liquidity Ranking tab = lowest ILLIQ = most liquid.</p>
+        <p style="margin-top:8px"><strong>Interpretation:</strong> Higher ILLIQ = less liquid (larger price move per $1M USD-equivalent traded). Rank 1 in the Liquidity Ranking tab = lowest ILLIQ = most liquid.</p>
       </div>
     </div>
     <div class="card" style="margin-top:13px">
@@ -449,8 +449,8 @@
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-tse">🇯🇵 TSE</span>Tokyo Stock Exchange <span class="exbadge badge-cmp">CMP</span></div>
           <div class="vrow vrow-4">
-            <div class="vstat"><div class="vl">Latest (JPY B)</div><div class="vv" id="tse-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg (JPY B)</div><div class="vv" id="tse-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (JPY T)</div><div class="vv" id="tse-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (JPY T)</div><div class="vv" id="tse-vc-avg">—</div><div class="vs">Local currency</div></div>
             <div class="vstat"><div class="vl">Universe</div><div class="vv" id="tse-vc-n" style="font-size:13px">—</div><div class="vs" id="tse-vc-source">—</div><div class="vs" id="tse-vc-refreshed">—</div></div>
             <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="tse-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="tse-vc-shares-avg">—</span>M</div></div>
           </div>
@@ -460,8 +460,8 @@
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-hkg">🇭🇰 HKG</span>Hong Kong Stock Exchange <span class="exbadge badge-cmp">CMP</span></div>
           <div class="vrow vrow-4">
-            <div class="vstat"><div class="vl">Latest (HKD B)</div><div class="vv" id="hkg-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg (HKD B)</div><div class="vv" id="hkg-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (HKD T)</div><div class="vv" id="hkg-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (HKD T)</div><div class="vv" id="hkg-vc-avg">—</div><div class="vs">Local currency</div></div>
             <div class="vstat"><div class="vl">Universe</div><div class="vv" id="hkg-vc-n" style="font-size:13px">—</div><div class="vs" id="hkg-vc-source">—</div><div class="vs" id="hkg-vc-refreshed">—</div></div>
             <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="hkg-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="hkg-vc-shares-avg">—</span>M</div></div>
           </div>
@@ -471,8 +471,8 @@
         <div class="vexchange-panel">
           <div class="vexchange-label"><span class="exbadge badge-krx">🇰🇷 KRX</span>Korea Exchange <span class="exbadge badge-cmp">CMP</span></div>
           <div class="vrow vrow-4">
-            <div class="vstat"><div class="vl">Latest (KRW B)</div><div class="vv" id="krx-vc-local">—</div><div class="vs">Local currency</div></div>
-            <div class="vstat"><div class="vl">5-Day Avg (KRW B)</div><div class="vv" id="krx-vc-avg">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">Latest (KRW T)</div><div class="vv" id="krx-vc-local">—</div><div class="vs">Local currency</div></div>
+            <div class="vstat"><div class="vl">5-Day Avg (KRW T)</div><div class="vv" id="krx-vc-avg">—</div><div class="vs">Local currency</div></div>
             <div class="vstat"><div class="vl">Universe</div><div class="vv" id="krx-vc-n" style="font-size:13px">—</div><div class="vs" id="krx-vc-source">—</div><div class="vs" id="krx-vc-refreshed">—</div></div>
             <div class="vstat"><div class="vl">Shares Traded (M)</div><div class="vv" id="krx-vc-shares" style="font-size:13px">—</div><div class="vs">5-day avg: <span id="krx-vc-shares-avg">—</span>M</div></div>
           </div>
@@ -933,6 +933,12 @@ function renderVolume() {
   });
 }
 
+// Exchanges whose local currency is a small fraction of USD (JPY ~150/USD,
+// HKD ~7.8/USD, KRW ~1370/USD) — their liquid-universe turnover in "B"
+// (billions) reads awkwardly (often 4+ digits), so display in trillions
+// instead. Divisor converts stored billions -> trillions.
+const BIG_CURRENCY_DIVISOR = {tse: 1000, hkg: 1000, krx: 1000};
+
 function renderVolComparable() {
   const vc  = DASH.vol_comparable || {};
   const uni = DASH.universes      || {};
@@ -941,7 +947,8 @@ function renderVolComparable() {
     const data     = vc[k]  || {};
     const u        = uni[k] || {};
     const dates    = data.dates     || [];
-    const valLocal = data.value     || [];
+    const div      = BIG_CURRENCY_DIVISOR[k] || 1;
+    const valLocal = (data.value || []).map(v => v / div);
     const shares   = data.shares    || [];
 
     const latestLocal = valLocal.length ? valLocal[valLocal.length - 1] : null;
@@ -962,7 +969,8 @@ function renderVolComparable() {
     if (el(k+'-vc-shares-avg')) el(k+'-vc-shares-avg').textContent = avgShares    != null ? Number(avgShares).toLocaleString('en-GB', {maximumFractionDigits:0})    : '—';
 
     // Bar chart shows local-currency values so each exchange's panel matches its own currency
-    makeBarChart(k+'VcChart', dates.map(fmtDay), valLocal, VOL_CHART_COLORS[k], data.currency || '');
+    const chartCurrency = div > 1 ? (data.currency || '').replace(/\bB\b/, 'T') : (data.currency || '');
+    makeBarChart(k+'VcChart', dates.map(fmtDay), valLocal, VOL_CHART_COLORS[k], chartCurrency);
   });
 }
 
@@ -1091,7 +1099,7 @@ function renderAmihud() {
         <div style="padding:10px 16px">
           <div class="vl">Market Avg ILLIQ (20-day)</div>
           <div class="vv" style="margin-top:4px">${avg}</div>
-          <div class="vs">% move per 1M ${({ lse:'GBP',enx:'EUR',ndx:'USD',nyse:'USD',xetra:'EUR',six:'CHF',tse:'JPY',hkg:'HKD',krx:'KRW' }[k])} traded</div>
+          <div class="vs">% move per $1M traded (USD-normalized, cross-exchange comparable)</div>
         </div>
       </div>`;
     }).join('');
@@ -1105,7 +1113,7 @@ function renderAmihud() {
 
 function renderAmihudTables() {
   const amihud = DASH.amihud || {};
-  const ILLIQ_UNIT = {lse:'% / £1M',enx:'% / €1M',ndx:'% / $1M',nyse:'% / $1M',xetra:'% / €1M',six:'% / CHF1M',tse:'% / ¥1M',hkg:'% / HK$1M',krx:'% / ₩1M'};
+  const ILLIQ_UNIT = '% / $1M USD';   // uniform since ILLIQ is FX-normalized to USD (see updater.py fetch_amihud)
   const container = document.getElementById('amihudStockTables');
   if (!container) return;
   container.innerHTML = EX_KEYS.map(k => {
@@ -1113,7 +1121,7 @@ function renderAmihudTables() {
     const liq   = d.top10_liquid   || [];
     const illiq = d.top10_illiquid || [];
     if (!liq.length && !illiq.length) return '';
-    const unit = ILLIQ_UNIT[k] || '';
+    const unit = ILLIQ_UNIT;
     const makeRows = (rows, color) => rows.map((r, i) => `<tr>
       <td><span class="rk">${i+1}</span></td>
       <td class="sn">${esc(r.name)}</td>
@@ -1218,19 +1226,23 @@ function renderTurnoverRatio() {
   // Per-exchange stock tables
   const tblEl = document.getElementById('trStockTables');
   if (tblEl) {
-    const VOL_UNIT = {lse:'£M/day',enx:'€M/day',ndx:'$M/day',nyse:'$M/day',xetra:'€M/day',six:'CHF M/day',tse:'¥M/day',hkg:'HK$M/day',krx:'₩M/day'};
+    // JPY/HKD/KRW per-stock daily values are promoted M -> B (same reasoning
+    // as BIG_CURRENCY_DIVISOR above) since a single mega-cap's daily value in
+    // "millions" of these currencies can run into 6+ digits.
+    const VOL_UNIT = {lse:'£M/day',enx:'€M/day',ndx:'$M/day',nyse:'$M/day',xetra:'€M/day',six:'CHF M/day',tse:'¥B/day',hkg:'HK$B/day',krx:'₩B/day'};
     tblEl.innerHTML = EX_KEYS.map(k => {
       const d      = trData[k] || {};
       const active = d.top10_active   || [];
       const inact  = d.top10_inactive || [];
       if (!active.length && !inact.length) return '';
       const unit = VOL_UNIT[k] || 'M/day';
+      const div  = BIG_CURRENCY_DIVISOR[k] || 1;
       function rows(list) {
         return list.map((r,i) => `<tr>
           <td><span class="rk">${i+1}</span></td>
           <td class="sn">${esc(r.name)}</td>
           <td><code style="font-size:11px;color:#57606a">${esc(r.ticker)}</code></td>
-          <td style="text-align:right;font-family:monospace;font-size:11px">${Number(r.dvol_m).toFixed(1)}</td>
+          <td style="text-align:right;font-family:monospace;font-size:11px">${(Number(r.dvol_m)/div).toFixed(1)}</td>
         </tr>`).join('');
       }
       return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px">
@@ -1370,7 +1382,7 @@ function renderRankings() {
       cardsEl.innerHTML = '<div style="padding:16px;color:#57606a">No ranking data yet — will appear after first update run.</div>';
     } else {
       const MEDALS = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'];
-      const VOL_CURR = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B',tse:'JPY B',hkg:'HKD B',krx:'KRW B'};
+      const VOL_CURR = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B',tse:'JPY T',hkg:'HKD T',krx:'KRW T'};
       // Pull live metric values for display alongside rank numbers
       function _cardVals(k) {
         const am = (DASH.amihud         || {})[k] || {};
@@ -1379,11 +1391,12 @@ function renderRankings() {
         const trData = (DASH.turnover_ratio || {})[k] || {};
         const vArr   = vl.value || [];
         const trHist = trData.history || [];
+        const volDiv = BIG_CURRENCY_DIVISOR[k] || 1;
         return {
           illiq: am.marketAvg != null ? am.marketAvg.toFixed(4)                          : null,
           tr:    trHist.length        ? trHist[trHist.length-1].ratio.toFixed(4)+'%'   : null,
           ar:    ar.marketAvg != null ? ar.marketAvg.toFixed(4)+'%'                    : null,
-          vol:   vArr.length          ? vArr[vArr.length-1].toFixed(1)+' '+(VOL_CURR[k]||'') : null,
+          vol:   vArr.length          ? (vArr[vArr.length-1]/volDiv).toFixed(1)+' '+(VOL_CURR[k]||'') : null,
         };
       }
       function _sub(icon, label, val, rankNum) {
