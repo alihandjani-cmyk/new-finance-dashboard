@@ -414,6 +414,65 @@ def _migrate_dates(dash):
     return dash
 
 
+def _backfill_new_exchanges(dash):
+    """Ensure every key in EXCHANGES has an entry in each per-exchange dash
+    section. dashboard_data.json is loaded from disk and only ever grows —
+    adding a new exchange to EXCHANGES (e.g. 'tse') does NOT retroactively
+    add it to an existing file's dash['vol'], dash['amihud'], etc. Without
+    this, the very first run after adding an exchange crashes with a
+    KeyError the moment it tries to merge that exchange's fetched data in.
+    """
+    added = set()
+
+    def _ensure(section, default_fn):
+        bucket = dash.setdefault(section, {})
+        for k in EXCHANGES:
+            if k not in bucket:
+                bucket[k] = default_fn(k)
+                added.add(k)
+
+    _ensure('universes',  lambda k: {})
+    _ensure('gainers',    lambda k: [])
+    _ensure('market_cap', lambda k: {'date': None, 'currency': EXCHANGES[k]['currency'], 'top10': []})
+    _ensure('vol',        lambda k: {'currency': EXCHANGES[k]['vol_currency'], 'dates': [], 'value': []})
+    _ensure('vol_comparable', lambda k: {
+        'currency': EXCHANGES[k]['vol_currency'], 'currency_usd': 'USD B',
+        'dates': [], 'value': [], 'value_usd': [], 'shares': [], 'n_universe': 0,
+    })
+    _ensure('amihud',         lambda k: {'history': [], 'marketAvg': None})
+    _ensure('ar_spread',      lambda k: {'history': [], 'marketAvg': None})
+    _ensure('turnover_ratio', lambda k: {'history': []})
+
+    ranks = dash.setdefault('current_ranking', {'date': None, 'ranks': {}}).setdefault('ranks', {})
+    for k in EXCHANGES:
+        if k not in ranks:
+            ranks[k] = {'vol': None, 'illiq': None, 'tr': None, 'ar': None, 'composite': None}
+            added.add(k)
+
+    if added:
+        print(f'  ℹ  Backfilled dash schema for new exchange(s): {sorted(added)}')
+    return dash
+
+
+def _needs_universe_refresh(dash, last_refresh):
+    """Decide whether to rebuild exchange universes from Wikipedia this run.
+
+    Returns (needs_refresh: bool, missing: list[str]) where missing is the
+    list of EXCHANGES keys with no universe tickers at all yet — these force
+    a refresh regardless of the monthly timer, since otherwise a newly added
+    exchange (e.g. 'tse') would silently sit on its hardcoded fallback list
+    until the *other*, already-populated exchanges' 30-day timer happens to
+    expire, rather than being built on its first opportunity.
+    """
+    missing = [k for k in EXCHANGES if not dash.get('universes', {}).get(k, {}).get('tickers')]
+    if missing:
+        return True, missing
+    if not last_refresh:
+        return True, missing
+    stale = (date.today() - date.fromisoformat(last_refresh)).days >= 30
+    return stale, missing
+
+
 def _push(lst, entry, key='date', maxn=DAYS):
     """Append/update entry (matched by key), sort by ISO date string, trim to maxn."""
     out = [e for e in lst if e.get(key) != entry.get(key)]
@@ -1617,6 +1676,7 @@ def main():
 
     dash = _load_dashboard()
     _migrate_dates(dash)
+    _backfill_new_exchanges(dash)
 
     # ── Methodology version check — clear histories on universe change ────────
     if not FAST_MODE and dash.get('methodology_version') != METHODOLOGY_VERSION:
@@ -1649,15 +1709,10 @@ def main():
     if not FAST_MODE:
         # ── Universe refresh (monthly) ────────────────────────────────────────
         print('\n── Universe')
-        last_refresh  = state.get('universe_refresh_date', '')
-        no_universe   = not any(
-            dash.get('universes', {}).get(k, {}).get('tickers')
-            for k in EXCHANGES
-        )
-        needs_refresh = no_universe or (
-            last_refresh and
-            (date.today() - date.fromisoformat(last_refresh)).days >= 30
-        ) or (not last_refresh)
+        last_refresh = state.get('universe_refresh_date', '')
+        needs_refresh, missing_universe = _needs_universe_refresh(dash, last_refresh)
+        if missing_universe and len(missing_universe) < len(EXCHANGES):
+            print(f'  ℹ  Exchange(s) with no universe yet: {missing_universe} — forcing refresh')
 
         if needs_refresh:
             print('  Refreshing universes from Wikipedia...')

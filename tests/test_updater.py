@@ -12,6 +12,7 @@ These cover the two classes of silent failure that have bitten this project:
   2. Spread estimators returning None vs a value on known inputs.
 """
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -93,6 +94,106 @@ def test_clean_ticker_allow_numeric_extracts_from_prefixed_text():
 def test_clean_ticker_allow_numeric_rejects_junk():
     assert u._clean_ticker('N/A', allow_numeric=True) == ''
     assert u._clean_ticker('nan', allow_numeric=True) == ''
+
+
+# ── _backfill_new_exchanges: adding an exchange to a pre-existing dash ───────
+
+def _old_dash(keys):
+    """Minimal dashboard_data.json shape as it would exist before a new
+    exchange was added to EXCHANGES."""
+    return {
+        'universes':  {k: {'tickers': []} for k in keys},
+        'gainers':    {k: [] for k in keys},
+        'market_cap': {k: {'date': None, 'currency': 'GBP', 'top10': []} for k in keys},
+        'vol':        {k: {'currency': 'GBP B', 'dates': ['2026-07-13'], 'value': [5.5]} for k in keys},
+        'vol_comparable': {k: {
+            'currency': 'GBP B', 'currency_usd': 'USD B',
+            'dates': [], 'value': [], 'value_usd': [], 'shares': [], 'n_universe': 0,
+        } for k in keys},
+        'amihud':         {k: {'history': [], 'marketAvg': None} for k in keys},
+        'ar_spread':      {k: {'history': [], 'marketAvg': None} for k in keys},
+        'turnover_ratio': {k: {'history': []} for k in keys},
+        'current_ranking': {'date': None, 'ranks': {
+            k: {'vol': None, 'illiq': None, 'tr': None, 'ar': None, 'composite': None} for k in keys
+        }},
+    }
+
+
+def test_backfill_new_exchanges_reproduces_the_keyerror_without_the_fix():
+    # Regression: adding 'tse' to EXCHANGES without backfilling an existing
+    # dashboard_data.json crashed the very first run with KeyError('tse') the
+    # moment main() tried dash['vol'][ex_key].get(...) for the new exchange.
+    old_keys = [k for k in u.EXCHANGES if k != 'tse']
+    dash = _old_dash(old_keys)
+    try:
+        dash['vol']['tse'].get('dates', [])
+        assert False, 'expected KeyError before backfill'
+    except KeyError:
+        pass
+
+
+def test_backfill_new_exchanges_adds_missing_keys():
+    old_keys = [k for k in u.EXCHANGES if k != 'tse']
+    dash = _old_dash(old_keys)
+    u._backfill_new_exchanges(dash)
+    for section in ('universes', 'gainers', 'market_cap', 'vol', 'vol_comparable',
+                     'amihud', 'ar_spread', 'turnover_ratio'):
+        assert 'tse' in dash[section], f'tse missing from {section}'
+    assert 'tse' in dash['current_ranking']['ranks']
+    assert dash['vol']['tse']['currency'] == 'JPY B'
+    assert dash['market_cap']['tse']['currency'] == 'JPY'
+
+
+def test_backfill_new_exchanges_does_not_clobber_existing_data():
+    old_keys = [k for k in u.EXCHANGES if k != 'tse']
+    dash = _old_dash(old_keys)
+    u._backfill_new_exchanges(dash)
+    assert dash['vol']['lse']['dates'] == ['2026-07-13']
+    assert dash['vol']['lse']['value'] == [5.5]
+
+
+def test_backfill_new_exchanges_is_idempotent():
+    old_keys = [k for k in u.EXCHANGES if k != 'tse']
+    dash = _old_dash(old_keys)
+    u._backfill_new_exchanges(dash)
+    dash['vol']['tse']['dates'] = ['2026-07-14']   # simulate a real run having populated it
+    u._backfill_new_exchanges(dash)
+    assert dash['vol']['tse']['dates'] == ['2026-07-14'], 'second backfill call clobbered live data'
+
+
+# ── _needs_universe_refresh: a new exchange forces refresh early ─────────────
+
+def test_needs_universe_refresh_forces_refresh_for_new_exchange():
+    # Regression: TSE's universe was silently never built because the other
+    # 6 exchanges' 30-day timer hadn't expired yet — a global timer skipped
+    # the refresh entirely, leaving TSE stuck on its hardcoded fallback list.
+    old_keys = [k for k in u.EXCHANGES if k != 'tse']
+    dash = {'universes': {k: {'tickers': ['X.L']} for k in old_keys}}
+    dash['universes']['tse'] = {}
+    needs, missing = u._needs_universe_refresh(dash, date.today().isoformat())
+    assert needs is True
+    assert missing == ['tse']
+
+
+def test_needs_universe_refresh_skips_when_all_present_and_recent():
+    dash = {'universes': {k: {'tickers': ['X.L']} for k in u.EXCHANGES}}
+    needs, missing = u._needs_universe_refresh(dash, date.today().isoformat())
+    assert needs is False
+    assert missing == []
+
+
+def test_needs_universe_refresh_triggers_on_monthly_expiry():
+    dash = {'universes': {k: {'tickers': ['X.L']} for k in u.EXCHANGES}}
+    stale_date = (date.today() - timedelta(days=31)).isoformat()
+    needs, missing = u._needs_universe_refresh(dash, stale_date)
+    assert needs is True
+    assert missing == []
+
+
+def test_needs_universe_refresh_triggers_on_first_ever_run():
+    dash = {'universes': {k: {'tickers': ['X.L']} for k in u.EXCHANGES}}
+    needs, _ = u._needs_universe_refresh(dash, '')
+    assert needs is True
 
 
 # ── Abdi-Ranaldo (2017) implied spread ────────────────────────────────────────
