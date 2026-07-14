@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-14T06:34:57Z",
+  "generated_at": "2026-07-14T06:40:20Z",
   "stale_fallback": false,
-  "commentary": "# Exchange Liquidity Commentary | 2026-07-13\n\nNYSE maintains dominance with the lowest ILLIQ metric (0.0074), indicating minimal price impact per traded unit, though its AR spread (0.6357%) sits mid-range. Nasdaq 100 surprisingly shows superior tightness despite higher spreads, driven by exceptional ILLIQ efficiency (0.0024). Conversely, LSE ranks last with deteriorated liquidity across both dimensions—ILLIQ of 0.0959 and the widest spread at 0.7724%—suggesting structural headwinds in UK equities trading.",
+  "commentary": "**Exchange Liquidity Commentary – July 13, 2026**\n\nNYSE dominates liquidity rankings with the lowest Amihud coefficient (0.0073) despite a modest spread of 0.6355%, reflecting superior price stability per unit traded. Nasdaq 100 ranks second with exceptional depth (ILLIQ=0.0024) but wider spreads (0.7261%), suggesting concentrated volume. The London Stock Exchange trails significantly with the highest illiquidity metric (0.0960) and widest spreads (0.7695%), indicating thinner order books and higher transaction costs for market participants.",
   "news": [
     {
       "title": "The secretive crypto firm backed by Farage's biggest donor",
@@ -94,8 +94,8 @@
       "pct": -0.2629
     },
     "GBPUSD": {
-      "price": 1.3354,
-      "pct": -0.2444
+      "price": 1.3357,
+      "pct": -0.2217
     },
     "EURUSD": {
       "price": 1.1392,
@@ -103,19 +103,19 @@
     },
     "EURGBP": {
       "price": 0.8526,
-      "pct": 0.0822
+      "pct": 0.0833
     },
     "USDJPY": {
-      "price": 162.337,
-      "pct": 0.2835
+      "price": 162.333,
+      "pct": 0.2811
     },
     "GOLD": {
-      "price": 4034.1001,
-      "pct": 0.9282
+      "price": 4034.2,
+      "pct": 0.9307
     },
     "OIL": {
-      "price": 79.52,
-      "pct": 1.7661
+      "price": 79.57,
+      "pct": 1.83
     }
   },
   "gainers": {
@@ -924,21 +924,21 @@
     "enx": {
       "currency": "EUR B",
       "dates": [
-        "2026-07-01",
-        "2026-07-02",
+        "2026-07-03",
         "2026-07-08",
         "2026-07-09",
-        "2026-07-10"
+        "2026-07-10",
+        "2026-07-13"
       ],
       "value": [
-        16.0,
-        17.12,
+        10.76,
         18.4,
         13.66,
-        11.9
+        11.9,
+        11.54
       ],
       "trades_latest": 1.15,
-      "trades_avg": 1.4
+      "trades_avg": 1.2
     },
     "ndx": {
       "currency": "USD B",
@@ -954,10 +954,10 @@
         247.23,
         273.47,
         227.08,
-        226.74
+        234.63
       ],
-      "shares_latest": 1008.8,
-      "shares_avg": 1056.4
+      "shares_latest": 1041.9,
+      "shares_avg": 1063.0
     },
     "nyse": {
       "currency": "USD B",
@@ -973,10 +973,10 @@
         487.64,
         505.67,
         415.88,
-        419.95
+        448.75
       ],
-      "shares_latest": 2526.1,
-      "shares_avg": 2751.3
+      "shares_latest": 2733.5,
+      "shares_avg": 2792.8
     },
     "xetra": {
       "currency": "EUR B",
@@ -1022,7 +1022,7 @@
       "history": [
         {
           "date": "2026-06-15",
-          "illiq": 0.111832
+          "illiq": 0.095605
         },
         {
           "date": "2026-06-16",
@@ -1102,7 +1102,7 @@
         },
         {
           "date": "2026-07-13",
-          "illiq": 0.093385
+          "illiq": 0.137423
         }
       ],
       "top10_liquid": [
@@ -1161,7 +1161,7 @@
         {
           "ticker": "HRI",
           "name": "Herald Investment Trust",
-          "illiq": 0.948173
+          "illiq": 0.882136
         },
         {
           "ticker": "HOC",
@@ -1209,7 +1209,7 @@
           "illiq": 0.228694
         }
       ],
-      "marketAvg": 0.096664
+      "marketAvg": 0.096009
     },
     "enx": {
       "history": [
@@ -1484,7 +1484,7 @@
         },
         {
           "date": "2026-07-13",
-          "illiq": 0.00292
+          "illiq": 0.002844
         }
       ],
       "top10_liquid": [
@@ -1506,7 +1506,7 @@
         {
           "ticker": "MSFT",
           "name": "Microsoft",
-          "illiq": 0.000104
+          "illiq": 0.000103
         },
         {
           "ticker": "AMZN",
@@ -1526,12 +1526,12 @@
         {
           "ticker": "META",
           "name": "Meta Platforms",
-          "illiq": 0.000222
+          "illiq": 0.000221
         },
         {
           "ticker": "AVGO",
           "name": "Broadcom",
-          "illiq": 0.000247
+          "illiq": 0.000245
         },
         {
           "ticker": "AMD",
@@ -1543,7 +1543,7 @@
         {
           "ticker": "TEAM",
           "name": "Atlassian",
-          "illiq": 0.009641
+          "illiq": 0.009635
         },
         {
           "ticker": "CDW",
@@ -1558,40 +1558,40 @@
         {
           "ticker": "TTD",
           "name": "The Trade Desk",
-          "illiq": 0.00634
+          "illiq": 0.006338
         },
         {
           "ticker": "BIIB",
           "name": "Biogen",
-          "illiq": 0.006084
+          "illiq": 0.006076
         },
         {
           "ticker": "DLTR",
           "name": "Dollar Tree",
-          "illiq": 0.00604
+          "illiq": 0.006011
         },
         {
           "ticker": "KHC",
           "name": "Kraft Heinz",
-          "illiq": 0.005913
+          "illiq": 0.005897
         },
         {
           "ticker": "CHTR",
           "name": "Charter Comms",
-          "illiq": 0.005881
+          "illiq": 0.00588
         },
         {
           "ticker": "DXCM",
           "name": "DexCom",
-          "illiq": 0.005785
+          "illiq": 0.005776
         },
         {
           "ticker": "ZS",
           "name": "Zscaler",
-          "illiq": 0.00578
+          "illiq": 0.005766
         }
       ],
-      "marketAvg": 0.002438
+      "marketAvg": 0.002434
     },
     "nyse": {
       "history": [
@@ -1629,11 +1629,11 @@
         },
         {
           "date": "2026-06-25",
-          "illiq": 0.007165
+          "illiq": 0.007166
         },
         {
           "date": "2026-06-26",
-          "illiq": 0.003858
+          "illiq": 0.003859
         },
         {
           "date": "2026-06-29",
@@ -1641,7 +1641,7 @@
         },
         {
           "date": "2026-06-30",
-          "illiq": 0.003988
+          "illiq": 0.003989
         },
         {
           "date": "2026-07-01",
@@ -1649,7 +1649,7 @@
         },
         {
           "date": "2026-07-02",
-          "illiq": 0.006684
+          "illiq": 0.006685
         },
         {
           "date": "2026-07-06",
@@ -1657,7 +1657,7 @@
         },
         {
           "date": "2026-07-07",
-          "illiq": 0.004735
+          "illiq": 0.004736
         },
         {
           "date": "2026-07-08",
@@ -1665,15 +1665,15 @@
         },
         {
           "date": "2026-07-09",
-          "illiq": 0.004706
+          "illiq": 0.004707
         },
         {
           "date": "2026-07-10",
-          "illiq": 0.004218
+          "illiq": 0.004219
         },
         {
           "date": "2026-07-13",
-          "illiq": 0.006062
+          "illiq": 0.005169
         }
       ],
       "top10_liquid": [
@@ -1695,7 +1695,7 @@
         {
           "ticker": "MSFT",
           "name": "Microsoft",
-          "illiq": 0.000104
+          "illiq": 0.000103
         },
         {
           "ticker": "AMZN",
@@ -1720,67 +1720,67 @@
         {
           "ticker": "META",
           "name": "Meta Platforms",
-          "illiq": 0.000222
+          "illiq": 0.000221
         },
         {
           "ticker": "AVGO",
           "name": "Broadcom",
-          "illiq": 0.000247
+          "illiq": 0.000245
         }
       ],
       "top10_illiquid": [
         {
           "ticker": "HONA",
           "name": "Honeywell Aerospace",
-          "illiq": 1.324817
+          "illiq": 1.324814
         },
         {
           "ticker": "ERIE",
           "name": "Erie Indemnity",
-          "illiq": 0.034748
+          "illiq": 0.034723
         },
         {
           "ticker": "NWS",
           "name": "News Corp",
-          "illiq": 0.028474
+          "illiq": 0.028461
         },
         {
           "ticker": "FOX",
           "name": "Fox Corporation",
-          "illiq": 0.023193
+          "illiq": 0.023108
         },
         {
           "ticker": "ARE",
           "name": "Alexandria Real Estate Equities",
-          "illiq": 0.023093
+          "illiq": 0.022977
         },
         {
           "ticker": "PSKY",
           "name": "Paramount Skydance Corporation",
-          "illiq": 0.022348
+          "illiq": 0.022299
         },
         {
           "ticker": "SOLV",
           "name": "Solventum",
-          "illiq": 0.015919
+          "illiq": 0.015691
         },
         {
           "ticker": "BAX",
           "name": "Baxter International",
-          "illiq": 0.015556
+          "illiq": 0.015498
         },
         {
           "ticker": "AOS",
           "name": "A. O. Smith",
-          "illiq": 0.015195
+          "illiq": 0.015004
         },
         {
           "ticker": "BLDR",
           "name": "Builders FirstSource",
-          "illiq": 0.014736
+          "illiq": 0.014298
         }
       ],
-      "marketAvg": 0.007379
+      "marketAvg": 0.007335
     },
     "xetra": {
       "history": [
@@ -2186,7 +2186,7 @@
         },
         {
           "date": "2026-07-13",
-          "avgSpread": 1.2286
+          "avgSpread": 1.2522
         }
       ],
       "top10_tight": [
@@ -2203,7 +2203,7 @@
         {
           "ticker": "ALW",
           "name": "Alliance Witan",
-          "spread": 0.2653
+          "spread": 0.2631
         },
         {
           "ticker": "PSON",
@@ -2218,7 +2218,7 @@
         {
           "ticker": "PSH",
           "name": "Pershing Square Holdings",
-          "spread": 0.3993
+          "spread": 0.4255
         },
         {
           "ticker": "REL",
@@ -2250,7 +2250,7 @@
         {
           "ticker": "III",
           "name": "3i",
-          "spread": 2.5901
+          "spread": 2.5819
         },
         {
           "ticker": "UU",
@@ -2293,7 +2293,7 @@
           "spread": 1.8036
         }
       ],
-      "marketAvg": 1.2505
+      "marketAvg": 1.2522
     },
     "enx": {
       "history": [
@@ -2416,7 +2416,7 @@
       "history": [
         {
           "date": "2026-07-13",
-          "avgSpread": 1.7594
+          "avgSpread": 1.7595
         }
       ],
       "top10_tight": [
@@ -2523,13 +2523,13 @@
           "spread": 2.5253
         }
       ],
-      "marketAvg": 1.7594
+      "marketAvg": 1.7595
     },
     "nyse": {
       "history": [
         {
           "date": "2026-07-13",
-          "avgSpread": 1.4155
+          "avgSpread": 1.4153
         }
       ],
       "top10_tight": [
@@ -2636,7 +2636,7 @@
           "spread": 3.3872
         }
       ],
-      "marketAvg": 1.4155
+      "marketAvg": 1.4153
     },
     "xetra": {
       "history": [
@@ -2878,7 +2878,7 @@
         },
         {
           "date": "2026-07-13",
-          "avgSpread": 0.7724
+          "avgSpread": 0.7695
         }
       ],
       "top10_tight": [
@@ -2903,14 +2903,14 @@
           "spread": 0.1004
         },
         {
+          "ticker": "ALW",
+          "name": "Alliance Witan",
+          "spread": 0.1939
+        },
+        {
           "ticker": "REL",
           "name": "RELX",
           "spread": 0.2027
-        },
-        {
-          "ticker": "ALW",
-          "name": "Alliance Witan",
-          "spread": 0.2041
         },
         {
           "ticker": "SN",
@@ -2985,7 +2985,7 @@
           "spread": 1.3276
         }
       ],
-      "marketAvg": 0.7697
+      "marketAvg": 0.7695
     },
     "enx": {
       "history": [
@@ -3108,24 +3108,24 @@
       "history": [
         {
           "date": "2026-07-13",
-          "avgSpread": 0.7265
+          "avgSpread": 0.7261
         }
       ],
       "top10_tight": [
         {
           "ticker": "MNST",
           "name": "Monster Beverage",
-          "spread": 0.097
+          "spread": 0.0976
         },
         {
           "ticker": "ABNB",
           "name": "Airbnb",
-          "spread": 0.1364
+          "spread": 0.1393
         },
         {
           "ticker": "SBUX",
           "name": "Starbucks",
-          "spread": 0.1504
+          "spread": 0.15
         },
         {
           "ticker": "HON",
@@ -3135,12 +3135,12 @@
         {
           "ticker": "XEL",
           "name": "Xcel Energy",
-          "spread": 0.3219
+          "spread": 0.3223
         },
         {
           "ticker": "CDNS",
           "name": "Cadence Design",
-          "spread": 0.33
+          "spread": 0.3299
         },
         {
           "ticker": "MAR",
@@ -3150,12 +3150,12 @@
         {
           "ticker": "PEP",
           "name": "PepsiCo",
-          "spread": 0.378
+          "spread": 0.3779
         },
         {
           "ticker": "WBD",
           "name": "Warner Bros. Discovery",
-          "spread": 0.3897
+          "spread": 0.3895
         },
         {
           "ticker": "EXC",
@@ -3167,7 +3167,7 @@
         {
           "ticker": "SMCI",
           "name": "Super Micro Computer",
-          "spread": 2.4257
+          "spread": 2.4256
         },
         {
           "ticker": "TTD",
@@ -3192,7 +3192,7 @@
         {
           "ticker": "CPRT",
           "name": "Copart",
-          "spread": 1.1425
+          "spread": 1.1434
         },
         {
           "ticker": "CMCSA",
@@ -3202,7 +3202,7 @@
         {
           "ticker": "TSLA",
           "name": "Tesla",
-          "spread": 0.9843
+          "spread": 0.9842
         },
         {
           "ticker": "ISRG",
@@ -3215,13 +3215,13 @@
           "spread": 0.9252
         }
       ],
-      "marketAvg": 0.7265
+      "marketAvg": 0.7261
     },
     "nyse": {
       "history": [
         {
           "date": "2026-07-13",
-          "avgSpread": 0.6357
+          "avgSpread": 0.6355
         }
       ],
       "top10_tight": [
@@ -3233,37 +3233,37 @@
         {
           "ticker": "PNW",
           "name": "Pinnacle West Capital",
-          "spread": 0.0854
+          "spread": 0.086
         },
         {
           "ticker": "MNST",
           "name": "Monster Beverage",
-          "spread": 0.097
+          "spread": 0.0976
         },
         {
           "ticker": "NEM",
           "name": "Newmont",
-          "spread": 0.1115
-        },
-        {
-          "ticker": "PFG",
-          "name": "Principal Financial Group",
-          "spread": 0.1194
-        },
-        {
-          "ticker": "RL",
-          "name": "Ralph Lauren Corporation",
-          "spread": 0.1197
+          "spread": 0.1105
         },
         {
           "ticker": "IBKR",
           "name": "Interactive Brokers",
-          "spread": 0.1208
+          "spread": 0.1196
+        },
+        {
+          "ticker": "RL",
+          "name": "Ralph Lauren Corporation",
+          "spread": 0.1198
+        },
+        {
+          "ticker": "PFG",
+          "name": "Principal Financial Group",
+          "spread": 0.1214
         },
         {
           "ticker": "PRU",
           "name": "Prudential Financial",
-          "spread": 0.1267
+          "spread": 0.1266
         },
         {
           "ticker": "NVR",
@@ -3271,9 +3271,9 @@
           "spread": 0.1289
         },
         {
-          "ticker": "ABNB",
-          "name": "Airbnb",
-          "spread": 0.1364
+          "ticker": "MPC",
+          "name": "Marathon Petroleum",
+          "spread": 0.1371
         }
       ],
       "top10_wide": [
@@ -3285,12 +3285,12 @@
         {
           "ticker": "SMCI",
           "name": "Supermicro",
-          "spread": 2.4257
+          "spread": 2.4256
         },
         {
           "ticker": "SNDK",
           "name": "Sandisk",
-          "spread": 2.1787
+          "spread": 2.1786
         },
         {
           "ticker": "TTD",
@@ -3325,10 +3325,10 @@
         {
           "ticker": "NTAP",
           "name": "NetApp",
-          "spread": 1.6745
+          "spread": 1.6744
         }
       ],
-      "marketAvg": 0.6357
+      "marketAvg": 0.6355
     },
     "xetra": {
       "history": [
@@ -3565,16 +3565,16 @@
     "date": "2026-07-13",
     "ranks": {
       "lse": {
-        "vol": 4,
+        "vol": 6,
         "illiq": 6,
-        "tr": 3,
+        "tr": 6,
         "ar": 6,
         "composite": 6
       },
       "enx": {
         "vol": 3,
         "illiq": 4,
-        "tr": 4,
+        "tr": 3,
         "ar": 2,
         "composite": 3
       },
@@ -3593,16 +3593,16 @@
         "composite": 1
       },
       "xetra": {
-        "vol": 5,
+        "vol": 4,
         "illiq": 5,
-        "tr": 5,
+        "tr": 4,
         "ar": 3,
         "composite": 5
       },
       "six": {
-        "vol": 6,
+        "vol": 5,
         "illiq": 3,
-        "tr": 6,
+        "tr": 5,
         "ar": 1,
         "composite": 4
       }
@@ -3613,11 +3613,11 @@
       "date": "2026-06-15",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3641,18 +3641,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 4,
           "tr": null,
           "ar": null,
           "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3660,11 +3660,11 @@
       "date": "2026-06-16",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3688,14 +3688,14 @@
           "composite": 3
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 3,
           "tr": null,
           "ar": null,
@@ -3707,11 +3707,11 @@
       "date": "2026-06-17",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3735,18 +3735,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3754,11 +3754,11 @@
       "date": "2026-06-18",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3782,18 +3782,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 4,
           "tr": null,
           "ar": null,
           "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3801,11 +3801,11 @@
       "date": "2026-06-19",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3829,18 +3829,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3848,11 +3848,11 @@
       "date": "2026-06-22",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3876,18 +3876,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3895,11 +3895,11 @@
       "date": "2026-06-23",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3923,18 +3923,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3942,11 +3942,11 @@
       "date": "2026-06-24",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -3970,18 +3970,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -3989,11 +3989,11 @@
       "date": "2026-06-25",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4017,18 +4017,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 4,
           "tr": null,
           "ar": null,
           "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4036,11 +4036,11 @@
       "date": "2026-06-26",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4064,18 +4064,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4083,11 +4083,11 @@
       "date": "2026-06-29",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4111,18 +4111,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4130,11 +4130,11 @@
       "date": "2026-06-30",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4158,18 +4158,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4177,11 +4177,11 @@
       "date": "2026-07-01",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4205,18 +4205,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4224,11 +4224,11 @@
       "date": "2026-07-02",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4252,18 +4252,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4271,11 +4271,11 @@
       "date": "2026-07-03",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4299,18 +4299,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4318,11 +4318,11 @@
       "date": "2026-07-06",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4346,18 +4346,18 @@
           "composite": 2
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 4,
           "tr": null,
           "ar": null,
           "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4365,11 +4365,11 @@
       "date": "2026-07-07",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": 4,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4393,18 +4393,18 @@
           "composite": 1
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": 5,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": 6,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4412,11 +4412,11 @@
       "date": "2026-07-08",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": 4,
           "ar": null,
-          "composite": 4
+          "composite": 6
         },
         "enx": {
           "vol": 3,
@@ -4440,18 +4440,18 @@
           "composite": 1
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": 5,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": 6,
           "ar": null,
-          "composite": 6
+          "composite": 5
         }
       }
     },
@@ -4459,11 +4459,11 @@
       "date": "2026-07-09",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": 3,
           "ar": null,
-          "composite": 4
+          "composite": 5
         },
         "enx": {
           "vol": 3,
@@ -4487,14 +4487,14 @@
           "composite": 1
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": 5,
           "ar": null,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": 6,
           "ar": null,
@@ -4506,11 +4506,11 @@
       "date": "2026-07-10",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
           "tr": 3,
           "ar": 3,
-          "composite": 4
+          "composite": 5
         },
         "enx": {
           "vol": 3,
@@ -4534,14 +4534,14 @@
           "composite": 1
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
           "tr": 5,
           "ar": 2,
-          "composite": 5
+          "composite": 4
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 4,
           "tr": 6,
           "ar": null,
@@ -4553,16 +4553,16 @@
       "date": "2026-07-13",
       "ranks": {
         "lse": {
-          "vol": 4,
+          "vol": 6,
           "illiq": 6,
-          "tr": 3,
+          "tr": 6,
           "ar": 6,
           "composite": 6
         },
         "enx": {
           "vol": 3,
           "illiq": 4,
-          "tr": 4,
+          "tr": 3,
           "ar": 2,
           "composite": 3
         },
@@ -4581,23 +4581,23 @@
           "composite": 1
         },
         "xetra": {
-          "vol": 5,
+          "vol": 4,
           "illiq": 5,
-          "tr": 5,
+          "tr": 4,
           "ar": 3,
           "composite": 5
         },
         "six": {
-          "vol": 6,
+          "vol": 5,
           "illiq": 3,
-          "tr": 6,
+          "tr": 5,
           "ar": 1,
           "composite": 4
         }
       }
     }
   ],
-  "commentary_date": "2026-07-13",
+  "commentary_date": "2026-07-14",
   "turnover_ratio": {
     "lse": {
       "history": [
@@ -4619,7 +4619,7 @@
         },
         {
           "date": "2026-07-13",
-          "ratio": 0.4171
+          "ratio": 0.0113
         }
       ],
       "top10_active": [
@@ -4691,14 +4691,14 @@
           "dvol_m": 7.53
         },
         {
-          "ticker": "ATYM",
-          "name": "Atalaya Mining",
+          "ticker": "PSH",
+          "name": "Pershing Square Holdings",
           "dvol_m": 7.6
         },
         {
-          "ticker": "PSH",
-          "name": "Pershing Square Holdings",
-          "dvol_m": 7.72
+          "ticker": "ATYM",
+          "name": "Atalaya Mining",
+          "dvol_m": 7.6
         },
         {
           "ticker": "PNN",
@@ -4718,7 +4718,7 @@
         {
           "ticker": "CORD",
           "name": "Cordiant Digital Infrastructure",
-          "dvol_m": 8.49
+          "dvol_m": 8.43
         },
         {
           "ticker": "CHG",
@@ -4875,86 +4875,86 @@
         },
         {
           "date": "2026-07-13",
-          "ratio": 0.8601
+          "ratio": 0.89
         }
       ],
       "top10_active": [
         {
           "ticker": "MU",
           "name": "Micron Technology",
-          "dvol_m": 55821.85
+          "dvol_m": 55828.06
         },
         {
           "ticker": "NVDA",
           "name": "NVIDIA",
-          "dvol_m": 29202.42
+          "dvol_m": 29281.19
         },
         {
           "ticker": "AAPL",
           "name": "Apple",
-          "dvol_m": 19027.6
+          "dvol_m": 19056.76
         },
         {
           "ticker": "TSLA",
           "name": "Tesla",
-          "dvol_m": 18363.91
+          "dvol_m": 18364.77
         },
         {
           "ticker": "MSFT",
           "name": "Microsoft",
-          "dvol_m": 17783.68
+          "dvol_m": 17810.21
         },
         {
           "ticker": "AMD",
           "name": "AMD",
-          "dvol_m": 15945.61
+          "dvol_m": 15955.63
         },
         {
           "ticker": "INTC",
           "name": "Intel",
-          "dvol_m": 15099.53
+          "dvol_m": 15104.21
         },
         {
           "ticker": "AMZN",
           "name": "Amazon",
-          "dvol_m": 14686.87
+          "dvol_m": 14703.88
         },
         {
           "ticker": "MRVL",
           "name": "Marvell Technology",
-          "dvol_m": 13573.51
+          "dvol_m": 13576.04
         },
         {
           "ticker": "GOOGL",
           "name": "Alphabet",
-          "dvol_m": 12225.46
+          "dvol_m": 12239.96
         }
       ],
       "top10_inactive": [
         {
           "ticker": "CDW",
           "name": "CDW Corp",
-          "dvol_m": 277.69
+          "dvol_m": 277.72
         },
         {
           "ticker": "BIIB",
           "name": "Biogen",
-          "dvol_m": 279.9
+          "dvol_m": 280.24
         },
         {
           "ticker": "GEHC",
           "name": "GE HealthCare",
-          "dvol_m": 301.75
+          "dvol_m": 302.06
         },
         {
           "ticker": "KHC",
           "name": "Kraft Heinz",
-          "dvol_m": 318.43
+          "dvol_m": 319.15
         },
         {
           "ticker": "DXCM",
           "name": "DexCom",
-          "dvol_m": 345.22
+          "dvol_m": 345.57
         },
         {
           "ticker": "EBAY",
@@ -4964,22 +4964,22 @@
         {
           "ticker": "TTD",
           "name": "The Trade Desk",
-          "dvol_m": 357.03
+          "dvol_m": 357.12
         },
         {
           "ticker": "TEAM",
           "name": "Atlassian",
-          "dvol_m": 359.21
+          "dvol_m": 359.4
         },
         {
           "ticker": "ILMN",
           "name": "Illumina",
-          "dvol_m": 363.13
+          "dvol_m": 363.28
         },
         {
           "ticker": "FAST",
           "name": "Fastenal",
-          "dvol_m": 367.0
+          "dvol_m": 367.25
         }
       ]
     },
@@ -5003,111 +5003,111 @@
         },
         {
           "date": "2026-07-13",
-          "ratio": 1.4106
+          "ratio": 1.5074
         }
       ],
       "top10_active": [
         {
           "ticker": "MU",
           "name": "Micron Technology",
-          "dvol_m": 55821.85
+          "dvol_m": 55828.06
         },
         {
           "ticker": "NVDA",
           "name": "Nvidia",
-          "dvol_m": 29202.42
+          "dvol_m": 29281.19
         },
         {
           "ticker": "SNDK",
           "name": "Sandisk",
-          "dvol_m": 23784.59
+          "dvol_m": 23788.5
         },
         {
           "ticker": "AAPL",
           "name": "Apple Inc.",
-          "dvol_m": 19027.6
+          "dvol_m": 19056.76
         },
         {
           "ticker": "TSLA",
           "name": "Tesla, Inc.",
-          "dvol_m": 18363.91
+          "dvol_m": 18364.77
         },
         {
           "ticker": "MSFT",
           "name": "Microsoft",
-          "dvol_m": 17783.68
+          "dvol_m": 17810.21
         },
         {
           "ticker": "AMD",
           "name": "Advanced Micro Devices",
-          "dvol_m": 15945.61
+          "dvol_m": 15955.63
         },
         {
           "ticker": "INTC",
           "name": "Intel",
-          "dvol_m": 15099.53
+          "dvol_m": 15104.21
         },
         {
           "ticker": "AMZN",
           "name": "Amazon",
-          "dvol_m": 14686.87
+          "dvol_m": 14703.88
         },
         {
           "ticker": "MRVL",
           "name": "Marvell Technology",
-          "dvol_m": 13573.51
+          "dvol_m": 13576.04
         }
       ],
       "top10_inactive": [
         {
           "ticker": "ERIE",
           "name": "Erie Indemnity",
-          "dvol_m": 58.6
+          "dvol_m": 58.63
         },
         {
           "ticker": "NWS",
           "name": "News Corp",
-          "dvol_m": 66.14
+          "dvol_m": 66.15
         },
         {
           "ticker": "ARE",
           "name": "Alexandria Real Estate Equities",
-          "dvol_m": 87.97
+          "dvol_m": 88.88
         },
         {
           "ticker": "PSKY",
           "name": "Paramount Skydance Corporation",
-          "dvol_m": 92.51
+          "dvol_m": 92.84
         },
         {
           "ticker": "BXP",
           "name": "BXP, Inc.",
-          "dvol_m": 93.05
+          "dvol_m": 94.29
         },
         {
           "ticker": "SOLV",
           "name": "Solventum",
-          "dvol_m": 101.19
+          "dvol_m": 101.83
         },
         {
           "ticker": "L",
           "name": "Loews Corporation",
-          "dvol_m": 101.67
+          "dvol_m": 103.44
         },
         {
           "ticker": "AIZ",
           "name": "Assurant",
-          "dvol_m": 104.8
-        },
-        {
-          "ticker": "FRT",
-          "name": "Federal Realty Investment Trust",
-          "dvol_m": 105.66
+          "dvol_m": 106.43
         },
         {
           "ticker": "HRL",
           "name": "Hormel Foods",
-          "dvol_m": 106.77
+          "dvol_m": 106.69
+        },
+        {
+          "ticker": "FRT",
+          "name": "Federal Realty Investment Trust",
+          "dvol_m": 106.84
         }
       ]
     },
@@ -5370,7 +5370,7 @@
   },
   "_state": {
     "lse_file_num": 1545,
-    "commentary_date": "2026-07-13",
+    "commentary_date": "2026-07-14",
     "commentary_ranking_date": "2026-07-13",
     "universe_refresh_date": "2026-07-13"
   },
@@ -7154,14 +7154,14 @@
         6.241,
         6.134,
         5.63,
-        5.27
+        0.143
       ],
       "value_usd": [
-        8.039,
-        8.332,
-        8.189,
-        7.517,
-        7.035
+        8.043,
+        8.336,
+        8.194,
+        7.521,
+        0.191
       ],
       "n_universe": 134
     },
@@ -7183,10 +7183,10 @@
         7.299
       ],
       "value_usd": [
-        11.724,
-        13.38,
-        10.095,
-        8.76,
+        11.731,
+        13.388,
+        10.1,
+        8.765,
         8.31
       ],
       "n_universe": 110
@@ -7206,14 +7206,14 @@
         247.23,
         273.473,
         227.08,
-        226.743
+        234.631
       ],
       "value_usd": [
         281.294,
         247.23,
         273.473,
         227.08,
-        226.743
+        234.631
       ],
       "n_universe": 89
     },
@@ -7228,18 +7228,18 @@
         "2026-07-13"
       ],
       "value": [
-        529.062,
-        487.638,
-        505.668,
-        415.885,
-        419.947
+        529.061,
+        487.637,
+        505.666,
+        415.884,
+        448.75
       ],
       "value_usd": [
-        529.062,
-        487.638,
-        505.668,
-        415.885,
-        419.947
+        529.061,
+        487.637,
+        505.666,
+        415.884,
+        448.75
       ],
       "n_universe": 501
     },
@@ -7261,10 +7261,10 @@
         3.386
       ],
       "value_usd": [
-        5.423,
-        5.898,
-        4.586,
-        4.212,
+        5.426,
+        5.902,
+        4.588,
+        4.214,
         3.855
       ],
       "n_universe": 64
@@ -7287,11 +7287,11 @@
         0.944
       ],
       "value_usd": [
-        3.65,
-        3.656,
-        3.406,
-        3.437,
-        1.158
+        3.652,
+        3.658,
+        3.408,
+        3.439,
+        1.159
       ],
       "n_universe": 44
     }
