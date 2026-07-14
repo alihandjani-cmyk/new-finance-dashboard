@@ -402,6 +402,29 @@ def _prev_bday(dt=None, n=1):
             d -= timedelta(days=1)
     return d
 
+def _trim_stale_dates(date_keys, n=5, max_gap_days=4):
+    """Return up to n most recent ISO date strings from date_keys, walking
+    backward from the newest. Stops early if the gap to the next-older date
+    exceeds max_gap_days (covers a normal weekend/holiday gap of ~3 days).
+    This prevents an old leftover date from a failed fetch (e.g. a source
+    outage) from lingering in a 'last 5' window for days once fewer than n
+    fresh dates have accumulated since the gap — better to show fewer, correct
+    points than a stale, disconnected one.
+    """
+    all_sorted = sorted(date_keys)
+    if not all_sorted:
+        return []
+    kept = [all_sorted[-1]]
+    for label in reversed(all_sorted[:-1]):
+        if len(kept) >= n:
+            break
+        newest_kept = date.fromisoformat(kept[-1])
+        gap = (newest_kept - date.fromisoformat(label)).days
+        if gap > max_gap_days:
+            break
+        kept.append(label)
+    return list(reversed(kept))
+
 # ══════════════════════════════════════════════════════════════════════════════
 #  UNIVERSE SELECTION — dynamic index-constituent + ADV filter
 #  Refreshed monthly; stored under dash['universes'][ex_key].
@@ -1689,7 +1712,7 @@ def main():
             vol_map = dict(zip(existing_dates, existing_vals))
             for pt in vol_pts:
                 vol_map[pt['label']] = pt['value']
-            sorted_labels = sorted(vol_map.keys())[-5:]
+            sorted_labels = _trim_stale_dates(vol_map.keys())
             dash['vol'][ex_key]['dates'] = sorted_labels
             dash['vol'][ex_key]['value'] = [vol_map[l] for l in sorted_labels]
             valid_sh = [pt['shares_m'] for pt in vol_pts if pt.get('shares_m') is not None]
@@ -1720,7 +1743,7 @@ def main():
                 vc_map_usd[pt['date']]   = pt['value_usd']
                 if pt.get('shares_m') is not None:
                     vc_map_shares[pt['date']] = pt['shares_m']
-            sorted_vc_dates = sorted(vc_map_local.keys())[-5:]
+            sorted_vc_dates = _trim_stale_dates(vc_map_local.keys())
             vc['dates']      = sorted_vc_dates
             vc['value']      = [vc_map_local[d] for d in sorted_vc_dates]
             vc['value_usd']  = [vc_map_usd[d]   for d in sorted_vc_dates]

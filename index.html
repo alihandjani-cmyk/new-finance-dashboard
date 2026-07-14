@@ -347,9 +347,14 @@
 
       <div class="vsection-hdr vsection-hdr-usd">
         <div class="vsection-title">🟣 All-Exchange Volume Comparison — USD</div>
-        <div class="vsection-note">Comparable liquid-universe turnover for all six exchanges (🔵 section below), converted to USD at each day's FX rate and plotted together so relative trading activity across venues can be compared directly on one chart.</div>
+        <div class="vsection-note">Comparable liquid-universe turnover for all six exchanges (🔵 section below), converted to USD at each day's FX rate and plotted together so relative trading activity across venues can be compared directly on one chart. NYSE and Nasdaq trade several times the USD volume of the other four venues — switch to a log scale to see the smaller exchanges more clearly.</div>
       </div>
-      <div class="cw" style="padding:16px 16px 18px"><canvas id="allVolUsdChart" style="max-height:300px"></canvas></div>
+      <div class="cw" style="padding:16px 16px 18px">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+          <button class="rbtn" id="allVolUsdScaleBtn" onclick="toggleAllVolUsdScale()" style="font-size:10.5px;padding:3px 9px">📊 Log scale</button>
+        </div>
+        <canvas id="allVolUsdChart" style="max-height:300px"></canvas>
+      </div>
 
       <!-- ── Comparable Liquid Universe ───────────────────────────────────── -->
       <div class="vsection-hdr vsection-hdr-cmp">
@@ -926,6 +931,15 @@ function renderVolComparable() {
 }
 
 // Single chart comparing all 6 exchanges' comparable-universe turnover in USD
+let allVolUsdScaleType = 'linear';
+
+function toggleAllVolUsdScale() {
+  allVolUsdScaleType = allVolUsdScaleType === 'linear' ? 'logarithmic' : 'linear';
+  const btn = document.getElementById('allVolUsdScaleBtn');
+  if (btn) btn.textContent = allVolUsdScaleType === 'linear' ? '📊 Log scale' : '📈 Linear scale';
+  renderAllVolUsd();
+}
+
 function renderAllVolUsd() {
   const vc = DASH.vol_comparable || {};
   const canvas = document.getElementById('allVolUsdChart');
@@ -948,6 +962,8 @@ function renderAllVolUsd() {
     };
   });
 
+  const isLog = allVolUsdScaleType === 'logarithmic';
+
   if (_charts['allVolUsd']) { try { _charts['allVolUsd'].destroy(); } catch(_){} }
   _charts['allVolUsd'] = new Chart(canvas, {
     type: 'bar',
@@ -959,7 +975,12 @@ function renderAllVolUsd() {
         tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) : '—'} USD B` } }
       },
       scales: {
-        y: { beginAtZero: true, title: { display: true, text: 'USD Billions', font: { size: 10 }, color: '#57606a' }, ticks: { font: { size: 10 } } },
+        y: {
+          type: allVolUsdScaleType,
+          beginAtZero: !isLog,
+          title: { display: true, text: 'USD Billions' + (isLog ? ' (log scale)' : ''), font: { size: 10 }, color: '#57606a' },
+          ticks: { font: { size: 10 } }
+        },
         x: { ticks: { font: { size: 10 } } }
       }
     }
