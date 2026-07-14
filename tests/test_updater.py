@@ -114,6 +114,27 @@ def test_clean_ticker_numeric_pad_rejects_junk():
     assert u._clean_ticker('nan', numeric_pad=4) == ''
 
 
+# ── _clean_ticker: variable-width numeric exchanges (KRX) ────────────────────
+
+def test_clean_ticker_numeric_width_plain_6digit_code():
+    assert u._clean_ticker('005930', allow_numeric=True, numeric_width=6) == '005930'
+    assert u._clean_ticker('000660', allow_numeric=True, numeric_width=6) == '000660'
+
+
+def test_clean_ticker_numeric_width_mid_string_letter():
+    # Regression: KRX has at least one oddball code with a letter in the
+    # middle rather than trailing (Samsung Epis: '0126Z0'), unlike TSE where
+    # the letter is always the last character ('543A'). The extraction must
+    # not assume the letter is trailing.
+    assert u._clean_ticker('0126Z0', allow_numeric=True, numeric_width=6) == '0126Z0'
+
+
+def test_clean_ticker_numeric_width_default_unchanged_for_tse():
+    # numeric_width defaults to 4 — existing TSE behavior must be untouched.
+    assert u._clean_ticker('7203', allow_numeric=True) == '7203'
+    assert u._clean_ticker('543A', allow_numeric=True) == '543A'
+
+
 # ── _backfill_new_exchanges: adding an exchange to a pre-existing dash ───────
 
 def _old_dash(keys):

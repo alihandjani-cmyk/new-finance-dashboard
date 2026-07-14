@@ -125,13 +125,15 @@ EXCHANGES = {
                'vol_method':'yf',  'pence':False,'nok_eur':False},
     'hkg':   {'name':'Hong Kong Stock Exchange','currency':'HKD','vol_currency':'HKD B',
                'vol_method':'yf',  'pence':False,'nok_eur':False},
+    'krx':   {'name':'Korea Exchange','currency':'KRW','vol_currency':'KRW B',
+               'vol_method':'yf',  'pence':False,'nok_eur':False},
 }
 
 # ── Ticker-bar symbols (live prices shown in the top bar) ────────────────────
 TICKER_SYMBOLS = {
     'FTSE':  '^FTSE',    'DAX':    '^GDAXI',   'CAC40': '^FCHI',   'SMI': '^SSMI',
     'SP500': '^GSPC',    'NDX':    '^NDX',      'DJI':   '^DJI',   'NIKKEI': '^N225',
-    'HSI':   '^HSI',
+    'HSI':   '^HSI',     'KOSPI':  '^KS11',
     'GBPUSD':'GBPUSD=X', 'EURUSD': 'EURUSD=X', 'EURGBP':'EURGBP=X','USDJPY':'JPY=X',
     'GOLD':  'GC=F',     'OIL':    'CL=F',
 }
@@ -356,6 +358,37 @@ _FALLBACK_NAMES = {
         '3690.HK':'Meituan','9618.HK':'JD.com','9888.HK':'Baidu',
         '9961.HK':'Trip.com Group','9999.HK':'NetEase',
     },
+}
+
+_FALLBACK_TICKERS['krx'] = [
+    '005930.KS','000660.KS','373220.KS','207940.KS','006400.KS','005380.KS','000270.KS',
+    '068270.KS','035420.KS','035720.KS','005490.KS','105560.KS','055550.KS','086790.KS',
+    '316140.KS','028260.KS','032830.KS','000810.KS','051910.KS','066570.KS','096770.KS',
+    '017670.KS','030200.KS','032640.KS','012330.KS','012450.KS','329180.KS','034020.KS',
+    '011200.KS','003490.KS','259960.KS','036570.KS','251270.KS','352820.KS','021240.KS',
+    '090430.KS','033780.KS','011170.KS','010950.KS','010130.KS','004020.KS','034220.KS',
+    '009150.KS','018260.KS','006800.KS','138040.KS','024110.KS','009830.KS','005830.KS',
+    '086280.KS','015760.KS',
+]
+
+_FALLBACK_NAMES['krx'] = {
+    '005930.KS':'Samsung Electronics','000660.KS':'SK Hynix','373220.KS':'LG Energy Solution',
+    '207940.KS':'Samsung Biologics','006400.KS':'Samsung SDI','005380.KS':'Hyundai Motor',
+    '000270.KS':'Kia','068270.KS':'Celltrion','035420.KS':'Naver','035720.KS':'Kakao',
+    '005490.KS':'POSCO Holdings','105560.KS':'KB Financial','055550.KS':'Shinhan Financial',
+    '086790.KS':'Hana Financial','316140.KS':'Woori Financial','028260.KS':'Samsung C&T',
+    '032830.KS':'Samsung Life','000810.KS':'Samsung Fire & Marine','051910.KS':'LG Chem',
+    '066570.KS':'LG Electronics','096770.KS':'SK Innovation','017670.KS':'SK Telecom',
+    '030200.KS':'KT','032640.KS':'LG Uplus','012330.KS':'Hyundai Mobis',
+    '012450.KS':'Hanwha Aerospace','329180.KS':'HD Hyundai Heavy Industries',
+    '034020.KS':'Doosan Enerbility','011200.KS':'HMM','003490.KS':'Korean Air',
+    '259960.KS':'Krafton','036570.KS':'NCSoft','251270.KS':'Netmarble','352820.KS':'Hybe',
+    '021240.KS':'Coway','090430.KS':'Amorepacific','033780.KS':'KT&G',
+    '011170.KS':'Lotte Chemical','010950.KS':'S-Oil','010130.KS':'Korea Zinc',
+    '004020.KS':'Hyundai Steel','034220.KS':'LG Display','009150.KS':'Samsung Electro-Mechanics',
+    '018260.KS':'Samsung SDS','006800.KS':'Mirae Asset Securities','138040.KS':'Meritz Financial',
+    '024110.KS':'Industrial Bank of Korea','009830.KS':'Hanwha Solutions','005830.KS':'DB Insurance',
+    '086280.KS':'Hyundai Glovis','015760.KS':'KEPCO',
 }
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -591,13 +624,17 @@ _WIKI_SOURCES = {
     'hkg':   [
         ('https://en.wikipedia.org/wiki/Hang_Seng_Index', '.HK'),
     ],
+    'krx':   [
+        ('https://en.wikipedia.org/wiki/KOSPI_200', '.KS'),
+    ],
 }
 
 # Exchanges whose native ticker codes are numeric (or digit-led alphanumeric,
-# e.g. TSE's newer 4-char codes like '543A') rather than letters. _clean_ticker
-# rejects digit-led values by default to filter out stray footnote numbers on
-# Western index pages — these exchanges opt out of that check.
-_NUMERIC_TICKER_EXCHANGES = {'tse'}
+# e.g. TSE's 4-char codes like '543A', KRX's 6-char codes like '0126Z0')
+# rather than letters. _clean_ticker rejects digit-led values by default to
+# filter out stray footnote numbers on Western index pages — these exchanges
+# opt out of that check. Maps ex_key -> fixed code width.
+_NUMERIC_TICKER_EXCHANGES = {'tse': 4, 'krx': 6}
 
 # Exchanges whose Wikipedia constituent table lists bare/unpadded numeric codes
 # (e.g. HKEX: 'SEHK: 5', 'SEHK: 388') but whose Yahoo ticker requires a fixed-
@@ -618,15 +655,20 @@ def _find_col(df, aliases):
             return lc[a]
     return None
 
-def _clean_ticker(raw, allow_numeric=False, numeric_pad=None):
+def _clean_ticker(raw, allow_numeric=False, numeric_pad=None, numeric_width=4):
     """Strip footnote markers, whitespace; return cleaned ticker string or ''.
 
     allow_numeric : for exchanges whose native codes are digit-led (e.g. TSE's
-    4-character codes: '7203', or newer alphanumeric ones like '543A'). The
-    raw cell may carry extra text or wrap the code in parens ('(TYO: 7203)'),
-    so this searches for the code pattern directly rather than stripping
-    parens first (which would delete the code itself) or requiring the whole
-    cleaned cell to equal it.
+    4-character codes: '7203', or newer alphanumeric ones like '543A'; KRX's
+    6-character codes like '005930', or oddballs with a letter mid-string
+    like '0126Z0'). The raw cell may carry extra text or wrap the code in
+    parens ('(TYO: 7203)'), so this searches for the code pattern directly
+    rather than stripping parens first (which would delete the code itself)
+    or requiring the whole cleaned cell to equal it.
+    numeric_width : fixed code length for allow_numeric exchanges (first char
+    must be a digit, since these are index numeric codes not company names;
+    the remaining numeric_width-1 chars may be digits or letters, anywhere
+    in the code — not just trailing, since KRX has mid-string letters).
     numeric_pad : for exchanges whose Wikipedia codes are bare/unpadded numbers
     (e.g. HKEX: 'SEHK: 5', 'SEHK: 388') but whose Yahoo ticker requires a
     fixed-width zero-padded code ('0005.HK', '0388.HK'). Extracts the first
@@ -636,7 +678,7 @@ def _clean_ticker(raw, allow_numeric=False, numeric_pad=None):
         m = re.search(r'(\d+)', str(raw))
         return m.group(1).zfill(numeric_pad) if m else ''
     if allow_numeric:
-        m = re.search(r'\b(\d{3}[0-9A-Z])\b', str(raw).upper())
+        m = re.search(r'\b(\d[0-9A-Z]{%d})\b' % (numeric_width - 1), str(raw).upper())
         return m.group(1) if m else ''
     s = re.sub(r'\[.*?\]|\(.*?\)', '', str(raw)).strip()
     # Reject obviously non-ticker values
@@ -646,12 +688,13 @@ def _clean_ticker(raw, allow_numeric=False, numeric_pad=None):
         return ''
     return s
 
-def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numeric_pad=None):
+def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numeric_pad=None, numeric_width=4):
     """Fetch a Wikipedia page and extract the constituent ticker→name dict.
 
     suffix        : string appended to raw ticker if ticker has no '.', or None.
     filter_nyse   : if True, skip rows where Exchange column contains 'nasdaq'.
     allow_numeric : if True, accept digit-led ticker codes (see _clean_ticker).
+    numeric_width : fixed code length for allow_numeric exchanges (see _clean_ticker).
     numeric_pad   : if set, zero-pad extracted digit codes to this width (see
                     _clean_ticker).
     Returns {yf_ticker: display_name} or {} on failure.
@@ -681,7 +724,7 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
 
         result = {}
         for _, row in tbl.iterrows():
-            raw_tk = _clean_ticker(row[ticker_col], allow_numeric=allow_numeric, numeric_pad=numeric_pad)
+            raw_tk = _clean_ticker(row[ticker_col], allow_numeric=allow_numeric, numeric_pad=numeric_pad, numeric_width=numeric_width)
             if not raw_tk:
                 continue
 
@@ -718,12 +761,14 @@ def _fetch_constituents(ex_key):
     sources = _WIKI_SOURCES.get(ex_key, [])
     combined = {}
     allow_numeric = ex_key in _NUMERIC_TICKER_EXCHANGES
+    numeric_width = _NUMERIC_TICKER_EXCHANGES.get(ex_key, 4)
     numeric_pad   = _ZERO_PAD_TICKER_EXCHANGES.get(ex_key)
 
     for url, suffix in sources:
         print(f'    Wikipedia: {url.split("/")[-1].replace("%26", "&")}')
         chunk = _parse_wiki_table(url, suffix, filter_nyse=(ex_key == 'nyse'),
-                                   allow_numeric=allow_numeric, numeric_pad=numeric_pad)
+                                   allow_numeric=allow_numeric, numeric_pad=numeric_pad,
+                                   numeric_width=numeric_width)
         if chunk:
             combined.update(chunk)
             print(f'      → {len(chunk)} tickers ({len(combined)} total)')
@@ -745,13 +790,13 @@ def _fetch_constituents(ex_key):
 
 
 def _fetch_fx_rates():
-    """Fetch GBPUSD, EURUSD, CHFUSD, JPYUSD, HKDUSD (and NOKEUR) for ADV threshold conversion.
+    """Fetch GBPUSD, EURUSD, CHFUSD, JPYUSD, HKDUSD, KRWUSD (and NOKEUR) for ADV threshold conversion.
     Returns dict: currency_code → USD rate (e.g. {'GBP': 1.27, 'EUR': 1.08, ...}).
     """
     fx_map  = {'GBP': 'GBPUSD=X', 'EUR': 'EURUSD=X', 'CHF': 'CHFUSD=X', 'NOK': 'NOKUSD=X'}
-    # Yahoo quotes JPY and HKD as USD/JPY, USD/HKD ('JPY=X' ~150, 'HKD=X' ~7.8),
-    # not JPY/USD or HKD/USD — invert below.
-    inverse_fx_map = {'JPY': 'JPY=X', 'HKD': 'HKD=X'}
+    # Yahoo quotes JPY, HKD and KRW as USD/JPY, USD/HKD, USD/KRW ('JPY=X' ~150,
+    # 'HKD=X' ~7.8, 'KRW=X' ~1370), not JPY/USD etc — invert below.
+    inverse_fx_map = {'JPY': 'JPY=X', 'HKD': 'HKD=X', 'KRW': 'KRW=X'}
     rates   = {'USD': 1.0}
     syms    = list(fx_map.values()) + list(inverse_fx_map.values())
     try:
@@ -781,9 +826,10 @@ def _fetch_fx_rates():
     rates.setdefault('NOK', 0.086)
     rates.setdefault('JPY', 0.0067)
     rates.setdefault('HKD', 0.128)
+    rates.setdefault('KRW', 0.00073)
     print(f'  FX: GBP={rates["GBP"]:.4f} EUR={rates["EUR"]:.4f} '
           f'CHF={rates["CHF"]:.4f} NOK={rates["NOK"]:.4f} JPY={rates["JPY"]:.5f} '
-          f'HKD={rates["HKD"]:.5f}')
+          f'HKD={rates["HKD"]:.5f} KRW={rates["KRW"]:.6f}')
     return rates
 
 
@@ -875,6 +921,7 @@ def build_universe(ex_key, fx_rates):
         'six':   'SMI 20 + SMIM 30',
         'tse':   'Nikkei 225',
         'hkg':   'Hang Seng Index',
+        'krx':   'KOSPI 200',
     }
     print(f'  Building universe: {ex_key} ({_INDEX_LABEL.get(ex_key, ex_key)})')
 
@@ -1033,7 +1080,7 @@ def fetch_gainers(ex_key, tickers, names):
         return None
     results.sort(key=lambda x: x['pct'], reverse=True)
 
-    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW', 'tse': '.T', 'hkg': '.HK'}
+    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW', 'tse': '.T', 'hkg': '.HK', 'krx': '.KS'}
     suffix = suffix_map.get(ex_key)
     output = []
     for r in results[:10]:
@@ -1085,7 +1132,7 @@ def fetch_market_cap(ex_key, tickers, names):
         return None
     results.sort(key=lambda x: x['mc'], reverse=True)
 
-    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW', 'tse': '.T', 'hkg': '.HK'}
+    suffix_map = {'lse': '.L', 'enx': None, 'ndx': None, 'nyse': None, 'xetra': '.DE', 'six': '.SW', 'tse': '.T', 'hkg': '.HK', 'krx': '.KS'}
     suffix = suffix_map.get(ex_key)
     top10  = []
     for r in results[:10]:
@@ -1423,7 +1470,7 @@ def fetch_amihud(ex_key, tickers, names, existing_history):
 
     sorted_stocks = sorted(stock_avgs.items(), key=lambda x: x[1])
 
-    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW','tse':'.T','hkg':'.HK'}
+    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW','tse':'.T','hkg':'.HK','krx':'.KS'}
     suf = suffix_map.get(ex_key)
 
     def _stock_entry(sym, val):
@@ -1514,7 +1561,7 @@ def fetch_ar_spread(ex_key, tickers, names, existing_history):
     market_avg  = round(sum(stock_spreads.values()) / len(stock_spreads), 4)
     new_history = _push(existing_history, {'date': last_trade_date, 'avgSpread': market_avg})
 
-    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW','tse':'.T','hkg':'.HK'}
+    suffix_map = {'lse':'.L','enx':None,'ndx':None,'nyse':None,'xetra':'.DE','six':'.SW','tse':'.T','hkg':'.HK','krx':'.KS'}
     suf = suffix_map.get(ex_key)
 
     def _ar_entry(sym, val):
