@@ -1351,30 +1351,32 @@ def fetch_vol_yf(ex_key, tickers):
 #  COMPARABLE VOLUME  (all 8 exchanges — same liquid universe)
 # ──────────────────────────────────────────────────────────────────────────────
 
-def fetch_vol_comparable(ex_key, tickers, fx_rates):
-    """Compute daily aggregate turnover for the liquid universe tickers.
-    Returns list of {'date', 'value_local', 'value_usd'} for the last 5 trading days.
-    All exchanges go through this path so volume rankings compare like with like.
-    """
-    cfg      = EXCHANGES[ex_key]
-    is_pence = cfg.get('pence', False)
-    nok_eur  = cfg.get('nok_eur', False)
-    currency = cfg['currency']
-    fx_usd   = fx_rates.get(currency, 1.0)
+def _vol_comparable_pass(ex_key, tickers, fx_rates, is_pence, nok_eur, fx_usd):
+    """One yfinance batch download + aggregation pass for fetch_vol_comparable.
 
+    Returns (pts, latest_day_dropped):
+      pts               : list of {'date','value_local','value_usd','shares_m'}
+                           dicts, oldest→newest, for whichever recent days had
+                           enough ticker coverage to trust.
+      latest_day_dropped : True if the most recent date with ANY data got
+                           excluded specifically for low coverage (as opposed
+                           to there being no more recent trading day at all) —
+                           the caller uses this to decide whether a retry is
+                           worth it.
+    Returns (None, False) on a hard download failure.
+    """
     try:
         raw = yf.download(tickers, period='15d', interval='1d',
                           progress=False, auto_adjust=True, threads=True)
         if raw.empty:
             print(f'  ✗  {ex_key} vol_comparable: no data')
-            return None
+            return None, False
     except Exception as exc:
         print(f'  ✗  {ex_key} vol_comparable download: {exc}')
-        return None
+        return None, False
 
-    is_multi = isinstance(raw.columns, pd.MultiIndex)
-    if not is_multi:
-        return None
+    if not isinstance(raw.columns, pd.MultiIndex):
+        return None, False
 
     close_df  = raw['Close']
     volume_df = raw['Volume']
@@ -1392,9 +1394,30 @@ def fetch_vol_comparable(ex_key, tickers, fx_rates):
     daily_total_local  = daily_val.sum(axis=1, min_count=1).dropna()
     daily_shares_total = volume_df.sum(axis=1, min_count=1)   # total shares traded, universe-wide
 
+    # Per-date ticker coverage. A large batch yf.download (NYSE ~500, NDX ~90
+    # tickers) can silently return data for only a fraction of the universe on
+    # a given day (transient Yahoo Finance gap) while still producing a valid,
+    # non-null sum() over whichever tickers happened to report — that sum
+    # looks like a real (very low) total instead of the partial fetch it
+    # actually is. Seen live: NYSE/NDX vol_comparable both collapsed ~80-85%
+    # for a single day while every other exchange moved normally that day.
+    # Require at least half the universe to have reported before trusting a
+    # day's total.
+    daily_coverage = daily_val.notna().sum(axis=1)
+    min_coverage    = max(5, len(tickers) // 2)
+
+    last_data_date  = daily_total_local.index.max() if len(daily_total_local) else None
+    latest_dropped  = False
     pts = []
     for ts, val_local in daily_total_local.items():
         if val_local <= 0:
+            continue
+        coverage = int(daily_coverage.get(ts, 0))
+        if coverage < min_coverage:
+            print(f'  ⚠  {ex_key} vol_comparable {ts.strftime("%Y-%m-%d")}: only {coverage}/{len(tickers)} '
+                  f'tickers had data — skipping (likely a partial yfinance fetch)')
+            if last_data_date is not None and ts == last_data_date:
+                latest_dropped = True
             continue
         val_usd = float(val_local) * fx_usd
         sh = float(daily_shares_total.get(ts, 0)) if ts in daily_shares_total.index else 0.0
@@ -1404,6 +1427,33 @@ def fetch_vol_comparable(ex_key, tickers, fx_rates):
             'value_usd':   round(val_usd / 1e9, 3),            # → USD billions
             'shares_m':    round(sh / 1e6, 1) if sh > 0 else None,   # → millions of shares
         })
+
+    return pts, latest_dropped
+
+
+def fetch_vol_comparable(ex_key, tickers, fx_rates):
+    """Compute daily aggregate turnover for the liquid universe tickers.
+    Returns list of {'date', 'value_local', 'value_usd'} for the last 5 trading days.
+    All exchanges go through this path so volume rankings compare like with like.
+    """
+    cfg      = EXCHANGES[ex_key]
+    is_pence = cfg.get('pence', False)
+    nok_eur  = cfg.get('nok_eur', False)
+    currency = cfg['currency']
+    fx_usd   = fx_rates.get(currency, 1.0)
+
+    pts, latest_dropped = _vol_comparable_pass(ex_key, tickers, fx_rates, is_pence, nok_eur, fx_usd)
+    if pts is None:
+        return None
+
+    # If it was specifically the newest day that got dropped for low
+    # coverage, one retry often clears a transient Yahoo Finance gap — the
+    # same pattern used for fetch_gainers.
+    if latest_dropped:
+        print(f'  ⚠  {ex_key} vol_comparable: latest day dropped for low coverage — retrying once')
+        retry_pts, retry_latest_dropped = _vol_comparable_pass(ex_key, tickers, fx_rates, is_pence, nok_eur, fx_usd)
+        if retry_pts is not None and (not retry_latest_dropped or len(retry_pts) > len(pts)):
+            pts = retry_pts
 
     pts = pts[-5:]
 
