@@ -654,7 +654,13 @@ _WIKI_SOURCES = {
         ('https://en.wikipedia.org/wiki/OBX_Stock_Index', '.OL'),
     ],
     'ndx':   [
-        ('https://en.wikipedia.org/wiki/Nasdaq-100', None),
+        # Not the 'Nasdaq-100' index-description page — its Components table
+        # isn't reliably parseable (confirmed live: lxml finds zero usable
+        # tables on it despite a real Ticker/Company table existing there).
+        # Wikipedia keeps the machine-readable constituent list on a separate
+        # 'List of X companies' page, same convention already used for NYSE
+        # (List_of_S%26P_500_companies rather than S%26P_500).
+        ('https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies', None),
     ],
     'nyse':  [
         # S&P 500 — filtered below to NYSE+NYSE Arca listings only
@@ -768,27 +774,12 @@ def _clean_ticker(raw, allow_numeric=False, numeric_pad=None, numeric_width=4):
         s = s.replace('.', '-')
     return s
 
-def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numeric_pad=None, numeric_width=4):
-    """Fetch a Wikipedia page and extract the constituent ticker→name dict.
-
-    suffix        : string appended to raw ticker if ticker has no '.', or None.
-    filter_nyse   : if True, skip rows where Exchange column contains 'nasdaq'.
-    allow_numeric : if True, accept digit-led ticker codes (see _clean_ticker).
-    numeric_width : fixed code length for allow_numeric exchanges (see _clean_ticker).
-    numeric_pad   : if set, zero-pad extracted digit codes to this width (see
-                    _clean_ticker).
-    Returns {yf_ticker: display_name} or {} on failure.
+def _scan_tables_for_constituents(tables, suffix, filter_nyse, allow_numeric, numeric_pad,
+                                   numeric_width, verbose=True):
+    """Scan a list of already-parsed DataFrames for a usable ticker/name
+    constituent table. Returns (result_dict, tables_scanned, tables_with_col).
+    result_dict is {} if nothing usable was found.
     """
-    raw = _get(url, xlsx=False)
-    if not raw:
-        return {}
-    try:
-        html = raw.decode('utf-8', errors='replace')
-        tables = pd.read_html(io.StringIO(html))
-    except Exception as exc:
-        print(f'    ⚠  HTML parse error ({url.split("/")[-1]}): {exc}')
-        return {}
-
     tables_scanned  = 0
     tables_with_col = 0
     for tbl in tables:
@@ -798,15 +789,8 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
         ticker_col = _find_col(tbl, _TICKER_ALIASES)
         name_col   = _find_col(tbl, _NAME_ALIASES)
         if ticker_col is None:
-            # Print the raw column labels so a persistent 0-match page (like
-            # Nasdaq-100/Nikkei 225 have been) is diagnosable from the log
-            # without needing to fetch the page by hand — this is exactly the
-            # gap that made the previous _find_col fix (footnote markers /
-            # MultiIndex headers) a guess rather than a confirmed cause: that
-            # fix didn't change the "0 had a ticker-like column" outcome, and
-            # without seeing the actual column labels there was no way to
-            # tell why from the log alone.
-            print(f'    ⚠  table rows={len(tbl)} cols={list(tbl.columns)[:8]!r} — no ticker-like column')
+            if verbose:
+                print(f'    ⚠  table rows={len(tbl)} cols={list(tbl.columns)[:8]!r} — no ticker-like column')
             continue
         tables_with_col += 1
 
@@ -841,8 +825,61 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
             result[ticker] = name
 
         if len(result) >= 5:
-            return result
-        print(f'    ⚠  table cols={list(tbl.columns)[:6]} rows={len(tbl)} → only {len(result)} valid tickers (need 5)')
+            return result, tables_scanned, tables_with_col
+        if verbose:
+            print(f'    ⚠  table cols={list(tbl.columns)[:6]} rows={len(tbl)} → only {len(result)} valid tickers (need 5)')
+
+    return {}, tables_scanned, tables_with_col
+
+
+def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numeric_pad=None, numeric_width=4):
+    """Fetch a Wikipedia page and extract the constituent ticker→name dict.
+
+    suffix        : string appended to raw ticker if ticker has no '.', or None.
+    filter_nyse   : if True, skip rows where Exchange column contains 'nasdaq'.
+    allow_numeric : if True, accept digit-led ticker codes (see _clean_ticker).
+    numeric_width : fixed code length for allow_numeric exchanges (see _clean_ticker).
+    numeric_pad   : if set, zero-pad extracted digit codes to this width (see
+                    _clean_ticker).
+    Returns {yf_ticker: display_name} or {} on failure.
+    """
+    raw = _get(url, xlsx=False)
+    if not raw:
+        return {}
+    html = raw.decode('utf-8', errors='replace')
+
+    try:
+        tables = pd.read_html(io.StringIO(html))
+    except Exception as exc:
+        print(f'    ⚠  HTML parse error ({url.split("/")[-1]}): {exc}')
+        tables = []
+
+    result, tables_scanned, tables_with_col = _scan_tables_for_constituents(
+        tables, suffix, filter_nyse, allow_numeric, numeric_pad, numeric_width, verbose=True)
+    if result:
+        return result
+
+    # lxml (pandas' default parser) can silently drop or mangle a table that
+    # a more lenient parser handles fine — confirmed live on Nasdaq-100: a
+    # clean ~100-row Ticker/Company table verified to exist on the page
+    # doesn't even show up among the candidate tables lxml extracts (0 of 9
+    # ≥5-row tables had a ticker-like column, and none were close to the
+    # right row count either). Retry once with html5lib, which parses
+    # malformed/nested markup more forgivingly, before giving up.
+    if tables_with_col == 0:
+        try:
+            html5_tables = pd.read_html(io.StringIO(html), flavor='html5lib')
+        except Exception as exc:
+            html5_tables = None
+            print(f'    ⚠  html5lib retry failed ({url.split("/")[-1]}): {exc}')
+        if html5_tables is not None:
+            result, h5_scanned, h5_with_col = _scan_tables_for_constituents(
+                html5_tables, suffix, filter_nyse, allow_numeric, numeric_pad, numeric_width, verbose=False)
+            if result:
+                print(f'    ✓  html5lib retry found a usable table ({url.split("/")[-1]}) — lxml missed it')
+                return result
+            tables_scanned  = max(tables_scanned, h5_scanned)
+            tables_with_col = max(tables_with_col, h5_with_col)
 
     print(f'    ⚠  No constituent table found at {url.split("/")[-1]} '
           f'({len(tables)} tables on page, {tables_scanned} had ≥5 rows, '
@@ -874,7 +911,7 @@ def _fetch_constituents(ex_key):
     # NYSE belt-and-suspenders: also subtract Nasdaq 100 tickers explicitly
     if ex_key == 'nyse' and combined:
         ndx_chunk = _parse_wiki_table(
-            'https://en.wikipedia.org/wiki/Nasdaq-100', None, filter_nyse=False)
+            'https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies', None, filter_nyse=False)
         ndx_set = set(ndx_chunk.keys())
         before = len(combined)
         combined = {t: n for t, n in combined.items() if t not in ndx_set}

@@ -438,3 +438,67 @@ def test_chunked_download_returns_none_if_all_chunks_fail(monkeypatch):
 
 def test_chunked_download_empty_tickers():
     assert u._chunked_download([], period='5d') is None
+
+
+# ── _parse_wiki_table: html5lib fallback when lxml misses every table ────────
+
+def test_parse_wiki_table_falls_back_to_html5lib(monkeypatch):
+    # Confirmed live on Nasdaq-100: lxml (pandas' default parser) can find
+    # zero usable tables on a page that genuinely has a clean Ticker/Company
+    # table — html5lib parses some malformed/nested markup lxml chokes on.
+    # This checks the fallback actually kicks in and returns the table
+    # html5lib finds when the first (lxml) pass comes back empty.
+    import pandas as pd
+
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: b'<html>fake</html>')
+
+    good_table = pd.DataFrame({
+        'Ticker':  ['AAPL', 'MSFT', 'NVDA', 'AMZN', 'GOOGL'],
+        'Company': ['Apple', 'Microsoft', 'Nvidia', 'Amazon', 'Alphabet'],
+    })
+    unrelated_table = pd.DataFrame({0: range(10), 1: range(10)})  # e.g. an infobox
+
+    def fake_read_html(html, flavor=None):
+        if flavor == 'html5lib':
+            return [good_table]
+        return [unrelated_table]   # lxml (default) pass: nothing usable
+
+    monkeypatch.setattr(u.pd, 'read_html', fake_read_html)
+
+    result = u._parse_wiki_table('https://en.wikipedia.org/wiki/Nasdaq-100', None)
+    assert result == {
+        'AAPL': 'Apple', 'MSFT': 'Microsoft', 'NVDA': 'Nvidia',
+        'AMZN': 'Amazon', 'GOOGL': 'Alphabet',
+    }
+
+
+def test_parse_wiki_table_returns_empty_when_both_parsers_miss(monkeypatch):
+    import pandas as pd
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: b'<html>fake</html>')
+    unrelated_table = pd.DataFrame({0: range(10), 1: range(10)})
+    monkeypatch.setattr(u.pd, 'read_html', lambda html, flavor=None: [unrelated_table])
+
+    result = u._parse_wiki_table('https://en.wikipedia.org/wiki/Nikkei_225', None)
+    assert result == {}
+
+
+def test_parse_wiki_table_skips_html5lib_retry_when_lxml_succeeds(monkeypatch):
+    # If lxml already found a usable table, the html5lib fallback should
+    # never even be attempted — no wasted work on the exchanges that
+    # already work fine.
+    import pandas as pd
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: b'<html>fake</html>')
+
+    good_table = pd.DataFrame({
+        'Ticker':  ['AAPL', 'MSFT', 'NVDA', 'AMZN', 'GOOGL'],
+        'Company': ['Apple', 'Microsoft', 'Nvidia', 'Amazon', 'Alphabet'],
+    })
+    calls = []
+    def fake_read_html(html, flavor=None):
+        calls.append(flavor)
+        return [good_table]
+    monkeypatch.setattr(u.pd, 'read_html', fake_read_html)
+
+    result = u._parse_wiki_table('https://en.wikipedia.org/wiki/FTSE_100', None)
+    assert len(result) == 5
+    assert calls == [None]   # only the default (lxml) call was made
