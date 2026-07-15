@@ -675,6 +675,15 @@ _WIKI_SOURCES = {
         ('https://en.wikipedia.org/wiki/SMIM',               '.SW'),
     ],
     'tse':   [
+        # Nikkei 225's constituent list is NOT in an HTML <table> — confirmed
+        # live via diagnostic logging: every ≥5-row table on this page (9 of
+        # them across both lxml and html5lib parses) was scanned and none had
+        # a ticker-like column. The list is prose, grouped by GICS sector,
+        # e.g. "ANA Holdings Inc. (TYO: 9202) Japan Airlines Co., Ltd. (TYO:
+        # 9201) ...", with each ticker embedded as a link to JPX's stock
+        # search tool. _fetch_constituents special-cases ex_key == 'tse' to
+        # call _parse_nikkei225_prose() instead of _parse_wiki_table() for
+        # this URL — the suffix here is unused (kept for documentation).
         ('https://en.wikipedia.org/wiki/Nikkei_225', '.T'),
     ],
     'hkg':   [
@@ -887,10 +896,80 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
     return {}
 
 
+def _parse_nikkei225_prose(url):
+    """Fetch the Nikkei 225 Wikipedia page and extract {yf_ticker: name}.
+
+    Unlike every other exchange's Wikipedia source, the Nikkei 225's ~225
+    companies are listed as prose inside bulleted <li> items grouped by GICS
+    sector, not an HTML <table> — so pd.read_html (lxml or html5lib) can
+    never find them; there is nothing table-shaped to find. Each company
+    appears as an inline wiki-link, optionally followed by trailing text
+    ('Inc.', 'Co., Ltd.'), then '(TYO: CODE)' — where CODE is also the
+    visible text of an external link to JPX's stock-search tool
+    (https://www2.jpx.co.jp/tseHpFront/StockSearch.do?...topSearchStr=CODE).
+    That JPX link is the one structurally unambiguous anchor per company on
+    the whole page, so tickers are extracted from it directly. Company names
+    are best-effort — the nearest preceding wiki-article link that isn't the
+    'Tokyo Stock Exchange' link itself — with a ticker-based fallback,
+    consistent with how the rest of this module handles unresolved names.
+
+    Returns {ticker: name} or {} on failure (marker/JPX-link not found).
+    """
+    raw = _get(url, xlsx=False)
+    if not raw:
+        return {}
+    html = raw.decode('utf-8', errors='replace')
+
+    # Isolate the constituent-list section: starts right after the sentence
+    # "...consists of the following companies (Japanese securities
+    # identification code in parentheses):" and ends at the next level-2
+    # heading (References / See also / External links / etc).
+    start_m = re.search(r'following companies', html)
+    if not start_m:
+        return {}
+    rest = html[start_m.end():]
+    end_m = re.search(r'<h2', rest)
+    section = rest[:end_m.start()] if end_m else rest
+
+    # The JPX stock-search external link is the reliable per-company anchor:
+    # href="...StockSearch.do?callJorEFlg=1&method=topsearch&topSearchStr=CODE">CODE</a>
+    code_pat = re.compile(
+        r'topSearchStr=([0-9A-Za-z]{3,6})"[^>]*>\s*\1\s*</a>', re.IGNORECASE)
+    # Wiki-article links, used to recover the company name preceding a code.
+    link_pat = re.compile(r'<a[^>]*href="/wiki/([^"]+)"[^>]*title="([^"]+)"[^>]*>([^<]*)</a>')
+
+    result = {}
+    last_end = 0
+    for m in code_pat.finditer(section):
+        code = m.group(1).upper()
+        ticker = f'{code}.T'
+
+        preceding = section[last_end:m.start()]
+        candidates = [(href, title, text) for href, title, text in link_pat.findall(preceding)
+                      if href != 'Tokyo_Stock_Exchange' and title != 'Tokyo Stock Exchange']
+        if candidates:
+            _, title, text = candidates[-1]
+            name = (text.strip() or title.strip())
+        else:
+            name = ''
+        result[ticker] = name if name else code
+        last_end = m.end()
+
+    return result
+
+
 def _fetch_constituents(ex_key):
     """Fetch raw index constituent {ticker: name} dict from Wikipedia.
     For NYSE: uses S&P 500 minus Nasdaq 100 (belt-and-suspenders approach).
+    For TSE: uses _parse_nikkei225_prose() — see _WIKI_SOURCES['tse'] comment.
     """
+    if ex_key == 'tse':
+        url = _WIKI_SOURCES['tse'][0][0]
+        print(f'    Wikipedia: {url.split("/")[-1]} (prose parser — no HTML table on this page)')
+        result = _parse_nikkei225_prose(url)
+        print(f'      → {len(result)} tickers' if result else '      → empty/failed')
+        return result
+
     sources = _WIKI_SOURCES.get(ex_key, [])
     combined = {}
     allow_numeric = ex_key in _NUMERIC_TICKER_EXCHANGES

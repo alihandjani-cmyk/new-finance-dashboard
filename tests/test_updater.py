@@ -502,3 +502,67 @@ def test_parse_wiki_table_skips_html5lib_retry_when_lxml_succeeds(monkeypatch):
     result = u._parse_wiki_table('https://en.wikipedia.org/wiki/FTSE_100', None)
     assert len(result) == 5
     assert calls == [None]   # only the default (lxml) call was made
+
+
+_NIKKEI_FAKE_HTML = b"""
+<html><body>
+<p>As of April 2026, the Nikkei 225 consists of the following companies
+(Japanese securities identification code in parentheses):</p>
+<ul><li>
+<a href="/wiki/All_Nippon_Airways" title="All Nippon Airways">ANA Holdings</a>Inc.
+(<a href="/wiki/Tokyo_Stock_Exchange" title="Tokyo Stock Exchange">TYO</a>:
+<a rel="nofollow" class="external text"
+   href="https://www2.jpx.co.jp/tseHpFront/StockSearch.do?callJorEFlg=1&amp;method=topsearch&amp;topSearchStr=9202">9202</a>)
+<a href="/wiki/Archion" title="Archion">Archion</a>Corp.
+(<a href="/wiki/Tokyo_Stock_Exchange" title="Tokyo Stock Exchange">TYO</a>:
+<a rel="nofollow" class="external text"
+   href="https://www2.jpx.co.jp/tseHpFront/StockSearch.do?callJorEFlg=1&amp;method=topsearch&amp;topSearchStr=543A">543A</a>)
+</li></ul>
+<h2>See also</h2>
+<p>Unrelated section mentioning topSearchStr=9999">9999</a> that must not be picked up.</p>
+</body></html>
+"""
+
+
+def test_parse_nikkei225_prose_extracts_tickers_and_names(monkeypatch):
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: _NIKKEI_FAKE_HTML)
+    result = u._parse_nikkei225_prose('https://en.wikipedia.org/wiki/Nikkei_225')
+    assert result == {
+        '9202.T': 'ANA Holdings',
+        '543A.T': 'Archion',   # alphanumeric JPX code (post-2024 format)
+    }
+
+
+def test_parse_nikkei225_prose_stops_before_next_h2(monkeypatch):
+    # The bogus 9999 code lives after the <h2>See also</h2> marker and must
+    # not be picked up as a 226th constituent.
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: _NIKKEI_FAKE_HTML)
+    result = u._parse_nikkei225_prose('https://en.wikipedia.org/wiki/Nikkei_225')
+    assert '9999.T' not in result
+
+
+def test_parse_nikkei225_prose_missing_marker_returns_empty(monkeypatch):
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: b'<html>no marker here</html>')
+    result = u._parse_nikkei225_prose('https://en.wikipedia.org/wiki/Nikkei_225')
+    assert result == {}
+
+
+def test_parse_nikkei225_prose_no_data_returns_empty(monkeypatch):
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: None)
+    result = u._parse_nikkei225_prose('https://en.wikipedia.org/wiki/Nikkei_225')
+    assert result == {}
+
+
+def test_fetch_constituents_uses_prose_parser_for_tse(monkeypatch):
+    # _fetch_constituents must special-case 'tse' to call the prose parser
+    # instead of the generic pd.read_html-based _parse_wiki_table path.
+    calls = []
+    monkeypatch.setattr(u, '_parse_nikkei225_prose', lambda url: (calls.append(url), {'9202.T': 'ANA Holdings'})[1])
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError('_parse_wiki_table should not be called for tse')
+    monkeypatch.setattr(u, '_parse_wiki_table', fail_if_called)
+
+    result = u._fetch_constituents('tse')
+    assert result == {'9202.T': 'ANA Holdings'}
+    assert calls == ['https://en.wikipedia.org/wiki/Nikkei_225']
