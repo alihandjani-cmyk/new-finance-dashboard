@@ -312,6 +312,26 @@ def test_find_col_returns_none_when_missing():
     assert u._find_col(df, u._TICKER_ALIASES) is None
 
 
+def test_find_col_strips_footnote_marker():
+    # Wikipedia headers sometimes carry a footnote ref, e.g. 'Ticker[a]' —
+    # this alone was enough to make a real, well-formed table invisible to
+    # _find_col (root cause of Nasdaq-100/Nikkei 225 universe builds failing).
+    import pandas as pd
+    df = pd.DataFrame({'Ticker[a]': ['AAPL'], 'Company[b]': ['Apple Inc.']})
+    assert u._find_col(df, u._TICKER_ALIASES) == 'Ticker[a]'
+    assert u._find_col(df, u._NAME_ALIASES)   == 'Company[b]'
+
+
+def test_find_col_matches_multiindex_column():
+    # pandas returns tuple column names for tables with a rowspan/merged
+    # header — a flat string comparison against str(column) never matches.
+    import pandas as pd
+    df = pd.DataFrame({('Ticker', 'Unnamed: 0_level_1'): ['AAPL'],
+                        ('Company', 'Unnamed: 1_level_1'): ['Apple Inc.']})
+    assert u._find_col(df, u._TICKER_ALIASES) == ('Ticker', 'Unnamed: 0_level_1')
+    assert u._find_col(df, u._NAME_ALIASES)   == ('Company', 'Unnamed: 1_level_1')
+
+
 def test_get_universe_falls_back_to_hardcoded():
     # With empty universes dict, should return fallback tickers
     dash = {'universes': {}}
@@ -336,3 +356,85 @@ def test_build_universe_returns_none_on_empty_constituents(monkeypatch):
     monkeypatch.setattr(u, '_fetch_constituents', lambda ex_key: {})
     result = u.build_universe('six', {'GBP': 1.27, 'EUR': 1.08, 'CHF': 1.11, 'USD': 1.0})
     assert result is None
+
+
+# ── _chunked_download: rate-limit mitigation for large ticker universes ──────
+
+def _fake_ohlcv(tickers):
+    """Build a minimal MultiIndex-columned frame shaped like yf.download()'s
+    real output (field, then ticker) for the given tickers."""
+    import pandas as pd
+    idx = pd.date_range('2026-07-01', periods=3, freq='D')
+    cols = pd.MultiIndex.from_product([['Close', 'Volume'], tickers])
+    data = {}
+    for t in tickers:
+        data[('Close', t)]  = [10.0, 11.0, 12.0]
+        data[('Volume', t)] = [100, 200, 300]
+    return pd.DataFrame(data, index=idx, columns=cols)
+
+
+def test_chunked_download_single_chunk_passthrough(monkeypatch):
+    # A ticker list at or under chunk_size should go through as one call,
+    # no sleeping.
+    calls = []
+    def fake_download(tickers, progress=False, threads=True, **kwargs):
+        calls.append(list(tickers))
+        return _fake_ohlcv(tickers)
+    monkeypatch.setattr(u.yf, 'download', fake_download)
+    monkeypatch.setattr(u.time, 'sleep', lambda s: (_ for _ in ()).throw(AssertionError('should not sleep')))
+
+    tickers = [f'T{i}' for i in range(10)]
+    raw = u._chunked_download(tickers, chunk_size=75, period='5d', interval='1d')
+    assert len(calls) == 1
+    assert raw is not None
+    assert set(raw['Close'].columns) == set(tickers)
+
+
+def test_chunked_download_splits_and_recombines(monkeypatch):
+    # A ticker list over chunk_size should split into multiple yf.download()
+    # calls, pause between them, and the combined frame should carry every
+    # ticker from every chunk.
+    calls, sleeps = [], []
+    def fake_download(tickers, progress=False, threads=True, **kwargs):
+        calls.append(list(tickers))
+        return _fake_ohlcv(tickers)
+    monkeypatch.setattr(u.yf, 'download', fake_download)
+    monkeypatch.setattr(u.time, 'sleep', lambda s: sleeps.append(s))
+
+    tickers = [f'T{i}' for i in range(10)]
+    raw = u._chunked_download(tickers, chunk_size=4, pause=0.1, period='5d', interval='1d')
+    assert len(calls) == 3          # 4 + 4 + 2
+    assert len(sleeps) == 2         # pause between chunks, not after the last
+    assert raw is not None
+    assert set(raw['Close'].columns) == set(tickers)
+
+
+def test_chunked_download_skips_failed_chunk(monkeypatch):
+    # One chunk raising shouldn't take down the tickers in other chunks.
+    def fake_download(tickers, progress=False, threads=True, **kwargs):
+        if tickers[0] == 'T4':
+            raise RuntimeError('rate limited')
+        return _fake_ohlcv(tickers)
+    monkeypatch.setattr(u.yf, 'download', fake_download)
+    monkeypatch.setattr(u.time, 'sleep', lambda s: None)
+
+    tickers = [f'T{i}' for i in range(10)]
+    raw = u._chunked_download(tickers, chunk_size=4, pause=0.1, period='5d', interval='1d')
+    assert raw is not None
+    got = set(raw['Close'].columns)
+    assert got == {'T0', 'T1', 'T2', 'T3', 'T8', 'T9'}   # T4-T7 chunk dropped
+
+
+def test_chunked_download_returns_none_if_all_chunks_fail(monkeypatch):
+    def fake_download(tickers, progress=False, threads=True, **kwargs):
+        raise RuntimeError('rate limited')
+    monkeypatch.setattr(u.yf, 'download', fake_download)
+    monkeypatch.setattr(u.time, 'sleep', lambda s: None)
+
+    tickers = [f'T{i}' for i in range(10)]
+    raw = u._chunked_download(tickers, chunk_size=4, pause=0.1, period='5d', interval='1d')
+    assert raw is None
+
+
+def test_chunked_download_empty_tickers():
+    assert u._chunked_download([], period='5d') is None

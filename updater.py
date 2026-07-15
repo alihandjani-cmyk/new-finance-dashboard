@@ -46,7 +46,7 @@ Requirements (requirements.txt):
     requests>=2.31  certifi>=2024.2  lxml>=4.9
 """
 
-import argparse, io, json, math, os, re, ssl, sys, urllib.request, urllib.error, urllib.parse
+import argparse, io, json, math, os, re, ssl, sys, time, urllib.request, urllib.error, urllib.parse
 from datetime import datetime, date, timedelta, timezone
 from pathlib import Path
 
@@ -95,6 +95,56 @@ def _get(url, xlsx=True):
     except Exception as exc:
         print(f'  ✗  {url.split("?")[0].split("/")[-1]}: {type(exc).__name__}: {exc}')
     return None
+
+def _chunked_download(tickers, chunk_size=75, pause=1.5, **kwargs):
+    """yf.download() in batches, to reduce exposure to Yahoo Finance's rate
+    limiter — which triggers more often, and can silently return data for
+    only a fraction of the requested tickers, on very large single-request
+    ticker lists (NYSE's ~500-name universe hit this directly: one exchange's
+    single yf.download(tickers) call came back with data for only ~13% of
+    the list, which still looked like a valid — just very low — total).
+
+    Splits tickers into chunks of at most chunk_size, downloads each
+    separately with a short pause in between (spreading requests out over
+    time also helps, since Yahoo's limiter appeared to be at least partly
+    cumulative across a run — smaller exchanges queried later in the run got
+    rate-limited too), and stitches the results back into one combined
+    DataFrame shaped like a single big call would have produced (columns
+    MultiIndex'd by field then ticker). A chunk that fails or comes back
+    empty is skipped rather than failing the whole request — the caller
+    still gets data for every other chunk. Returns None only if every chunk
+    failed, or if there's nothing to download.
+    """
+    if not tickers:
+        return None
+
+    if len(tickers) <= chunk_size:
+        try:
+            raw = yf.download(tickers, progress=False, threads=True, **kwargs)
+            return raw if not raw.empty else None
+        except Exception as exc:
+            print(f'    ⚠  download failed for {len(tickers)} tickers: {exc}')
+            return None
+
+    chunks = [tickers[i:i + chunk_size] for i in range(0, len(tickers), chunk_size)]
+    frames = []
+    for i, chunk in enumerate(chunks):
+        try:
+            raw = yf.download(chunk, progress=False, threads=True, **kwargs)
+            if not raw.empty:
+                frames.append(raw)
+            else:
+                print(f'    ⚠  chunk {i+1}/{len(chunks)} ({len(chunk)} tickers) came back empty')
+        except Exception as exc:
+            print(f'    ⚠  chunk {i+1}/{len(chunks)} ({len(chunk)} tickers) failed: {exc}')
+        if i < len(chunks) - 1:
+            time.sleep(pause)
+
+    if not frames:
+        return None
+    combined = pd.concat(frames, axis=1)
+    print(f'    {len(tickers)} tickers fetched in {len(chunks)} chunks of ≤{chunk_size}')
+    return combined
 
 # ─── Paths ────────────────────────────────────────────────────────────────────
 _ROOT      = Path(__file__).parent
@@ -648,11 +698,28 @@ _NAME_ALIASES   = ['company','name','security','company name','stock','constitue
                    'issuer','organisation']
 
 def _find_col(df, aliases):
-    """Return the first df column whose lowercased name matches an alias, or None."""
-    lc = {str(c).lower().strip(): c for c in df.columns}
-    for a in aliases:
-        if a in lc:
-            return lc[a]
+    """Return the first df column whose name matches an alias, or None.
+
+    Checks each level of the column name (columns come back as tuples when
+    pandas parses a Wikipedia table with a multi-row/rowspan header — e.g. a
+    'Ticker' header merged with a blank sub-header becomes something like
+    ('Ticker', 'Unnamed: 0_level_1')) against the alias list, after stripping
+    footnote markers ('Ticker[a]') and non-breaking spaces. A naive exact
+    match against str(column) alone misses both of these and was the cause
+    of Nasdaq-100 and Nikkei 225's constituent tables never being recognised
+    despite having an ordinary-looking 'Ticker' column.
+    """
+    def _norm(x):
+        s = str(x).lower().strip()
+        s = re.sub(r'\[.*?\]', '', s)      # strip footnote markers, e.g. 'ticker[a]'
+        s = s.replace('\xa0', ' ').strip()  # non-breaking space
+        return s
+
+    for c in df.columns:
+        levels = c if isinstance(c, tuple) else (c,)
+        for lvl in levels:
+            if _norm(lvl) in aliases:
+                return c
     return None
 
 def _clean_ticker(raw, allow_numeric=False, numeric_pad=None, numeric_width=4):
@@ -869,14 +936,9 @@ def _apply_adv_filter(tickers_names, ex_key, fx_rates, threshold_usd_m=10.0):
     fx_usd   = fx_rates.get(currency, 1.0)   # local currency → USD
 
     print(f'    ADV filter: {len(tickers)} tickers...')
-    try:
-        raw = yf.download(tickers, period='25d', interval='1d',
-                          progress=False, auto_adjust=True, threads=True)
-        if raw.empty:
-            print(f'    ⚠  ADV download empty — returning unfiltered')
-            return tickers_names
-    except Exception as exc:
-        print(f'    ⚠  ADV download failed ({exc}) — returning unfiltered')
+    raw = _chunked_download(tickers, period='25d', interval='1d', auto_adjust=True)
+    if raw is None:
+        print(f'    ⚠  ADV download empty — returning unfiltered')
         return tickers_names
 
     is_multi = isinstance(raw.columns, pd.MultiIndex)
@@ -1064,11 +1126,9 @@ def _gainers_download_pass(ex_key, tickers):
     Returns a list of {'sym','price','chg','pct'} dicts (unsorted), or None on
     a hard download failure.
     """
-    try:
-        raw = yf.download(tickers, period='2d', interval='1d', progress=False,
-                          auto_adjust=True, threads=True)
-    except Exception as exc:
-        print(f'  ✗  {ex_key} gainers download: {exc}')
+    raw = _chunked_download(tickers, period='2d', interval='1d', auto_adjust=True)
+    if raw is None:
+        print(f'  ✗  {ex_key} gainers download: no data')
         return None
 
     is_multi = isinstance(raw.columns, pd.MultiIndex)
@@ -1151,22 +1211,35 @@ def fetch_market_cap(ex_key, tickers, names):
     currency   = cfg['currency']
     mc_divisor = 1e11 if is_pence else 1e9
 
-    try:
-        tickers_obj = yf.Tickers(' '.join(tickers))
-    except Exception as exc:
-        print(f'  ✗  {ex_key} market cap: {exc}')
-        return None
-
+    # fast_info triggers one HTTP request per ticker — there's no batched
+    # market-cap endpoint in yfinance, so a large universe (NYSE ~500 names)
+    # means hundreds of rapid-fire individual requests, which was the single
+    # biggest rate-limit contributor in the whole pipeline (worse than any of
+    # the yf.download() batch calls elsewhere). Can't reduce the request
+    # count without dropping this data entirely, but throttling it into
+    # paused chunks — same shape as _chunked_download — spreads the burst out
+    # instead of firing everything at once.
+    chunk_size = 75
+    pause      = 1.5
     results = []
-    for sym in tickers:
+    for i in range(0, len(tickers), chunk_size):
+        chunk = tickers[i:i + chunk_size]
         try:
-            fi = tickers_obj.tickers[sym].fast_info
-            mc    = getattr(fi, 'market_cap', None) or getattr(fi, 'marketCap', None)
-            price = getattr(fi, 'last_price',  None) or getattr(fi, 'lastPrice',  0) or 0
-            if mc and float(mc) > 0:
-                results.append({'sym': sym, 'mc': float(mc), 'price': float(price)})
-        except Exception:
+            tickers_obj = yf.Tickers(' '.join(chunk))
+        except Exception as exc:
+            print(f'  ✗  {ex_key} market cap chunk {i // chunk_size + 1}: {exc}')
             continue
+        for sym in chunk:
+            try:
+                fi = tickers_obj.tickers[sym].fast_info
+                mc    = getattr(fi, 'market_cap', None) or getattr(fi, 'marketCap', None)
+                price = getattr(fi, 'last_price',  None) or getattr(fi, 'lastPrice',  0) or 0
+                if mc and float(mc) > 0:
+                    results.append({'sym': sym, 'mc': float(mc), 'price': float(price)})
+            except Exception:
+                continue
+        if i + chunk_size < len(tickers):
+            time.sleep(pause)
 
     if not results:
         return None
@@ -1315,14 +1388,9 @@ def fetch_vol_file(ex_key, state):
 def fetch_vol_yf(ex_key, tickers):
     """Compute aggregate daily turnover from the dynamic universe tickers."""
     cfg = EXCHANGES[ex_key]
-    try:
-        raw = yf.download(tickers, period='15d', interval='1d',
-                          progress=False, auto_adjust=True, threads=True)
-        if raw.empty:
-            print(f'  ✗  {ex_key} vol: no data')
-            return None
-    except Exception as exc:
-        print(f'  ✗  {ex_key} vol download: {exc}')
+    raw = _chunked_download(tickers, period='15d', interval='1d', auto_adjust=True)
+    if raw is None:
+        print(f'  ✗  {ex_key} vol: no data')
         return None
 
     try:
@@ -1365,14 +1433,9 @@ def _vol_comparable_pass(ex_key, tickers, fx_rates, is_pence, nok_eur, fx_usd):
                            worth it.
     Returns (None, False) on a hard download failure.
     """
-    try:
-        raw = yf.download(tickers, period='15d', interval='1d',
-                          progress=False, auto_adjust=True, threads=True)
-        if raw.empty:
-            print(f'  ✗  {ex_key} vol_comparable: no data')
-            return None, False
-    except Exception as exc:
-        print(f'  ✗  {ex_key} vol_comparable download: {exc}')
+    raw = _chunked_download(tickers, period='15d', interval='1d', auto_adjust=True)
+    if raw is None:
+        print(f'  ✗  {ex_key} vol_comparable: no data')
         return None, False
 
     if not isinstance(raw.columns, pd.MultiIndex):
@@ -1499,14 +1562,9 @@ def fetch_amihud(ex_key, tickers, names, existing_history, fx_rates):
     # always rank as "most liquid" on the ILLIQ sub-rank regardless of truth).
     fx_usd   = fx_rates.get(cfg['currency'], 1.0)
 
-    try:
-        raw = yf.download(tickers, period='40d', interval='1d', progress=False,
-                          auto_adjust=True, threads=True)
-        if raw.empty:
-            print(f'  ✗  {ex_key} amihud: no data')
-            return existing_history, None, [], [], [], []
-    except Exception as exc:
-        print(f'  ✗  {ex_key} amihud download: {exc}')
+    raw = _chunked_download(tickers, period='40d', interval='1d', auto_adjust=True)
+    if raw is None:
+        print(f'  ✗  {ex_key} amihud: no data')
         return existing_history, None, [], [], [], []
 
     daily_buckets = {}
@@ -1620,13 +1678,8 @@ def fetch_ar_spread(ex_key, tickers, names, existing_history):
     """Compute Abdi-Ranaldo spread for exchange universe.
     Returns (updated_history, marketAvg, top10_tight, top10_wide).
     """
-    try:
-        raw = yf.download(tickers, period='60d', interval='1d', progress=False,
-                          auto_adjust=True, threads=True)
-        if raw.empty:
-            return existing_history, None, [], []
-    except Exception as exc:
-        print(f'  ✗  {ex_key} AR download: {exc}')
+    raw = _chunked_download(tickers, period='60d', interval='1d', auto_adjust=True)
+    if raw is None:
         return existing_history, None, [], []
 
     is_multi = isinstance(raw.columns, pd.MultiIndex)
