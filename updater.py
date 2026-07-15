@@ -722,13 +722,17 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
         print(f'    ⚠  HTML parse error ({url.split("/")[-1]}): {exc}')
         return {}
 
+    tables_scanned  = 0
+    tables_with_col = 0
     for tbl in tables:
         if len(tbl) < 5:
             continue
+        tables_scanned += 1
         ticker_col = _find_col(tbl, _TICKER_ALIASES)
         name_col   = _find_col(tbl, _NAME_ALIASES)
         if ticker_col is None:
             continue
+        tables_with_col += 1
 
         # For NYSE: look for an exchange column to skip Nasdaq-listed stocks
         exch_col = None
@@ -762,8 +766,11 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
 
         if len(result) >= 5:
             return result
+        print(f'    ⚠  table cols={list(tbl.columns)[:6]} rows={len(tbl)} → only {len(result)} valid tickers (need 5)')
 
-    print(f'    ⚠  No constituent table found at {url.split("/")[-1]}')
+    print(f'    ⚠  No constituent table found at {url.split("/")[-1]} '
+          f'({len(tables)} tables on page, {tables_scanned} had ≥5 rows, '
+          f'{tables_with_col} had a ticker-like column)')
     return {}
 
 
@@ -1052,11 +1059,11 @@ def fetch_tickers():
 #  GAINERS  (uses dynamic universe)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def fetch_gainers(ex_key, tickers, names):
-    """Return top-10 % gainers for the given exchange universe."""
-    cfg      = EXCHANGES[ex_key]
-    is_pence = cfg['pence']
-    currency = cfg['currency']
+def _gainers_download_pass(ex_key, tickers):
+    """One yfinance batch download + per-ticker pct-change pass for fetch_gainers.
+    Returns a list of {'sym','price','chg','pct'} dicts (unsorted), or None on
+    a hard download failure.
+    """
     try:
         raw = yf.download(tickers, period='2d', interval='1d', progress=False,
                           auto_adjust=True, threads=True)
@@ -1088,6 +1095,26 @@ def fetch_gainers(ex_key, tickers, names):
             results.append({'sym': sym, 'price': curr, 'chg': curr - prev, 'pct': pct})
         except Exception:
             continue
+    return results
+
+
+def fetch_gainers(ex_key, tickers, names):
+    """Return top-10 % gainers for the given exchange universe."""
+    cfg      = EXCHANGES[ex_key]
+    is_pence = cfg['pence']
+    currency = cfg['currency']
+
+    results = _gainers_download_pass(ex_key, tickers)
+
+    # yfinance batch downloads occasionally drop a handful of tickers on a
+    # transient data gap, which can shrink the top-10 list below 10 even when
+    # the exchange's universe has plenty of eligible names (seen on ENX/SIX).
+    # One retry is cheap and clears most of these blips.
+    if results is not None and len(results) < 10 and len(tickers) >= 10:
+        print(f'  ⚠  {ex_key} gainers: only {len(results)}/10 on first pass — retrying once')
+        retry = _gainers_download_pass(ex_key, tickers)
+        if retry is not None and len(retry) > len(results):
+            results = retry
 
     if not results:
         return None

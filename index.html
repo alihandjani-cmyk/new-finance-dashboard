@@ -148,23 +148,17 @@
     .heatmap-table th{background:#f6f8fa;font-size:10px;font-weight:700;color:#57606a;padding:5px 8px;text-transform:uppercase;letter-spacing:.04em}
     .heatmap-table td{padding:6px 10px;text-align:center;font-weight:700;font-size:12px;cursor:default}
     .heatmap-table td.ex-label{text-align:left;font-size:10.5px;font-weight:600;color:#24292f;background:#f6f8fa;padding:5px 10px}
-    .hm1{background:#2da44e;color:#fff}
-    .hm2{background:#4caf7d;color:#fff}
-    .hm3{background:#7ec488;color:#000}
-    .hm4{background:#b3d68a;color:#000}
-    .hm5{background:#e8dc6b;color:#000}
-    .hm6{background:#e8c14b;color:#000}
-    .hm7{background:#e8a84b;color:#fff}
-    .hm8{background:#e0704e;color:#fff}
-    .hm9{background:#cf222e;color:#fff}
+    /* Heatmap cell colors are generated at render time (see _rankColor() in
+       the script) so they always match the current exchange count, rather
+       than a fixed hm1..hmN list that silently goes stale. */
     .hm-null{background:#f6f8fa;color:#8c959f;font-weight:400}
 
     .sbar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #d0d7de;padding:5px 16px;font-size:10.5px;color:#57606a;display:flex;justify-content:space-between;align-items:center;z-index:100}
 
-    .spread-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 16px;padding:10px 16px 0}
-    .spread-item{padding:6px 0}
-    .spread-label{font-size:10.5px;color:#57606a;margin-bottom:2px}
-    .spread-value{font-size:14px;font-weight:700;font-family:monospace;color:#24292f}
+    .rank-strip{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px 4px}
+    .rank-strip-item{display:flex;flex-direction:column;align-items:center;gap:3px;background:#f6f8fa;border:1px solid #eaeef2;border-radius:8px;padding:8px 12px;min-width:76px}
+    .rank-strip-pos{font-size:10px;font-weight:700;color:#8c959f}
+    .rank-strip-val{font-size:12.5px;font-weight:700;font-family:monospace;color:#24292f}
   </style>
 </head>
 <body>
@@ -238,18 +232,10 @@
     <div class="card">
       <div class="ch">
         <div class="ct">Composite Rank Heatmap</div>
-        <span class="cs">1 = most liquid · 6 = least liquid · hover for sub-ranks</span>
+        <span class="cs" id="rankHeatmapSubtitle">hover for sub-ranks</span>
       </div>
       <div id="rankHeatmap" style="overflow-x:auto;padding:12px 16px 8px"></div>
-      <div style="padding:4px 16px 14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:11px;color:#57606a">
-        <span>Scale:</span>
-        <span style="background:#2da44e;color:#fff;border-radius:3px;padding:1px 8px">#1 most liquid</span>
-        <span style="background:#4caf7d;color:#fff;border-radius:3px;padding:1px 8px">#2</span>
-        <span style="background:#a8c99b;color:#fff;border-radius:3px;padding:1px 8px">#3</span>
-        <span style="background:#e8a84b;color:#fff;border-radius:3px;padding:1px 8px">#4</span>
-        <span style="background:#e0704e;color:#fff;border-radius:3px;padding:1px 8px">#5</span>
-        <span style="background:#cf222e;color:#fff;border-radius:3px;padding:1px 8px">#6 least liquid</span>
-      </div>
+      <div id="rankHeatmapLegend" style="padding:4px 16px 14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:11px;color:#57606a"></div>
     </div>
 
     <div class="card" style="margin-top:13px">
@@ -296,6 +282,8 @@
         </div>
       </div>
       <div class="cw"><canvas id="illiqChart"></canvas></div>
+      <div style="padding:8px 16px 0;font-size:10.5px;color:#57606a;font-weight:600">Ranked — most liquid (left) to least liquid (right)</div>
+      <div id="amihudRankStrip" class="rank-strip"></div>
     </div>
     <div id="amihudCards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:13px"></div>
 
@@ -359,7 +347,7 @@
 
       <div class="vsection-hdr vsection-hdr-usd">
         <div class="vsection-title">🟣 All-Exchange Volume Comparison — USD</div>
-        <div class="vsection-note">Comparable liquid-universe turnover for all nine exchanges (🔵 section below), converted to USD at each day's FX rate and plotted together so relative trading activity across venues can be compared directly on one chart. NYSE and Nasdaq trade several times the USD volume of the other seven venues — switch to a log scale to see the smaller exchanges more clearly.</div>
+        <div class="vsection-note">Latest-day comparable liquid-universe turnover for all nine exchanges (🔵 section below), converted to USD and ranked highest to lowest, left to right. NYSE and Nasdaq trade several times the USD volume of the other seven venues — switch to a log scale to see the smaller exchanges more clearly. Per-exchange history is available in the 🔵 section below.</div>
       </div>
       <div class="cw" style="padding:16px 16px 18px">
         <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
@@ -497,7 +485,8 @@
         <div class="ct">↗️ Abdi-Ranaldo Spread — All Exchanges</div>
         <span class="cs" id="arSource">Loading…</span>
       </div>
-      <div id="arSummary" class="spread-summary"></div>
+      <div style="padding:10px 16px 0;font-size:10.5px;color:#57606a;font-weight:600">Ranked — tightest spread (left) to widest (right)</div>
+      <div id="arSummary" class="rank-strip"></div>
       <div class="cw"><canvas id="arChart"></canvas></div>
     </div>
     <div id="arStockTables" style="margin-top:13px"></div>
@@ -533,7 +522,8 @@
         <div class="ct">🔄 Turnover Ratio — All Exchanges</div>
         <span class="cs" id="trSource">Loading…</span>
       </div>
-      <div id="trSummary" class="spread-summary"></div>
+      <div style="padding:10px 16px 0;font-size:10.5px;color:#57606a;font-weight:600">Ranked — highest turnover (left) to lowest (right)</div>
+      <div id="trSummary" class="rank-strip"></div>
       <div class="cw"><canvas id="trChart"></canvas></div>
     </div>
     <div id="trStockTables" style="margin-top:13px"></div>
@@ -984,39 +974,67 @@ function toggleAllVolUsdScale() {
   renderAllVolUsd();
 }
 
+// Draws each exchange's 3-letter code just above its bar. Registered as a
+// per-chart plugin (Chart.js v4 supports this via the `plugins` array in the
+// chart config — no extra CDN dependency needed).
+const barTopLabelPlugin = {
+  id: 'barTopLabelPlugin',
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+    const meta = chart.getDatasetMeta(0);
+    ctx.save();
+    ctx.font = '700 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillStyle = '#24292f';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    meta.data.forEach((bar, i) => {
+      const label = chart.data.labels[i];
+      if (label != null) ctx.fillText(label, bar.x, bar.y - 5);
+    });
+    ctx.restore();
+  }
+};
+
 function renderAllVolUsd() {
   const vc = DASH.vol_comparable || {};
   const canvas = document.getElementById('allVolUsdChart');
   if (!canvas) return;
 
   const allDates = [...new Set(EX_KEYS.flatMap(k => (vc[k] || {}).dates || []))].sort();
+  const latestDate = allDates[allDates.length - 1];
 
-  const datasets = EX_KEYS.map(k => {
+  // Latest-day snapshot, sorted highest-to-lowest volume (left to right).
+  const rows = EX_KEYS.map(k => {
     const data = vc[k] || {};
-    const dateToVal = {};
-    (data.dates || []).forEach((d, i) => { dateToVal[d] = (data.value_usd || [])[i]; });
-    const color = VOL_CHART_COLORS[k];
-    return {
-      label: k.toUpperCase(),
-      data: allDates.map(d => dateToVal[d] ?? null),
-      backgroundColor: color + '33',
-      borderColor: color,
-      borderWidth: 2,
-      borderRadius: 3,
-    };
-  });
+    const idx = (data.dates || []).indexOf(latestDate);
+    const val = idx >= 0 ? (data.value_usd || [])[idx] : null;
+    return { k, val };
+  }).filter(r => r.val != null);
+  rows.sort((a, b) => b.val - a.val);
+
+  const labels = rows.map(r => r.k.toUpperCase());
+  const values = rows.map(r => r.val);
+  const bg = rows.map(r => VOL_CHART_COLORS[r.k] + '55');
+  const border = rows.map(r => VOL_CHART_COLORS[r.k]);
 
   const isLog = allVolUsdScaleType === 'logarithmic';
 
   if (_charts['allVolUsd']) { try { _charts['allVolUsd'].destroy(); } catch(_){} }
   _charts['allVolUsd'] = new Chart(canvas, {
     type: 'bar',
-    data: { labels: allDates.map(fmtDay), datasets },
+    data: { labels, datasets: [{ data: values, backgroundColor: bg, borderColor: border, borderWidth: 2, borderRadius: 4 }] },
+    plugins: [barTopLabelPlugin],
     options: {
       responsive: true,
+      layout: { padding: { top: 20 } },
       plugins: {
-        legend: { display: true, position: 'top', labels: { font: { size: 10 }, boxWidth: 10, usePointStyle: true } },
-        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) : '—'} USD B` } }
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: ctx => EX_NAMES[rows[ctx[0].dataIndex].k] || ctx[0].label,
+            label: ctx => `${ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) : '—'} USD B (${fmtDay(latestDate)})`
+          }
+        }
       },
       scales: {
         y: {
@@ -1025,7 +1043,7 @@ function renderAllVolUsd() {
           title: { display: true, text: 'USD Billions' + (isLog ? ' (log scale)' : ''), font: { size: 10 }, color: '#57606a' },
           ticks: { font: { size: 10 } }
         },
-        x: { ticks: { font: { size: 10 } } }
+        x: { ticks: { font: { size: 10.5, weight: '600' } } }
       }
     }
   });
@@ -1087,6 +1105,11 @@ function renderAmihud() {
       }
     });
   }
+
+  // Ranked strip — most liquid (lowest ILLIQ) first, left to right
+  const illiqVals = {};
+  EX_KEYS.forEach(k => { const m = (amihud[k] || {}).marketAvg; if (m != null) illiqVals[k] = m; });
+  renderRankStrip('amihudRankStrip', illiqVals, true, v => v.toFixed(4));
 
   // Cards for each exchange
   const container = document.getElementById('amihudCards');
@@ -1165,20 +1188,13 @@ function renderTurnoverRatio() {
   const EX_COLORS = {lse:'#0969da',enx:'#2da44e',ndx:'#8250df',nyse:'#e16f24',xetra:'#cf222e',six:'#1a7f37',tse:'#9a4a1c',hkg:'#b3261e',krx:'#1e3a8a'};
   const currency  = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B',tse:'JPY B',hkg:'HKD B',krx:'KRW B'};
 
-  // Summary pills
-  const summEl = document.getElementById('trSummary');
-  if (summEl) {
-    summEl.innerHTML = EX_KEYS.map(k => {
-      const hist = (trData[k] || {}).history || [];
-      if (!hist.length) return '';
-      const latest = hist[hist.length - 1];
-      return `<div class="spread-item">
-        <div class="spread-label">${EX_FLAGS[k]} ${EX_NAMES[k]}</div>
-        <div class="spread-value">${latest.ratio.toFixed(4)}%</div>
-        <div style="font-size:9.5px;color:#8c959f">${fmtDay(latest.date)}</div>
-      </div>`;
-    }).join('');
-  }
+  // Ranked strip — highest turnover ratio first, left to right
+  const trVals = {};
+  EX_KEYS.forEach(k => {
+    const hist = (trData[k] || {}).history || [];
+    if (hist.length) trVals[k] = hist[hist.length - 1].ratio;
+  });
+  renderRankStrip('trSummary', trVals, false, v => v.toFixed(4) + '%');
 
   // Chart — turnover ratio over time, all exchanges
   const ctx = document.getElementById('trChart');
@@ -1311,17 +1327,10 @@ function _renderSpreadStockTables(dataKey, containerId, label, tightLabel, wideL
 
 function _renderSpreadTab(dataKey, chartId, summaryId, sourceId, sourceLabel) {
   const data = DASH[dataKey] || {};
-  const summary = document.getElementById(summaryId);
-  if (summary) {
-    summary.innerHTML = EX_KEYS.map(k => {
-      const d   = data[k] || {};
-      const avg = d.marketAvg != null ? d.marketAvg.toFixed(4) + '%' : '—';
-      return `<div class="spread-item">
-        <div class="spread-label"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span> ${EX_NAMES[k]}</div>
-        <div class="spread-value">${avg}</div>
-      </div>`;
-    }).join('');
-  }
+  // Ranked strip — lowest (tightest) spread first, left to right
+  const spreadVals = {};
+  EX_KEYS.forEach(k => { const m = (data[k] || {}).marketAvg; if (m != null) spreadVals[k] = m; });
+  renderRankStrip(summaryId, spreadVals, true, v => v.toFixed(4) + '%');
 
   const datasets = [];
   EX_KEYS.forEach(k => {
@@ -1436,6 +1445,10 @@ function renderRankings() {
     }
   }
 
+  // Heatmap subtitle — always reflects the current exchange count
+  const heatSub = document.getElementById('rankHeatmapSubtitle');
+  if (heatSub) heatSub.textContent = `1 = most liquid · ${EX_KEYS.length} = least liquid · hover for sub-ranks`;
+
   // Heatmap
   const heatEl = document.getElementById('rankHeatmap');
   if (heatEl && hist.length) {
@@ -1444,7 +1457,6 @@ function renderRankings() {
       const lr = last10[last10.length-1]?.ranks || {};
       return (lr[a]?.composite||99) - (lr[b]?.composite||99);
     });
-    const HM_CLS = ['','hm1','hm2','hm3','hm4','hm5','hm6','hm7','hm8','hm9'];
     let html = '<table class="heatmap-table"><thead><tr><th>Exchange</th>';
     last10.forEach(d => { html += `<th>${esc(fmtDay(d.date))}</th>`; });
     html += '</tr></thead><tbody>';
@@ -1453,17 +1465,67 @@ function renderRankings() {
       last10.forEach(d => {
         const r  = (d.ranks || {})[k] || {};
         const c  = r.composite;
-        const cl = c != null ? HM_CLS[Math.round(c)] || '' : 'hm-null';
         const tt = c != null
           ? `title="ILLIQ #${r.illiq||'?'} · T/O #${r.tr||'?'} · AR #${r.ar||'?'} · Vol #${r.vol||'?'}"`
           : '';
-        html += `<td class="${cl}" ${tt}>${c != null ? '#'+Math.round(c) : '—'}</td>`;
+        if (c != null) {
+          const {bg, fg} = _rankColor(Math.round(c), EX_KEYS.length);
+          html += `<td style="background:${bg};color:${fg}" ${tt}>#${Math.round(c)}</td>`;
+        } else {
+          html += `<td class="hm-null">—</td>`;
+        }
       });
       html += '</tr>';
     });
     html += '</tbody></table>';
     heatEl.innerHTML = html;
   }
+
+  // Legend — auto-scales to however many exchanges currently exist
+  const legendEl = document.getElementById('rankHeatmapLegend');
+  if (legendEl) {
+    const n = EX_KEYS.length;
+    let html = '<span>Scale:</span>';
+    for (let i = 1; i <= n; i++) {
+      const {bg, fg} = _rankColor(i, n);
+      const label = i === 1 ? '#1 most liquid' : (i === n ? `#${n} least liquid` : `#${i}`);
+      html += `<span style="background:${bg};color:${fg};border-radius:3px;padding:1px 8px">${label}</span>`;
+    }
+    legendEl.innerHTML = html;
+  }
+}
+
+// Green (best/rank 1) -> amber -> red (worst/rank N) gradient, generated for
+// however many exchanges currently exist rather than a hand-maintained,
+// fixed-length color list that silently stops matching once more exchanges
+// are added (this happened: the heatmap once stopped at 6 colors/ranks
+// after the dashboard grew past 6 exchanges).
+// Shared ranking-strip renderer, used on the Amihud / AR spread / Turnover
+// Ratio pages so each shows exchanges ordered left-to-right by that page's
+// own metric (not just the composite rank on the main Ranking tab).
+// valuesByEx: {exKey: number|null}. ascending=true -> lowest value first (left).
+function renderRankStrip(containerId, valuesByEx, ascending, fmt) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const withVals = EX_KEYS
+    .map(k => ({k, v: valuesByEx[k]}))
+    .filter(x => x.v != null);
+  withVals.sort((a, b) => ascending ? a.v - b.v : b.v - a.v);
+  if (!withVals.length) { el.innerHTML = ''; return; }
+  el.innerHTML = withVals.map((x, i) => `
+    <div class="rank-strip-item">
+      <div class="rank-strip-pos">#${i+1}</div>
+      <span class="exbadge ${EX_BADGE[x.k]}">${EX_FLAGS[x.k]} ${x.k.toUpperCase()}</span>
+      <div class="rank-strip-val">${fmt(x.v)}</div>
+    </div>`).join('');
+}
+
+function _rankColor(rank, maxRank) {
+  const t   = maxRank > 1 ? (rank - 1) / (maxRank - 1) : 0;   // 0=best -> 1=worst
+  const hue = Math.round(142 - t * 147);                       // 142 (green) -> -5 (red)
+  const bg  = `hsl(${(hue + 360) % 360}, 62%, 46%)`;
+  const fg  = (t > 0.3 && t < 0.75) ? '#000' : '#fff';
+  return {bg, fg};
 }
 
 // ─── Utility ──────────────────────────────────────────────────────────────────

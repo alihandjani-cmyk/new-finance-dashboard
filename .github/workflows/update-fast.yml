@@ -16,7 +16,7 @@ concurrency:
 jobs:
   update-fast:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15   # bumped from 10 — was occasionally exceeding it with 9 exchanges' gainers/mcap loop
 
     permissions:
       contents: write   # needed to push dashboard_data.json back
