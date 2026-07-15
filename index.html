@@ -318,6 +318,17 @@
         <span class="cs" id="volPeriodLabel">Loading…</span>
       </div>
 
+      <div class="vsection-hdr vsection-hdr-usd" style="border-top:none">
+        <div class="vsection-title">🟣 All-Exchange Volume Comparison — USD <span id="allVolUsdDate" style="font-weight:400;color:#57606a;font-size:12px"></span></div>
+        <div class="vsection-note">Latest-day comparable liquid-universe turnover for all nine exchanges (🔵 section below), converted to USD and ranked highest to lowest, left to right. NYSE and Nasdaq trade several times the USD volume of the other seven venues — switch to a log scale to see the smaller exchanges more clearly. Per-exchange history is available in the 🔵 section below.</div>
+      </div>
+      <div class="cw" style="padding:16px 16px 18px">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+          <button class="rbtn" id="allVolUsdScaleBtn" onclick="toggleAllVolUsdScale()" style="font-size:10.5px;padding:3px 9px">📊 Log scale</button>
+        </div>
+        <canvas id="allVolUsdChart" style="max-height:300px"></canvas>
+      </div>
+
       <div class="vsection-hdr vsection-hdr-real">
         <div class="vsection-title">🟢 Official Exchange Data — LSE &amp; Euronext</div>
         <div class="vsection-note">Sourced from the official daily turnover publications released each morning. LSE publishes aggregate equity turnover by order book; Euronext publishes pan-European market statistics including Amsterdam, Brussels, Dublin, Lisbon, Milan, Oslo, and Paris. Downloaded automatically at 07:30 UTC. Values represent total exchange-wide equity turnover in GBP/EUR billions.</div>
@@ -343,17 +354,6 @@
           </div>
           <div class="cw"><canvas id="enxChart"></canvas></div>
         </div>
-      </div>
-
-      <div class="vsection-hdr vsection-hdr-usd">
-        <div class="vsection-title">🟣 All-Exchange Volume Comparison — USD</div>
-        <div class="vsection-note">Latest-day comparable liquid-universe turnover for all nine exchanges (🔵 section below), converted to USD and ranked highest to lowest, left to right. NYSE and Nasdaq trade several times the USD volume of the other seven venues — switch to a log scale to see the smaller exchanges more clearly. Per-exchange history is available in the 🔵 section below.</div>
-      </div>
-      <div class="cw" style="padding:16px 16px 18px">
-        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-          <button class="rbtn" id="allVolUsdScaleBtn" onclick="toggleAllVolUsdScale()" style="font-size:10.5px;padding:3px 9px">📊 Log scale</button>
-        </div>
-        <canvas id="allVolUsdChart" style="max-height:300px"></canvas>
       </div>
 
       <!-- ── Comparable Liquid Universe ───────────────────────────────────── -->
@@ -974,27 +974,6 @@ function toggleAllVolUsdScale() {
   renderAllVolUsd();
 }
 
-// Draws each exchange's 3-letter code just above its bar. Registered as a
-// per-chart plugin (Chart.js v4 supports this via the `plugins` array in the
-// chart config — no extra CDN dependency needed).
-const barTopLabelPlugin = {
-  id: 'barTopLabelPlugin',
-  afterDatasetsDraw(chart) {
-    const { ctx } = chart;
-    const meta = chart.getDatasetMeta(0);
-    ctx.save();
-    ctx.font = '700 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillStyle = '#24292f';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'bottom';
-    meta.data.forEach((bar, i) => {
-      const label = chart.data.labels[i];
-      if (label != null) ctx.fillText(label, bar.x, bar.y - 5);
-    });
-    ctx.restore();
-  }
-};
-
 function renderAllVolUsd() {
   const vc = DASH.vol_comparable || {};
   const canvas = document.getElementById('allVolUsdChart');
@@ -1002,6 +981,9 @@ function renderAllVolUsd() {
 
   const allDates = [...new Set(EX_KEYS.flatMap(k => (vc[k] || {}).dates || []))].sort();
   const latestDate = allDates[allDates.length - 1];
+
+  const dateEl = document.getElementById('allVolUsdDate');
+  if (dateEl) dateEl.textContent = latestDate ? `· ${fmtDay(latestDate)} ${latestDate.split('-')[0]}` : '';
 
   // Latest-day snapshot, sorted highest-to-lowest volume (left to right).
   const rows = EX_KEYS.map(k => {
@@ -1023,10 +1005,8 @@ function renderAllVolUsd() {
   _charts['allVolUsd'] = new Chart(canvas, {
     type: 'bar',
     data: { labels, datasets: [{ data: values, backgroundColor: bg, borderColor: border, borderWidth: 2, borderRadius: 4 }] },
-    plugins: [barTopLabelPlugin],
     options: {
       responsive: true,
-      layout: { padding: { top: 20 } },
       plugins: {
         legend: { display: false },
         tooltip: {
