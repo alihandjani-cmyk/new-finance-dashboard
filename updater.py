@@ -798,6 +798,15 @@ def _parse_wiki_table(url, suffix, filter_nyse=False, allow_numeric=False, numer
         ticker_col = _find_col(tbl, _TICKER_ALIASES)
         name_col   = _find_col(tbl, _NAME_ALIASES)
         if ticker_col is None:
+            # Print the raw column labels so a persistent 0-match page (like
+            # Nasdaq-100/Nikkei 225 have been) is diagnosable from the log
+            # without needing to fetch the page by hand — this is exactly the
+            # gap that made the previous _find_col fix (footnote markers /
+            # MultiIndex headers) a guess rather than a confirmed cause: that
+            # fix didn't change the "0 had a ticker-like column" outcome, and
+            # without seeing the actual column labels there was no way to
+            # tell why from the log alone.
+            print(f'    ⚠  table rows={len(tbl)} cols={list(tbl.columns)[:8]!r} — no ticker-like column')
             continue
         tables_with_col += 1
 
