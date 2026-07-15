@@ -553,6 +553,51 @@ def test_parse_nikkei225_prose_no_data_returns_empty(monkeypatch):
     assert result == {}
 
 
+_NIKKEI_TITLE_FIRST_HTML = b"""
+<html><body>
+<p>the following companies (Japanese securities identification code in parentheses):</p>
+<ul><li>
+<a title="Mitsubishi UFJ Financial Group" href="/wiki/Mitsubishi_UFJ_Financial_Group">Mitsubishi UFJ Financial Group</a>, Inc.
+(<a title="Tokyo Stock Exchange" href="/wiki/Tokyo_Stock_Exchange">TYO</a>:
+<a rel="nofollow" class="external text"
+   href="https://www2.jpx.co.jp/tseHpFront/StockSearch.do?callJorEFlg=1&amp;method=topsearch&amp;topSearchStr=8306">8306</a>)
+</li></ul>
+</body></html>
+"""
+
+
+def test_parse_nikkei225_prose_handles_title_before_href(monkeypatch):
+    # Confirmed live: an earlier version of this parser assumed href always
+    # precedes title within an <a> tag's attributes, which isn't guaranteed
+    # — Mitsubishi UFJ Financial Group's link came back title-first and
+    # silently fell back to its bare code '8306' as the display name.
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: _NIKKEI_TITLE_FIRST_HTML)
+    result = u._parse_nikkei225_prose('https://en.wikipedia.org/wiki/Nikkei_225')
+    assert result == {'8306.T': 'Mitsubishi UFJ Financial Group'}
+
+
+_NIKKEI_NO_LINK_HTML = b"""
+<html><body>
+<p>the following companies (Japanese securities identification code in parentheses):</p>
+<ul><li>
+Sompo Holdings Inc.
+(<a href="/wiki/Tokyo_Stock_Exchange" title="Tokyo Stock Exchange">TYO</a>:
+<a rel="nofollow" class="external text"
+   href="https://www2.jpx.co.jp/tseHpFront/StockSearch.do?callJorEFlg=1&amp;method=topsearch&amp;topSearchStr=8630">8630</a>)
+</li></ul>
+</body></html>
+"""
+
+
+def test_parse_nikkei225_prose_falls_back_to_plain_text_name(monkeypatch):
+    # A company with no wiki-article link at all (plain text before the
+    # opening paren) should still recover a readable name rather than
+    # falling all the way back to the bare ticker code.
+    monkeypatch.setattr(u, '_get', lambda url, xlsx=False: _NIKKEI_NO_LINK_HTML)
+    result = u._parse_nikkei225_prose('https://en.wikipedia.org/wiki/Nikkei_225')
+    assert result == {'8630.T': 'Sompo Holdings Inc.'}
+
+
 def test_fetch_constituents_uses_prose_parser_for_tse(monkeypatch):
     # _fetch_constituents must special-case 'tse' to call the prose parser
     # instead of the generic pd.read_html-based _parse_wiki_table path.

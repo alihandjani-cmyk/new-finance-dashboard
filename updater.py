@@ -935,8 +935,30 @@ def _parse_nikkei225_prose(url):
     # href="...StockSearch.do?callJorEFlg=1&method=topsearch&topSearchStr=CODE">CODE</a>
     code_pat = re.compile(
         r'topSearchStr=([0-9A-Za-z]{3,6})"[^>]*>\s*\1\s*</a>', re.IGNORECASE)
-    # Wiki-article links, used to recover the company name preceding a code.
-    link_pat = re.compile(r'<a[^>]*href="/wiki/([^"]+)"[^>]*title="([^"]+)"[^>]*>([^<]*)</a>')
+    # Any <a> tag, attributes captured as one blob so href/title can be pulled
+    # out regardless of which order MediaWiki emitted them in (not guaranteed
+    # to be href-then-title — an earlier version of this parser assumed a
+    # fixed order and silently mis-resolved names on entries where it wasn't,
+    # e.g. Mitsubishi UFJ Financial Group falling back to its bare code
+    # '8306', confirmed live).
+    tag_pat = re.compile(r'<a\b([^>]*)>([^<]*)</a>')
+
+    def _wiki_links(text):
+        links = []
+        for attrs, txt in tag_pat.findall(text):
+            href_m = re.search(r'href="([^"]+)"', attrs)
+            if not href_m or not href_m.group(1).startswith('/wiki/'):
+                continue
+            href = href_m.group(1)[len('/wiki/'):]
+            title_m = re.search(r'title="([^"]+)"', attrs)
+            title = title_m.group(1) if title_m else ''
+            links.append((href, title, txt))
+        return links
+
+    # Last-resort name recovery for companies with no wiki-article link at
+    # all (plain text before the opening paren) — the run of capitalised
+    # word-like tokens at the end of the text preceding '('.
+    plain_name_pat = re.compile(r'([A-Z][A-Za-z0-9&.,\'\-]*(?:\s+[A-Za-z0-9&.,\'\-]+){0,6})$')
 
     result = {}
     last_end = 0
@@ -945,13 +967,28 @@ def _parse_nikkei225_prose(url):
         ticker = f'{code}.T'
 
         preceding = section[last_end:m.start()]
-        candidates = [(href, title, text) for href, title, text in link_pat.findall(preceding)
+        candidates = [(href, title, text) for href, title, text in _wiki_links(preceding)
                       if href != 'Tokyo_Stock_Exchange' and title != 'Tokyo Stock Exchange']
+        name = ''
         if candidates:
             _, title, text = candidates[-1]
             name = (text.strip() or title.strip())
-        else:
-            name = ''
+        if not name:
+            # m.start() lands inside the JPX <a>'s href attribute (partway
+            # through the URL, before topSearchStr=), so 'preceding' ends
+            # with an unclosed '<a ...' tag whose attribute text (including
+            # the raw URL) would otherwise leak into the plain-text fallback.
+            # Cut at this entry's own opening paren — anything after that is
+            # the '(TYO: ...)' group, not the company name — before
+            # stripping tags, so the incomplete trailing tag is discarded
+            # along with it rather than merely un-bracketed.
+            paren_idx = preceding.rfind('(')
+            before_paren = preceding[:paren_idx] if paren_idx != -1 else preceding
+            plain = re.sub(r'<[^>]+>', ' ', before_paren)   # strip complete tags, keep text
+            plain = re.sub(r'\s+', ' ', plain).strip()
+            pm = plain_name_pat.search(plain)
+            if pm:
+                name = pm.group(1).strip()
         result[ticker] = name if name else code
         last_end = m.end()
 
