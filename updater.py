@@ -1909,7 +1909,21 @@ def main():
         print('   Market Cap...')
         mcap = fetch_market_cap(ex_key, tickers, names)
         if mcap:
-            dash['market_cap'][ex_key] = mcap
+            new_total = sum(t.get('mcap_b', 0) for t in mcap.get('top10', []))
+            old_total = sum(t.get('mcap_b', 0) for t in dash['market_cap'][ex_key].get('top10', []))
+            # Guard against a transient yfinance fast_info glitch (e.g. one or
+            # more mega-caps silently dropping out of the per-ticker fetch)
+            # producing an implausibly small top-10 market cap total. This
+            # total feeds the Turnover Ratio denominator directly — a bad
+            # value here corrupts that day's ratio (seen on KRX 2026-07-07:
+            # total mcap collapsed for one run, spiking that day's turnover
+            # ratio to 22.6% and freezing it there once the day rolled out of
+            # the 5-day comparable-volume window used to recompute ratios).
+            if old_total > 0 and new_total < old_total * 0.5:
+                print(f'  ⚠  {ex_key} market cap: new total {new_total:,.0f} is <50% of previous '
+                      f'{old_total:,.0f} — likely a partial fetch, keeping previous data')
+            else:
+                dash['market_cap'][ex_key] = mcap
 
         if FAST_MODE:
             continue
