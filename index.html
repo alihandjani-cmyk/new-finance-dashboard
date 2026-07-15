@@ -281,11 +281,11 @@
           <span class="cs" id="illiqSource">Loading…</span>
         </div>
       </div>
-      <div class="cw"><canvas id="illiqChart"></canvas></div>
-      <div style="padding:8px 16px 0;font-size:10.5px;color:#57606a;font-weight:600">Ranked — most liquid (left) to least liquid (right)</div>
+      <div style="padding:10px 16px 0;font-size:10.5px;color:#57606a;font-weight:600">Ranked — most liquid (left) to least liquid (right)</div>
       <div id="amihudRankStrip" class="rank-strip"></div>
+      <div style="padding:2px 16px 10px;font-size:10px;color:#8c959f">% move per $1M traded (USD-normalized, cross-exchange comparable)</div>
+      <div class="cw"><canvas id="illiqChart"></canvas></div>
     </div>
-    <div id="amihudCards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:13px"></div>
 
     <div id="amihudStockTables" style="margin-top:13px"></div>
 
@@ -1110,23 +1110,6 @@ function renderAmihud() {
   const illiqVals = {};
   EX_KEYS.forEach(k => { const m = (amihud[k] || {}).marketAvg; if (m != null) illiqVals[k] = m; });
   renderRankStrip('amihudRankStrip', illiqVals, true, v => v.toFixed(4));
-
-  // Cards for each exchange
-  const container = document.getElementById('amihudCards');
-  if (container) {
-    container.innerHTML = EX_KEYS.map(k => {
-      const d = amihud[k] || {};
-      const avg = d.marketAvg != null ? d.marketAvg.toFixed(4) : '—';
-      return `<div class="card" style="margin-top:0">
-        <div class="ch"><div class="ct"><span class="exbadge ${EX_BADGE[k]}">${EX_FLAGS[k]} ${k.toUpperCase()}</span> ${EX_NAMES[k]}</div></div>
-        <div style="padding:10px 16px">
-          <div class="vl">Market Avg ILLIQ (20-day)</div>
-          <div class="vv" style="margin-top:4px">${avg}</div>
-          <div class="vs">% move per $1M traded (USD-normalized, cross-exchange comparable)</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
 
   const src = document.getElementById('illiqSource');
   if (src) src.textContent = 'Yahoo Finance · 20-day OHLCV';
