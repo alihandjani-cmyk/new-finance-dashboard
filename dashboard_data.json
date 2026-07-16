@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T21:50:01Z",
+  "generated_at": "2026-07-16T22:13:22Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-16\n\nThe ranking reveals a pronounced two-tier structure dominated by US equities. Nasdaq 100 and NYSE lead decisively, with ILLIQ costs below 0.0057% per $1M traded and comparable volumes exceeding $206.7M, though Nasdaq's wider 0.7648% AR spread reflects higher tick fragmentation. The mid-tier cluster—Tokyo Stock Exchange, Euronext, Hong Kong Stock Exchange, and SIX Swiss Exchange—shows materially higher price impact (ILLIQ ranging 0.0284% to 0.0364% per $1M), yet tighter spreads in some cases; notably, Euronext's 0.6024% spread rivals NYSE despite weaker turnover at 0.4238%. Korea Exchange and Xetra occupy a secondary tier with elevated ILLIQ costs (0.0496% and 0.1334% per $1M respectively) and compressed volumes under $21M. London Stock Exchange trails at 0.0726% per $1M ILLIQ and 0.7796% spread, making it the least efficient venue. The Korea Exchange exemplifies metric divergence: despite a reasonable 1.4090% spread and 0.8390% turnover, its 0.1334% per $1M ILLIQ cost ranks worst, suggesting price discovery challenges or inventory effects rather than spreads alone.",
   "news": [
@@ -70,16 +70,16 @@
       "pct": 0.5358
     },
     "DAX": {
-      "price": 24915.4902,
-      "pct": -0.3362
+      "price": 24999.5293,
+      "pct": 0.0
     },
     "CAC40": {
-      "price": 8377.8604,
-      "pct": -0.0545
+      "price": 8382.4297,
+      "pct": 0.0
     },
     "SMI": {
-      "price": 14267.1904,
-      "pct": -0.2804
+      "price": 14307.3096,
+      "pct": 0.0
     },
     "SP500": {
       "price": 7533.77,
@@ -106,20 +106,20 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.348,
-      "pct": 0.6174
+      "price": 1.3477,
+      "pct": 0.5997
     },
     "EURUSD": {
-      "price": 1.1443,
-      "pct": 0.1602
+      "price": 1.1447,
+      "pct": 0.1946
     },
     "EURGBP": {
-      "price": 0.8487,
-      "pct": -0.4761
+      "price": 0.8469,
+      "pct": -0.6802
     },
     "USDJPY": {
-      "price": 162.344,
-      "pct": 0.0968
+      "price": 162.309,
+      "pct": 0.0752
     },
     "GOLD": {
       "price": 3979.8999,
@@ -205,74 +205,39 @@
     ],
     "enx": [
       {
-        "name": "Randstad",
-        "ticker": "RAND",
-        "price": "EUR32.49",
-        "change": "+EUR2.31",
-        "pct": "7.65%"
-      },
-      {
-        "name": "Fincantieri",
-        "ticker": "FCT",
-        "price": "EUR12.57",
-        "change": "+EUR0.51",
-        "pct": "4.18%"
-      },
-      {
-        "name": "ASML Holding",
-        "ticker": "ASML",
-        "price": "EUR1598.40",
-        "change": "+EUR49.00",
-        "pct": "3.16%"
-      },
-      {
-        "name": "Publicis",
-        "ticker": "PUB",
-        "price": "EUR91.38",
-        "change": "+EUR2.72",
-        "pct": "3.07%"
-      },
-      {
-        "name": "Pernod Ricard",
-        "ticker": "RI",
-        "price": "EUR66.06",
-        "change": "+EUR1.94",
-        "pct": "3.03%"
-      },
-      {
-        "name": "Moncler",
-        "ticker": "MONC",
-        "price": "EUR52.08",
-        "change": "+EUR1.36",
-        "pct": "2.68%"
-      },
-      {
-        "name": "Generali",
-        "ticker": "G",
-        "price": "EUR42.08",
-        "change": "+EUR0.92",
-        "pct": "2.24%"
-      },
-      {
-        "name": "Michelin",
-        "ticker": "ML",
-        "price": "EUR35.17",
-        "change": "+EUR0.63",
-        "pct": "1.82%"
-      },
-      {
-        "name": "UniCredit",
-        "ticker": "UCG",
-        "price": "EUR82.65",
-        "change": "+EUR1.36",
-        "pct": "1.67%"
-      },
-      {
         "name": "Jerónimo Martins",
         "ticker": "JMT",
         "price": "EUR16.49",
         "change": "+EUR0.27",
         "pct": "1.66%"
+      },
+      {
+        "name": "Galp Energia",
+        "ticker": "GALP",
+        "price": "EUR18.92",
+        "change": "EUR-0.15",
+        "pct": "-0.76%"
+      },
+      {
+        "name": "Banco Comercial Português",
+        "ticker": "BCP",
+        "price": "EUR1.04",
+        "change": "EUR-0.01",
+        "pct": "-0.86%"
+      },
+      {
+        "name": "Energias de Portugal",
+        "ticker": "EDP",
+        "price": "EUR4.52",
+        "change": "EUR-0.06",
+        "pct": "-1.31%"
+      },
+      {
+        "name": "EDP Renováveis",
+        "ticker": "EDPR",
+        "price": "EUR13.84",
+        "change": "EUR-0.21",
+        "pct": "-1.49%"
       }
     ],
     "ndx": [
