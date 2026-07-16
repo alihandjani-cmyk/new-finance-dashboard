@@ -611,3 +611,151 @@ def test_fetch_constituents_uses_prose_parser_for_tse(monkeypatch):
     result = u._fetch_constituents('tse')
     assert result == {'9202.T': 'ANA Holdings'}
     assert calls == ['https://en.wikipedia.org/wiki/Nikkei_225']
+
+
+# ── fetch_amihud: bad-date exclusion ──────────────────────────────────────────
+# Confirmed live: LSE's ILLIQ chart showed 0.616 for the latest day against a
+# ~0.05-0.11 recent range, while the marketAvg shown in the ranking box
+# ("liquidity ranking" cards / Amihud page rank strip) sat at a merely
+# elevated 0.095 — two numbers for the same exchange that visibly didn't
+# agree, because marketAvg only ever absorbed a diluted 1/20th share of the
+# same bad day. fetch_amihud now detects a day whose cross-sectional average
+# is an outlier vs already-vetted history and excludes it from every
+# downstream number, not just the chart.
+
+def _fake_amihud_frame(tickers, n_days=22, bad_day_volume=100, normal_volume=1_000_000):
+    import pandas as pd
+    dates = pd.bdate_range('2026-06-01', periods=n_days)
+    cols = pd.MultiIndex.from_product([['Close', 'Volume'], tickers])
+    closes = [10.0 if i % 2 == 0 else 10.1 for i in range(n_days)]
+    data = {}
+    for t in tickers:
+        data[('Close', t)]  = closes
+        data[('Volume', t)] = [normal_volume] * (n_days - 1) + [bad_day_volume]
+    return pd.DataFrame(data, index=dates, columns=cols), dates[-1].strftime('%Y-%m-%d')
+
+
+def test_fetch_amihud_excludes_outlier_day_from_history_and_marketavg(monkeypatch):
+    tickers = [f'T{i}' for i in range(6)]
+    names = {t: t for t in tickers}
+    # Last day's volume collapses to 100 shares (vs 1,000,000 every other
+    # day) with a normal price move, producing an ILLIQ ~10,000x the recent
+    # baseline for every stock at once — the exact shape of a partial/
+    # corrupted single-day fetch, not genuine market illiquidity.
+    raw, bad_date = _fake_amihud_frame(tickers)
+    monkeypatch.setattr(u, '_chunked_download', lambda *a, **k: raw)
+
+    existing_history = [{'date': f'2026-05-{i:02d}', 'illiq': 0.1} for i in range(1, 11)]
+
+    new_hist, market_avg, top_liq, top_illiq, top_active, top_inactive = u.fetch_amihud(
+        'ndx', tickers, names, existing_history, {'USD': 1.0})
+
+    assert all(e['date'] != bad_date for e in new_hist)   # corrupted day never written to history
+    assert market_avg < 1.0                                 # not inflated by the ~1000-magnitude bad day
+    assert top_liq and top_illiq                             # tables still populated from clean data
+
+
+def test_fetch_amihud_keeps_normal_day_within_baseline(monkeypatch):
+    # A day that's close to the baseline (no anomaly) must not be excluded —
+    # the guard should only catch genuine outliers, not ordinary variation.
+    tickers = [f'T{i}' for i in range(6)]
+    names = {t: t for t in tickers}
+    raw, last_date = _fake_amihud_frame(tickers, bad_day_volume=1_000_000)  # no volume collapse
+    monkeypatch.setattr(u, '_chunked_download', lambda *a, **k: raw)
+
+    existing_history = [{'date': f'2026-05-{i:02d}', 'illiq': 0.1} for i in range(1, 11)]
+
+    new_hist, market_avg, *_ = u.fetch_amihud('ndx', tickers, names, existing_history, {'USD': 1.0})
+
+    assert any(e['date'] == last_date for e in new_hist)
+    assert 0.05 < market_avg < 0.15
+
+
+def test_fetch_amihud_never_reflags_a_date_already_in_history(monkeypatch):
+    # A date that a prior run already accepted into history should not be
+    # re-excluded even if this run's re-fetch of that same date looks
+    # anomalous — only genuinely new dates are checked against the baseline.
+    tickers = [f'T{i}' for i in range(6)]
+    names = {t: t for t in tickers}
+    raw, bad_date = _fake_amihud_frame(tickers)   # last day has the volume collapse
+    monkeypatch.setattr(u, '_chunked_download', lambda *a, **k: raw)
+
+    # Pre-seed existing_history with an entry for that same bad_date, as if
+    # a prior run already wrote it.
+    existing_history = [{'date': f'2026-05-{i:02d}', 'illiq': 0.1} for i in range(1, 11)]
+    existing_history.append({'date': bad_date, 'illiq': 0.1})
+
+    new_hist, market_avg, *_ = u.fetch_amihud('ndx', tickers, names, existing_history, {'USD': 1.0})
+
+    # bad_date is still in the output (not dropped) since it was already known.
+    assert any(e['date'] == bad_date for e in new_hist)
+
+
+# ── generate_commentary: prompt completeness ──────────────────────────────────
+# User feedback: the ranking-page commentary read as short and confusing. One
+# concrete cause: the prompt's "Metrics explained" section told the model
+# Volume and Turnover ratio existed, but only ILLIQ and AR spread values were
+# ever included in the data fed to it — the model was describing metrics it
+# didn't have numbers for. These tests check the prompt actually contains
+# every exchange and every one of the four metrics it promises to explain,
+# without needing a real Anthropic API call.
+
+class _FakeAnthropicClient:
+    def __init__(self, captured, **kwargs):
+        self._captured = captured
+    @property
+    def messages(self):
+        return self
+    def create(self, **kwargs):
+        self._captured['prompt'] = kwargs['messages'][0]['content']
+        self._captured['max_tokens'] = kwargs.get('max_tokens')
+        class _Resp:
+            content = [type('_Block', (), {'text': 'fake commentary text'})()]
+        return _Resp()
+
+
+def _minimal_commentary_dash():
+    ranks = {k: {'composite': i + 1, 'illiq': i + 1, 'ar': i + 1, 'tr': i + 1, 'vol': i + 1}
+             for i, k in enumerate(u.EXCHANGES.keys())}
+    dash = {
+        'current_ranking': {'date': '2026-07-16', 'ranks': ranks},
+        'amihud':          {k: {'marketAvg': 0.05} for k in u.EXCHANGES},
+        'ar_spread':       {k: {'marketAvg': 0.6}  for k in u.EXCHANGES},
+        'turnover_ratio':  {k: {'history': [{'date': '2026-07-16', 'ratio': 1.2}]} for k in u.EXCHANGES},
+        'vol_comparable':  {k: {'value_usd': [1234.5]} for k in u.EXCHANGES},
+    }
+    return dash
+
+
+def test_generate_commentary_prompt_covers_every_exchange(monkeypatch):
+    if u._ant is None:
+        import pytest
+        pytest.skip('anthropic package not installed in this environment')
+    monkeypatch.setenv('ANTHROPIC_API_KEY', 'fake-key-for-test')
+    captured = {}
+    monkeypatch.setattr(u._ant, 'Anthropic', lambda **kw: _FakeAnthropicClient(captured))
+
+    u.generate_commentary(_minimal_commentary_dash())
+
+    prompt = captured['prompt']
+    for k in u.EXCHANGES:
+        assert u.EXCHANGES[k]['name'] in prompt, f'{k} missing from prompt'
+
+
+def test_generate_commentary_prompt_includes_all_four_metrics(monkeypatch):
+    if u._ant is None:
+        import pytest
+        pytest.skip('anthropic package not installed in this environment')
+    monkeypatch.setenv('ANTHROPIC_API_KEY', 'fake-key-for-test')
+    captured = {}
+    monkeypatch.setattr(u._ant, 'Anthropic', lambda **kw: _FakeAnthropicClient(captured))
+
+    u.generate_commentary(_minimal_commentary_dash())
+
+    prompt = captured['prompt']
+    # Every exchange's data line must carry all four metrics, not just the
+    # two the pre-fix version fed the model.
+    assert 'ILLIQ=' in prompt
+    assert 'AR spread=' in prompt
+    assert 'turnover ratio=' in prompt
+    assert 'comparable volume=' in prompt

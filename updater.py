@@ -1729,10 +1729,17 @@ def fetch_amihud(ex_key, tickers, names, existing_history, fx_rates):
         print(f'  ✗  {ex_key} amihud: no data')
         return existing_history, None, [], [], [], []
 
-    daily_buckets = {}
-    stock_avgs    = {}
-    dvol_avgs     = {}
-
+    # Pass 1: per-stock ILLIQ/dollar-volume series, kept in full (not yet
+    # truncated to the trailing 20-day window used for the actual metrics)
+    # so a bad calendar date can be identified once and excluded from every
+    # downstream number consistently. Without this, the daily history chart
+    # and the marketAvg ranking-box figure can silently diverge — confirmed
+    # live for LSE: a single corrupted day pushed the day's cross-sectional
+    # bucket to 0.616 (vs a ~0.05-0.11 recent range) while marketAvg, being
+    # a per-stock 20-day average, only absorbed a ~1/20th share of the same
+    # bad day and merely looked "a bit high" rather than obviously wrong —
+    # two numbers for the same exchange that no longer agreed with each other.
+    stock_series = {}
     for sym in tickers:
         try:
             df = raw[[('Close', sym), ('Volume', sym)]].copy()
@@ -1752,18 +1759,74 @@ def fetch_amihud(ex_key, tickers, names, existing_history, fx_rates):
             dvol_m_usd = dvol_m * fx_usd
             ret_pct = df['Close'].pct_change().abs() * 100
             illiq   = (ret_pct / dvol_m_usd).replace([float('inf'), float('-inf')], float('nan')).dropna()
-            illiq   = illiq.iloc[-20:]
             if len(illiq) < 5:
                 continue
-            stock_avgs[sym] = float(illiq.mean())
-            dvol_avgs[sym]  = float(dvol_m.iloc[-20:].mean())
-            for ts, val in illiq.items():
-                if pd.isna(val):
-                    continue
-                label = ts.strftime('%Y-%m-%d')
-                daily_buckets.setdefault(label, []).append(float(val))
+            stock_series[sym] = (illiq, dvol_m)
         except Exception:
             continue
+
+    if not stock_series:
+        print(f'  ✗  {ex_key}: no ILLIQ computed')
+        return existing_history, None, [], [], [], []
+
+    # Preliminary (unfiltered) daily cross-sectional buckets, from each
+    # stock's own trailing-20 window, purely to detect bad dates.
+    prelim_buckets = {}
+    for sym, (illiq, _) in stock_series.items():
+        for ts, val in illiq.iloc[-20:].items():
+            if pd.isna(val):
+                continue
+            prelim_buckets.setdefault(ts.strftime('%Y-%m-%d'), []).append(float(val))
+
+    # Baseline comes from already-vetted history written by a prior run, not
+    # from this run's own (possibly corrupted) data — avoids the outlier
+    # check being fooled by the very data it's supposed to catch. Dates
+    # already present in existing_history are skipped (a prior run already
+    # accepted them; don't re-flag on a later re-fetch).
+    known_dates = {e['date'] for e in existing_history}
+    recent_known_vals = sorted(e['illiq'] for e in existing_history[-10:] if e.get('illiq') is not None)
+    baseline = None
+    if recent_known_vals:
+        n = len(recent_known_vals)
+        baseline = recent_known_vals[n // 2] if n % 2 else (recent_known_vals[n // 2 - 1] + recent_known_vals[n // 2]) / 2
+
+    OUTLIER_MULT = 3.0
+    bad_dates = set()
+    if baseline and baseline > 0:
+        for label, vals in prelim_buckets.items():
+            if label in known_dates:
+                continue
+            day_avg = sum(vals) / len(vals)
+            if day_avg > baseline * OUTLIER_MULT:
+                bad_dates.add(label)
+                print(f'  ⚠  {ex_key} amihud {label}: {day_avg:.4f} is {day_avg / baseline:.1f}x the recent '
+                      f'baseline ({baseline:.4f}) — excluding from history and marketAvg '
+                      f'(likely a partial/corrupted fetch)')
+
+    # Pass 2: final per-stock averages and daily buckets, now with any bad
+    # date(s) dropped from every stock's series before the trailing-20
+    # window is taken — so marketAvg, top10 tables, and the daily history
+    # are all computed from the same cleaned data.
+    daily_buckets = {}
+    stock_avgs    = {}
+    dvol_avgs     = {}
+    for sym, (illiq_full, dvol_m_full) in stock_series.items():
+        if bad_dates:
+            keep = ~illiq_full.index.strftime('%Y-%m-%d').isin(bad_dates)
+            illiq  = illiq_full[keep]
+            dvol_m = dvol_m_full[~dvol_m_full.index.strftime('%Y-%m-%d').isin(bad_dates)]
+        else:
+            illiq, dvol_m = illiq_full, dvol_m_full
+        illiq = illiq.iloc[-20:]
+        if len(illiq) < 5:
+            continue
+        stock_avgs[sym] = float(illiq.mean())
+        dvol_avgs[sym]  = float(dvol_m.iloc[-20:].mean())
+        for ts, val in illiq.items():
+            if pd.isna(val):
+                continue
+            label = ts.strftime('%Y-%m-%d')
+            daily_buckets.setdefault(label, []).append(float(val))
 
     if not stock_avgs:
         print(f'  ✗  {ex_key}: no ILLIQ computed')
@@ -1784,7 +1847,7 @@ def fetch_amihud(ex_key, tickers, names, existing_history, fx_rates):
         vals = daily_buckets[label]
         new_history = _push(new_history, {'date': label, 'illiq': round(sum(vals)/len(vals), 6)})
 
-    if (last_trade_date and
+    if (last_trade_date and last_trade_date not in bad_dates and
             not any(e.get('date') == last_trade_date for e in new_history)):
         print(f'  ⚠  {ex_key}: {last_trade_date} absent — injecting market_avg as fallback')
         new_history = _push(new_history, {'date': last_trade_date, 'illiq': round(market_avg, 6)})
@@ -2033,33 +2096,52 @@ def generate_commentary(dash):
     def ar_val(k):
         avg = dash['ar_spread'][k].get('marketAvg')
         return f'{avg:.4f}%' if avg is not None else 'N/A'
+    def tr_val(k):
+        hist = dash.get('turnover_ratio', {}).get(k, {}).get('history', [])
+        return f'{hist[-1]["ratio"]:.4f}%' if hist else 'N/A'
+    def vol_val(k):
+        vc = dash.get('vol_comparable', {}).get(k, {})
+        usd = vc.get('value_usd', [])
+        return f'${usd[-1]:,.1f}M' if usd else 'N/A'
 
+    # All four metrics the "Metrics explained" section below promises are
+    # included here — an earlier version only fed ILLIQ and AR spread to the
+    # model while still telling it Volume and Turnover ratio existed, which
+    # produced commentary that ignored two of the four metrics it was told
+    # to consider. Units are stated inline on every value so the model can
+    # (and is asked to) carry them into the prose, rather than emitting bare
+    # numbers a reader has to cross-reference elsewhere to understand.
     ranking_summary = '\n'.join(
         f'  #{i+1} {EXCHANGES[k]["name"]}: composite rank {ranks[k].get("composite")}, '
-        f'ILLIQ={amihud_val(k)}, AR spread={ar_val(k)}'
+        f'ILLIQ={amihud_val(k)}% per $1M USD traded, AR spread={ar_val(k)}, '
+        f'turnover ratio={tr_val(k)}, comparable volume={vol_val(k)}'
         for i, k in enumerate(sorted_ex)
     )
 
-    prompt = f"""You are a financial markets analyst writing a brief commentary on exchange liquidity rankings.
+    prompt = f"""You are a financial markets analyst writing a commentary on cross-exchange liquidity rankings for a professional audience (traders, portfolio managers) who will read this alongside a ranking table, not in isolation.
 
-Today's data is for {ranking_date}.
+Today's data is for {ranking_date}. There are {len(sorted_ex)} exchanges in the ranking.
 
 Exchange Liquidity Ranking (1 = most liquid):
 {ranking_summary}
 
 Metrics explained:
-- ILLIQ (Amihud): % price move per 1M currency unit traded — lower = more liquid
+- ILLIQ (Amihud): % price move per $1M USD-equivalent traded — lower = more liquid
 - AR spread: Abdi-Ranaldo (2017) implied spread — lower = tighter spreads
-- Volume: comparable liquid-universe turnover (same constituent methodology, USD) — higher = more liquid
-- Turnover ratio: comparable volume / market cap — higher = more liquid
+- Turnover ratio: comparable-universe volume / market cap — higher = more liquid
+- Comparable volume: liquid-universe turnover in USD (same constituent methodology across exchanges) — higher = more liquid
 
-Write a concise 3-4 sentence commentary (max 80 words) for a professional audience. Focus on the top and bottom ranked exchanges and any notable differences in the metrics. Be specific and analytical. Do not use bullet points."""
+Write a 6-8 sentence commentary (120-160 words) for a professional audience. Requirements:
+- Cover the full ranking, not just the top and bottom: group exchanges into rough tiers (e.g. leaders, mid-pack, laggards) and name every exchange at least once — do not omit any of the {len(sorted_ex)} exchanges.
+- Every time you cite a number, state its unit inline (e.g. "0.054% per $1M traded", "0.62% spread", "12.3% turnover") — never a bare decimal.
+- Point out at least one place where the four metrics disagree for the same exchange (e.g. a tight AR spread but a middling ILLIQ rank), since that kind of divergence is the most useful signal for a reader skimming the ranking table.
+- Be specific and analytical, professional tone. Do not use bullet points, headers, or markdown formatting — plain prose only."""
 
     try:
         client = _ant.Anthropic(api_key=api_key)
         msg = client.messages.create(
             model='claude-haiku-4-5-20251001',
-            max_tokens=200,
+            max_tokens=400,
             messages=[{'role': 'user', 'content': prompt}]
         )
         text = msg.content[0].text.strip()
