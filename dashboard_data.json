@@ -1,8 +1,14 @@
 {
-  "generated_at": "2026-07-17T05:12:57Z",
+  "generated_at": "2026-07-17T05:44:49Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-16\n\nThe ranking reveals a pronounced two-tier structure dominated by US equities. Nasdaq 100 and NYSE lead decisively, with ILLIQ costs below 0.0057% per $1M traded and comparable volumes exceeding $206.7M, though Nasdaq's wider 0.7648% AR spread reflects higher tick fragmentation. The mid-tier cluster—Tokyo Stock Exchange, Euronext, Hong Kong Stock Exchange, and SIX Swiss Exchange—shows materially higher price impact (ILLIQ ranging 0.0284% to 0.0364% per $1M), yet tighter spreads in some cases; notably, Euronext's 0.6024% spread rivals NYSE despite weaker turnover at 0.4238%. Korea Exchange and Xetra occupy a secondary tier with elevated ILLIQ costs (0.0496% and 0.1334% per $1M respectively) and compressed volumes under $21M. London Stock Exchange trails at 0.0726% per $1M ILLIQ and 0.7796% spread, making it the least efficient venue. The Korea Exchange exemplifies metric divergence: despite a reasonable 1.4090% spread and 0.8390% turnover, its 0.1334% per $1M ILLIQ cost ranks worst, suggesting price discovery challenges or inventory effects rather than spreads alone.",
   "news": [
+    {
+      "title": "Burnham's 'Manchesterism' got him to No 10 - but will it work for the UK?",
+      "link": "https://www.bbc.co.uk/news/articles/clyl3z2xld8o?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Fri, 17 Jul 2026 05:00:08 GMT",
+      "source": "BBC Business"
+    },
     {
       "title": "China hits out at British Steel nationalisation",
       "link": "https://www.bbc.co.uk/news/articles/cjd4kvxpd3do?at_medium=RSS&at_campaign=rss",
@@ -56,12 +62,6 @@
       "link": "https://www.bbc.co.uk/news/articles/cvgegqrp656o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Thu, 16 Jul 2026 06:40:58 GMT",
       "source": "BBC Business"
-    },
-    {
-      "title": "UK economy returns to growth in May",
-      "link": "https://www.bbc.co.uk/news/articles/c8xnllq944go?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Thu, 16 Jul 2026 08:43:28 GMT",
-      "source": "BBC Business"
     }
   ],
   "tickers": {
@@ -94,20 +94,20 @@
       "pct": -0.2007
     },
     "NIKKEI": {
-      "price": 63071.8984,
-      "pct": -5.6312
+      "price": 63421.6016,
+      "pct": -5.108
     },
     "HSI": {
-      "price": 24514.2891,
-      "pct": -1.9766
+      "price": 24420.1992,
+      "pct": -2.3528
     },
     "KOSPI": {
       "price": 6820.6001,
       "pct": -6.3672
     },
     "GBPUSD": {
-      "price": 1.3459,
-      "pct": -0.6041
+      "price": 1.3461,
+      "pct": -0.5947
     },
     "EURUSD": {
       "price": 1.144,
@@ -115,19 +115,19 @@
     },
     "EURGBP": {
       "price": 0.8497,
-      "pct": 0.3247
+      "pct": 0.3235
     },
     "USDJPY": {
-      "price": 162.41,
-      "pct": 0.2085
+      "price": 162.408,
+      "pct": 0.2073
     },
     "GOLD": {
-      "price": 3984.7,
-      "pct": -0.0226
+      "price": 3981.8999,
+      "pct": -0.0928
     },
     "OIL": {
-      "price": 79.13,
-      "pct": 0.228
+      "price": 79.05,
+      "pct": 0.1267
     }
   },
   "gainers": {
@@ -511,37 +511,30 @@
       {
         "name": "SHIFT Inc.",
         "ticker": "3697",
-        "price": "JPY734.30",
-        "change": "+JPY54.50",
-        "pct": "8.02%"
+        "price": "JPY736.00",
+        "change": "+JPY56.20",
+        "pct": "8.27%"
       },
       {
         "name": "Nichirei Corp.",
         "ticker": "2871",
-        "price": "JPY2130.50",
-        "change": "+JPY104.00",
-        "pct": "5.13%"
-      },
-      {
-        "name": "Sapporo Holdings Ltd.",
-        "ticker": "2501",
-        "price": "JPY2068.00",
-        "change": "+JPY71.50",
-        "pct": "3.58%"
-      },
-      {
-        "name": "Konami Corp.",
-        "ticker": "9766",
-        "price": "JPY18875.00",
-        "change": "+JPY650.00",
-        "pct": "3.57%"
+        "price": "JPY2143.00",
+        "change": "+JPY116.50",
+        "pct": "5.75%"
       },
       {
         "name": "I Holdings Co. , Ltd.",
         "ticker": "3382",
-        "price": "JPY2074.00",
-        "change": "+JPY67.00",
-        "pct": "3.34%"
+        "price": "JPY2076.50",
+        "change": "+JPY69.50",
+        "pct": "3.46%"
+      },
+      {
+        "name": "Konami Corp.",
+        "ticker": "9766",
+        "price": "JPY18825.00",
+        "change": "+JPY600.00",
+        "pct": "3.29%"
       },
       {
         "name": "Kikkoman Corp.",
@@ -551,48 +544,48 @@
         "pct": "3.12%"
       },
       {
-        "name": "Nintendo Co., Ltd.",
-        "ticker": "7974",
-        "price": "JPY7297.00",
-        "change": "+JPY217.00",
-        "pct": "3.06%"
-      },
-      {
         "name": "Toho Co., Ltd.",
         "ticker": "9602",
-        "price": "JPY1440.00",
-        "change": "+JPY42.50",
-        "pct": "3.04%"
+        "price": "JPY1441.00",
+        "change": "+JPY43.50",
+        "pct": "3.11%"
+      },
+      {
+        "name": "Nintendo Co., Ltd.",
+        "ticker": "7974",
+        "price": "JPY7285.00",
+        "change": "+JPY205.00",
+        "pct": "2.90%"
       },
       {
         "name": "Pan Pacific International Holdings Corp.",
         "ticker": "7532",
-        "price": "JPY893.50",
-        "change": "+JPY24.50",
-        "pct": "2.82%"
+        "price": "JPY894.10",
+        "change": "+JPY25.10",
+        "pct": "2.89%"
       },
       {
-        "name": "Nitori Holdings Co., Ltd.",
-        "ticker": "9843",
-        "price": "JPY2481.00",
-        "change": "+JPY66.50",
-        "pct": "2.75%"
+        "name": "Sapporo Holdings Ltd.",
+        "ticker": "2501",
+        "price": "JPY2050.00",
+        "change": "+JPY53.50",
+        "pct": "2.68%"
+      },
+      {
+        "name": "Nippon Yusen K.K.",
+        "ticker": "9101",
+        "price": "JPY5670.00",
+        "change": "+JPY130.00",
+        "pct": "2.35%"
       }
     ],
     "hkg": [
       {
         "name": "Power Assets Holdings Limited",
         "ticker": "0006",
-        "price": "HKD59.20",
-        "change": "+HKD1.15",
-        "pct": "1.98%"
-      },
-      {
-        "name": "MTR Corporation Ltd",
-        "ticker": "0066",
-        "price": "HKD32.36",
-        "change": "+HKD0.50",
-        "pct": "1.57%"
+        "price": "HKD59.30",
+        "change": "+HKD1.25",
+        "pct": "2.15%"
       },
       {
         "name": "China Merchants Bank",
@@ -602,53 +595,60 @@
         "pct": "1.47%"
       },
       {
-        "name": "Link REIT",
-        "ticker": "0823",
-        "price": "HKD39.30",
-        "change": "+HKD0.52",
-        "pct": "1.34%"
-      },
-      {
-        "name": "China Resources Power",
-        "ticker": "0836",
-        "price": "HKD18.08",
-        "change": "+HKD0.23",
-        "pct": "1.29%"
-      },
-      {
-        "name": "Budweiser Brewing Company APAC",
-        "ticker": "1876",
-        "price": "HKD6.57",
-        "change": "+HKD0.08",
-        "pct": "1.23%"
+        "name": "MTR Corporation Ltd",
+        "ticker": "0066",
+        "price": "HKD32.26",
+        "change": "+HKD0.40",
+        "pct": "1.26%"
       },
       {
         "name": "Cheung Kong Infrastructure Holdings Limited",
         "ticker": "1038",
-        "price": "HKD62.00",
-        "change": "+HKD0.75",
-        "pct": "1.22%"
+        "price": "HKD61.95",
+        "change": "+HKD0.70",
+        "pct": "1.14%"
       },
       {
         "name": "Sinopec Corp",
         "ticker": "0386",
-        "price": "HKD4.29",
+        "price": "HKD4.28",
+        "change": "+HKD0.04",
+        "pct": "0.94%"
+      },
+      {
+        "name": "CLP Holdings Limited",
+        "ticker": "0002",
+        "price": "HKD77.50",
+        "change": "+HKD0.65",
+        "pct": "0.85%"
+      },
+      {
+        "name": "Link REIT",
+        "ticker": "0823",
+        "price": "HKD39.10",
+        "change": "+HKD0.32",
+        "pct": "0.83%"
+      },
+      {
+        "name": "Budweiser Brewing Company APAC",
+        "ticker": "1876",
+        "price": "HKD6.53",
+        "change": "+HKD0.04",
+        "pct": "0.62%"
+      },
+      {
+        "name": "China Resources Power",
+        "ticker": "0836",
+        "price": "HKD17.96",
+        "change": "+HKD0.11",
+        "pct": "0.62%"
+      },
+      {
+        "name": "China Construction Bank",
+        "ticker": "0939",
+        "price": "HKD8.24",
         "change": "+HKD0.05",
-        "pct": "1.18%"
-      },
-      {
-        "name": "Hong Kong and China Gas Company Limited",
-        "ticker": "0003",
-        "price": "HKD6.76",
-        "change": "+HKD0.07",
-        "pct": "1.05%"
-      },
-      {
-        "name": "Hengan International Group Co. Ltd",
-        "ticker": "1044",
-        "price": "HKD24.26",
-        "change": "+HKD0.24",
-        "pct": "1.00%"
+        "pct": "0.61%"
       }
     ],
     "krx": [
@@ -1128,26 +1128,26 @@
         {
           "name": "Mitsubishi UFJ Financial Group , Inc.",
           "ticker": "8306",
-          "mcap_b": 38826.3,
-          "price": "JPY3443.00"
+          "mcap_b": 38792.4,
+          "price": "JPY3440.00"
         },
         {
           "name": "Toyota Motor Corp.",
           "ticker": "7203",
-          "mcap_b": 34104.1,
-          "price": "JPY2880.00"
+          "mcap_b": 34080.4,
+          "price": "JPY2878.00"
         },
         {
           "name": "SoftBank Group Corp.",
           "ticker": "9984",
-          "mcap_b": 30153.0,
-          "price": "JPY5291.00"
+          "mcap_b": 30039.0,
+          "price": "JPY5271.00"
         },
         {
           "name": "Tokyo Electron Ltd.",
           "ticker": "8035",
-          "mcap_b": 29193.2,
-          "price": "JPY64210.00"
+          "mcap_b": 29065.9,
+          "price": "JPY63930.00"
         },
         {
           "name": "Kioxia Holdings Corp.",
@@ -1158,32 +1158,32 @@
         {
           "name": "Sumitomo Mitsui Financial Group , Inc.",
           "ticker": "8316",
-          "mcap_b": 25368.9,
-          "price": "JPY6655.00"
+          "mcap_b": 25346.0,
+          "price": "JPY6649.00"
         },
         {
           "name": "Fast Retailing Co., Ltd.",
           "ticker": "9983",
-          "mcap_b": 24235.1,
-          "price": "JPY78980.00"
+          "mcap_b": 24186.0,
+          "price": "JPY78820.00"
         },
         {
           "name": "Hitachi , Ltd.",
           "ticker": "6501",
-          "mcap_b": 20892.9,
-          "price": "JPY4659.00"
+          "mcap_b": 20906.3,
+          "price": "JPY4662.00"
         },
         {
           "name": "Sony Corp.",
           "ticker": "6758",
-          "mcap_b": 20307.0,
-          "price": "JPY3458.00"
+          "mcap_b": 20265.9,
+          "price": "JPY3451.00"
         },
         {
-          "name": "Mizuho Financial Group , Inc.",
-          "ticker": "8411",
-          "mcap_b": 19272.2,
-          "price": "JPY7910.00"
+          "name": "Advantest Corp.",
+          "ticker": "6857",
+          "mcap_b": 19387.8,
+          "price": "JPY26780.00"
         }
       ]
     },
@@ -1194,44 +1194,44 @@
         {
           "name": "Tencent Holdings Limited",
           "ticker": "0700",
-          "mcap_b": 4187.6,
-          "price": "HKD465.20"
+          "mcap_b": 4128.1,
+          "price": "HKD458.60"
         },
         {
           "name": "HSBC Holdings plc",
           "ticker": "0005",
-          "mcap_b": 2697.4,
-          "price": "HKD157.30"
+          "mcap_b": 2694.0,
+          "price": "HKD157.10"
         },
         {
           "name": "Industrial and Commercial Bank of China",
           "ticker": "1398",
-          "mcap_b": 2437.8,
-          "price": "HKD6.84"
-        },
-        {
-          "name": "Alibaba Group",
-          "ticker": "9988",
-          "mcap_b": 2164.9,
-          "price": "HKD112.90"
+          "mcap_b": 2444.9,
+          "price": "HKD6.86"
         },
         {
           "name": "China Construction Bank",
           "ticker": "0939",
-          "mcap_b": 2150.4,
-          "price": "HKD8.22"
+          "mcap_b": 2155.6,
+          "price": "HKD8.24"
         },
         {
-          "name": "PetroChina Company Limited",
-          "ticker": "0857",
-          "mcap_b": 1725.9,
-          "price": "HKD9.43"
+          "name": "Alibaba Group",
+          "ticker": "9988",
+          "mcap_b": 2128.4,
+          "price": "HKD111.00"
         },
         {
           "name": "China Mobile Ltd",
           "ticker": "0941",
           "mcap_b": 1725.1,
           "price": "HKD79.70"
+        },
+        {
+          "name": "PetroChina Company Limited",
+          "ticker": "0857",
+          "mcap_b": 1724.1,
+          "price": "HKD9.42"
         },
         {
           "name": "Bank of China Ltd",
@@ -1242,14 +1242,14 @@
         {
           "name": "China Merchants Bank",
           "ticker": "3968",
-          "mcap_b": 1184.8,
-          "price": "HKD46.98"
+          "mcap_b": 1184.3,
+          "price": "HKD46.96"
         },
         {
           "name": "CNOOC Limited",
           "ticker": "0883",
-          "mcap_b": 1071.3,
-          "price": "HKD22.54"
+          "mcap_b": 1068.5,
+          "price": "HKD22.48"
         }
       ]
     },
