@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-18T08:06:29Z",
+  "generated_at": "2026-07-18T08:36:29Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy clusters into three distinct tiers. Nasdaq 100 and NYSE lead decisively, with ILLIQ costs under 0.0055% per $1M traded and spreads near 0.64–0.75%, anchored by comparable volumes exceeding $230M USD. Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange form a solid mid-pack, trading ILLIQ costs of 0.0284–0.0360% per $1M with spreads between 0.61% and 0.79%, though Tokyo's 3.21% turnover ratio substantially exceeds its peers' sub-1% rates, suggesting concentrated activity among a smaller cap base. The laggard tier—Xetra, Korea Exchange, SIX Swiss, and London Stock Exchange—exhibits material deterioration in at least one dimension: Korea Exchange's 1.40% spread and 0.1339% per $1M ILLIQ are particularly acute, while London Stock Exchange posts the highest ILLIQ at 0.0732% per $1M despite a respectable 0.79% spread. SIX Swiss presents an intriguing divergence: its 0.5383% spread ranks tightest globally, yet its minuscule $3.0M comparable volume and 0.1506% turnover ratio signal depth constraints that spreads alone don't capture. This spread-liquidity decoupling warrants caution when executing larger positions in lower-tier venues.",
   "news": [
@@ -133,70 +133,105 @@
   "gainers": {
     "lse": [
       {
-        "name": "Tritax Big Box REIT",
-        "ticker": "BBOX",
-        "price": "167p",
-        "change": "+3p",
-        "pct": "2.01%"
+        "name": "Ocado Group",
+        "ticker": "OCDO",
+        "price": "165p",
+        "change": "+6p",
+        "pct": "3.77%"
       },
       {
-        "name": "Cordiant Digital Infrastructure",
-        "ticker": "CORD",
-        "price": "123p",
-        "change": "-0.50p",
-        "pct": "-0.40%"
+        "name": "Harbour Energy",
+        "ticker": "HBR",
+        "price": "233p",
+        "change": "+7p",
+        "pct": "3.37%"
       },
       {
-        "name": "Alliance Witan",
-        "ticker": "ALW",
-        "price": "1319p",
-        "change": "-7p",
-        "pct": "-0.53%"
+        "name": "National Grid plc",
+        "ticker": "NG",
+        "price": "1257p",
+        "change": "+40p",
+        "pct": "3.33%"
       },
       {
-        "name": "Herald Investment Trust",
-        "ticker": "HRI",
-        "price": "2890p",
-        "change": "-55p",
-        "pct": "-1.87%"
+        "name": "British American Tobacco",
+        "ticker": "BATS",
+        "price": "4669p",
+        "change": "+134p",
+        "pct": "2.95%"
       },
       {
-        "name": "3i",
-        "ticker": "III",
-        "price": "2576p",
-        "change": "-67p",
-        "pct": "-2.53%"
+        "name": "Severn Trent",
+        "ticker": "SVT",
+        "price": "3066p",
+        "change": "+86p",
+        "pct": "2.89%"
       },
       {
-        "name": "Templeton Emerging Markets Investment Trust",
-        "ticker": "TEM",
+        "name": "BAE Systems",
+        "ticker": "BA",
+        "price": "1880p",
+        "change": "+46p",
+        "pct": "2.51%"
+      },
+      {
+        "name": "SSE plc",
+        "ticker": "SSE",
+        "price": "2488p",
+        "change": "+59p",
+        "pct": "2.43%"
+      },
+      {
+        "name": "Shell plc",
+        "ticker": "SHEL",
+        "price": "3236p",
+        "change": "+76p",
+        "pct": "2.41%"
+      },
+      {
+        "name": "Kingfisher plc",
+        "ticker": "KGF",
         "price": "304p",
-        "change": "-8p",
-        "pct": "-2.56%"
+        "change": "+7p",
+        "pct": "2.39%"
       },
       {
-        "name": "Polar Capital Technology Trust",
-        "ticker": "PCT",
-        "price": "627p",
-        "change": "-18p",
-        "pct": "-2.86%"
-      },
-      {
-        "name": "Allianz Technology Trust",
-        "ticker": "ATT",
-        "price": "674p",
-        "change": "-25p",
-        "pct": "-3.58%"
-      },
-      {
-        "name": "Scottish Mortgage Investment Trust",
-        "ticker": "SMT",
-        "price": "1359p",
-        "change": "-50p",
-        "pct": "-3.58%"
+        "name": "BT Group",
+        "ticker": "BT-A",
+        "price": "197p",
+        "change": "+4p",
+        "pct": "2.33%"
       }
     ],
     "enx": [
+      {
+        "name": "Terna",
+        "ticker": "TRN",
+        "price": "EUR10.35",
+        "change": "+EUR0.29",
+        "pct": "2.88%"
+      },
+      {
+        "name": "Eni",
+        "ticker": "ENI",
+        "price": "EUR21.65",
+        "change": "+EUR0.53",
+        "pct": "2.53%"
+      },
+      {
+        "name": "Leonardo",
+        "ticker": "LDO",
+        "price": "EUR50.75",
+        "change": "+EUR1.14",
+        "pct": "2.30%"
+      },
+      {
+        "name": "Orange",
+        "ticker": "ORA",
+        "price": "EUR16.47",
+        "change": "+EUR0.36",
+        "pct": "2.27%"
+      },
       {
         "name": "Jerónimo Martins",
         "ticker": "JMT",
@@ -205,32 +240,39 @@
         "pct": "2.12%"
       },
       {
-        "name": "Galp Energia",
-        "ticker": "GALP",
-        "price": "EUR18.95",
-        "change": "+EUR0.03",
-        "pct": "0.18%"
+        "name": "Shell plc",
+        "ticker": "SHELL",
+        "price": "EUR38.04",
+        "change": "+EUR0.79",
+        "pct": "2.12%"
       },
       {
-        "name": "Energias de Portugal",
-        "ticker": "EDP",
-        "price": "EUR4.52",
-        "change": "EUR-0.00",
-        "pct": "-0.07%"
+        "name": "Snam",
+        "ticker": "SRG",
+        "price": "EUR6.22",
+        "change": "+EUR0.10",
+        "pct": "1.70%"
       },
       {
-        "name": "EDP Renováveis",
-        "ticker": "EDPR",
-        "price": "EUR13.82",
-        "change": "EUR-0.02",
-        "pct": "-0.14%"
+        "name": "Enel",
+        "ticker": "ENEL",
+        "price": "EUR10.17",
+        "change": "+EUR0.16",
+        "pct": "1.64%"
       },
       {
-        "name": "Banco Comercial Português",
-        "ticker": "BCP",
-        "price": "EUR1.03",
-        "change": "EUR-0.01",
-        "pct": "-1.11%"
+        "name": "KPN",
+        "ticker": "KPN",
+        "price": "EUR4.36",
+        "change": "+EUR0.07",
+        "pct": "1.51%"
+      },
+      {
+        "name": "Carrefour",
+        "ticker": "CA",
+        "price": "EUR16.78",
+        "change": "+EUR0.25",
+        "pct": "1.51%"
       }
     ],
     "ndx": [
@@ -465,6 +507,13 @@
         "pct": "5.79%"
       },
       {
+        "name": "SIG",
+        "ticker": "SIGN",
+        "price": "CHF13.94",
+        "change": "+CHF0.45",
+        "pct": "3.34%"
+      },
+      {
         "name": "Sandoz",
         "ticker": "SDZ",
         "price": "CHF65.74",
@@ -477,6 +526,13 @@
         "price": "CHF83.04",
         "change": "+CHF1.98",
         "pct": "2.44%"
+      },
+      {
+        "name": "Swiss Prime Site",
+        "ticker": "SPSN",
+        "price": "CHF132.80",
+        "change": "+CHF2.80",
+        "pct": "2.15%"
       },
       {
         "name": "PSP Swiss Property",
@@ -493,32 +549,18 @@
         "pct": "1.80%"
       },
       {
+        "name": "Zurich Insurance Group AG",
+        "ticker": "ZURN",
+        "price": "CHF624.40",
+        "change": "+CHF11.00",
+        "pct": "1.79%"
+      },
+      {
         "name": "Galderma",
         "ticker": "GALD",
         "price": "CHF172.50",
         "change": "+CHF2.60",
         "pct": "1.53%"
-      },
-      {
-        "name": "Swisscom AG",
-        "ticker": "SCMN",
-        "price": "CHF634.00",
-        "change": "+CHF9.00",
-        "pct": "1.44%"
-      },
-      {
-        "name": "Novartis International AG",
-        "ticker": "NOVN",
-        "price": "CHF125.00",
-        "change": "+CHF1.74",
-        "pct": "1.41%"
-      },
-      {
-        "name": "Nestlé SA",
-        "ticker": "NESN",
-        "price": "CHF85.55",
-        "change": "+CHF1.05",
-        "pct": "1.24%"
       }
     ],
     "tse": [
