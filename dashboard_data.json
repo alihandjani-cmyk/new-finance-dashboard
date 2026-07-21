@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T16:13:55Z",
+  "generated_at": "2026-07-21T16:44:55Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-20\n\nThe liquidity hierarchy divides sharply into three tiers. Nasdaq 100 and NYSE dominate, combining minimal price impact (0.0047% and 0.0056% per $1M traded respectively) with substantial comparable volume ($264.4M and $191.3M). Tokyo Stock Exchange ranks third with moderate ILLIQ of 0.0351% per $1M but stands out for elevated turnover ratio of 3.0758%, suggesting concentrated retail participation relative to market cap. The middle tier—Euronext, Hong Kong, and Korea Exchange—cluster around 0.03–0.14% ILLIQ per $1M, though Korea Exchange's 1.4667% AR spread signals significantly wider execution costs despite modest $17.8M comparable volume. The laggards (SIX Swiss, Xetra, London Stock Exchange) show deteriorating price impact ranging from 0.0443% to 0.0754% per $1M and notably low comparable volumes under $9M. A striking divergence appears at SIX Swiss Exchange: its 0.5540% AR spread ranks among the tightest, yet ILLIQ of 0.0443% per $1M and minimal $3.2M turnover suggest limited depth beyond tight nominal spreads—a critical distinction for large institutional traders.",
   "news": [
@@ -46,6 +46,12 @@
       "source": "BBC Business"
     },
     {
+      "title": "Three reasons why UK electricity prices are so high",
+      "link": "https://www.bbc.co.uk/news/articles/cn8n5vnmjlzo?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Tue, 21 Jul 2026 16:11:14 GMT",
+      "source": "BBC Business"
+    },
+    {
       "title": "UK's first sugar factory at risk of closure",
       "link": "https://www.bbc.co.uk/news/articles/c8dnq6v5pvgo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 21 Jul 2026 13:57:21 GMT",
@@ -55,12 +61,6 @@
       "title": "Trump slaps 50% tariffs on Canada and Carney vows to 'intensify' trade talks",
       "link": "https://www.bbc.co.uk/news/articles/cg4dzq3x3e1o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 21 Jul 2026 11:42:41 GMT",
-      "source": "BBC Business"
-    },
-    {
-      "title": "B&M fined £2m over serious food hygiene failings at Birmingham shops",
-      "link": "https://www.bbc.co.uk/news/articles/cvgvxm1n3keo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Tue, 21 Jul 2026 15:32:04 GMT",
       "source": "BBC Business"
     }
   ],
@@ -82,16 +82,16 @@
       "pct": 0.308
     },
     "SP500": {
-      "price": 7501.9502,
-      "pct": 0.7882
+      "price": 7512.2598,
+      "pct": 0.9267
     },
     "NDX": {
-      "price": 29103.5664,
-      "pct": 1.7457
+      "price": 29150.4062,
+      "pct": 1.9094
     },
     "DJI": {
-      "price": 52217.5781,
-      "pct": 0.7298
+      "price": 52333.4297,
+      "pct": 0.9533
     },
     "NIKKEI": {
       "price": 64141.1211,
@@ -107,27 +107,27 @@
     },
     "GBPUSD": {
       "price": 1.3373,
-      "pct": -0.5416
+      "pct": -0.5443
     },
     "EURUSD": {
       "price": 1.141,
       "pct": -0.1518
     },
     "EURGBP": {
-      "price": 0.8529,
-      "pct": 0.3542
+      "price": 0.853,
+      "pct": 0.3683
     },
     "USDJPY": {
-      "price": 163.022,
-      "pct": 0.3138
+      "price": 163.001,
+      "pct": 0.3009
     },
     "GOLD": {
-      "price": 4079.7,
-      "pct": 1.7305
+      "price": 4080.8,
+      "pct": 1.758
     },
     "OIL": {
-      "price": 84.57,
-      "pct": 1.61
+      "price": 84.3,
+      "pct": 1.2856
     }
   },
   "gainers": {
@@ -279,123 +279,137 @@
       {
         "name": "Nebius Group",
         "ticker": "NBIS",
-        "price": "USD209.15",
-        "change": "+USD26.53",
-        "pct": "14.53%"
+        "price": "USD210.99",
+        "change": "+USD28.37",
+        "pct": "15.53%"
       },
       {
         "name": "Western Digital",
         "ticker": "WDC",
-        "price": "USD546.67",
-        "change": "+USD59.25",
-        "pct": "12.16%"
-      },
-      {
-        "name": "Teradyne",
-        "ticker": "TER",
-        "price": "USD372.98",
-        "change": "+USD39.21",
-        "pct": "11.75%"
+        "price": "USD548.01",
+        "change": "+USD60.59",
+        "pct": "12.43%"
       },
       {
         "name": "Sandisk",
         "ticker": "SNDK",
-        "price": "USD1548.50",
-        "change": "+USD157.55",
-        "pct": "11.33%"
+        "price": "USD1562.30",
+        "change": "+USD171.35",
+        "pct": "12.32%"
       },
       {
-        "name": "Seagate Technology",
-        "ticker": "STX",
-        "price": "USD892.28",
-        "change": "+USD89.83",
-        "pct": "11.19%"
+        "name": "Teradyne",
+        "ticker": "TER",
+        "price": "USD374.39",
+        "change": "+USD40.63",
+        "pct": "12.17%"
       },
       {
         "name": "Micron Technology",
         "ticker": "MU",
-        "price": "USD960.43",
-        "change": "+USD94.97",
-        "pct": "10.97%"
+        "price": "USD969.82",
+        "change": "+USD104.36",
+        "pct": "12.06%"
+      },
+      {
+        "name": "Seagate Technology",
+        "ticker": "STX",
+        "price": "USD892.93",
+        "change": "+USD90.48",
+        "pct": "11.28%"
       },
       {
         "name": "Lumentum",
         "ticker": "LITE",
-        "price": "USD829.18",
-        "change": "+USD63.64",
-        "pct": "8.31%"
+        "price": "USD832.39",
+        "change": "+USD66.84",
+        "pct": "8.73%"
       },
       {
-        "name": "Arm Holdings",
-        "ticker": "ARM",
-        "price": "USD290.48",
-        "change": "+USD20.87",
-        "pct": "7.74%"
-      },
-      {
-        "name": "Marvell Technology",
-        "ticker": "MRVL",
-        "price": "USD209.35",
-        "change": "+USD14.41",
-        "pct": "7.39%"
+        "name": "CoreWeave",
+        "ticker": "CRWV",
+        "price": "USD79.19",
+        "change": "+USD6.13",
+        "pct": "8.39%"
       },
       {
         "name": "Applied Materials",
         "ticker": "AMAT",
-        "price": "USD563.62",
-        "change": "+USD37.92",
-        "pct": "7.21%"
+        "price": "USD568.20",
+        "change": "+USD42.50",
+        "pct": "8.08%"
+      },
+      {
+        "name": "Arm Holdings",
+        "ticker": "ARM",
+        "price": "USD290.19",
+        "change": "+USD20.58",
+        "pct": "7.63%"
       }
     ],
     "nyse": [
       {
         "name": "Coinbase",
         "ticker": "COIN",
-        "price": "USD181.49",
-        "change": "+USD21.06",
-        "pct": "13.13%"
+        "price": "USD179.77",
+        "change": "+USD19.34",
+        "pct": "12.06%"
       },
       {
         "name": "Coherent Corp.",
         "ticker": "COHR",
-        "price": "USD314.58",
-        "change": "+USD29.18",
-        "pct": "10.23%"
-      },
-      {
-        "name": "Robinhood Markets",
-        "ticker": "HOOD",
-        "price": "USD108.21",
-        "change": "+USD8.93",
-        "pct": "8.99%"
+        "price": "USD316.69",
+        "change": "+USD31.29",
+        "pct": "10.96%"
       },
       {
         "name": "3M",
         "ticker": "MMM",
-        "price": "USD172.07",
-        "change": "+USD12.96",
-        "pct": "8.15%"
+        "price": "USD173.25",
+        "change": "+USD14.14",
+        "pct": "8.89%"
+      },
+      {
+        "name": "Robinhood Markets",
+        "ticker": "HOOD",
+        "price": "USD107.47",
+        "change": "+USD8.19",
+        "pct": "8.25%"
       },
       {
         "name": "Ciena",
         "ticker": "CIEN",
-        "price": "USD408.95",
-        "change": "+USD30.18",
-        "pct": "7.97%"
-      },
-      {
-        "name": "Dell Technologies",
-        "ticker": "DELL",
-        "price": "USD406.37",
-        "change": "+USD24.49",
-        "pct": "6.41%"
+        "price": "USD409.86",
+        "change": "+USD31.09",
+        "pct": "8.21%"
       },
       {
         "name": "Hasbro",
         "ticker": "HAS",
-        "price": "USD86.80",
-        "change": "+USD5.21",
-        "pct": "6.39%"
+        "price": "USD87.83",
+        "change": "+USD6.24",
+        "pct": "7.65%"
+      },
+      {
+        "name": "Corning Inc.",
+        "ticker": "GLW",
+        "price": "USD163.32",
+        "change": "+USD10.22",
+        "pct": "6.68%"
+      },
+      {
+        "name": "Dell Technologies",
+        "ticker": "DELL",
+        "price": "USD406.85",
+        "change": "+USD24.97",
+        "pct": "6.54%"
+      },
+      {
+        "name": "Freeport-McMoRan",
+        "ticker": "FCX",
+        "price": "USD62.42",
+        "change": "+USD3.63",
+        "pct": "6.17%"
       },
       {
         "name": "Supermicro",
@@ -403,20 +417,6 @@
         "price": "USD25.30",
         "change": "+USD1.47",
         "pct": "6.15%"
-      },
-      {
-        "name": "Corning Inc.",
-        "ticker": "GLW",
-        "price": "USD162.10",
-        "change": "+USD9.00",
-        "pct": "5.88%"
-      },
-      {
-        "name": "Skyworks Solutions",
-        "ticker": "SWKS",
-        "price": "USD63.22",
-        "change": "+USD3.42",
-        "pct": "5.72%"
       }
     ],
     "xetra": [
@@ -920,62 +920,62 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 4994.1,
-          "price": "USD206.19"
+          "mcap_b": 4964.3,
+          "price": "USD204.96"
         },
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 4826.3,
-          "price": "USD328.60"
+          "mcap_b": 4828.0,
+          "price": "USD328.71"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 4261.4,
-          "price": "USD349.23"
+          "mcap_b": 4267.7,
+          "price": "USD349.74"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOG",
-          "mcap_b": 4254.2,
-          "price": "USD348.63"
+          "mcap_b": 4259.3,
+          "price": "USD349.05"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 2959.9,
-          "price": "USD398.46"
+          "mcap_b": 2956.9,
+          "price": "USD398.05"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 2665.9,
-          "price": "USD247.82"
+          "mcap_b": 2663.6,
+          "price": "USD247.61"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1838.5,
-          "price": "USD386.44"
+          "mcap_b": 1834.5,
+          "price": "USD385.58"
         },
         {
           "name": "SpaceX",
           "ticker": "SPCX",
-          "mcap_b": 1687.8,
-          "price": "USD128.12"
+          "mcap_b": 1683.7,
+          "price": "USD127.81"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
           "mcap_b": 1644.2,
-          "price": "USD647.74"
+          "price": "USD647.73"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1432.6,
-          "price": "USD381.44"
+          "mcap_b": 1431.8,
+          "price": "USD381.24"
         }
       ]
     },
