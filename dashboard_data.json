@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T20:11:43Z",
+  "generated_at": "2026-07-21T21:09:19Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-20\n\nThe liquidity hierarchy divides sharply into three tiers. Nasdaq 100 and NYSE dominate, combining minimal price impact (0.0047% and 0.0056% per $1M traded respectively) with substantial comparable volume ($264.4M and $191.3M). Tokyo Stock Exchange ranks third with moderate ILLIQ of 0.0351% per $1M but stands out for elevated turnover ratio of 3.0758%, suggesting concentrated retail participation relative to market cap. The middle tier—Euronext, Hong Kong, and Korea Exchange—cluster around 0.03–0.14% ILLIQ per $1M, though Korea Exchange's 1.4667% AR spread signals significantly wider execution costs despite modest $17.8M comparable volume. The laggards (SIX Swiss, Xetra, London Stock Exchange) show deteriorating price impact ranging from 0.0443% to 0.0754% per $1M and notably low comparable volumes under $9M. A striking divergence appears at SIX Swiss Exchange: its 0.5540% AR spread ranks among the tightest, yet ILLIQ of 0.0443% per $1M and minimal $3.2M turnover suggest limited depth beyond tight nominal spreads—a critical distinction for large institutional traders.",
   "news": [
@@ -81,17 +81,13 @@
       "price": 14298.2598,
       "pct": 0.308
     },
-    "SP500": {
-      "price": 7509.21,
-      "pct": 0.8858
-    },
     "NDX": {
       "price": 29155.1797,
       "pct": 1.9261
     },
     "DJI": {
-      "price": 52223.9297,
-      "pct": 0.742
+      "price": 52224.6406,
+      "pct": 0.7434
     },
     "NIKKEI": {
       "price": 64141.1211,
@@ -106,28 +102,28 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.338,
-      "pct": -0.4964
+      "price": 1.3377,
+      "pct": -0.4093
     },
     "EURUSD": {
-      "price": 1.1405,
-      "pct": -0.1973
+      "price": 1.14,
+      "pct": -0.1596
     },
     "EURGBP": {
-      "price": 0.8521,
-      "pct": 0.2624
+      "price": 0.8514,
+      "pct": 0.1859
     },
     "USDJPY": {
-      "price": 163.212,
-      "pct": 0.4307
+      "price": 163.166,
+      "pct": 0.4179
     },
     "GOLD": {
-      "price": 4088.5,
-      "pct": 1.95
+      "price": 4081.8,
+      "pct": 1.7829
     },
     "OIL": {
-      "price": 84.65,
-      "pct": 1.7061
+      "price": 84.47,
+      "pct": 1.4898
     }
   },
   "gainers": {
@@ -351,9 +347,9 @@
       {
         "name": "Coherent Corp.",
         "ticker": "COHR",
-        "price": "USD317.18",
-        "change": "+USD31.78",
-        "pct": "11.14%"
+        "price": "USD317.22",
+        "change": "+USD31.82",
+        "pct": "11.15%"
       },
       {
         "name": "Coinbase",
@@ -372,8 +368,8 @@
       {
         "name": "Ciena",
         "ticker": "CIEN",
-        "price": "USD408.72",
-        "change": "+USD29.95",
+        "price": "USD408.73",
+        "change": "+USD29.96",
         "pct": "7.91%"
       },
       {
@@ -400,9 +396,9 @@
       {
         "name": "Freeport-McMoRan",
         "ticker": "FCX",
-        "price": "USD62.53",
-        "change": "+USD3.74",
-        "pct": "6.37%"
+        "price": "USD62.56",
+        "change": "+USD3.77",
+        "pct": "6.41%"
       },
       {
         "name": "Flex Ltd.",
@@ -414,9 +410,9 @@
       {
         "name": "Corning Inc.",
         "ticker": "GLW",
-        "price": "USD162.43",
-        "change": "+USD9.33",
-        "pct": "6.09%"
+        "price": "USD162.41",
+        "change": "+USD9.31",
+        "pct": "6.08%"
       }
     ],
     "xetra": [
@@ -493,6 +489,13 @@
     ],
     "six": [
       {
+        "name": "Belimo",
+        "ticker": "BEAN",
+        "price": "CHF831.50",
+        "change": "+CHF48.50",
+        "pct": "6.19%"
+      },
+      {
         "name": "Georg Fischer",
         "ticker": "GF",
         "price": "CHF53.25",
@@ -554,13 +557,6 @@
         "price": "CHF215.60",
         "change": "+CHF3.60",
         "pct": "1.70%"
-      },
-      {
-        "name": "Accelleron",
-        "ticker": "ACLN",
-        "price": "CHF76.30",
-        "change": "+CHF1.15",
-        "pct": "1.53%"
       }
     ],
     "tse": [
