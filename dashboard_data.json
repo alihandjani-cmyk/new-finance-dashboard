@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T21:25:37Z",
+  "generated_at": "2026-07-21T21:39:09Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-20\n\nThe liquidity hierarchy divides sharply into three tiers. Nasdaq 100 and NYSE dominate, combining minimal price impact (0.0047% and 0.0056% per $1M traded respectively) with substantial comparable volume ($264.4M and $191.3M). Tokyo Stock Exchange ranks third with moderate ILLIQ of 0.0351% per $1M but stands out for elevated turnover ratio of 3.0758%, suggesting concentrated retail participation relative to market cap. The middle tier—Euronext, Hong Kong, and Korea Exchange—cluster around 0.03–0.14% ILLIQ per $1M, though Korea Exchange's 1.4667% AR spread signals significantly wider execution costs despite modest $17.8M comparable volume. The laggards (SIX Swiss, Xetra, London Stock Exchange) show deteriorating price impact ranging from 0.0443% to 0.0754% per $1M and notably low comparable volumes under $9M. A striking divergence appears at SIX Swiss Exchange: its 0.5540% AR spread ranks among the tightest, yet ILLIQ of 0.0443% per $1M and minimal $3.2M turnover suggest limited depth beyond tight nominal spreads—a critical distinction for large institutional traders.",
   "news": [
@@ -106,20 +106,20 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3378,
-      "pct": -0.507
+      "price": 1.3377,
+      "pct": -0.5177
     },
     "EURUSD": {
-      "price": 1.1403,
-      "pct": -0.2201
+      "price": 1.1404,
+      "pct": -0.2087
     },
     "EURGBP": {
-      "price": 0.8521,
-      "pct": 0.2624
+      "price": 0.8518,
+      "pct": 0.2294
     },
     "USDJPY": {
-      "price": 163.11,
-      "pct": 0.368
+      "price": 163.167,
+      "pct": 0.4031
     },
     "GOLD": {
       "price": 4082.2,
@@ -565,11 +565,25 @@
     ],
     "tse": [
       {
+        "name": "Kioxia Holdings Corp.",
+        "ticker": "285A",
+        "price": "JPY61060.00",
+        "change": "+JPY8950.00",
+        "pct": "17.18%"
+      },
+      {
         "name": "Socionext Inc.",
         "ticker": "6526",
         "price": "JPY2472.50",
         "change": "+JPY206.50",
         "pct": "9.11%"
+      },
+      {
+        "name": "Advantest Corp.",
+        "ticker": "6857",
+        "price": "JPY29630.00",
+        "change": "+JPY2125.00",
+        "pct": "7.73%"
       },
       {
         "name": "Sumitomo Metal Mining Co., Ltd.",
@@ -593,6 +607,13 @@
         "pct": "6.43%"
       },
       {
+        "name": "SoftBank Group Corp.",
+        "ticker": "9984",
+        "price": "JPY5751.00",
+        "change": "+JPY327.00",
+        "pct": "6.03%"
+      },
+      {
         "name": "AD Insurance Group , Inc.",
         "ticker": "8725",
         "price": "JPY4740.00",
@@ -600,39 +621,18 @@
         "pct": "5.73%"
       },
       {
+        "name": "Renesas Electronics",
+        "ticker": "6723",
+        "price": "JPY4035.00",
+        "change": "+JPY213.00",
+        "pct": "5.57%"
+      },
+      {
         "name": "Japan Exchange Group Inc.",
         "ticker": "8697",
         "price": "JPY2255.50",
         "change": "+JPY113.50",
         "pct": "5.30%"
-      },
-      {
-        "name": "Inpex Corp.",
-        "ticker": "1605",
-        "price": "JPY3580.00",
-        "change": "+JPY179.00",
-        "pct": "5.26%"
-      },
-      {
-        "name": "Mitsubishi Corp.",
-        "ticker": "8058",
-        "price": "JPY4664.00",
-        "change": "+JPY217.00",
-        "pct": "4.88%"
-      },
-      {
-        "name": "Orix Co.",
-        "ticker": "8591",
-        "price": "JPY6502.00",
-        "change": "+JPY299.00",
-        "pct": "4.82%"
-      },
-      {
-        "name": "The Furukawa Electric Co., Ltd.",
-        "ticker": "5801",
-        "price": "JPY3419.00",
-        "change": "+JPY157.00",
-        "pct": "4.81%"
       }
     ],
     "hkg": [
@@ -884,7 +884,7 @@
         {
           "name": "TotalEnergies",
           "ticker": "TTE",
-          "mcap_b": 161.8,
+          "mcap_b": 161.9,
           "price": "EUR72.81"
         },
         {
