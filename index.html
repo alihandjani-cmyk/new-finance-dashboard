@@ -1355,11 +1355,19 @@ function renderRankings() {
     } else {
       const MEDALS = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'];
       const VOL_CURR = {lse:'GBP B',enx:'EUR B',ndx:'USD B',nyse:'USD B',xetra:'EUR B',six:'CHF B',tse:'JPY T',hkg:'HKD T',krx:'KRW T'};
-      // Pull live metric values for display alongside rank numbers
+      // Pull live metric values for display alongside rank numbers.
+      // Vol must come from vol_comparable, not vol: the backend's rank number
+      // (r.vol, the "#N" badge) is computed from vol_comparable (see
+      // compute_rankings() in updater.py), so the displayed figure has to be
+      // the same series or it silently disagrees with its own rank badge.
+      // vol is a different dataset per exchange (LSE/ENX: official exchange
+      // publication; others: full index universe via yfinance, not ADV-
+      // filtered) with its own independent last-available date, so it can
+      // show a stale/mismatched number even when vol_comparable is current.
       function _cardVals(k) {
         const am = (DASH.amihud         || {})[k] || {};
         const ar = (DASH.ar_spread      || {})[k] || {};
-        const vl = (DASH.vol            || {})[k] || {};
+        const vl = (DASH.vol_comparable || {})[k] || {};
         const trData = (DASH.turnover_ratio || {})[k] || {};
         const vArr   = vl.value || [];
         const trHist = trData.history || [];
