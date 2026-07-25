@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T19:11:30Z",
+  "generated_at": "2026-07-25T19:44:35Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-24\n\nThe liquidity hierarchy splits into three clear tiers. NYSE and Nasdaq 100 dominate as tier-one venues, with NYSE posting the lowest ILLIQ cost at 0.0056% per $1M traded despite a wider 0.6445% AR spread, while Nasdaq 100 inverts this profile with superior spread tightness (0.7819% AR spread) but higher absolute price impact (0.0028% per $1M). Tokyo Stock Exchange, Euronext, and SIX Swiss Exchange form a mid-pack cluster, though Tokyo's 2.4596% turnover ratio significantly outpaces its peers—a divergence worth noting given its 0.0339% per $1M ILLIQ cost ranks substantially worse than Euronext's 0.0301% per $1M. Hong Kong, Xetra, and London Stock Exchange occupy a secondary tier with comparable volumes between 5.4M and 9.7M USD and ILLIQ costs between 0.0522% and 0.0798% per $1M. Korea Exchange stands isolated at rank nine, marked by the widest 1.6361% AR spread and highest 0.1463% per $1M ILLIQ cost, though its 0.7144% turnover ratio rivals top-tier exchanges—highlighting a critical structural disparity in execution costs relative to trading activity. For large institutional traders, NYSE and Nasdaq 100 remain the clear choice; mid-market flows should evaluate Tokyo and Euronext carefully given their metric divergences.",
   "news": [
@@ -277,6 +277,13 @@
     ],
     "ndx": [
       {
+        "name": "Adobe Inc.",
+        "ticker": "ADBE",
+        "price": "USD225.11",
+        "change": "+USD12.94",
+        "pct": "6.10%"
+      },
+      {
         "name": "Workday, Inc.",
         "ticker": "WDAY",
         "price": "USD135.34",
@@ -296,6 +303,13 @@
         "price": "USD296.33",
         "change": "+USD14.80",
         "pct": "5.26%"
+      },
+      {
+        "name": "Thomson Reuters",
+        "ticker": "TRI",
+        "price": "USD90.15",
+        "change": "+USD4.46",
+        "pct": "5.20%"
       },
       {
         "name": "Honeywell Aerospace",
@@ -331,20 +345,6 @@
         "price": "USD238.89",
         "change": "+USD6.50",
         "pct": "2.80%"
-      },
-      {
-        "name": "Copart",
-        "ticker": "CPRT",
-        "price": "USD27.94",
-        "change": "+USD0.74",
-        "pct": "2.72%"
-      },
-      {
-        "name": "Booking Holdings",
-        "ticker": "BKNG",
-        "price": "USD177.46",
-        "change": "+USD4.63",
-        "pct": "2.68%"
       }
     ],
     "nyse": [
@@ -367,6 +367,13 @@
         "ticker": "SLB",
         "price": "USD52.42",
         "change": "+USD5.20",
+        "pct": "11.01%"
+      },
+      {
+        "name": "Digital Realty",
+        "ticker": "DLR",
+        "price": "USD199.08",
+        "change": "+USD19.74",
         "pct": "11.01%"
       },
       {
@@ -410,13 +417,6 @@
         "price": "USD46.38",
         "change": "+USD2.56",
         "pct": "5.84%"
-      },
-      {
-        "name": "Cognizant",
-        "ticker": "CTSH",
-        "price": "USD45.45",
-        "change": "+USD2.44",
-        "pct": "5.67%"
       }
     ],
     "xetra": [
