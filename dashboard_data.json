@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T09:37:18Z",
+  "generated_at": "2026-07-25T09:39:35Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-24\n\nThe liquidity hierarchy splits into three clear tiers. NYSE and Nasdaq 100 dominate as tier-one venues, with NYSE posting the lowest ILLIQ cost at 0.0056% per $1M traded despite a wider 0.6445% AR spread, while Nasdaq 100 inverts this profile with superior spread tightness (0.7819% AR spread) but higher absolute price impact (0.0028% per $1M). Tokyo Stock Exchange, Euronext, and SIX Swiss Exchange form a mid-pack cluster, though Tokyo's 2.4596% turnover ratio significantly outpaces its peers—a divergence worth noting given its 0.0339% per $1M ILLIQ cost ranks substantially worse than Euronext's 0.0301% per $1M. Hong Kong, Xetra, and London Stock Exchange occupy a secondary tier with comparable volumes between 5.4M and 9.7M USD and ILLIQ costs between 0.0522% and 0.0798% per $1M. Korea Exchange stands isolated at rank nine, marked by the widest 1.6361% AR spread and highest 0.1463% per $1M ILLIQ cost, though its 0.7144% turnover ratio rivals top-tier exchanges—highlighting a critical structural disparity in execution costs relative to trading activity. For large institutional traders, NYSE and Nasdaq 100 remain the clear choice; mid-market flows should evaluate Tokyo and Euronext carefully given their metric divergences.",
   "news": [
@@ -1429,10 +1429,10 @@
         309.51,
         282.31,
         345.68,
-        111.12
+        295.67
       ],
-      "shares_latest": 1443.4,
-      "shares_avg": 1338.3
+      "shares_latest": 1311.7,
+      "shares_avg": 1273.9
     },
     "nyse": {
       "currency": "USD B",
@@ -1448,10 +1448,10 @@
         206.61,
         200.24,
         222.49,
-        0.23
+        192.99
       ],
-      "shares_latest": 1681.5,
-      "shares_avg": 1895.4
+      "shares_latest": 1876.5,
+      "shares_avg": 1934.4
     },
     "xetra": {
       "currency": "EUR B",
@@ -1467,10 +1467,10 @@
         3.46,
         4.56,
         4.79,
-        2.25
+        3.77
       ],
-      "shares_latest": 81.5,
-      "shares_avg": 68.5
+      "shares_latest": 58.8,
+      "shares_avg": 64.5
     },
     "six": {
       "currency": "CHF B",
@@ -1486,7 +1486,7 @@
         2.94,
         3.36,
         3.91,
-        0.32
+        2.71
       ],
       "shares_latest": 23.5,
       "shares_avg": 29.3
@@ -1666,59 +1666,59 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.250843
+          "illiq": 0.108666
         }
       ],
       "top10_liquid": [
         {
           "ticker": "ITRK",
           "name": "Intertek",
-          "illiq": 0.001364
-        },
-        {
-          "ticker": "BEZ",
-          "name": "Beazley",
-          "illiq": 0.001914
+          "illiq": 0.001158
         },
         {
           "ticker": "HSBA",
           "name": "HSBC",
-          "illiq": 0.0025
+          "illiq": 0.002345
+        },
+        {
+          "ticker": "BEZ",
+          "name": "Beazley",
+          "illiq": 0.002668
         },
         {
           "ticker": "SHEL",
           "name": "Shell plc",
-          "illiq": 0.0034
+          "illiq": 0.003478
         },
         {
           "ticker": "AZN",
           "name": "AstraZeneca",
-          "illiq": 0.003903
+          "illiq": 0.003805
         },
         {
           "ticker": "BARC",
           "name": "Barclays",
-          "illiq": 0.00508
+          "illiq": 0.004705
         },
         {
           "ticker": "RR",
           "name": "Rolls-Royce Holdings",
-          "illiq": 0.005423
+          "illiq": 0.005627
         },
         {
           "ticker": "ULVR",
           "name": "Unilever",
-          "illiq": 0.005623
-        },
-        {
-          "ticker": "LLOY",
-          "name": "Lloyds Banking Group",
-          "illiq": 0.005787
+          "illiq": 0.005695
         },
         {
           "ticker": "NWG",
           "name": "NatWest Group",
-          "illiq": 0.005884
+          "illiq": 0.005774
+        },
+        {
+          "ticker": "LLOY",
+          "name": "Lloyds Banking Group",
+          "illiq": 0.006032
         }
       ],
       "top10_illiquid": [
@@ -1728,14 +1728,14 @@
           "illiq": 0.67796
         },
         {
-          "ticker": "ATYM",
-          "name": "Atalaya Mining",
-          "illiq": 0.503069
-        },
-        {
           "ticker": "HOC",
           "name": "Hochschild Mining",
-          "illiq": 0.496611
+          "illiq": 0.492648
+        },
+        {
+          "ticker": "ATYM",
+          "name": "Atalaya Mining",
+          "illiq": 0.488418
         },
         {
           "ticker": "CORD",
@@ -1745,35 +1745,35 @@
         {
           "ticker": "CWR",
           "name": "Ceres Power",
-          "illiq": 0.355954
-        },
-        {
-          "ticker": "OCDO",
-          "name": "Ocado Group",
-          "illiq": 0.279967
+          "illiq": 0.359248
         },
         {
           "ticker": "WIZZ",
           "name": "Wizz Air",
-          "illiq": 0.255502
+          "illiq": 0.301499
+        },
+        {
+          "ticker": "OCDO",
+          "name": "Ocado Group",
+          "illiq": 0.279835
         },
         {
           "ticker": "SSPG",
           "name": "SSP Group",
-          "illiq": 0.200057
+          "illiq": 0.23079
         },
         {
           "ticker": "PLUS",
           "name": "Plus500",
-          "illiq": 0.198889
+          "illiq": 0.197812
         },
         {
-          "ticker": "BYG",
-          "name": "Big Yellow Group",
-          "illiq": 0.174816
+          "ticker": "WPP",
+          "name": "WPP",
+          "illiq": 0.1895
         }
       ],
-      "marketAvg": 0.079805
+      "marketAvg": 0.081423
     },
     "enx": {
       "history": [
@@ -1891,114 +1891,114 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.071602
+          "illiq": 0.032732
         }
       ],
       "top10_liquid": [
         {
           "ticker": "ASML",
           "name": "ASML Holding",
-          "illiq": 0.002389
+          "illiq": 0.0024
         },
         {
           "ticker": "UCG",
           "name": "UniCredit",
-          "illiq": 0.003053
+          "illiq": 0.003001
         },
         {
           "ticker": "ISP",
           "name": "Intesa Sanpaolo",
-          "illiq": 0.003067
+          "illiq": 0.003278
         },
         {
           "ticker": "CS",
           "name": "Axa",
-          "illiq": 0.004193
-        },
-        {
-          "ticker": "ENEL",
-          "name": "Enel",
-          "illiq": 0.004342
+          "illiq": 0.003914
         },
         {
           "ticker": "TTE",
           "name": "TotalEnergies",
-          "illiq": 0.00471
+          "illiq": 0.004509
         },
         {
-          "ticker": "AI",
-          "name": "Air Liquide",
-          "illiq": 0.005579
-        },
-        {
-          "ticker": "SU",
-          "name": "Schneider Electric",
-          "illiq": 0.005581
+          "ticker": "ENEL",
+          "name": "Enel",
+          "illiq": 0.004635
         },
         {
           "ticker": "AIR",
           "name": "Airbus",
-          "illiq": 0.005636
+          "illiq": 0.005375
+        },
+        {
+          "ticker": "AI",
+          "name": "Air Liquide",
+          "illiq": 0.005623
+        },
+        {
+          "ticker": "SU",
+          "name": "Schneider Electric",
+          "illiq": 0.005732
         },
         {
           "ticker": "INGA",
           "name": "ING Group",
-          "illiq": 0.005758
+          "illiq": 0.006079
         }
       ],
       "top10_illiquid": [
         {
           "ticker": "TEP",
           "name": "Teleperformance",
-          "illiq": 0.166948
+          "illiq": 0.175901
         },
         {
           "ticker": "DIE",
           "name": "D'Ieteren",
-          "illiq": 0.155327
+          "illiq": 0.159005
         },
         {
           "ticker": "RAND",
           "name": "Randstad",
-          "illiq": 0.124917
+          "illiq": 0.130386
         },
         {
           "ticker": "EXO",
           "name": "Exor",
-          "illiq": 0.098669
+          "illiq": 0.095445
         },
         {
           "ticker": "AMP",
           "name": "Amplifon",
-          "illiq": 0.097478
+          "illiq": 0.090844
         },
         {
           "ticker": "INW",
           "name": "INWIT",
-          "illiq": 0.088934
-        },
-        {
-          "ticker": "DIA",
-          "name": "Diasorin",
-          "illiq": 0.08856
+          "illiq": 0.088254
         },
         {
           "ticker": "EDPR",
           "name": "EDP Renováveis",
-          "illiq": 0.082472
+          "illiq": 0.082244
+        },
+        {
+          "ticker": "DIA",
+          "name": "Diasorin",
+          "illiq": 0.080071
         },
         {
           "ticker": "EDEN",
           "name": "Edenred",
-          "illiq": 0.080833
+          "illiq": 0.078709
         },
         {
-          "ticker": "BZU",
-          "name": "Buzzi",
-          "illiq": 0.075233
+          "ticker": "IMCD",
+          "name": "IMCD",
+          "illiq": 0.075726
         }
       ],
-      "marketAvg": 0.030126
+      "marketAvg": 0.030351
     },
     "ndx": {
       "history": [
@@ -2116,114 +2116,114 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.00281
+          "illiq": 0.003051
         }
       ],
       "top10_liquid": [
         {
           "ticker": "NVDA",
           "name": "Nvidia",
-          "illiq": 6.8e-05
+          "illiq": 6.7e-05
         },
         {
           "ticker": "AAPL",
           "name": "Apple Inc.",
-          "illiq": 8.7e-05
+          "illiq": 8.8e-05
         },
         {
           "ticker": "MU",
           "name": "Micron Technology",
-          "illiq": 9.4e-05
+          "illiq": 9.6e-05
         },
         {
           "ticker": "MSFT",
           "name": "Microsoft",
-          "illiq": 0.000116
+          "illiq": 0.000108
         },
         {
           "ticker": "AMZN",
           "name": "Amazon",
-          "illiq": 0.000128
-        },
-        {
-          "ticker": "TSLA",
-          "name": "Tesla, Inc.",
-          "illiq": 0.000169
+          "illiq": 0.000123
         },
         {
           "ticker": "GOOGL",
           "name": "Alphabet Inc.",
-          "illiq": 0.000169
+          "illiq": 0.000171
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "illiq": 0.000173
         },
         {
           "ticker": "META",
           "name": "Meta Platforms",
-          "illiq": 0.000215
+          "illiq": 0.000214
         },
         {
           "ticker": "GOOG",
           "name": "Alphabet Inc.",
-          "illiq": 0.000258
+          "illiq": 0.000255
         },
         {
           "ticker": "AMD",
           "name": "Advanced Micro Devices",
-          "illiq": 0.000259
+          "illiq": 0.000262
         }
       ],
       "top10_illiquid": [
         {
-          "ticker": "HONA",
-          "name": "Honeywell Aerospace",
-          "illiq": 0.053648
-        },
-        {
           "ticker": "TRI",
           "name": "Thomson Reuters",
-          "illiq": 0.015666
+          "illiq": 0.0175
         },
         {
           "ticker": "FER",
           "name": "Ferrovial",
-          "illiq": 0.009587
+          "illiq": 0.009158
         },
         {
           "ticker": "DXCM",
           "name": "DexCom",
-          "illiq": 0.007106
-        },
-        {
-          "ticker": "AXON",
-          "name": "Axon Enterprise",
-          "illiq": 0.006255
+          "illiq": 0.007196
         },
         {
           "ticker": "ROP",
           "name": "Roper Technologies",
-          "illiq": 0.005791
+          "illiq": 0.006294
+        },
+        {
+          "ticker": "AXON",
+          "name": "Axon Enterprise",
+          "illiq": 0.006187
         },
         {
           "ticker": "WDAY",
           "name": "Workday, Inc.",
-          "illiq": 0.005386
+          "illiq": 0.005603
         },
         {
           "ticker": "CCEP",
           "name": "Coca-Cola Europacific Partners",
-          "illiq": 0.0052
+          "illiq": 0.005485
         },
         {
-          "ticker": "KHC",
-          "name": "Kraft Heinz",
-          "illiq": 0.004982
+          "ticker": "PAYX",
+          "name": "Paychex",
+          "illiq": 0.005129
         },
         {
           "ticker": "IDXX",
           "name": "Idexx Laboratories",
-          "illiq": 0.004901
+          "illiq": 0.004943
+        },
+        {
+          "ticker": "KHC",
+          "name": "Kraft Heinz",
+          "illiq": 0.004844
         }
       ],
-      "marketAvg": 0.00281
+      "marketAvg": 0.002382
     },
     "nyse": {
       "history": [
@@ -2341,114 +2341,114 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.002051
+          "illiq": 0.007703
         }
       ],
       "top10_liquid": [
         {
           "ticker": "JPM",
           "name": "JPMorgan Chase",
-          "illiq": 0.000289
+          "illiq": 0.0003
         },
         {
           "ticker": "BRK-B",
           "name": "Berkshire Hathaway",
-          "illiq": 0.000307
+          "illiq": 0.000308
         },
         {
           "ticker": "V",
           "name": "Visa Inc.",
-          "illiq": 0.000402
-        },
-        {
-          "ticker": "BAC",
-          "name": "Bank of America",
-          "illiq": 0.000516
+          "illiq": 0.000428
         },
         {
           "ticker": "LLY",
           "name": "Lilly",
-          "illiq": 0.000527
+          "illiq": 0.00053
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America",
+          "illiq": 0.000531
         },
         {
           "ticker": "ORCL",
           "name": "Oracle Corporation",
-          "illiq": 0.00054
+          "illiq": 0.000551
         },
         {
           "ticker": "XOM",
           "name": "ExxonMobil",
-          "illiq": 0.000571
+          "illiq": 0.000559
         },
         {
           "ticker": "UNH",
           "name": "UnitedHealth Group",
-          "illiq": 0.000653
+          "illiq": 0.000626
         },
         {
           "ticker": "CAT",
           "name": "Caterpillar Inc.",
-          "illiq": 0.00072
+          "illiq": 0.000674
         },
         {
-          "ticker": "JNJ",
-          "name": "Johnson & Johnson",
-          "illiq": 0.000736
+          "ticker": "ABBV",
+          "name": "AbbVie",
+          "illiq": 0.000716
         }
       ],
       "top10_illiquid": [
         {
           "ticker": "NWS",
           "name": "News Corp",
-          "illiq": 0.042176
+          "illiq": 0.044561
         },
         {
           "ticker": "ERIE",
           "name": "Erie Indemnity",
-          "illiq": 0.039052
+          "illiq": 0.043588
         },
         {
           "ticker": "PSKY",
           "name": "Paramount Skydance Corporation",
-          "illiq": 0.029999
+          "illiq": 0.029757
         },
         {
           "ticker": "BF-B",
           "name": "Brown–Forman",
-          "illiq": 0.02671
+          "illiq": 0.028981
         },
         {
           "ticker": "FOX",
           "name": "Fox Corporation",
-          "illiq": 0.021973
+          "illiq": 0.021039
         },
         {
           "ticker": "ARE",
           "name": "Alexandria Real Estate Equities",
-          "illiq": 0.021513
+          "illiq": 0.02085
         },
         {
           "ticker": "SOLV",
           "name": "Solventum",
-          "illiq": 0.019585
+          "illiq": 0.018635
         },
         {
           "ticker": "IT",
           "name": "Gartner",
-          "illiq": 0.0165
+          "illiq": 0.017362
         },
         {
           "ticker": "BAX",
           "name": "Baxter International",
-          "illiq": 0.015922
+          "illiq": 0.016585
         },
         {
-          "ticker": "CSGP",
-          "name": "CoStar Group",
-          "illiq": 0.015613
+          "ticker": "GDDY",
+          "name": "GoDaddy",
+          "illiq": 0.016457
         }
       ],
-      "marketAvg": 0.005616
+      "marketAvg": 0.00571
     },
     "xetra": {
       "history": [
@@ -2494,7 +2494,7 @@
         },
         {
           "date": "2026-06-26",
-          "illiq": 0.04072
+          "illiq": 0.01823
         },
         {
           "date": "2026-06-29",
@@ -2574,114 +2574,114 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.108669
+          "illiq": 0.05088
         }
       ],
       "top10_liquid": [
         {
           "ticker": "ALV",
           "name": "Allianz",
-          "illiq": 0.002116
+          "illiq": 0.002156
         },
         {
           "ticker": "SAP",
           "name": "SAP",
-          "illiq": 0.004339
+          "illiq": 0.00471
         },
         {
           "ticker": "SIE",
           "name": "Siemens",
-          "illiq": 0.005161
+          "illiq": 0.005193
         },
         {
           "ticker": "AIR",
           "name": "Airbus",
-          "illiq": 0.005636
-        },
-        {
-          "ticker": "MUV2",
-          "name": "Munich Re",
-          "illiq": 0.006782
+          "illiq": 0.005375
         },
         {
           "ticker": "ENR",
           "name": "Siemens Energy",
-          "illiq": 0.006805
+          "illiq": 0.006467
         },
         {
-          "ticker": "RHM",
-          "name": "Rheinmetall",
-          "illiq": 0.007125
+          "ticker": "MUV2",
+          "name": "Munich Re",
+          "illiq": 0.006806
         },
         {
           "ticker": "DTE",
           "name": "Deutsche Telekom",
-          "illiq": 0.007724
+          "illiq": 0.007764
+        },
+        {
+          "ticker": "RHM",
+          "name": "Rheinmetall",
+          "illiq": 0.007826
         },
         {
           "ticker": "BAS",
           "name": "BASF",
-          "illiq": 0.008816
+          "illiq": 0.008609
         },
         {
-          "ticker": "IFX",
-          "name": "Infineon Technologies",
-          "illiq": 0.009082
+          "ticker": "ADS",
+          "name": "Adidas",
+          "illiq": 0.008746
         }
       ],
       "top10_illiquid": [
         {
           "ticker": "JEN",
           "name": "Jenoptik",
-          "illiq": 0.332831
+          "illiq": 0.326373
         },
         {
           "ticker": "WAF",
           "name": "Siltronic",
-          "illiq": 0.277741
+          "illiq": 0.262543
         },
         {
           "ticker": "KGX",
           "name": "KION Group",
-          "illiq": 0.148759
-        },
-        {
-          "ticker": "EVD",
-          "name": "CTS Eventim",
-          "illiq": 0.135131
-        },
-        {
-          "ticker": "FRA",
-          "name": "Fraport",
-          "illiq": 0.126173
+          "illiq": 0.148172
         },
         {
           "ticker": "NEM",
           "name": "Nemetschek",
-          "illiq": 0.124599
+          "illiq": 0.1419
+        },
+        {
+          "ticker": "EVD",
+          "name": "CTS Eventim",
+          "illiq": 0.137793
+        },
+        {
+          "ticker": "FRA",
+          "name": "Fraport",
+          "illiq": 0.126354
         },
         {
           "ticker": "FNTN",
           "name": "Freenet",
-          "illiq": 0.118681
+          "illiq": 0.118969
         },
         {
           "ticker": "AIXA",
           "name": "Aixtron",
-          "illiq": 0.111459
-        },
-        {
-          "ticker": "SDF",
-          "name": "K+S",
-          "illiq": 0.098079
+          "illiq": 0.110449
         },
         {
           "ticker": "PUM",
           "name": "Puma",
-          "illiq": 0.095728
+          "illiq": 0.098111
+        },
+        {
+          "ticker": "SDF",
+          "name": "K+S",
+          "illiq": 0.098074
         }
       ],
-      "marketAvg": 0.052214
+      "marketAvg": 0.052717
     },
     "six": {
       "history": [
@@ -2799,44 +2799,44 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.037744
+          "illiq": 0.042575
         }
       ],
       "top10_liquid": [
         {
           "ticker": "NOVN",
           "name": "Novartis International AG",
-          "illiq": 0.002712
+          "illiq": 0.002796
         },
         {
           "ticker": "NESN",
           "name": "Nestlé SA",
-          "illiq": 0.002722
+          "illiq": 0.002911
         },
         {
           "ticker": "ZURN",
           "name": "Zurich Insurance Group AG",
-          "illiq": 0.003494
+          "illiq": 0.00362
         },
         {
           "ticker": "ROP",
           "name": "Roche Holding AG",
-          "illiq": 0.003709
+          "illiq": 0.003851
         },
         {
           "ticker": "UBSG",
           "name": "UBS Group AG",
-          "illiq": 0.004482
-        },
-        {
-          "ticker": "CFR",
-          "name": "Compagnie Financière Richemont SA",
-          "illiq": 0.006473
+          "illiq": 0.004237
         },
         {
           "ticker": "ABBN",
           "name": "ABB Ltd",
-          "illiq": 0.006899
+          "illiq": 0.006539
+        },
+        {
+          "ticker": "CFR",
+          "name": "Compagnie Financière Richemont SA",
+          "illiq": 0.006912
         },
         {
           "ticker": "SREN",
@@ -2846,67 +2846,67 @@
         {
           "ticker": "LONN",
           "name": "Lonza Group AG",
-          "illiq": 0.009771
+          "illiq": 0.010216
         },
         {
           "ticker": "SLHN",
           "name": "Swiss Life Holding AG",
-          "illiq": 0.010764
+          "illiq": 0.010501
         }
       ],
       "top10_illiquid": [
         {
           "ticker": "BARN",
           "name": "Barry Callebaut",
-          "illiq": 0.130327
-        },
-        {
-          "ticker": "GF",
-          "name": "Georg Fischer",
-          "illiq": 0.122707
+          "illiq": 0.130287
         },
         {
           "ticker": "RO",
           "name": "Roche",
-          "illiq": 0.121654
+          "illiq": 0.124883
         },
         {
           "ticker": "SIGN",
           "name": "SIG",
-          "illiq": 0.117193
+          "illiq": 0.121663
         },
         {
-          "ticker": "SQN",
-          "name": "Swissquote",
-          "illiq": 0.106817
-        },
-        {
-          "ticker": "LISN",
-          "name": "Lindt & Sprüngli",
-          "illiq": 0.103259
-        },
-        {
-          "ticker": "ACLN",
-          "name": "Accelleron",
-          "illiq": 0.102454
+          "ticker": "GF",
+          "name": "Georg Fischer",
+          "illiq": 0.115663
         },
         {
           "ticker": "TEMN",
           "name": "Temenos",
-          "illiq": 0.100589
+          "illiq": 0.102104
+        },
+        {
+          "ticker": "SQN",
+          "name": "Swissquote",
+          "illiq": 0.1014
+        },
+        {
+          "ticker": "LISN",
+          "name": "Lindt & Sprüngli",
+          "illiq": 0.099687
+        },
+        {
+          "ticker": "ACLN",
+          "name": "Accelleron",
+          "illiq": 0.098723
         },
         {
           "ticker": "BEAN",
           "name": "Belimo",
-          "illiq": 0.099282
+          "illiq": 0.094499
         },
         {
-          "ticker": "ADEN",
-          "name": "Adecco",
-          "illiq": 0.083758
+          "ticker": "FHZN",
+          "name": "Flughafen Zürich",
+          "illiq": 0.091111
         }
       ],
-      "marketAvg": 0.044712
+      "marketAvg": 0.044628
     },
     "tse": {
       "history": [
@@ -4261,114 +4261,114 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.804
+          "avgSpread": 0.7973
         }
       ],
       "top10_tight": [
         {
+          "ticker": "IMI",
+          "name": "IMI",
+          "spread": 0.0209
+        },
+        {
           "ticker": "BEZ",
           "name": "Beazley",
-          "spread": 0.0301
+          "spread": 0.0418
         },
         {
           "ticker": "SDR",
           "name": "Schroders",
-          "spread": 0.079
+          "spread": 0.0557
         },
         {
-          "ticker": "SN",
-          "name": "Smith & Nephew",
-          "spread": 0.1428
+          "ticker": "BBY",
+          "name": "Balfour Beatty",
+          "spread": 0.1287
+        },
+        {
+          "ticker": "SDLF",
+          "name": "Standard Life",
+          "spread": 0.1517
         },
         {
           "ticker": "RTO",
           "name": "Rentokil Initial",
-          "spread": 0.2047
+          "spread": 0.2138
         },
         {
           "ticker": "ROR",
           "name": "Rotork",
-          "spread": 0.2256
+          "spread": 0.2225
         },
         {
           "ticker": "ITRK",
           "name": "Intertek",
-          "spread": 0.2989
+          "spread": 0.2968
         },
         {
           "ticker": "MNDI",
           "name": "Mondi",
-          "spread": 0.3207
+          "spread": 0.304
         },
         {
-          "ticker": "HLN",
-          "name": "Haleon",
-          "spread": 0.3524
-        },
-        {
-          "ticker": "ENT",
-          "name": "Entain",
-          "spread": 0.3554
-        },
-        {
-          "ticker": "LAND",
-          "name": "Land Securities",
-          "spread": 0.3573
+          "ticker": "WEIR",
+          "name": "Weir Group",
+          "spread": 0.3199
         }
       ],
       "top10_wide": [
         {
           "ticker": "RKT",
           "name": "Reckitt",
-          "spread": 2.582
+          "spread": 2.5593
         },
         {
           "ticker": "BA",
           "name": "BAE Systems",
-          "spread": 2.5095
+          "spread": 2.4854
         },
         {
           "ticker": "RIO",
           "name": "Rio Tinto",
-          "spread": 2.4643
+          "spread": 2.4465
         },
         {
           "ticker": "GAW",
           "name": "Games Workshop",
-          "spread": 1.9771
+          "spread": 1.9668
         },
         {
           "ticker": "RR",
           "name": "Rolls-Royce Holdings",
-          "spread": 1.8157
+          "spread": 1.8641
         },
         {
           "ticker": "EXPN",
           "name": "Experian",
-          "spread": 1.5972
-        },
-        {
-          "ticker": "AZN",
-          "name": "AstraZeneca",
-          "spread": 1.4646
+          "spread": 1.6147
         },
         {
           "ticker": "OCDO",
           "name": "Ocado Group",
-          "spread": 1.4021
+          "spread": 1.5861
+        },
+        {
+          "ticker": "AZN",
+          "name": "AstraZeneca",
+          "spread": 1.4526
         },
         {
           "ticker": "ROSE",
           "name": "Rosebank Industries",
-          "spread": 1.359
+          "spread": 1.3776
         },
         {
-          "ticker": "SGE",
-          "name": "Sage Group",
-          "spread": 1.3227
+          "ticker": "BATS",
+          "name": "British American Tobacco",
+          "spread": 1.3482
         }
       ],
-      "marketAvg": 0.804
+      "marketAvg": 0.7973
     },
     "enx": {
       "history": [
@@ -4410,44 +4410,29 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.5826
+          "avgSpread": 0.5895
         }
       ],
       "top10_tight": [
         {
           "ticker": "IVG",
           "name": "Iveco",
-          "spread": 0.0274
-        },
-        {
-          "ticker": "ACA",
-          "name": "Crédit Agricole",
-          "spread": 0.11
-        },
-        {
-          "ticker": "TTE",
-          "name": "TotalEnergies",
-          "spread": 0.1106
-        },
-        {
-          "ticker": "NN",
-          "name": "NN Group",
-          "spread": 0.1114
+          "spread": 0.0159
         },
         {
           "ticker": "LR",
           "name": "Legrand",
-          "spread": 0.1247
+          "spread": 0.1238
         },
         {
-          "ticker": "IG",
-          "name": "Italgas",
-          "spread": 0.1362
+          "ticker": "TTE",
+          "name": "TotalEnergies",
+          "spread": 0.151
         },
         {
           "ticker": "ASRNL",
           "name": "ASR Nederland",
-          "spread": 0.1635
+          "spread": 0.1665
         },
         {
           "ticker": "CS",
@@ -4455,69 +4440,84 @@
           "spread": 0.1705
         },
         {
+          "ticker": "NN",
+          "name": "NN Group",
+          "spread": 0.1759
+        },
+        {
           "ticker": "ML",
           "name": "Michelin",
-          "spread": 0.1763
+          "spread": 0.1856
+        },
+        {
+          "ticker": "IG",
+          "name": "Italgas",
+          "spread": 0.2102
+        },
+        {
+          "ticker": "ACA",
+          "name": "Crédit Agricole",
+          "spread": 0.2384
         },
         {
           "ticker": "REC",
           "name": "Recordati",
-          "spread": 0.2452
+          "spread": 0.243
         }
       ],
       "top10_wide": [
         {
           "ticker": "BESI",
           "name": "BE Semiconductors",
-          "spread": 1.5063
+          "spread": 1.5552
         },
         {
           "ticker": "STMMI",
           "name": "STMicroelectronics",
-          "spread": 1.4593
+          "spread": 1.3624
         },
         {
           "ticker": "STMPA",
           "name": "STMicroelectronics",
-          "spread": 1.4483
+          "spread": 1.3306
         },
         {
           "ticker": "SPM",
           "name": "Saipem",
-          "spread": 1.2145
+          "spread": 1.2489
         },
         {
           "ticker": "RAND",
           "name": "Randstad",
-          "spread": 1.1904
+          "spread": 1.2459
         },
         {
           "ticker": "PUB",
           "name": "Publicis",
-          "spread": 1.1858
+          "spread": 1.2009
         },
         {
           "ticker": "PRY",
           "name": "Prysmian",
-          "spread": 1.0984
+          "spread": 1.086
+        },
+        {
+          "ticker": "CAP",
+          "name": "Capgemini",
+          "spread": 0.9513
         },
         {
           "ticker": "KER",
           "name": "Kering",
-          "spread": 0.8634
+          "spread": 0.9444
         },
         {
-          "ticker": "SU",
-          "name": "Schneider Electric",
-          "spread": 0.8424
-        },
-        {
-          "ticker": "ADYEN",
-          "name": "Adyen",
-          "spread": 0.8418
+          "ticker": "EDEN",
+          "name": "Edenred",
+          "spread": 0.873
         }
       ],
-      "marketAvg": 0.5799
+      "marketAvg": 0.5895
     },
     "ndx": {
       "history": [
@@ -4555,114 +4555,114 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.7504
+          "avgSpread": 0.7711
         }
       ],
       "top10_tight": [
         {
-          "ticker": "MCHP",
-          "name": "Microchip Technology",
-          "spread": 0.1616
-        },
-        {
-          "ticker": "CCEP",
-          "name": "Coca-Cola Europacific Partners",
-          "spread": 0.2049
-        },
-        {
-          "ticker": "FER",
-          "name": "Ferrovial",
-          "spread": 0.2068
-        },
-        {
-          "ticker": "MNST",
-          "name": "Monster Beverage",
-          "spread": 0.2206
+          "ticker": "KHC",
+          "name": "Kraft Heinz",
+          "spread": 0.1371
         },
         {
           "ticker": "WBD",
           "name": "Warner Bros. Discovery",
-          "spread": 0.2288
+          "spread": 0.2045
+        },
+        {
+          "ticker": "FER",
+          "name": "Ferrovial",
+          "spread": 0.207
+        },
+        {
+          "ticker": "CCEP",
+          "name": "Coca-Cola Europacific Partners",
+          "spread": 0.2074
+        },
+        {
+          "ticker": "MNST",
+          "name": "Monster Beverage",
+          "spread": 0.2183
         },
         {
           "ticker": "XEL",
           "name": "Xcel Energy",
-          "spread": 0.2721
-        },
-        {
-          "ticker": "TMUS",
-          "name": "T-Mobile US",
-          "spread": 0.2827
-        },
-        {
-          "ticker": "AMD",
-          "name": "Advanced Micro Devices",
-          "spread": 0.347
-        },
-        {
-          "ticker": "ROST",
-          "name": "Ross Stores",
-          "spread": 0.3614
+          "spread": 0.2455
         },
         {
           "ticker": "MAR",
           "name": "Marriott International",
-          "spread": 0.384
+          "spread": 0.3346
+        },
+        {
+          "ticker": "EXC",
+          "name": "Exelon",
+          "spread": 0.3787
+        },
+        {
+          "ticker": "BKNG",
+          "name": "Booking Holdings",
+          "spread": 0.3853
+        },
+        {
+          "ticker": "PEP",
+          "name": "PepsiCo",
+          "spread": 0.4035
         }
       ],
       "top10_wide": [
         {
           "ticker": "LITE",
           "name": "Lumentum",
-          "spread": 2.6933
+          "spread": 2.4975
         },
         {
           "ticker": "SPCX",
           "name": "SpaceX",
-          "spread": 2.5429
+          "spread": 2.332
         },
         {
           "ticker": "NBIS",
           "name": "Nebius Group",
-          "spread": 2.3925
+          "spread": 2.3168
         },
         {
           "ticker": "MU",
           "name": "Micron Technology",
-          "spread": 1.6702
+          "spread": 1.655
         },
         {
           "ticker": "STX",
           "name": "Seagate Technology",
-          "spread": 1.5652
-        },
-        {
-          "ticker": "SNDK",
-          "name": "Sandisk",
-          "spread": 1.3579
+          "spread": 1.4999
         },
         {
           "ticker": "CPRT",
           "name": "Copart",
-          "spread": 1.2851
+          "spread": 1.2368
         },
         {
           "ticker": "INTU",
           "name": "Intuit",
-          "spread": 1.2
+          "spread": 1.236
         },
         {
-          "ticker": "AMAT",
-          "name": "Applied Materials",
-          "spread": 1.1149
+          "ticker": "SNDK",
+          "name": "Sandisk",
+          "spread": 1.1909
         },
         {
           "ticker": "SHOP",
           "name": "Shopify",
-          "spread": 1.0803
+          "spread": 1.1203
+        },
+        {
+          "ticker": "AMAT",
+          "name": "Applied Materials",
+          "spread": 1.1144
         }
       ],
-      "marketAvg": 0.7819
+      "marketAvg": 0.7711
     },
     "nyse": {
       "history": [
@@ -4700,114 +4700,114 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.6445
+          "avgSpread": 0.6278
         }
       ],
       "top10_tight": [
         {
           "ticker": "GD",
           "name": "General Dynamics",
-          "spread": 0.0536
+          "spread": 0.0679
         },
         {
-          "ticker": "HSY",
-          "name": "Hershey Company",
-          "spread": 0.0585
+          "ticker": "ICE",
+          "name": "Intercontinental Exchange",
+          "spread": 0.0885
         },
         {
-          "ticker": "VRT",
-          "name": "Vertiv",
-          "spread": 0.1312
+          "ticker": "REG",
+          "name": "Regency Centers",
+          "spread": 0.0896
         },
         {
-          "ticker": "TMO",
-          "name": "Thermo Fisher Scientific",
-          "spread": 0.1317
-        },
-        {
-          "ticker": "LUV",
-          "name": "Southwest Airlines",
-          "spread": 0.1375
+          "ticker": "HD",
+          "name": "Home Depot",
+          "spread": 0.1249
         },
         {
           "ticker": "DOV",
           "name": "Dover Corporation",
+          "spread": 0.1393
+        },
+        {
+          "ticker": "COP",
+          "name": "ConocoPhillips",
           "spread": 0.1417
         },
         {
-          "ticker": "HST",
-          "name": "Host Hotels & Resorts",
-          "spread": 0.1435
+          "ticker": "AIZ",
+          "name": "Assurant",
+          "spread": 0.1418
         },
         {
-          "ticker": "UNP",
-          "name": "Union Pacific Corporation",
-          "spread": 0.1528
+          "ticker": "HLT",
+          "name": "Hilton Worldwide",
+          "spread": 0.1432
+        },
+        {
+          "ticker": "PG",
+          "name": "Procter & Gamble",
+          "spread": 0.1447
         },
         {
           "ticker": "VMC",
           "name": "Vulcan Materials Company",
-          "spread": 0.164
-        },
-        {
-          "ticker": "TXT",
-          "name": "Textron",
-          "spread": 0.1643
+          "spread": 0.1449
         }
       ],
       "top10_wide": [
         {
           "ticker": "SMCI",
           "name": "Supermicro",
-          "spread": 2.1715
+          "spread": 2.1499
         },
         {
           "ticker": "ECHO",
           "name": "EchoStar",
-          "spread": 2.0303
+          "spread": 2.0289
         },
         {
           "ticker": "NTAP",
           "name": "NetApp",
-          "spread": 1.8496
+          "spread": 1.8477
         },
         {
           "ticker": "TTD",
           "name": "Trade Desk",
-          "spread": 1.7941
+          "spread": 1.8091
         },
         {
           "ticker": "TECH",
           "name": "Bio-Techne",
-          "spread": 1.754
+          "spread": 1.7366
         },
         {
           "ticker": "GDDY",
           "name": "GoDaddy",
-          "spread": 1.7031
+          "spread": 1.7181
         },
         {
           "ticker": "PODD",
           "name": "Insulet Corporation",
-          "spread": 1.6805
+          "spread": 1.6715
         },
         {
-          "ticker": "FIX",
-          "name": "Comfort Systems USA",
-          "spread": 1.541
+          "ticker": "HPQ",
+          "name": "HP Inc.",
+          "spread": 1.5237
         },
         {
           "ticker": "FDS",
           "name": "FactSet",
-          "spread": 1.5315
+          "spread": 1.5057
         },
         {
-          "ticker": "CNC",
-          "name": "Centene Corporation",
-          "spread": 1.4998
+          "ticker": "FIX",
+          "name": "Comfort Systems USA",
+          "spread": 1.5033
         }
       ],
-      "marketAvg": 0.6445
+      "marketAvg": 0.6278
     },
     "xetra": {
       "history": [
@@ -4849,114 +4849,114 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.6441
+          "avgSpread": 0.6699
         }
       ],
       "top10_tight": [
         {
-          "ticker": "LHA",
-          "name": "Lufthansa",
-          "spread": 0.2069
+          "ticker": "DTE",
+          "name": "Deutsche Telekom",
+          "spread": 0.3067
         },
         {
           "ticker": "ALV",
           "name": "Allianz",
-          "spread": 0.3323
+          "spread": 0.3342
         },
         {
           "ticker": "QIA",
           "name": "Qiagen",
-          "spread": 0.3549
+          "spread": 0.3812
         },
         {
           "ticker": "RWE",
           "name": "RWE",
-          "spread": 0.3992
+          "spread": 0.3988
         },
         {
           "ticker": "BAS",
           "name": "BASF",
-          "spread": 0.4001
-        },
-        {
-          "ticker": "SHL",
-          "name": "Siemens Healthineers",
-          "spread": 0.4089
-        },
-        {
-          "ticker": "ENR",
-          "name": "Siemens Energy",
-          "spread": 0.4436
-        },
-        {
-          "ticker": "DBK",
-          "name": "Deutsche Bank",
-          "spread": 0.451
+          "spread": 0.4159
         },
         {
           "ticker": "EVK",
           "name": "Evonik",
-          "spread": 0.4674
+          "spread": 0.4191
+        },
+        {
+          "ticker": "SHL",
+          "name": "Siemens Healthineers",
+          "spread": 0.4361
+        },
+        {
+          "ticker": "ENR",
+          "name": "Siemens Energy",
+          "spread": 0.4393
         },
         {
           "ticker": "HEI",
           "name": "Heidelberg Materials",
-          "spread": 0.4732
+          "spread": 0.4873
+        },
+        {
+          "ticker": "DHL",
+          "name": "Deutsche Post",
+          "spread": 0.4967
         }
       ],
       "top10_wide": [
         {
           "ticker": "WAF",
           "name": "Siltronic",
-          "spread": 1.6836
+          "spread": 1.6594
         },
         {
           "ticker": "NEM",
           "name": "Nemetschek",
-          "spread": 1.3513
+          "spread": 1.3463
         },
         {
           "ticker": "IFX",
           "name": "Infineon Technologies",
-          "spread": 1.2217
+          "spread": 1.1986
         },
         {
           "ticker": "JEN",
           "name": "Jenoptik",
-          "spread": 1.1386
+          "spread": 1.1322
         },
         {
           "ticker": "AIXA",
           "name": "Aixtron",
-          "spread": 0.8536
+          "spread": 0.9013
+        },
+        {
+          "ticker": "SAP",
+          "name": "SAP",
+          "spread": 0.7729
         },
         {
           "ticker": "SDF",
           "name": "K+S",
-          "spread": 0.7234
-        },
-        {
-          "ticker": "AIR",
-          "name": "Airbus",
-          "spread": 0.709
-        },
-        {
-          "ticker": "TUI1",
-          "name": "TUI",
-          "spread": 0.7043
+          "spread": 0.7681
         },
         {
           "ticker": "VNA",
           "name": "Vonovia",
-          "spread": 0.6918
+          "spread": 0.7461
         },
         {
-          "ticker": "SIE",
-          "name": "Siemens",
-          "spread": 0.6409
+          "ticker": "AIR",
+          "name": "Airbus",
+          "spread": 0.7275
+        },
+        {
+          "ticker": "TUI1",
+          "name": "TUI",
+          "spread": 0.7191
         }
       ],
-      "marketAvg": 0.6542
+      "marketAvg": 0.6699
     },
     "six": {
       "history": [
@@ -4998,19 +4998,29 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.5372
+          "avgSpread": 0.5286
         }
       ],
       "top10_tight": [
         {
           "ticker": "LONN",
           "name": "Lonza Group AG",
-          "spread": 0.1049
+          "spread": 0.1023
+        },
+        {
+          "ticker": "SPSN",
+          "name": "Swiss Prime Site",
+          "spread": 0.1719
         },
         {
           "ticker": "TEMN",
           "name": "Temenos",
-          "spread": 0.2264
+          "spread": 0.1872
+        },
+        {
+          "ticker": "ALC",
+          "name": "Alcon Inc",
+          "spread": 0.232
         },
         {
           "ticker": "HBAN",
@@ -5020,69 +5030,54 @@
         {
           "ticker": "PGHN",
           "name": "Partners Group Holding AG",
-          "spread": 0.2552
+          "spread": 0.2762
         },
         {
-          "ticker": "SPSN",
-          "name": "Swiss Prime Site",
-          "spread": 0.2826
+          "ticker": "PSPN",
+          "name": "PSP Swiss Property",
+          "spread": 0.2978
         },
         {
           "ticker": "NOVN",
           "name": "Novartis International AG",
-          "spread": 0.2831
-        },
-        {
-          "ticker": "ALC",
-          "name": "Alcon Inc",
-          "spread": 0.2883
+          "spread": 0.3289
         },
         {
           "ticker": "SGSN",
           "name": "SGS",
-          "spread": 0.3466
-        },
-        {
-          "ticker": "SIKA",
-          "name": "Sika AG",
-          "spread": 0.3561
+          "spread": 0.3441
         },
         {
           "ticker": "SQN",
           "name": "Swissquote",
-          "spread": 0.3584
+          "spread": 0.3521
         }
       ],
       "top10_wide": [
         {
           "ticker": "VACN",
           "name": "VAT",
-          "spread": 1.2737
+          "spread": 1.2553
         },
         {
           "ticker": "SIGN",
           "name": "SIG",
-          "spread": 0.9549
+          "spread": 0.9367
         },
         {
           "ticker": "LISN",
           "name": "Lindt & Sprüngli",
-          "spread": 0.8937
-        },
-        {
-          "ticker": "ABBN",
-          "name": "ABB Ltd",
-          "spread": 0.8201
-        },
-        {
-          "ticker": "KNIN",
-          "name": "Kuehne + Nagel",
-          "spread": 0.8049
+          "spread": 0.8821
         },
         {
           "ticker": "FHZN",
           "name": "Flughafen Zürich",
-          "spread": 0.7945
+          "spread": 0.8207
+        },
+        {
+          "ticker": "ABBN",
+          "name": "ABB Ltd",
+          "spread": 0.8095
         },
         {
           "ticker": "AVOL",
@@ -5095,17 +5090,22 @@
           "spread": 0.7558
         },
         {
-          "ticker": "GF",
-          "name": "Georg Fischer",
-          "spread": 0.6561
+          "ticker": "KNIN",
+          "name": "Kuehne + Nagel",
+          "spread": 0.7397
         },
         {
           "ticker": "CFR",
           "name": "Compagnie Financière Richemont SA",
-          "spread": 0.5989
+          "spread": 0.6554
+        },
+        {
+          "ticker": "GF",
+          "name": "Georg Fischer",
+          "spread": 0.6541
         }
       ],
-      "marketAvg": 0.5372
+      "marketAvg": 0.5286
     },
     "tse": {
       "history": [
@@ -5552,66 +5552,66 @@
     "ranks": {
       "lse": {
         "vol": 7,
-        "illiq": 9,
-        "tr": 6,
+        "illiq": 8,
+        "tr": 5,
         "ar": 8,
         "composite": 9
       },
       "enx": {
         "vol": 5,
-        "illiq": 6,
-        "tr": 5,
+        "illiq": 3,
+        "tr": 6,
         "ar": 2,
         "composite": 4
       },
       "ndx": {
         "vol": 1,
-        "illiq": 2,
+        "illiq": 1,
         "tr": 2,
-        "ar": 6,
-        "composite": 2
+        "ar": 7,
+        "composite": 1
       },
       "nyse": {
         "vol": 2,
-        "illiq": 1,
-        "tr": 3,
-        "ar": 4,
-        "composite": 1
+        "illiq": 2,
+        "tr": 4,
+        "ar": 3,
+        "composite": 2
       },
       "xetra": {
         "vol": 8,
-        "illiq": 7,
-        "tr": 7,
-        "ar": 3,
-        "composite": 7
+        "illiq": 6,
+        "tr": 8,
+        "ar": 4,
+        "composite": 8
       },
       "six": {
         "vol": 9,
-        "illiq": 4,
+        "illiq": 5,
         "tr": 9,
         "ar": 1,
         "composite": 5
       },
       "tse": {
         "vol": 3,
-        "illiq": 3,
+        "illiq": 4,
         "tr": 1,
-        "ar": 7,
+        "ar": 6,
         "composite": 3
       },
       "hkg": {
         "vol": 6,
-        "illiq": 5,
-        "tr": 8,
+        "illiq": 7,
+        "tr": 7,
         "ar": 5,
         "composite": 6
       },
       "krx": {
         "vol": 4,
-        "illiq": 8,
-        "tr": 4,
+        "illiq": 9,
+        "tr": 3,
         "ar": 9,
-        "composite": 8
+        "composite": 7
       }
     }
   },
@@ -6104,7 +6104,7 @@
         },
         "enx": {
           "vol": 5,
-          "illiq": 3,
+          "illiq": 4,
           "tr": null,
           "ar": null,
           "composite": 3
@@ -6125,10 +6125,10 @@
         },
         "xetra": {
           "vol": 8,
-          "illiq": 6,
+          "illiq": 3,
           "tr": null,
           "ar": null,
-          "composite": 7
+          "composite": 5
         },
         "six": {
           "vol": 9,
@@ -6139,24 +6139,24 @@
         },
         "tse": {
           "vol": 3,
-          "illiq": 5,
+          "illiq": 6,
           "tr": null,
           "ar": null,
           "composite": 4
         },
         "hkg": {
           "vol": 6,
-          "illiq": 4,
+          "illiq": 5,
           "tr": null,
           "ar": null,
-          "composite": 5
+          "composite": 6
         },
         "krx": {
           "vol": 4,
           "illiq": 9,
           "tr": null,
           "ar": null,
-          "composite": 6
+          "composite": 7
         }
       }
     },
@@ -7457,66 +7457,66 @@
       "ranks": {
         "lse": {
           "vol": 7,
-          "illiq": 9,
-          "tr": 6,
+          "illiq": 8,
+          "tr": 5,
           "ar": 8,
           "composite": 9
         },
         "enx": {
           "vol": 5,
-          "illiq": 6,
-          "tr": 5,
+          "illiq": 3,
+          "tr": 6,
           "ar": 2,
           "composite": 4
         },
         "ndx": {
           "vol": 1,
-          "illiq": 2,
+          "illiq": 1,
           "tr": 2,
-          "ar": 6,
-          "composite": 2
+          "ar": 7,
+          "composite": 1
         },
         "nyse": {
           "vol": 2,
-          "illiq": 1,
-          "tr": 3,
-          "ar": 4,
-          "composite": 1
+          "illiq": 2,
+          "tr": 4,
+          "ar": 3,
+          "composite": 2
         },
         "xetra": {
           "vol": 8,
-          "illiq": 7,
-          "tr": 7,
-          "ar": 3,
-          "composite": 7
+          "illiq": 6,
+          "tr": 8,
+          "ar": 4,
+          "composite": 8
         },
         "six": {
           "vol": 9,
-          "illiq": 4,
+          "illiq": 5,
           "tr": 9,
           "ar": 1,
           "composite": 5
         },
         "tse": {
           "vol": 3,
-          "illiq": 3,
+          "illiq": 4,
           "tr": 1,
-          "ar": 7,
+          "ar": 6,
           "composite": 3
         },
         "hkg": {
           "vol": 6,
-          "illiq": 5,
-          "tr": 8,
+          "illiq": 7,
+          "tr": 7,
           "ar": 5,
           "composite": 6
         },
         "krx": {
           "vol": 4,
-          "illiq": 8,
-          "tr": 4,
+          "illiq": 9,
+          "tr": 3,
           "ar": 9,
-          "composite": 8
+          "composite": 7
         }
       }
     }
@@ -7572,58 +7572,62 @@
         {
           "date": "2026-07-23",
           "ratio": 0.541
+        },
+        {
+          "date": "2026-07-24",
+          "ratio": 0.437
         }
       ],
       "top10_active": [
         {
           "ticker": "AZN",
           "name": "AstraZeneca",
-          "dvol_m": 350.01
-        },
-        {
-          "ticker": "SHEL",
-          "name": "Shell plc",
-          "dvol_m": 275.46
+          "dvol_m": 333.45
         },
         {
           "ticker": "HSBA",
           "name": "HSBC",
-          "dvol_m": 268.28
+          "dvol_m": 275.96
+        },
+        {
+          "ticker": "SHEL",
+          "name": "Shell plc",
+          "dvol_m": 269.62
         },
         {
           "ticker": "RR",
           "name": "Rolls-Royce Holdings",
-          "dvol_m": 241.18
+          "dvol_m": 242.98
         },
         {
           "ticker": "BP",
           "name": "BP",
-          "dvol_m": 190.06
+          "dvol_m": 188.68
         },
         {
           "ticker": "GLEN",
           "name": "Glencore",
-          "dvol_m": 187.47
+          "dvol_m": 187.24
         },
         {
           "ticker": "BARC",
           "name": "Barclays",
-          "dvol_m": 179.56
-        },
-        {
-          "ticker": "GSK",
-          "name": "GSK plc",
-          "dvol_m": 175.14
+          "dvol_m": 182.32
         },
         {
           "ticker": "RIO",
           "name": "Rio Tinto",
-          "dvol_m": 172.75
+          "dvol_m": 181.42
+        },
+        {
+          "ticker": "GSK",
+          "name": "GSK plc",
+          "dvol_m": 167.03
         },
         {
           "ticker": "ULVR",
           "name": "Unilever",
-          "dvol_m": 166.43
+          "dvol_m": 164.17
         }
       ],
       "top10_inactive": [
@@ -7635,47 +7639,47 @@
         {
           "ticker": "HOC",
           "name": "Hochschild Mining",
-          "dvol_m": 5.11
+          "dvol_m": 4.98
         },
         {
           "ticker": "BYG",
           "name": "Big Yellow Group",
-          "dvol_m": 5.33
+          "dvol_m": 5.3
         },
         {
           "ticker": "CWK",
           "name": "Cranswick",
-          "dvol_m": 6.22
+          "dvol_m": 6.17
         },
         {
           "ticker": "WIZZ",
           "name": "Wizz Air",
-          "dvol_m": 6.55
-        },
-        {
-          "ticker": "ATYM",
-          "name": "Atalaya Mining",
-          "dvol_m": 6.82
-        },
-        {
-          "ticker": "DRX",
-          "name": "Drax Group",
-          "dvol_m": 7.1
-        },
-        {
-          "ticker": "SSPG",
-          "name": "SSP Group",
-          "dvol_m": 7.12
+          "dvol_m": 6.27
         },
         {
           "ticker": "DLN",
           "name": "Derwent London",
-          "dvol_m": 7.45
+          "dvol_m": 6.51
+        },
+        {
+          "ticker": "ATYM",
+          "name": "Atalaya Mining",
+          "dvol_m": 6.71
+        },
+        {
+          "ticker": "DRX",
+          "name": "Drax Group",
+          "dvol_m": 6.96
+        },
+        {
+          "ticker": "SSPG",
+          "name": "SSP Group",
+          "dvol_m": 7.15
         },
         {
           "ticker": "RS1",
           "name": "RS Group",
-          "dvol_m": 7.49
+          "dvol_m": 7.52
         }
       ]
     },
@@ -7728,110 +7732,114 @@
         {
           "date": "2026-07-23",
           "ratio": 0.5671
+        },
+        {
+          "date": "2026-07-24",
+          "ratio": 0.4014
         }
       ],
       "top10_active": [
         {
           "ticker": "ASML",
           "name": "ASML Holding",
-          "dvol_m": 1054.91
+          "dvol_m": 1045.65
         },
         {
           "ticker": "UCG",
           "name": "UniCredit",
-          "dvol_m": 383.12
+          "dvol_m": 389.63
         },
         {
           "ticker": "ISP",
           "name": "Intesa Sanpaolo",
-          "dvol_m": 309.59
+          "dvol_m": 308.12
         },
         {
           "ticker": "STMMI",
           "name": "STMicroelectronics",
-          "dvol_m": 298.47
+          "dvol_m": 301.33
         },
         {
           "ticker": "TTE",
           "name": "TotalEnergies",
-          "dvol_m": 254.84
-        },
-        {
-          "ticker": "SU",
-          "name": "Schneider Electric",
-          "dvol_m": 215.33
+          "dvol_m": 256.7
         },
         {
           "ticker": "AIR",
           "name": "Airbus",
-          "dvol_m": 215.14
+          "dvol_m": 216.42
         },
         {
           "ticker": "MC",
           "name": "LVMH",
-          "dvol_m": 212.58
+          "dvol_m": 214.85
+        },
+        {
+          "ticker": "SU",
+          "name": "Schneider Electric",
+          "dvol_m": 206.03
         },
         {
           "ticker": "SAF",
           "name": "Safran",
-          "dvol_m": 209.71
+          "dvol_m": 205.93
         },
         {
           "ticker": "ENI",
           "name": "Eni",
-          "dvol_m": 183.84
+          "dvol_m": 182.78
         }
       ],
       "top10_inactive": [
         {
           "ticker": "IVG",
           "name": "Iveco",
-          "dvol_m": 7.59
+          "dvol_m": 7.07
         },
         {
           "ticker": "DIE",
           "name": "D'Ieteren",
-          "dvol_m": 8.34
+          "dvol_m": 7.91
         },
         {
           "ticker": "EXO",
           "name": "Exor",
-          "dvol_m": 10.84
+          "dvol_m": 10.39
         },
         {
           "ticker": "EDPR",
           "name": "EDP Renováveis",
-          "dvol_m": 11.11
-        },
-        {
-          "ticker": "REC",
-          "name": "Recordati",
-          "dvol_m": 12.85
+          "dvol_m": 11.03
         },
         {
           "ticker": "MB",
           "name": "Mediobanca",
+          "dvol_m": 12.78
+        },
+        {
+          "ticker": "REC",
+          "name": "Recordati",
           "dvol_m": 12.88
         },
         {
           "ticker": "DIA",
           "name": "Diasorin",
-          "dvol_m": 14.75
-        },
-        {
-          "ticker": "TEP",
-          "name": "Teleperformance",
-          "dvol_m": 15.18
-        },
-        {
-          "ticker": "HER",
-          "name": "Hera",
-          "dvol_m": 15.6
+          "dvol_m": 14.55
         },
         {
           "ticker": "LTMC",
           "name": "Lottomatica Group",
-          "dvol_m": 15.62
+          "dvol_m": 15.12
+        },
+        {
+          "ticker": "TEP",
+          "name": "Teleperformance",
+          "dvol_m": 15.13
+        },
+        {
+          "ticker": "HER",
+          "name": "Hera",
+          "dvol_m": 15.5
         }
       ]
     },
@@ -7888,110 +7896,114 @@
         {
           "date": "2026-07-23",
           "ratio": 1.1868
+        },
+        {
+          "date": "2026-07-24",
+          "ratio": 1.0151
         }
       ],
       "top10_active": [
         {
           "ticker": "MU",
           "name": "Micron Technology",
-          "dvol_m": 49211.77
+          "dvol_m": 46095.95
         },
         {
           "ticker": "NVDA",
           "name": "Nvidia",
-          "dvol_m": 27089.06
+          "dvol_m": 26811.35
         },
         {
           "ticker": "SNDK",
           "name": "Sandisk",
-          "dvol_m": 23919.66
+          "dvol_m": 23172.26
         },
         {
           "ticker": "AAPL",
           "name": "Apple Inc.",
-          "dvol_m": 19612.46
+          "dvol_m": 18930.2
         },
         {
           "ticker": "TSLA",
           "name": "Tesla, Inc.",
-          "dvol_m": 16587.88
+          "dvol_m": 17002.0
         },
         {
           "ticker": "MSFT",
           "name": "Microsoft",
-          "dvol_m": 16350.35
+          "dvol_m": 15710.07
         },
         {
           "ticker": "AMD",
           "name": "Advanced Micro Devices",
-          "dvol_m": 15040.84
+          "dvol_m": 15029.24
         },
         {
           "ticker": "AMZN",
           "name": "Amazon",
-          "dvol_m": 13139.67
-        },
-        {
-          "ticker": "META",
-          "name": "Meta Platforms",
-          "dvol_m": 12187.01
+          "dvol_m": 12663.83
         },
         {
           "ticker": "INTC",
           "name": "Intel",
-          "dvol_m": 12133.94
+          "dvol_m": 12151.47
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms",
+          "dvol_m": 12067.91
         }
       ],
       "top10_inactive": [
         {
           "ticker": "FER",
           "name": "Ferrovial",
-          "dvol_m": 91.22
+          "dvol_m": 90.3
         },
         {
           "ticker": "TRI",
           "name": "Thomson Reuters",
-          "dvol_m": 172.98
+          "dvol_m": 172.43
         },
         {
           "ticker": "CCEP",
           "name": "Coca-Cola Europacific Partners",
-          "dvol_m": 198.69
-        },
-        {
-          "ticker": "GEHC",
-          "name": "GE HealthCare",
-          "dvol_m": 315.44
+          "dvol_m": 196.99
         },
         {
           "ticker": "KHC",
           "name": "Kraft Heinz",
-          "dvol_m": 316.79
+          "dvol_m": 315.52
         },
         {
           "ticker": "DXCM",
           "name": "DexCom",
-          "dvol_m": 322.57
+          "dvol_m": 318.63
+        },
+        {
+          "ticker": "GEHC",
+          "name": "GE HealthCare",
+          "dvol_m": 328.56
         },
         {
           "ticker": "ODFL",
           "name": "Old Dominion Freight Line",
-          "dvol_m": 342.82
+          "dvol_m": 346.04
         },
         {
           "ticker": "PAYX",
           "name": "Paychex",
-          "dvol_m": 354.26
+          "dvol_m": 348.56
         },
         {
           "ticker": "ROP",
           "name": "Roper Technologies",
-          "dvol_m": 355.82
+          "dvol_m": 356.84
         },
         {
-          "ticker": "CPRT",
-          "name": "Copart",
-          "dvol_m": 374.82
+          "ticker": "IDXX",
+          "name": "Idexx Laboratories",
+          "dvol_m": 370.6
         }
       ]
     },
@@ -8048,110 +8060,114 @@
         {
           "date": "2026-07-23",
           "ratio": 0.7267
+        },
+        {
+          "date": "2026-07-24",
+          "ratio": 0.6303
         }
       ],
       "top10_active": [
         {
           "ticker": "ORCL",
           "name": "Oracle Corporation",
-          "dvol_m": 5342.74
+          "dvol_m": 5328.58
         },
         {
           "ticker": "JPM",
           "name": "JPMorgan Chase",
-          "dvol_m": 3543.68
-        },
-        {
-          "ticker": "CAT",
-          "name": "Caterpillar Inc.",
-          "dvol_m": 3412.64
+          "dvol_m": 3508.88
         },
         {
           "ticker": "LLY",
           "name": "Lilly",
-          "dvol_m": 3387.9
+          "dvol_m": 3350.97
+        },
+        {
+          "ticker": "CAT",
+          "name": "Caterpillar Inc.",
+          "dvol_m": 3255.81
         },
         {
           "ticker": "IBM",
           "name": "IBM",
-          "dvol_m": 3225.86
+          "dvol_m": 3228.94
         },
         {
           "ticker": "GEV",
           "name": "GE Vernova",
-          "dvol_m": 3154.03
-        },
-        {
-          "ticker": "GLW",
-          "name": "Corning Inc.",
-          "dvol_m": 3105.88
+          "dvol_m": 3130.95
         },
         {
           "ticker": "DELL",
           "name": "Dell Technologies",
-          "dvol_m": 3099.94
+          "dvol_m": 2972.0
         },
         {
           "ticker": "V",
           "name": "Visa Inc.",
-          "dvol_m": 3003.37
+          "dvol_m": 2966.59
+        },
+        {
+          "ticker": "GLW",
+          "name": "Corning Inc.",
+          "dvol_m": 2879.35
         },
         {
           "ticker": "UNH",
           "name": "UnitedHealth Group",
-          "dvol_m": 2598.6
+          "dvol_m": 2552.54
         }
       ],
       "top10_inactive": [
         {
           "ticker": "NWS",
           "name": "News Corp",
-          "dvol_m": 44.16
+          "dvol_m": 43.33
         },
         {
           "ticker": "ERIE",
           "name": "Erie Indemnity",
-          "dvol_m": 64.89
+          "dvol_m": 64.92
         },
         {
           "ticker": "BF-B",
           "name": "Brown–Forman",
-          "dvol_m": 68.36
-        },
-        {
-          "ticker": "PSKY",
-          "name": "Paramount Skydance Corporation",
-          "dvol_m": 83.63
+          "dvol_m": 65.36
         },
         {
           "ticker": "ARE",
           "name": "Alexandria Real Estate Equities",
-          "dvol_m": 84.69
+          "dvol_m": 82.8
         },
         {
           "ticker": "SOLV",
           "name": "Solventum",
-          "dvol_m": 84.83
+          "dvol_m": 83.37
         },
         {
-          "ticker": "BXP",
-          "name": "BXP, Inc.",
-          "dvol_m": 86.47
+          "ticker": "PSKY",
+          "name": "Paramount Skydance Corporation",
+          "dvol_m": 83.96
         },
         {
           "ticker": "FOX",
           "name": "Fox Corporation",
-          "dvol_m": 87.46
+          "dvol_m": 86.67
+        },
+        {
+          "ticker": "BXP",
+          "name": "BXP, Inc.",
+          "dvol_m": 87.23
         },
         {
           "ticker": "L",
           "name": "Loews Corporation",
-          "dvol_m": 91.19
+          "dvol_m": 90.75
         },
         {
           "ticker": "AIZ",
           "name": "Assurant",
-          "dvol_m": 93.97
+          "dvol_m": 92.2
         }
       ]
     },
@@ -8204,110 +8220,114 @@
         {
           "date": "2026-07-23",
           "ratio": 0.391
+        },
+        {
+          "date": "2026-07-24",
+          "ratio": 0.3076
         }
       ],
       "top10_active": [
         {
-          "ticker": "ENR",
-          "name": "Siemens Energy",
-          "dvol_m": 342.22
-        },
-        {
           "ticker": "SAP",
           "name": "SAP",
-          "dvol_m": 329.04
+          "dvol_m": 343.68
+        },
+        {
+          "ticker": "ENR",
+          "name": "Siemens Energy",
+          "dvol_m": 324.54
         },
         {
           "ticker": "IFX",
           "name": "Infineon Technologies",
-          "dvol_m": 301.33
+          "dvol_m": 289.98
         },
         {
           "ticker": "SIE",
           "name": "Siemens",
-          "dvol_m": 253.04
+          "dvol_m": 250.04
         },
         {
           "ticker": "RHM",
           "name": "Rheinmetall",
-          "dvol_m": 246.52
+          "dvol_m": 239.24
         },
         {
           "ticker": "AIR",
           "name": "Airbus",
-          "dvol_m": 215.14
+          "dvol_m": 216.42
         },
         {
           "ticker": "ALV",
           "name": "Allianz",
-          "dvol_m": 193.82
+          "dvol_m": 192.95
         },
         {
           "ticker": "DTE",
           "name": "Deutsche Telekom",
-          "dvol_m": 179.34
+          "dvol_m": 180.58
         },
         {
           "ticker": "BAYN",
           "name": "Bayer",
-          "dvol_m": 162.33
+          "dvol_m": 147.58
         },
         {
           "ticker": "DBK",
           "name": "Deutsche Bank",
-          "dvol_m": 135.96
+          "dvol_m": 134.05
         }
       ],
       "top10_inactive": [
         {
           "ticker": "JEN",
           "name": "Jenoptik",
-          "dvol_m": 7.32
-        },
-        {
-          "ticker": "FRA",
-          "name": "Fraport",
-          "dvol_m": 8.11
+          "dvol_m": 7.08
         },
         {
           "ticker": "FNTN",
           "name": "Freenet",
-          "dvol_m": 8.27
+          "dvol_m": 7.92
+        },
+        {
+          "ticker": "FRA",
+          "name": "Fraport",
+          "dvol_m": 8.18
         },
         {
           "ticker": "SDF",
           "name": "K+S",
-          "dvol_m": 10.71
+          "dvol_m": 10.81
         },
         {
           "ticker": "EVD",
           "name": "CTS Eventim",
-          "dvol_m": 11.81
+          "dvol_m": 11.64
         },
         {
           "ticker": "BOSS",
           "name": "Hugo Boss",
-          "dvol_m": 12.56
+          "dvol_m": 12.0
         },
         {
           "ticker": "WAF",
           "name": "Siltronic",
-          "dvol_m": 12.89
+          "dvol_m": 12.48
         },
         {
           "ticker": "KGX",
           "name": "KION Group",
-          "dvol_m": 13.23
+          "dvol_m": 12.84
         },
         {
           "ticker": "BNR",
           "name": "Brenntag",
-          "dvol_m": 14.04
+          "dvol_m": 13.64
         },
         {
-          "ticker": "LEG",
-          "name": "LEG Immobilien",
-          "dvol_m": 14.2
+          "ticker": "NEM",
+          "name": "Nemetschek",
+          "dvol_m": 13.74
         }
       ]
     },
@@ -8360,43 +8380,47 @@
         {
           "date": "2026-07-23",
           "ratio": 0.2365
+        },
+        {
+          "date": "2026-07-24",
+          "ratio": 0.164
         }
       ],
       "top10_active": [
         {
           "ticker": "NESN",
           "name": "Nestlé SA",
-          "dvol_m": 333.93
+          "dvol_m": 333.13
         },
         {
           "ticker": "NOVN",
           "name": "Novartis International AG",
-          "dvol_m": 310.72
+          "dvol_m": 299.05
         },
         {
           "ticker": "ROP",
           "name": "Roche Holding AG",
-          "dvol_m": 284.69
-        },
-        {
-          "ticker": "UBSG",
-          "name": "UBS Group AG",
-          "dvol_m": 219.13
+          "dvol_m": 283.77
         },
         {
           "ticker": "ABBN",
           "name": "ABB Ltd",
-          "dvol_m": 217.46
+          "dvol_m": 213.63
+        },
+        {
+          "ticker": "UBSG",
+          "name": "UBS Group AG",
+          "dvol_m": 212.28
         },
         {
           "ticker": "CFR",
           "name": "Compagnie Financière Richemont SA",
-          "dvol_m": 183.58
+          "dvol_m": 172.45
         },
         {
           "ticker": "ZURN",
           "name": "Zurich Insurance Group AG",
-          "dvol_m": 139.41
+          "dvol_m": 139.87
         },
         {
           "ticker": "SREN",
@@ -8406,64 +8430,64 @@
         {
           "ticker": "LONN",
           "name": "Lonza Group AG",
-          "dvol_m": 93.74
+          "dvol_m": 92.96
         },
         {
           "ticker": "PGHN",
           "name": "Partners Group Holding AG",
-          "dvol_m": 87.92
+          "dvol_m": 85.06
         }
       ],
       "top10_inactive": [
         {
           "ticker": "RO",
           "name": "Roche",
-          "dvol_m": 7.32
+          "dvol_m": 7.4
         },
         {
           "ticker": "PSPN",
           "name": "PSP Swiss Property",
-          "dvol_m": 8.59
+          "dvol_m": 8.34
         },
         {
           "ticker": "FHZN",
           "name": "Flughafen Zürich",
-          "dvol_m": 10.36
-        },
-        {
-          "ticker": "SIGN",
-          "name": "SIG",
-          "dvol_m": 10.76
+          "dvol_m": 10.24
         },
         {
           "ticker": "SUNN",
           "name": "Sunrise",
-          "dvol_m": 10.78
+          "dvol_m": 10.74
+        },
+        {
+          "ticker": "SIGN",
+          "name": "SIG",
+          "dvol_m": 10.75
         },
         {
           "ticker": "BARN",
           "name": "Barry Callebaut",
-          "dvol_m": 11.3
+          "dvol_m": 11.32
         },
         {
           "ticker": "TEMN",
           "name": "Temenos",
-          "dvol_m": 11.47
-        },
-        {
-          "ticker": "LISN",
-          "name": "Lindt & Sprüngli",
-          "dvol_m": 12.31
+          "dvol_m": 11.87
         },
         {
           "ticker": "SQN",
           "name": "Swissquote",
-          "dvol_m": 12.48
+          "dvol_m": 11.91
         },
         {
-          "ticker": "EMSN",
-          "name": "Ems-Chemie",
-          "dvol_m": 12.76
+          "ticker": "LISN",
+          "name": "Lindt & Sprüngli",
+          "dvol_m": 12.12
+        },
+        {
+          "ticker": "ACLN",
+          "name": "Accelleron",
+          "dvol_m": 12.56
         }
       ]
     },
@@ -11647,211 +11671,211 @@
       "currency": "GBP B",
       "currency_usd": "USD B",
       "dates": [
-        "2026-07-17",
         "2026-07-20",
         "2026-07-21",
         "2026-07-22",
-        "2026-07-23"
+        "2026-07-23",
+        "2026-07-24"
       ],
       "value": [
-        6.713,
         6.557,
         5.991,
         6.109,
-        7.054
+        7.054,
+        5.698
       ],
       "value_usd": [
-        8.94,
         8.734,
         7.979,
         8.136,
-        9.395
+        9.395,
+        7.588
       ],
       "n_universe": 132,
       "shares": [
-        899.0,
         970.2,
         840.3,
         875.9,
-        982.1
+        982.1,
+        803.2
       ],
-      "shares_latest": 982.1,
-      "shares_avg": 913.5
+      "shares_latest": 803.2,
+      "shares_avg": 894.3
     },
     "enx": {
       "currency": "EUR B",
       "currency_usd": "USD B",
       "dates": [
-        "2026-07-17",
         "2026-07-20",
         "2026-07-21",
         "2026-07-22",
-        "2026-07-23"
+        "2026-07-23",
+        "2026-07-24"
       ],
       "value": [
-        11.247,
         8.173,
         9.077,
         10.462,
-        12.21
+        12.21,
+        8.642
       ],
       "value_usd": [
-        12.793,
         9.297,
         10.325,
         11.901,
-        13.889
+        13.889,
+        9.83
       ],
       "n_universe": 110,
       "shares": [
-        465.1,
         322.4,
         371.8,
         432.9,
-        458.0
+        458.0,
+        357.1
       ],
-      "shares_latest": 458.0,
-      "shares_avg": 410.0
+      "shares_latest": 357.1,
+      "shares_avg": 388.4
     },
     "ndx": {
       "currency": "USD B",
       "currency_usd": "USD B",
       "dates": [
-        "2026-07-17",
         "2026-07-20",
         "2026-07-21",
         "2026-07-22",
-        "2026-07-23"
+        "2026-07-23",
+        "2026-07-24"
       ],
       "value": [
-        383.38,
         265.154,
         309.514,
         282.307,
-        345.68
+        345.68,
+        295.668
       ],
       "value_usd": [
-        383.38,
         265.154,
         309.514,
         282.307,
-        345.68
+        345.68,
+        295.668
       ],
       "n_universe": 103,
       "shares": [
-        1634.0,
         1160.1,
         1253.9,
         1200.2,
-        1443.4
+        1443.4,
+        1311.7
       ],
-      "shares_latest": 1443.4,
-      "shares_avg": 1338.3
+      "shares_latest": 1311.7,
+      "shares_avg": 1273.9
     },
     "nyse": {
       "currency": "USD B",
       "currency_usd": "USD B",
       "dates": [
-        "2026-07-17",
         "2026-07-20",
         "2026-07-21",
         "2026-07-22",
-        "2026-07-23"
+        "2026-07-23",
+        "2026-07-24"
       ],
       "value": [
-        232.779,
         191.402,
         206.612,
         200.238,
-        222.492
+        222.492,
+        192.989
       ],
       "value_usd": [
-        232.779,
         191.402,
         206.612,
         200.238,
-        222.492
+        222.492,
+        192.989
       ],
       "n_universe": 415,
       "shares": [
-        2039.8,
         1745.5,
         1888.4,
         2028.3,
-        2133.2
+        2133.2,
+        1876.5
       ],
-      "shares_latest": 2133.2,
-      "shares_avg": 1967.0
+      "shares_latest": 1876.5,
+      "shares_avg": 1934.4
     },
     "xetra": {
       "currency": "EUR B",
       "currency_usd": "USD B",
       "dates": [
-        "2026-07-17",
         "2026-07-20",
         "2026-07-21",
         "2026-07-22",
-        "2026-07-23"
+        "2026-07-23",
+        "2026-07-24"
       ],
       "value": [
-        4.874,
         3.534,
         3.457,
         4.562,
-        4.79
+        4.79,
+        3.769
       ],
       "value_usd": [
-        5.545,
         4.02,
         3.932,
         5.189,
-        5.449
+        5.449,
+        4.287
       ],
       "n_universe": 63,
       "shares": [
-        79.1,
         58.9,
         56.5,
         66.7,
-        81.5
+        81.5,
+        58.8
       ],
-      "shares_latest": 81.5,
-      "shares_avg": 68.5
+      "shares_latest": 58.8,
+      "shares_avg": 64.5
     },
     "six": {
       "currency": "CHF B",
       "currency_usd": "USD B",
       "dates": [
-        "2026-07-17",
         "2026-07-20",
         "2026-07-21",
         "2026-07-22",
-        "2026-07-23"
+        "2026-07-23",
+        "2026-07-24"
       ],
       "value": [
-        3.623,
         2.624,
         2.942,
         3.359,
-        3.905
+        3.905,
+        2.708
       ],
       "value_usd": [
-        4.431,
         3.209,
         3.598,
         4.108,
-        4.776
+        4.776,
+        3.312
       ],
       "n_universe": 45,
       "shares": [
-        35.2,
         26.7,
         28.0,
         30.7,
-        37.6
+        37.6,
+        23.5
       ],
-      "shares_latest": 37.6,
-      "shares_avg": 31.6
+      "shares_latest": 23.5,
+      "shares_avg": 29.3
     },
     "tse": {
       "currency": "JPY B",
