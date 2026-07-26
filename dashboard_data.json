@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-26T06:36:08Z",
+  "generated_at": "2026-07-26T06:40:59Z",
   "stale_fallback": false,
-  "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-24\n\nThe liquidity hierarchy splits into three clear tiers. NYSE and Nasdaq 100 dominate as tier-one venues, with NYSE posting the lowest ILLIQ cost at 0.0056% per $1M traded despite a wider 0.6445% AR spread, while Nasdaq 100 inverts this profile with superior spread tightness (0.7819% AR spread) but higher absolute price impact (0.0028% per $1M). Tokyo Stock Exchange, Euronext, and SIX Swiss Exchange form a mid-pack cluster, though Tokyo's 2.4596% turnover ratio significantly outpaces its peers—a divergence worth noting given its 0.0339% per $1M ILLIQ cost ranks substantially worse than Euronext's 0.0301% per $1M. Hong Kong, Xetra, and London Stock Exchange occupy a secondary tier with comparable volumes between 5.4M and 9.7M USD and ILLIQ costs between 0.0522% and 0.0798% per $1M. Korea Exchange stands isolated at rank nine, marked by the widest 1.6361% AR spread and highest 0.1463% per $1M ILLIQ cost, though its 0.7144% turnover ratio rivals top-tier exchanges—highlighting a critical structural disparity in execution costs relative to trading activity. For large institutional traders, NYSE and Nasdaq 100 remain the clear choice; mid-market flows should evaluate Tokyo and Euronext carefully given their metric divergences.",
+  "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-24\n\nThe ranking reveals a clear three-tier structure. The US markets dominate: Nasdaq 100 leads decisively with 0.0024% ILLIQ per $1M traded and 0.7711% AR spread, commanding $295.7M comparable volume, while NYSE follows at 0.0057% ILLIQ per $1M with a tighter 0.6278% spread and $193.0M volume. The mid-tier clusters Tokyo (0.0339% ILLIQ per $1M, 2.4596% turnover ratio), Euronext (0.0304% ILLIQ per $1M, $9.8M volume), SIX Swiss (0.0446% ILLIQ per $1M, 0.1640% turnover ratio), and Hong Kong (0.0381% ILLIQ per $1M, 0.6738% spread), each with material institutional presence but fragmented volumes under $43M. The laggard tier—Korea Exchange, Xetra, and London Stock Exchange—shows material stress: Korea's 0.1463% ILLIQ per $1M and 1.6361% spread signal notably poor execution conditions despite modest $17.4M volume, while LSE's 0.0814% ILLIQ per $1M ranks worst among developed markets. Notably, SIX Swiss exhibits the tightest AR spread at 0.5286% yet ranks fifth in ILLIQ, suggesting its liquidity cost concentrates in market depth rather than quoted spreads—a critical distinction for large institutional traders considering execution venues.",
   "news": [
     {
       "title": "Rental searches for pet friendly properties drop after law change",
@@ -66,44 +66,44 @@
   ],
   "tickers": {
     "FTSE": {
-      "price": 10639.2002,
-      "pct": 0.0
+      "price": 10736.2002,
+      "pct": 0.9117
     },
     "DAX": {
-      "price": 24763.1191,
-      "pct": 0.0
+      "price": 25099.0,
+      "pct": 1.3564
     },
     "CAC40": {
-      "price": 8299.0898,
-      "pct": 0.0
+      "price": 8372.2803,
+      "pct": 0.8819
     },
     "SMI": {
-      "price": 14214.9502,
-      "pct": 0.0
+      "price": 14327.2002,
+      "pct": 0.7897
     },
     "SP500": {
-      "price": 7408.2998,
-      "pct": 0.0
+      "price": 7411.98,
+      "pct": 0.0497
     },
     "NDX": {
-      "price": 28454.8105,
-      "pct": 0.0
+      "price": 28128.3398,
+      "pct": -1.1473
     },
     "DJI": {
-      "price": 51711.6484,
-      "pct": 0.0
+      "price": 51947.25,
+      "pct": 0.4556
     },
     "NIKKEI": {
-      "price": 66422.6016,
-      "pct": 0.0
+      "price": 64611.1484,
+      "pct": -2.7272
     },
     "HSI": {
-      "price": 25210.8105,
-      "pct": 0.0
+      "price": 24963.2305,
+      "pct": -0.982
     },
     "KOSPI": {
-      "price": 7096.8901,
-      "pct": 0.0
+      "price": 6690.6201,
+      "pct": -5.7246
     },
     "GBPUSD": {
       "price": 1.3321,
@@ -333,27 +333,90 @@
         "pct": "3.44%"
       },
       {
+        "name": "Automatic Data Processing",
+        "ticker": "ADP",
+        "price": "USD250.09",
+        "change": "+USD7.21",
+        "pct": "2.97%"
+      },
+      {
         "name": "Ross Stores",
         "ticker": "ROST",
         "price": "USD238.89",
         "change": "+USD6.50",
         "pct": "2.80%"
-      },
-      {
-        "name": "Marriott International",
-        "ticker": "MAR",
-        "price": "USD374.43",
-        "change": "+USD9.96",
-        "pct": "2.73%"
       }
     ],
     "nyse": [
       {
-        "name": "Hubbell Incorporated",
-        "ticker": "HUBB",
-        "price": "USD486.09",
-        "change": "USD-2.29",
-        "pct": "-0.47%"
+        "name": "International Paper",
+        "ticker": "IP",
+        "price": "USD42.16",
+        "change": "+USD4.25",
+        "pct": "11.21%"
+      },
+      {
+        "name": "Smurfit Westrock",
+        "ticker": "SW",
+        "price": "USD48.56",
+        "change": "+USD4.85",
+        "pct": "11.10%"
+      },
+      {
+        "name": "Schlumberger",
+        "ticker": "SLB",
+        "price": "USD52.42",
+        "change": "+USD5.20",
+        "pct": "11.01%"
+      },
+      {
+        "name": "Digital Realty",
+        "ticker": "DLR",
+        "price": "USD199.08",
+        "change": "+USD19.74",
+        "pct": "11.01%"
+      },
+      {
+        "name": "Packaging Corporation of America",
+        "ticker": "PKG",
+        "price": "USD254.39",
+        "change": "+USD20.49",
+        "pct": "8.76%"
+      },
+      {
+        "name": "ServiceNow",
+        "ticker": "NOW",
+        "price": "USD98.78",
+        "change": "+USD6.84",
+        "pct": "7.44%"
+      },
+      {
+        "name": "Verisign",
+        "ticker": "VRSN",
+        "price": "USD280.00",
+        "change": "+USD18.42",
+        "pct": "7.04%"
+      },
+      {
+        "name": "GoDaddy",
+        "ticker": "GDDY",
+        "price": "USD93.16",
+        "change": "+USD5.54",
+        "pct": "6.32%"
+      },
+      {
+        "name": "Accenture",
+        "ticker": "ACN",
+        "price": "USD146.99",
+        "change": "+USD8.25",
+        "pct": "5.95%"
+      },
+      {
+        "name": "Verizon",
+        "ticker": "VZ",
+        "price": "USD46.38",
+        "change": "+USD2.56",
+        "pct": "5.84%"
       }
     ],
     "xetra": [
@@ -1366,10 +1429,10 @@
         309.51,
         282.31,
         345.68,
-        273.82
+        295.67
       ],
-      "shares_latest": 1311.3,
-      "shares_avg": 1273.8
+      "shares_latest": 1311.7,
+      "shares_avg": 1273.9
     },
     "nyse": {
       "currency": "USD B",
@@ -1385,10 +1448,10 @@
         206.61,
         200.24,
         222.49,
-        178.34
+        192.99
       ],
-      "shares_latest": 1858.0,
-      "shares_avg": 1930.7
+      "shares_latest": 1876.5,
+      "shares_avg": 1934.4
     },
     "xetra": {
       "currency": "EUR B",
@@ -2053,7 +2116,7 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.003067
+          "illiq": 0.003051
         }
       ],
       "top10_liquid": [
@@ -2278,7 +2341,7 @@
         },
         {
           "date": "2026-07-24",
-          "illiq": 0.007753
+          "illiq": 0.007703
         }
       ],
       "top10_liquid": [
@@ -2370,14 +2433,14 @@
           "illiq": 0.018635
         },
         {
+          "ticker": "IT",
+          "name": "Gartner",
+          "illiq": 0.017362
+        },
+        {
           "ticker": "BAX",
           "name": "Baxter International",
           "illiq": 0.016585
-        },
-        {
-          "ticker": "IT",
-          "name": "Gartner",
-          "illiq": 0.0165
         },
         {
           "ticker": "GDDY",
@@ -2385,7 +2448,7 @@
           "illiq": 0.016457
         }
       ],
-      "marketAvg": 0.005702
+      "marketAvg": 0.00571
     },
     "xetra": {
       "history": [
@@ -4637,7 +4700,7 @@
         },
         {
           "date": "2026-07-24",
-          "avgSpread": 0.6347
+          "avgSpread": 0.6278
         }
       ],
       "top10_tight": [
@@ -4652,19 +4715,24 @@
           "spread": 0.0885
         },
         {
+          "ticker": "REG",
+          "name": "Regency Centers",
+          "spread": 0.0896
+        },
+        {
           "ticker": "HD",
           "name": "Home Depot",
           "spread": 0.1249
         },
         {
-          "ticker": "TMO",
-          "name": "Thermo Fisher Scientific",
-          "spread": 0.1317
-        },
-        {
           "ticker": "DOV",
           "name": "Dover Corporation",
           "spread": 0.1393
+        },
+        {
+          "ticker": "COP",
+          "name": "ConocoPhillips",
+          "spread": 0.1417
         },
         {
           "ticker": "AIZ",
@@ -4677,19 +4745,14 @@
           "spread": 0.1432
         },
         {
+          "ticker": "PG",
+          "name": "Procter & Gamble",
+          "spread": 0.1447
+        },
+        {
           "ticker": "VMC",
           "name": "Vulcan Materials Company",
           "spread": 0.1449
-        },
-        {
-          "ticker": "UNP",
-          "name": "Union Pacific Corporation",
-          "spread": 0.1528
-        },
-        {
-          "ticker": "MSCI",
-          "name": "MSCI Inc.",
-          "spread": 0.163
         }
       ],
       "top10_wide": [
@@ -4721,12 +4784,12 @@
         {
           "ticker": "GDDY",
           "name": "GoDaddy",
-          "spread": 1.7031
+          "spread": 1.7181
         },
         {
           "ticker": "PODD",
           "name": "Insulet Corporation",
-          "spread": 1.6805
+          "spread": 1.6715
         },
         {
           "ticker": "HPQ",
@@ -4744,7 +4807,7 @@
           "spread": 1.5033
         }
       ],
-      "marketAvg": 0.6347
+      "marketAvg": 0.6278
     },
     "xetra": {
       "history": [
@@ -7458,7 +7521,7 @@
       }
     }
   ],
-  "commentary_date": "2026-07-25",
+  "commentary_date": "2026-07-26",
   "turnover_ratio": {
     "lse": {
       "history": [
@@ -8000,7 +8063,7 @@
         },
         {
           "date": "2026-07-24",
-          "ratio": 0.5851
+          "ratio": 0.6303
         }
       ],
       "top10_active": [
@@ -8032,7 +8095,7 @@
         {
           "ticker": "GEV",
           "name": "GE Vernova",
-          "dvol_m": 3154.03
+          "dvol_m": 3130.95
         },
         {
           "ticker": "DELL",
@@ -8911,7 +8974,7 @@
   },
   "_state": {
     "lse_file_num": 1554,
-    "commentary_date": "2026-07-25",
+    "commentary_date": "2026-07-26",
     "commentary_ranking_date": "2026-07-24",
     "universe_refresh_date": "2026-07-16"
   },
@@ -11724,14 +11787,14 @@
         206.612,
         200.238,
         222.492,
-        179.122
+        192.989
       ],
       "value_usd": [
         191.402,
         206.612,
         200.238,
         222.492,
-        179.122
+        192.989
       ],
       "n_universe": 415,
       "shares": [
@@ -11739,10 +11802,10 @@
         1888.4,
         2028.3,
         2133.2,
-        1868.5
+        1876.5
       ],
-      "shares_latest": 1868.5,
-      "shares_avg": 1932.8
+      "shares_latest": 1876.5,
+      "shares_avg": 1934.4
     },
     "xetra": {
       "currency": "EUR B",
