@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T17:10:24Z",
+  "generated_at": "2026-07-27T17:38:15Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary — 2026-07-24\n\nUS exchanges command the liquidity hierarchy, with Nasdaq 100 and NYSE delivering exceptional execution quality: Nasdaq's 0.0024% ILLIQ per $1M traded and 0.7711% AR spread are offset by dominant comparable volume of $295.7M, while NYSE's tighter 0.6278% spread but higher 0.0057% ILLIQ reflects its larger cap-weighted constituents. The Asian tier—Tokyo, Hong Kong, and Korea—shows divergent profiles: TSE ranks third with 2.4565% turnover despite 0.0361% ILLIQ, while Korea Exchange lags sharply at 1.6143% AR spread and 0.1463% ILLIQ despite 0.6994% turnover, signaling execution difficulty despite nominal activity. European venues split cleanly into mid-pack (Euronext at 0.0302% ILLIQ and $9.9M volume) and laggards (SIX Swiss at 0.0444% ILLIQ but only $3.3M volume, and LSE at 0.0812% ILLIQ with the worst 0.7973% spread). Xetra presents an intriguing compression: its 0.6699% AR spread ranks competitively mid-table, yet 0.0525% ILLIQ places it eighth, suggesting microstructure efficiency masks underlying depth constraints. For cross-border execution, liquidity fragmentations across currency zones demand careful venue selection below $10M notional.",
   "news": [
@@ -67,66 +67,66 @@
   "tickers": {
     "FTSE": {
       "price": 10781.75,
-      "pct": 0.0
+      "pct": 0.4243
     },
     "DAX": {
       "price": 25361.0293,
-      "pct": 0.0
+      "pct": 1.044
     },
     "CAC40": {
       "price": 8406.0596,
-      "pct": 0.0
+      "pct": 0.4035
     },
     "SMI": {
       "price": 14421.9697,
-      "pct": 0.0
+      "pct": 0.6615
     },
     "SP500": {
-      "price": 7393.77,
-      "pct": 0.0
+      "price": 7386.6201,
+      "pct": -0.3421
     },
     "NDX": {
-      "price": 27892.377,
-      "pct": 0.0
+      "price": 27854.9258,
+      "pct": -0.972
     },
     "DJI": {
-      "price": 52064.9219,
-      "pct": 0.0
+      "price": 52007.1602,
+      "pct": 0.1153
     },
     "NIKKEI": {
-      "price": 64931.1914,
+      "price": 64611.1484,
       "pct": 0.0
     },
     "HSI": {
-      "price": 25207.1797,
+      "price": 24963.2305,
       "pct": 0.0
     },
     "KOSPI": {
-      "price": 6755.75,
+      "price": 6690.6201,
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3303,
-      "pct": -0.0718
+      "price": 1.3286,
+      "pct": -0.2006
     },
     "EURUSD": {
-      "price": 1.1382,
-      "pct": 0.0433
+      "price": 1.1373,
+      "pct": -0.0364
     },
     "EURGBP": {
-      "price": 0.8554,
-      "pct": 0.0924
+      "price": 0.8558,
+      "pct": 0.1393
     },
     "USDJPY": {
-      "price": 163.652,
-      "pct": -0.1099
+      "price": 163.701,
+      "pct": -0.08
     },
     "GOLD": {
-      "price": 4084.3999,
+      "price": 4077.6001,
       "pct": 0.0
     },
     "OIL": {
-      "price": 82.99,
+      "price": 82.6,
       "pct": 0.0
     }
   },
@@ -279,81 +279,144 @@
       {
         "name": "Shopify",
         "ticker": "SHOP",
-        "price": "USD124.78",
-        "change": "+USD11.03",
-        "pct": "9.70%"
+        "price": "USD125.63",
+        "change": "+USD11.88",
+        "pct": "10.44%"
       },
       {
         "name": "Workday, Inc.",
         "ticker": "WDAY",
-        "price": "USD147.85",
-        "change": "+USD12.51",
-        "pct": "9.25%"
+        "price": "USD149.01",
+        "change": "+USD13.67",
+        "pct": "10.10%"
       },
       {
         "name": "Thomson Reuters",
         "ticker": "TRI",
-        "price": "USD97.25",
-        "change": "+USD7.10",
-        "pct": "7.88%"
+        "price": "USD97.96",
+        "change": "+USD7.81",
+        "pct": "8.67%"
       },
       {
         "name": "Autodesk",
         "ticker": "ADSK",
-        "price": "USD224.20",
-        "change": "+USD14.45",
-        "pct": "6.89%"
-      },
-      {
-        "name": "DoorDash",
-        "ticker": "DASH",
-        "price": "USD184.61",
-        "change": "+USD11.70",
-        "pct": "6.77%"
-      },
-      {
-        "name": "MicroStrategy",
-        "ticker": "MSTR",
-        "price": "USD97.69",
-        "change": "+USD6.03",
-        "pct": "6.57%"
-      },
-      {
-        "name": "Intuitive Surgical",
-        "ticker": "ISRG",
-        "price": "USD358.43",
-        "change": "+USD20.93",
-        "pct": "6.20%"
-      },
-      {
-        "name": "Adobe Inc.",
-        "ticker": "ADBE",
-        "price": "USD238.89",
-        "change": "+USD13.78",
-        "pct": "6.12%"
+        "price": "USD225.72",
+        "change": "+USD15.97",
+        "pct": "7.61%"
       },
       {
         "name": "Palantir Technologies",
         "ticker": "PLTR",
-        "price": "USD130.41",
-        "change": "+USD7.49",
-        "pct": "6.09%"
+        "price": "USD131.86",
+        "change": "+USD8.94",
+        "pct": "7.27%"
+      },
+      {
+        "name": "MicroStrategy",
+        "ticker": "MSTR",
+        "price": "USD98.30",
+        "change": "+USD6.63",
+        "pct": "7.23%"
+      },
+      {
+        "name": "DoorDash",
+        "ticker": "DASH",
+        "price": "USD184.60",
+        "change": "+USD11.69",
+        "pct": "6.76%"
+      },
+      {
+        "name": "Adobe Inc.",
+        "ticker": "ADBE",
+        "price": "USD240.23",
+        "change": "+USD15.12",
+        "pct": "6.71%"
       },
       {
         "name": "Copart",
         "ticker": "CPRT",
-        "price": "USD29.61",
-        "change": "+USD1.67",
-        "pct": "5.99%"
+        "price": "USD29.70",
+        "change": "+USD1.76",
+        "pct": "6.32%"
+      },
+      {
+        "name": "Intuitive Surgical",
+        "ticker": "ISRG",
+        "price": "USD358.58",
+        "change": "+USD21.08",
+        "pct": "6.24%"
       }
     ],
     "nyse": [
       {
-        "name": "Hubbell Incorporated",
-        "ticker": "HUBB",
-        "price": "USD483.32",
-        "change": "USD-2.77",
-        "pct": "-0.57%"
+        "name": "ServiceNow",
+        "ticker": "NOW",
+        "price": "USD107.36",
+        "change": "+USD8.58",
+        "pct": "8.69%"
+      },
+      {
+        "name": "Tyler Technologies",
+        "ticker": "TYL",
+        "price": "USD320.64",
+        "change": "+USD23.49",
+        "pct": "7.90%"
+      },
+      {
+        "name": "Expedia Group",
+        "ticker": "EXPE",
+        "price": "USD279.60",
+        "change": "+USD19.66",
+        "pct": "7.56%"
+      },
+      {
+        "name": "Salesforce",
+        "ticker": "CRM",
+        "price": "USD176.00",
+        "change": "+USD12.34",
+        "pct": "7.54%"
+      },
+      {
+        "name": "Charter Communications",
+        "ticker": "CHTR",
+        "price": "USD132.53",
+        "change": "+USD9.22",
+        "pct": "7.48%"
+      },
+      {
+        "name": "CoStar Group",
+        "ticker": "CSGP",
+        "price": "USD29.72",
+        "change": "+USD2.06",
+        "pct": "7.45%"
+      },
+      {
+        "name": "Gartner",
+        "ticker": "IT",
+        "price": "USD150.64",
+        "change": "+USD10.14",
+        "pct": "7.22%"
+      },
+      {
+        "name": "Tyson Foods",
+        "ticker": "TSN",
+        "price": "USD61.56",
+        "change": "+USD4.10",
+        "pct": "7.15%"
+      },
+      {
+        "name": "Accenture",
+        "ticker": "ACN",
+        "price": "USD156.02",
+        "change": "+USD9.03",
+        "pct": "6.15%"
+      },
+      {
+        "name": "FactSet",
+        "ticker": "FDS",
+        "price": "USD269.83",
+        "change": "+USD15.47",
+        "pct": "6.08%"
       }
     ],
     "xetra": [
@@ -857,62 +920,62 @@
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 4938.3,
-          "price": "USD336.23"
+          "mcap_b": 4937.0,
+          "price": "USD336.14"
         },
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 4746.3,
-          "price": "USD195.96"
-        },
-        {
-          "name": "Alphabet Inc.",
-          "ticker": "GOOG",
-          "mcap_b": 3987.4,
-          "price": "USD326.04"
+          "mcap_b": 4743.9,
+          "price": "USD195.86"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 3987.0,
-          "price": "USD326.00"
+          "mcap_b": 3997.4,
+          "price": "USD326.86"
+        },
+        {
+          "name": "Alphabet Inc.",
+          "ticker": "GOOG",
+          "mcap_b": 3996.6,
+          "price": "USD326.79"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 2904.1,
-          "price": "USD390.94"
+          "mcap_b": 2913.1,
+          "price": "USD392.16"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 2490.7,
-          "price": "USD231.54"
+          "mcap_b": 2491.2,
+          "price": "USD231.59"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1806.3,
-          "price": "USD379.66"
+          "mcap_b": 1803.9,
+          "price": "USD379.17"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
-          "mcap_b": 1514.0,
-          "price": "USD596.43"
+          "mcap_b": 1515.5,
+          "price": "USD597.04"
         },
         {
           "name": "SpaceX",
           "ticker": "SPCX",
-          "mcap_b": 1447.3,
-          "price": "USD109.86"
+          "mcap_b": 1447.2,
+          "price": "USD109.85"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1212.7,
-          "price": "USD307.06"
+          "mcap_b": 1216.7,
+          "price": "USD308.06"
         }
       ]
     },
