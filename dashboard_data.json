@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T23:43:35Z",
+  "generated_at": "2026-07-28T00:08:00Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary — 2026-07-24\n\nUS exchanges command the liquidity hierarchy, with Nasdaq 100 and NYSE delivering exceptional execution quality: Nasdaq's 0.0024% ILLIQ per $1M traded and 0.7711% AR spread are offset by dominant comparable volume of $295.7M, while NYSE's tighter 0.6278% spread but higher 0.0057% ILLIQ reflects its larger cap-weighted constituents. The Asian tier—Tokyo, Hong Kong, and Korea—shows divergent profiles: TSE ranks third with 2.4565% turnover despite 0.0361% ILLIQ, while Korea Exchange lags sharply at 1.6143% AR spread and 0.1463% ILLIQ despite 0.6994% turnover, signaling execution difficulty despite nominal activity. European venues split cleanly into mid-pack (Euronext at 0.0302% ILLIQ and $9.9M volume) and laggards (SIX Swiss at 0.0444% ILLIQ but only $3.3M volume, and LSE at 0.0812% ILLIQ with the worst 0.7973% spread). Xetra presents an intriguing compression: its 0.6699% AR spread ranks competitively mid-table, yet 0.0525% ILLIQ places it eighth, suggesting microstructure efficiency masks underlying depth constraints. For cross-border execution, liquidity fragmentations across currency zones demand careful venue selection below $10M notional.",
   "news": [
@@ -66,39 +66,39 @@
   ],
   "tickers": {
     "FTSE": {
-      "price": 10781.75,
+      "price": 10736.2002,
       "pct": 0.0
     },
     "DAX": {
-      "price": 25361.0293,
+      "price": 25099.0,
       "pct": 0.0
     },
     "CAC40": {
-      "price": 8406.0596,
+      "price": 8372.2803,
       "pct": 0.0
     },
     "SMI": {
-      "price": 14421.9697,
+      "price": 14327.2002,
       "pct": 0.0
     },
     "SP500": {
       "price": 7413.1802,
-      "pct": 0.0
+      "pct": 0.0162
     },
     "NDX": {
       "price": 28039.2109,
-      "pct": 0.0
+      "pct": -0.3169
     },
     "DJI": {
       "price": 52210.0781,
-      "pct": 0.0
+      "pct": 0.506
     },
     "NIKKEI": {
       "price": 64931.1914,
       "pct": 0.0
     },
     "HSI": {
-      "price": 25207.1797,
+      "price": 24963.2305,
       "pct": 0.0
     },
     "KOSPI": {
@@ -107,26 +107,26 @@
     },
     "GBPUSD": {
       "price": 1.329,
-      "pct": -0.4612
+      "pct": -0.4625
     },
     "EURUSD": {
-      "price": 1.1374,
-      "pct": -0.1843
+      "price": 1.1371,
+      "pct": -0.207
     },
     "EURGBP": {
       "price": 0.8555,
-      "pct": 0.2425
+      "pct": 0.2355
     },
     "USDJPY": {
-      "price": 163.729,
-      "pct": 0.0721
+      "price": 163.796,
+      "pct": 0.1131
     },
     "GOLD": {
-      "price": 4075.2,
+      "price": 4072.8999,
       "pct": 0.0
     },
     "OIL": {
-      "price": 82.07,
+      "price": 82.11,
       "pct": 0.0
     }
   },
@@ -314,11 +314,74 @@
     ],
     "nyse": [
       {
-        "name": "Hubbell Incorporated",
-        "ticker": "HUBB",
-        "price": "USD497.96",
-        "change": "+USD11.87",
-        "pct": "2.44%"
+        "name": "Expedia Group",
+        "ticker": "EXPE",
+        "price": "USD278.37",
+        "change": "+USD18.43",
+        "pct": "7.09%"
+      },
+      {
+        "name": "ServiceNow",
+        "ticker": "NOW",
+        "price": "USD105.56",
+        "change": "+USD6.78",
+        "pct": "6.86%"
+      },
+      {
+        "name": "Charter Communications",
+        "ticker": "CHTR",
+        "price": "USD131.61",
+        "change": "+USD8.30",
+        "pct": "6.73%"
+      },
+      {
+        "name": "Tyler Technologies",
+        "ticker": "TYL",
+        "price": "USD315.88",
+        "change": "+USD18.73",
+        "pct": "6.30%"
+      },
+      {
+        "name": "Salesforce",
+        "ticker": "CRM",
+        "price": "USD173.60",
+        "change": "+USD9.94",
+        "pct": "6.07%"
+      },
+      {
+        "name": "Carvana",
+        "ticker": "CVNA",
+        "price": "USD64.04",
+        "change": "+USD3.58",
+        "pct": "5.92%"
+      },
+      {
+        "name": "Coinbase",
+        "ticker": "COIN",
+        "price": "USD167.49",
+        "change": "+USD9.20",
+        "pct": "5.81%"
+      },
+      {
+        "name": "Tyson Foods",
+        "ticker": "TSN",
+        "price": "USD60.71",
+        "change": "+USD3.26",
+        "pct": "5.67%"
+      },
+      {
+        "name": "PTC Inc.",
+        "ticker": "PTC",
+        "price": "USD125.21",
+        "change": "+USD6.69",
+        "pct": "5.64%"
+      },
+      {
+        "name": "CoStar Group",
+        "ticker": "CSGP",
+        "price": "USD29.17",
+        "change": "+USD1.51",
+        "pct": "5.46%"
       }
     ],
     "xetra": [
@@ -663,7 +726,7 @@
   },
   "market_cap": {
     "lse": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "GBP",
       "top10": [
         {
@@ -729,7 +792,7 @@
       ]
     },
     "enx": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "EUR",
       "top10": [
         {
@@ -795,7 +858,7 @@
       ]
     },
     "ndx": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "USD",
       "top10": [
         {
@@ -927,7 +990,7 @@
       ]
     },
     "xetra": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "EUR",
       "top10": [
         {
@@ -993,7 +1056,7 @@
       ]
     },
     "six": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "CHF",
       "top10": [
         {
@@ -1059,7 +1122,7 @@
       ]
     },
     "tse": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "JPY",
       "top10": [
         {
@@ -1125,7 +1188,7 @@
       ]
     },
     "hkg": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "HKD",
       "top10": [
         {
@@ -1191,7 +1254,7 @@
       ]
     },
     "krx": {
-      "date": "2026-07-27",
+      "date": "2026-07-28",
       "currency": "KRW",
       "top10": [
         {
