@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T19:37:50Z",
+  "generated_at": "2026-07-29T20:11:33Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits cleanly into three tiers. Nasdaq 100 and NYSE dominate, combining exceptionally low ILLIQ scores (0.0025% and 0.0059% per $1M traded respectively) with deep comparable volumes ($350.9M and $233.0M). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange occupy the mid-pack, each posting ILLIQ below 0.040% per $1M traded and meaningful turnover ratios between 0.4% and 2.8%, though volume tapers sharply to $45.1M or below. The laggard tier—Xetra, SIX Swiss Exchange, Korea Exchange, and London Stock Exchange—shows material degradation. Korea Exchange stands out as notably illiquid at 0.1522% per $1M traded with a 1.5537% AR spread, yet paradoxically maintains a respectable 1.1001% turnover ratio, suggesting concentrated trading in a limited set of names. London Stock Exchange similarly diverges: a poor 0.0815% ILLIQ and 0.8232% spread despite lower turnover (0.5316%), indicating execution costs rise disproportionately to activity. SIX Swiss Exchange presents the opposite profile—tightest AR spread at 0.5292% but middling ILLIQ and minimal $4.0M comparable volume—a signal that spreads compress only at modest scale.",
   "news": [
@@ -82,16 +82,16 @@
       "pct": -0.5849
     },
     "SP500": {
-      "price": 7379.3599,
-      "pct": -0.6652
+      "price": 7316.3999,
+      "pct": -1.5128
     },
     "NDX": {
-      "price": 27599.627,
-      "pct": -0.5889
+      "price": 27192.3066,
+      "pct": -2.0561
     },
     "DJI": {
-      "price": 51854.9219,
-      "pct": -1.6918
+      "price": 51594.8594,
+      "pct": -2.1849
     },
     "NIKKEI": {
       "price": 62364.9219,
@@ -106,28 +106,28 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3358,
-      "pct": 0.5156
+      "price": 1.3346,
+      "pct": 0.4204
     },
     "EURUSD": {
-      "price": 1.1455,
-      "pct": 0.7503
+      "price": 1.1451,
+      "pct": 0.7157
     },
     "EURGBP": {
-      "price": 0.8554,
-      "pct": 0.0
+      "price": 0.8577,
+      "pct": 0.2677
     },
     "USDJPY": {
-      "price": 163.771,
-      "pct": 0.0
+      "price": 163.485,
+      "pct": -0.1746
     },
     "GOLD": {
-      "price": 4152.0,
-      "pct": 2.8665
+      "price": 4128.2002,
+      "pct": 2.2768
     },
     "OIL": {
-      "price": 84.29,
-      "pct": 6.3462
+      "price": 84.91,
+      "pct": 7.1284
     }
   },
   "gainers": {
@@ -279,144 +279,144 @@
       {
         "name": "GE HealthCare",
         "ticker": "GEHC",
-        "price": "USD70.66",
-        "change": "+USD6.55",
-        "pct": "10.22%"
-      },
-      {
-        "name": "Datadog",
-        "ticker": "DDOG",
-        "price": "USD269.98",
-        "change": "+USD19.10",
-        "pct": "7.61%"
+        "price": "USD71.90",
+        "change": "+USD7.79",
+        "pct": "12.15%"
       },
       {
         "name": "Intuit",
         "ticker": "INTU",
-        "price": "USD334.91",
-        "change": "+USD21.92",
-        "pct": "7.00%"
-      },
-      {
-        "name": "Workday, Inc.",
-        "ticker": "WDAY",
-        "price": "USD169.35",
-        "change": "+USD9.66",
-        "pct": "6.05%"
+        "price": "USD333.13",
+        "change": "+USD20.14",
+        "pct": "6.43%"
       },
       {
         "name": "Adobe Inc.",
         "ticker": "ADBE",
-        "price": "USD264.04",
-        "change": "+USD14.86",
-        "pct": "5.96%"
+        "price": "USD263.43",
+        "change": "+USD14.25",
+        "pct": "5.72%"
       },
       {
-        "name": "Seagate Technology",
-        "ticker": "STX",
-        "price": "USD790.24",
-        "change": "+USD42.94",
-        "pct": "5.75%"
+        "name": "Datadog",
+        "ticker": "DDOG",
+        "price": "USD264.20",
+        "change": "+USD13.32",
+        "pct": "5.31%"
+      },
+      {
+        "name": "Workday, Inc.",
+        "ticker": "WDAY",
+        "price": "USD168.01",
+        "change": "+USD8.32",
+        "pct": "5.21%"
       },
       {
         "name": "Diamondback Energy",
         "ticker": "FANG",
-        "price": "USD198.72",
-        "change": "+USD8.41",
-        "pct": "4.42%"
-      },
-      {
-        "name": "Automatic Data Processing",
-        "ticker": "ADP",
-        "price": "USD275.68",
-        "change": "+USD11.51",
-        "pct": "4.36%"
-      },
-      {
-        "name": "Teradyne",
-        "ticker": "TER",
-        "price": "USD334.14",
-        "change": "+USD13.49",
-        "pct": "4.21%"
+        "price": "USD199.13",
+        "change": "+USD8.82",
+        "pct": "4.63%"
       },
       {
         "name": "Roper Technologies",
         "ticker": "ROP",
-        "price": "USD407.15",
-        "change": "+USD16.23",
-        "pct": "4.15%"
+        "price": "USD408.07",
+        "change": "+USD17.15",
+        "pct": "4.39%"
+      },
+      {
+        "name": "Mondelez International",
+        "ticker": "MDLZ",
+        "price": "USD64.99",
+        "change": "+USD2.51",
+        "pct": "4.02%"
+      },
+      {
+        "name": "Automatic Data Processing",
+        "ticker": "ADP",
+        "price": "USD273.37",
+        "change": "+USD9.20",
+        "pct": "3.48%"
+      },
+      {
+        "name": "Autodesk",
+        "ticker": "ADSK",
+        "price": "USD245.25",
+        "change": "+USD7.87",
+        "pct": "3.32%"
       }
     ],
     "nyse": [
       {
         "name": "Garmin",
         "ticker": "GRMN",
-        "price": "USD298.00",
-        "change": "+USD44.35",
-        "pct": "17.48%"
+        "price": "USD294.87",
+        "change": "+USD41.22",
+        "pct": "16.25%"
       },
       {
         "name": "Cognizant",
         "ticker": "CTSH",
-        "price": "USD56.53",
-        "change": "+USD6.22",
-        "pct": "12.36%"
+        "price": "USD55.97",
+        "change": "+USD5.66",
+        "pct": "11.25%"
+      },
+      {
+        "name": "SBA Communications",
+        "ticker": "SBAC",
+        "price": "USD186.29",
+        "change": "+USD11.36",
+        "pct": "6.49%"
       },
       {
         "name": "Gartner",
         "ticker": "IT",
-        "price": "USD166.90",
-        "change": "+USD11.06",
-        "pct": "7.10%"
-      },
-      {
-        "name": "Accenture",
-        "ticker": "ACN",
-        "price": "USD174.41",
-        "change": "+USD9.75",
-        "pct": "5.92%"
-      },
-      {
-        "name": "ServiceNow",
-        "ticker": "NOW",
-        "price": "USD116.96",
-        "change": "+USD6.34",
-        "pct": "5.74%"
+        "price": "USD165.78",
+        "change": "+USD9.94",
+        "pct": "6.38%"
       },
       {
         "name": "Dow Inc.",
         "ticker": "DOW",
-        "price": "USD30.43",
-        "change": "+USD1.58",
-        "pct": "5.49%"
+        "price": "USD30.47",
+        "change": "+USD1.62",
+        "pct": "5.62%"
       },
       {
-        "name": "Amphenol",
-        "ticker": "APH",
-        "price": "USD151.16",
-        "change": "+USD7.31",
-        "pct": "5.09%"
-      },
-      {
-        "name": "BXP, Inc.",
-        "ticker": "BXP",
-        "price": "USD73.51",
-        "change": "+USD3.56",
-        "pct": "5.08%"
+        "name": "Accenture",
+        "ticker": "ACN",
+        "price": "USD173.22",
+        "change": "+USD8.56",
+        "pct": "5.20%"
       },
       {
         "name": "APA Corporation",
         "ticker": "APA",
-        "price": "USD36.58",
-        "change": "+USD1.65",
-        "pct": "4.72%"
+        "price": "USD36.70",
+        "change": "+USD1.77",
+        "pct": "5.07%"
       },
       {
-        "name": "Expand Energy",
-        "ticker": "EXE",
-        "price": "USD92.62",
-        "change": "+USD4.11",
-        "pct": "4.64%"
+        "name": "ServiceNow",
+        "ticker": "NOW",
+        "price": "USD115.80",
+        "change": "+USD5.18",
+        "pct": "4.68%"
+      },
+      {
+        "name": "American Tower",
+        "ticker": "AMT",
+        "price": "USD179.30",
+        "change": "+USD7.80",
+        "pct": "4.55%"
+      },
+      {
+        "name": "Amphenol",
+        "ticker": "APH",
+        "price": "USD150.37",
+        "change": "+USD6.52",
+        "pct": "4.53%"
       }
     ],
     "xetra": [
@@ -920,62 +920,62 @@
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 5013.3,
-          "price": "USD341.33"
+          "mcap_b": 4967.1,
+          "price": "USD338.19"
         },
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 4675.5,
-          "price": "USD193.04"
+          "mcap_b": 4602.2,
+          "price": "USD190.01"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 4119.1,
-          "price": "USD336.80"
+          "mcap_b": 4117.9,
+          "price": "USD336.71"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOG",
-          "mcap_b": 4115.4,
-          "price": "USD336.50"
+          "mcap_b": 4106.3,
+          "price": "USD335.76"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 2942.3,
-          "price": "USD396.08"
+          "mcap_b": 2901.1,
+          "price": "USD390.54"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 2468.3,
-          "price": "USD229.46"
+          "mcap_b": 2438.1,
+          "price": "USD226.65"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1805.3,
-          "price": "USD379.45"
+          "mcap_b": 1761.8,
+          "price": "USD370.32"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
-          "mcap_b": 1495.3,
-          "price": "USD589.07"
+          "mcap_b": 1486.5,
+          "price": "USD585.61"
         },
         {
           "name": "SpaceX",
           "ticker": "SPCX",
-          "mcap_b": 1480.1,
-          "price": "USD112.35"
+          "mcap_b": 1482.8,
+          "price": "USD112.55"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1192.3,
-          "price": "USD301.89"
+          "mcap_b": 1178.2,
+          "price": "USD298.32"
         }
       ]
     },
