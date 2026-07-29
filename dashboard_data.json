@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T20:11:33Z",
+  "generated_at": "2026-07-29T20:38:14Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits cleanly into three tiers. Nasdaq 100 and NYSE dominate, combining exceptionally low ILLIQ scores (0.0025% and 0.0059% per $1M traded respectively) with deep comparable volumes ($350.9M and $233.0M). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange occupy the mid-pack, each posting ILLIQ below 0.040% per $1M traded and meaningful turnover ratios between 0.4% and 2.8%, though volume tapers sharply to $45.1M or below. The laggard tier—Xetra, SIX Swiss Exchange, Korea Exchange, and London Stock Exchange—shows material degradation. Korea Exchange stands out as notably illiquid at 0.1522% per $1M traded with a 1.5537% AR spread, yet paradoxically maintains a respectable 1.1001% turnover ratio, suggesting concentrated trading in a limited set of names. London Stock Exchange similarly diverges: a poor 0.0815% ILLIQ and 0.8232% spread despite lower turnover (0.5316%), indicating execution costs rise disproportionately to activity. SIX Swiss Exchange presents the opposite profile—tightest AR spread at 0.5292% but middling ILLIQ and minimal $4.0M comparable volume—a signal that spreads compress only at modest scale.",
   "news": [
@@ -82,16 +82,16 @@
       "pct": -0.5849
     },
     "SP500": {
-      "price": 7316.3999,
-      "pct": -1.5128
+      "price": 7316.1499,
+      "pct": -1.5161
     },
     "NDX": {
       "price": 27192.3066,
       "pct": -2.0561
     },
     "DJI": {
-      "price": 51594.8594,
-      "pct": -2.1849
+      "price": 51594.1406,
+      "pct": -2.1862
     },
     "NIKKEI": {
       "price": 62364.9219,
@@ -107,27 +107,27 @@
     },
     "GBPUSD": {
       "price": 1.3346,
-      "pct": 0.4204
+      "pct": 0.4231
     },
     "EURUSD": {
-      "price": 1.1451,
-      "pct": 0.7157
+      "price": 1.1459,
+      "pct": 0.7849
     },
     "EURGBP": {
-      "price": 0.8577,
-      "pct": 0.2677
+      "price": 0.8584,
+      "pct": 0.3472
     },
     "USDJPY": {
-      "price": 163.485,
-      "pct": -0.1746
+      "price": 163.538,
+      "pct": -0.1423
     },
     "GOLD": {
-      "price": 4128.2002,
-      "pct": 2.2768
+      "price": 4104.2998,
+      "pct": 1.6847
     },
     "OIL": {
-      "price": 84.91,
-      "pct": 7.1284
+      "price": 84.78,
+      "pct": 6.9644
     }
   },
   "gainers": {
@@ -351,9 +351,9 @@
       {
         "name": "Garmin",
         "ticker": "GRMN",
-        "price": "USD294.87",
-        "change": "+USD41.22",
-        "pct": "16.25%"
+        "price": "USD294.83",
+        "change": "+USD41.18",
+        "pct": "16.23%"
       },
       {
         "name": "Cognizant",
@@ -372,23 +372,23 @@
       {
         "name": "Gartner",
         "ticker": "IT",
-        "price": "USD165.78",
-        "change": "+USD9.94",
-        "pct": "6.38%"
+        "price": "USD165.65",
+        "change": "+USD9.81",
+        "pct": "6.29%"
       },
       {
         "name": "Dow Inc.",
         "ticker": "DOW",
-        "price": "USD30.47",
-        "change": "+USD1.62",
-        "pct": "5.62%"
+        "price": "USD30.45",
+        "change": "+USD1.60",
+        "pct": "5.55%"
       },
       {
         "name": "Accenture",
         "ticker": "ACN",
-        "price": "USD173.22",
-        "change": "+USD8.56",
-        "pct": "5.20%"
+        "price": "USD173.17",
+        "change": "+USD8.51",
+        "pct": "5.17%"
       },
       {
         "name": "APA Corporation",
@@ -400,23 +400,23 @@
       {
         "name": "ServiceNow",
         "ticker": "NOW",
-        "price": "USD115.80",
-        "change": "+USD5.18",
-        "pct": "4.68%"
+        "price": "USD115.76",
+        "change": "+USD5.14",
+        "pct": "4.65%"
       },
       {
         "name": "American Tower",
         "ticker": "AMT",
-        "price": "USD179.30",
-        "change": "+USD7.80",
-        "pct": "4.55%"
+        "price": "USD179.26",
+        "change": "+USD7.76",
+        "pct": "4.52%"
       },
       {
-        "name": "Amphenol",
-        "ticker": "APH",
-        "price": "USD150.37",
-        "change": "+USD6.52",
-        "pct": "4.53%"
+        "name": "EOG Resources",
+        "ticker": "EOG",
+        "price": "USD145.94",
+        "change": "+USD6.30",
+        "pct": "4.51%"
       }
     ],
     "xetra": [
