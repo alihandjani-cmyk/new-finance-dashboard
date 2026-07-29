@@ -1,8 +1,14 @@
 {
-  "generated_at": "2026-07-29T18:09:11Z",
+  "generated_at": "2026-07-29T18:43:12Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits cleanly into three tiers. Nasdaq 100 and NYSE dominate, combining exceptionally low ILLIQ scores (0.0025% and 0.0059% per $1M traded respectively) with deep comparable volumes ($350.9M and $233.0M). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange occupy the mid-pack, each posting ILLIQ below 0.040% per $1M traded and meaningful turnover ratios between 0.4% and 2.8%, though volume tapers sharply to $45.1M or below. The laggard tier—Xetra, SIX Swiss Exchange, Korea Exchange, and London Stock Exchange—shows material degradation. Korea Exchange stands out as notably illiquid at 0.1522% per $1M traded with a 1.5537% AR spread, yet paradoxically maintains a respectable 1.1001% turnover ratio, suggesting concentrated trading in a limited set of names. London Stock Exchange similarly diverges: a poor 0.0815% ILLIQ and 0.8232% spread despite lower turnover (0.5316%), indicating execution costs rise disproportionately to activity. SIX Swiss Exchange presents the opposite profile—tightest AR spread at 0.5292% but middling ILLIQ and minimal $4.0M comparable volume—a signal that spreads compress only at modest scale.",
   "news": [
+    {
+      "title": "US interest rates held for fifth time in a row",
+      "link": "https://www.bbc.co.uk/news/articles/cy07wgqjv08o?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 29 Jul 2026 18:14:46 GMT",
+      "source": "BBC Business"
+    },
     {
       "title": "Some tech shares are plunging - what does that mean for the AI revolution?",
       "link": "https://www.bbc.co.uk/news/articles/cevm09wkgz0o?at_medium=RSS&at_campaign=rss",
@@ -28,15 +34,15 @@
       "source": "BBC Business"
     },
     {
-      "title": "Data centres could pay hundreds of millions in deposits for power demands",
-      "link": "https://www.bbc.co.uk/news/articles/c9q90q9qnn2o?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Wed, 29 Jul 2026 11:35:35 GMT",
-      "source": "BBC Business"
-    },
-    {
       "title": "'Don't wait until you want revenge' - why prenups are on the rise",
       "link": "https://www.bbc.co.uk/news/articles/cgmkgvy3lv4o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 28 Jul 2026 23:00:07 GMT",
+      "source": "BBC Business"
+    },
+    {
+      "title": "Data centres could pay hundreds of millions in deposits for power demands",
+      "link": "https://www.bbc.co.uk/news/articles/c9q90q9qnn2o?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 29 Jul 2026 11:35:35 GMT",
       "source": "BBC Business"
     },
     {
@@ -56,78 +62,72 @@
       "link": "https://www.bbc.co.uk/news/articles/c2el319vzr3o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Wed, 29 Jul 2026 08:49:27 GMT",
       "source": "BBC Business"
-    },
-    {
-      "title": "Burnham has no scope to increase borrowing, think tank warns",
-      "link": "https://www.bbc.co.uk/news/articles/c62ev62381mo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Tue, 28 Jul 2026 23:00:12 GMT",
-      "source": "BBC Business"
     }
   ],
   "tickers": {
     "FTSE": {
       "price": 10908.4102,
-      "pct": 0.0
+      "pct": 0.3441
     },
     "DAX": {
       "price": 25460.4805,
-      "pct": 0.0
+      "pct": -0.0139
     },
     "CAC40": {
       "price": 8408.2695,
-      "pct": 0.0
+      "pct": -0.5971
     },
     "SMI": {
       "price": 14486.0996,
-      "pct": 0.0
+      "pct": -0.5849
     },
     "SP500": {
-      "price": 7410.6401,
-      "pct": 0.0
+      "price": 7389.0,
+      "pct": -0.5355
     },
     "NDX": {
-      "price": 27689.8926,
-      "pct": 0.0
+      "price": 27606.6992,
+      "pct": -0.5635
     },
     "DJI": {
-      "price": 52128.8594,
-      "pct": 0.0
+      "price": 51906.7617,
+      "pct": -1.5936
     },
     "NIKKEI": {
-      "price": 61434.1914,
+      "price": 62364.9219,
       "pct": 0.0
     },
     "HSI": {
-      "price": 25807.9199,
+      "price": 25310.8496,
       "pct": 0.0
     },
     "KOSPI": {
-      "price": 5663.2402,
+      "price": 6023.6602,
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3325,
-      "pct": 0.2625
+      "price": 1.3318,
+      "pct": 0.2078
     },
     "EURUSD": {
-      "price": 1.1418,
-      "pct": 0.4282
+      "price": 1.1414,
+      "pct": 0.3938
     },
     "EURGBP": {
       "price": 0.8554,
       "pct": 0.0
     },
     "USDJPY": {
-      "price": 163.533,
-      "pct": -0.1453
+      "price": 163.602,
+      "pct": -0.1032
     },
     "GOLD": {
-      "price": 4104.2998,
-      "pct": 1.6847
+      "price": 4130.7998,
+      "pct": 2.3412
     },
     "OIL": {
-      "price": 84.56,
-      "pct": 6.6868
+      "price": 84.71,
+      "pct": 6.8761
     }
   },
   "gainers": {
@@ -279,81 +279,144 @@
       {
         "name": "GE HealthCare",
         "ticker": "GEHC",
-        "price": "USD71.42",
-        "change": "+USD7.31",
-        "pct": "11.39%"
-      },
-      {
-        "name": "Seagate Technology",
-        "ticker": "STX",
-        "price": "USD794.18",
-        "change": "+USD46.88",
-        "pct": "6.27%"
+        "price": "USD70.80",
+        "change": "+USD6.69",
+        "pct": "10.44%"
       },
       {
         "name": "Datadog",
         "ticker": "DDOG",
-        "price": "USD265.12",
-        "change": "+USD14.24",
-        "pct": "5.68%"
-      },
-      {
-        "name": "Teradyne",
-        "ticker": "TER",
-        "price": "USD338.33",
-        "change": "+USD17.68",
-        "pct": "5.51%"
-      },
-      {
-        "name": "Workday, Inc.",
-        "ticker": "WDAY",
-        "price": "USD168.44",
-        "change": "+USD8.75",
-        "pct": "5.48%"
+        "price": "USD269.53",
+        "change": "+USD18.65",
+        "pct": "7.43%"
       },
       {
         "name": "Intuit",
         "ticker": "INTU",
-        "price": "USD329.78",
-        "change": "+USD16.79",
-        "pct": "5.36%"
+        "price": "USD335.98",
+        "change": "+USD22.99",
+        "pct": "7.35%"
       },
       {
         "name": "Adobe Inc.",
         "ticker": "ADBE",
-        "price": "USD262.49",
-        "change": "+USD13.31",
-        "pct": "5.34%"
+        "price": "USD264.84",
+        "change": "+USD15.66",
+        "pct": "6.28%"
       },
       {
         "name": "Automatic Data Processing",
         "ticker": "ADP",
-        "price": "USD277.85",
-        "change": "+USD13.68",
-        "pct": "5.18%"
+        "price": "USD276.65",
+        "change": "+USD12.48",
+        "pct": "4.72%"
+      },
+      {
+        "name": "Autodesk",
+        "ticker": "ADSK",
+        "price": "USD248.57",
+        "change": "+USD11.19",
+        "pct": "4.71%"
+      },
+      {
+        "name": "Roper Technologies",
+        "ticker": "ROP",
+        "price": "USD408.61",
+        "change": "+USD17.69",
+        "pct": "4.53%"
+      },
+      {
+        "name": "Teradyne",
+        "ticker": "TER",
+        "price": "USD334.96",
+        "change": "+USD14.32",
+        "pct": "4.46%"
       },
       {
         "name": "Diamondback Energy",
         "ticker": "FANG",
-        "price": "USD198.68",
-        "change": "+USD8.38",
-        "pct": "4.40%"
+        "price": "USD198.65",
+        "change": "+USD8.34",
+        "pct": "4.38%"
       },
       {
         "name": "Mondelez International",
         "ticker": "MDLZ",
-        "price": "USD65.14",
-        "change": "+USD2.66",
-        "pct": "4.26%"
+        "price": "USD65.17",
+        "change": "+USD2.69",
+        "pct": "4.31%"
       }
     ],
     "nyse": [
       {
-        "name": "Hubbell Incorporated",
-        "ticker": "HUBB",
-        "price": "USD463.27",
-        "change": "USD-20.39",
-        "pct": "-4.22%"
+        "name": "Garmin",
+        "ticker": "GRMN",
+        "price": "USD297.90",
+        "change": "+USD44.25",
+        "pct": "17.45%"
+      },
+      {
+        "name": "Cognizant",
+        "ticker": "CTSH",
+        "price": "USD56.87",
+        "change": "+USD6.56",
+        "pct": "13.04%"
+      },
+      {
+        "name": "Gartner",
+        "ticker": "IT",
+        "price": "USD166.59",
+        "change": "+USD10.75",
+        "pct": "6.89%"
+      },
+      {
+        "name": "BXP, Inc.",
+        "ticker": "BXP",
+        "price": "USD74.41",
+        "change": "+USD4.45",
+        "pct": "6.36%"
+      },
+      {
+        "name": "Accenture",
+        "ticker": "ACN",
+        "price": "USD174.76",
+        "change": "+USD10.10",
+        "pct": "6.14%"
+      },
+      {
+        "name": "Dow Inc.",
+        "ticker": "DOW",
+        "price": "USD30.60",
+        "change": "+USD1.75",
+        "pct": "6.08%"
+      },
+      {
+        "name": "ServiceNow",
+        "ticker": "NOW",
+        "price": "USD117.14",
+        "change": "+USD6.52",
+        "pct": "5.89%"
+      },
+      {
+        "name": "Fair Isaac",
+        "ticker": "FICO",
+        "price": "USD1402.07",
+        "change": "+USD65.85",
+        "pct": "4.93%"
+      },
+      {
+        "name": "Expand Energy",
+        "ticker": "EXE",
+        "price": "USD92.76",
+        "change": "+USD4.24",
+        "pct": "4.79%"
+      },
+      {
+        "name": "Expedia Group",
+        "ticker": "EXPE",
+        "price": "USD309.89",
+        "change": "+USD14.10",
+        "pct": "4.77%"
       }
     ],
     "xetra": [
@@ -857,62 +920,62 @@
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 5050.7,
-          "price": "USD343.88"
+          "mcap_b": 5042.2,
+          "price": "USD343.30"
         },
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 4684.6,
-          "price": "USD193.41"
+          "mcap_b": 4676.1,
+          "price": "USD193.06"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 4162.6,
-          "price": "USD340.36"
+          "mcap_b": 4155.4,
+          "price": "USD339.77"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOG",
-          "mcap_b": 4151.0,
-          "price": "USD339.41"
+          "mcap_b": 4145.8,
+          "price": "USD338.99"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 2954.0,
-          "price": "USD397.66"
+          "mcap_b": 2958.7,
+          "price": "USD398.30"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 2496.2,
-          "price": "USD232.05"
+          "mcap_b": 2487.6,
+          "price": "USD231.25"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1810.3,
-          "price": "USD380.51"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": "SPCX",
-          "mcap_b": 1538.4,
-          "price": "USD116.77"
+          "mcap_b": 1793.1,
+          "price": "USD376.89"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
-          "mcap_b": 1514.8,
-          "price": "USD596.73"
+          "mcap_b": 1508.5,
+          "price": "USD594.27"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": "SPCX",
+          "mcap_b": 1507.9,
+          "price": "USD114.46"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1203.0,
-          "price": "USD304.59"
+          "mcap_b": 1193.6,
+          "price": "USD302.21"
         }
       ]
     },
