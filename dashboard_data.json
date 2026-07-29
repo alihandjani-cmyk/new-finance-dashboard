@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T16:12:26Z",
+  "generated_at": "2026-07-29T16:37:43Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits cleanly into three tiers. Nasdaq 100 and NYSE dominate, combining exceptionally low ILLIQ scores (0.0025% and 0.0059% per $1M traded respectively) with deep comparable volumes ($350.9M and $233.0M). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange occupy the mid-pack, each posting ILLIQ below 0.040% per $1M traded and meaningful turnover ratios between 0.4% and 2.8%, though volume tapers sharply to $45.1M or below. The laggard tier—Xetra, SIX Swiss Exchange, Korea Exchange, and London Stock Exchange—shows material degradation. Korea Exchange stands out as notably illiquid at 0.1522% per $1M traded with a 1.5537% AR spread, yet paradoxically maintains a respectable 1.1001% turnover ratio, suggesting concentrated trading in a limited set of names. London Stock Exchange similarly diverges: a poor 0.0815% ILLIQ and 0.8232% spread despite lower turnover (0.5316%), indicating execution costs rise disproportionately to activity. SIX Swiss Exchange presents the opposite profile—tightest AR spread at 0.5292% but middling ILLIQ and minimal $4.0M comparable volume—a signal that spreads compress only at modest scale.",
   "news": [
@@ -82,16 +82,16 @@
       "pct": -0.5849
     },
     "SP500": {
-      "price": 7357.0898,
-      "pct": -0.965
+      "price": 7365.3599,
+      "pct": -0.8537
     },
     "NDX": {
-      "price": 27348.3105,
-      "pct": -1.4941
+      "price": 27434.5586,
+      "pct": -1.1835
     },
     "DJI": {
-      "price": 51864.4609,
-      "pct": -1.6738
+      "price": 51906.8086,
+      "pct": -1.5935
     },
     "NIKKEI": {
       "price": 62364.9219,
@@ -106,8 +106,8 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3287,
-      "pct": -0.0226
+      "price": 1.3286,
+      "pct": -0.0332
     },
     "EURUSD": {
       "price": 1.1386,
@@ -115,19 +115,19 @@
     },
     "EURGBP": {
       "price": 0.8567,
-      "pct": 0.1473
+      "pct": 0.1496
     },
     "USDJPY": {
-      "price": 163.771,
-      "pct": 0.0
+      "price": 163.866,
+      "pct": 0.058
     },
     "GOLD": {
-      "price": 4070.7,
-      "pct": 0.8523
+      "price": 4072.0,
+      "pct": 0.8845
     },
     "OIL": {
-      "price": 84.6,
-      "pct": 6.7373
+      "price": 84.63,
+      "pct": 6.7752
     }
   },
   "gainers": {
@@ -279,144 +279,144 @@
       {
         "name": "GE HealthCare",
         "ticker": "GEHC",
-        "price": "USD71.31",
-        "change": "+USD7.20",
-        "pct": "11.23%"
+        "price": "USD70.71",
+        "change": "+USD6.60",
+        "pct": "10.29%"
       },
       {
         "name": "Intuit",
         "ticker": "INTU",
-        "price": "USD333.55",
-        "change": "+USD20.56",
-        "pct": "6.57%"
+        "price": "USD333.02",
+        "change": "+USD20.03",
+        "pct": "6.40%"
       },
       {
         "name": "Workday, Inc.",
         "ticker": "WDAY",
-        "price": "USD169.24",
-        "change": "+USD9.55",
-        "pct": "5.98%"
-      },
-      {
-        "name": "Automatic Data Processing",
-        "ticker": "ADP",
-        "price": "USD279.35",
-        "change": "+USD15.18",
-        "pct": "5.75%"
+        "price": "USD168.59",
+        "change": "+USD8.90",
+        "pct": "5.57%"
       },
       {
         "name": "Adobe Inc.",
         "ticker": "ADBE",
-        "price": "USD263.43",
-        "change": "+USD14.26",
-        "pct": "5.72%"
+        "price": "USD262.95",
+        "change": "+USD13.77",
+        "pct": "5.53%"
       },
       {
-        "name": "Mondelez International",
-        "ticker": "MDLZ",
-        "price": "USD65.59",
-        "change": "+USD3.11",
-        "pct": "4.98%"
+        "name": "Automatic Data Processing",
+        "ticker": "ADP",
+        "price": "USD278.08",
+        "change": "+USD13.91",
+        "pct": "5.26%"
       },
       {
-        "name": "Diamondback Energy",
-        "ticker": "FANG",
-        "price": "USD199.56",
-        "change": "+USD9.25",
-        "pct": "4.86%"
-      },
-      {
-        "name": "Paychex",
-        "ticker": "PAYX",
-        "price": "USD124.45",
-        "change": "+USD5.58",
-        "pct": "4.69%"
+        "name": "Datadog",
+        "ticker": "DDOG",
+        "price": "USD262.36",
+        "change": "+USD11.48",
+        "pct": "4.58%"
       },
       {
         "name": "Roper Technologies",
         "ticker": "ROP",
-        "price": "USD407.27",
-        "change": "+USD16.35",
-        "pct": "4.18%"
+        "price": "USD408.15",
+        "change": "+USD17.23",
+        "pct": "4.41%"
       },
       {
-        "name": "Thomson Reuters",
-        "ticker": "TRI",
-        "price": "USD107.41",
-        "change": "+USD4.12",
-        "pct": "3.99%"
+        "name": "Diamondback Energy",
+        "ticker": "FANG",
+        "price": "USD198.47",
+        "change": "+USD8.16",
+        "pct": "4.29%"
+      },
+      {
+        "name": "Mondelez International",
+        "ticker": "MDLZ",
+        "price": "USD65.15",
+        "change": "+USD2.67",
+        "pct": "4.27%"
+      },
+      {
+        "name": "Paychex",
+        "ticker": "PAYX",
+        "price": "USD123.75",
+        "change": "+USD4.88",
+        "pct": "4.11%"
       }
     ],
     "nyse": [
       {
         "name": "Garmin",
         "ticker": "GRMN",
-        "price": "USD299.00",
-        "change": "+USD45.35",
-        "pct": "17.88%"
+        "price": "USD300.47",
+        "change": "+USD46.82",
+        "pct": "18.46%"
       },
       {
         "name": "Cognizant",
         "ticker": "CTSH",
-        "price": "USD56.17",
-        "change": "+USD5.86",
-        "pct": "11.65%"
-      },
-      {
-        "name": "Accenture",
-        "ticker": "ACN",
-        "price": "USD176.13",
-        "change": "+USD11.47",
-        "pct": "6.97%"
+        "price": "USD55.92",
+        "change": "+USD5.61",
+        "pct": "11.15%"
       },
       {
         "name": "Gartner",
         "ticker": "IT",
-        "price": "USD165.96",
-        "change": "+USD10.12",
-        "pct": "6.49%"
+        "price": "USD166.36",
+        "change": "+USD10.52",
+        "pct": "6.75%"
+      },
+      {
+        "name": "Accenture",
+        "ticker": "ACN",
+        "price": "USD174.23",
+        "change": "+USD9.57",
+        "pct": "5.81%"
       },
       {
         "name": "BXP, Inc.",
         "ticker": "BXP",
-        "price": "USD73.64",
-        "change": "+USD3.68",
-        "pct": "5.25%"
-      },
-      {
-        "name": "Expand Energy",
-        "ticker": "EXE",
-        "price": "USD93.03",
-        "change": "+USD4.51",
-        "pct": "5.09%"
+        "price": "USD73.84",
+        "change": "+USD3.88",
+        "pct": "5.55%"
       },
       {
         "name": "ServiceNow",
         "ticker": "NOW",
-        "price": "USD116.07",
-        "change": "+USD5.44",
-        "pct": "4.92%"
+        "price": "USD116.15",
+        "change": "+USD5.53",
+        "pct": "5.00%"
       },
       {
         "name": "Fair Isaac",
         "ticker": "FICO",
-        "price": "USD1401.72",
-        "change": "+USD65.50",
-        "pct": "4.90%"
-      },
-      {
-        "name": "Amphenol",
-        "ticker": "APH",
-        "price": "USD150.80",
-        "change": "+USD6.95",
-        "pct": "4.83%"
+        "price": "USD1398.59",
+        "change": "+USD62.37",
+        "pct": "4.67%"
       },
       {
         "name": "Dow Inc.",
         "ticker": "DOW",
-        "price": "USD30.11",
-        "change": "+USD1.26",
-        "pct": "4.37%"
+        "price": "USD30.15",
+        "change": "+USD1.30",
+        "pct": "4.51%"
+      },
+      {
+        "name": "Amphenol",
+        "ticker": "APH",
+        "price": "USD150.17",
+        "change": "+USD6.32",
+        "pct": "4.39%"
+      },
+      {
+        "name": "Expand Energy",
+        "ticker": "EXE",
+        "price": "USD92.11",
+        "change": "+USD3.59",
+        "pct": "4.06%"
       }
     ],
     "xetra": [
@@ -920,62 +920,62 @@
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 5007.4,
-          "price": "USD340.93"
+          "mcap_b": 5009.8,
+          "price": "USD341.10"
         },
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 4635.1,
-          "price": "USD191.37"
+          "mcap_b": 4638.4,
+          "price": "USD191.50"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 4072.7,
-          "price": "USD333.01"
+          "mcap_b": 4103.4,
+          "price": "USD335.52"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOG",
-          "mcap_b": 4061.7,
-          "price": "USD332.11"
+          "mcap_b": 4092.0,
+          "price": "USD334.59"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 2931.9,
-          "price": "USD394.69"
+          "mcap_b": 2935.4,
+          "price": "USD395.16"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 2448.1,
-          "price": "USD227.58"
+          "mcap_b": 2465.7,
+          "price": "USD229.22"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1763.4,
-          "price": "USD370.66"
+          "mcap_b": 1775.8,
+          "price": "USD373.25"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
-          "mcap_b": 1489.0,
-          "price": "USD586.57"
+          "mcap_b": 1500.6,
+          "price": "USD591.16"
         },
         {
           "name": "SpaceX",
           "ticker": "SPCX",
-          "mcap_b": 1469.6,
-          "price": "USD111.55"
+          "mcap_b": 1489.3,
+          "price": "USD113.04"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1189.0,
-          "price": "USD301.05"
+          "mcap_b": 1188.7,
+          "price": "USD300.98"
         }
       ]
     },
