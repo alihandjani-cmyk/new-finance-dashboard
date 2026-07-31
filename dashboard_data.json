@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T18:08:09Z",
+  "generated_at": "2026-07-31T18:47:53Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary – 2026-07-30\n\nThe liquidity hierarchy divides sharply into three tiers. The North American leaders—Nasdaq 100 and NYSE—dominate on all metrics: Nasdaq's 0.0025% per $1M ILLIQ and 0.7933% AR spread are unmatched, while NYSE's 0.6553% spread and $240.2M comparable volume underpin its #2 rank. The Asian and European mid-pack—Tokyo Stock Exchange, Euronext, SIX Swiss Exchange, and Hong Kong Stock Exchange—cluster between 0.0301% and 0.0457% per $1M ILLIQ, though Tokyo's elevated 3.8152% turnover ratio suggests concentrated trading in fewer constituents. A notable divergence emerges at Euronext, which posts a tight 0.5422% AR spread yet carries a middling 0.0301% per $1M ILLIQ, indicating information costs dominate over pure spread width there. The laggards—Korea Exchange, Xetra, and London Stock Exchange—suffer either elevated ILLIQ (Korea's 0.1558% per $1M), wide spreads (Korea's 1.6434% AR spread), or both. Korea Exchange's combination of poor metrics across all dimensions and minimal $24.0M comparable volume signals structural liquidity constraints for international participants.",
   "news": [
@@ -7,6 +7,12 @@
       "title": "Passenger on British Airways mayday flight describes fear and shout of 'I don't want to die'",
       "link": "https://www.bbc.co.uk/news/articles/cn9n2v3lwr0o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Fri, 31 Jul 2026 12:19:20 GMT",
+      "source": "BBC Business"
+    },
+    {
+      "title": "AI firms must answer for rogue bots, says boss of hacked company",
+      "link": "https://www.bbc.co.uk/news/articles/cr7k49xjzzeo?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Fri, 31 Jul 2026 18:10:28 GMT",
       "source": "BBC Business"
     },
     {
@@ -28,12 +34,6 @@
       "source": "BBC Business"
     },
     {
-      "title": "BP puts North Sea business up for sale",
-      "link": "https://www.bbc.co.uk/news/articles/c62q7w003lro?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Fri, 31 Jul 2026 15:36:21 GMT",
-      "source": "BBC Business"
-    },
-    {
       "title": "India wants to join the strawberry superpowers",
       "link": "https://www.bbc.co.uk/news/articles/c8x274xxxpwo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Thu, 30 Jul 2026 22:04:09 GMT",
@@ -46,6 +46,12 @@
       "source": "BBC Business"
     },
     {
+      "title": "BP puts North Sea business up for sale",
+      "link": "https://www.bbc.co.uk/news/articles/c62q7w003lro?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Fri, 31 Jul 2026 15:36:21 GMT",
+      "source": "BBC Business"
+    },
+    {
       "title": "Thames Water boss says leakage targets 'not realistic'",
       "link": "https://www.bbc.co.uk/news/articles/c04kd3gl1gpo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Thu, 30 Jul 2026 23:06:37 GMT",
@@ -55,12 +61,6 @@
       "title": "Amazon and Apple just told us more about their AI plans - here are three things we learned",
       "link": "https://www.bbc.co.uk/news/articles/cp87m46g392o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Fri, 31 Jul 2026 01:31:50 GMT",
-      "source": "BBC Business"
-    },
-    {
-      "title": "Anthropic's Claude AI escapes to hack into three organisations",
-      "link": "https://www.bbc.co.uk/news/articles/cz7dl7w8y7po?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Fri, 31 Jul 2026 10:18:54 GMT",
       "source": "BBC Business"
     }
   ],
@@ -82,16 +82,16 @@
       "pct": -0.322
     },
     "SP500": {
-      "price": 7481.8398,
-      "pct": 0.5944
+      "price": 7483.0601,
+      "pct": 0.6108
     },
     "NDX": {
-      "price": 28323.4219,
-      "pct": 0.7723
+      "price": 28302.8164,
+      "pct": 0.699
     },
     "DJI": {
-      "price": 52495.5508,
-      "pct": 0.5507
+      "price": 52522.1914,
+      "pct": 0.6017
     },
     "NIKKEI": {
       "price": 61867.4297,
@@ -106,28 +106,28 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3484,
-      "pct": 0.8716
+      "price": 1.3477,
+      "pct": 0.8186
     },
     "EURUSD": {
-      "price": 1.1537,
-      "pct": 0.6057
+      "price": 1.153,
+      "pct": 0.5477
     },
     "EURGBP": {
-      "price": 0.8578,
-      "pct": 0.0
+      "price": 0.8554,
+      "pct": -0.2868
     },
     "USDJPY": {
-      "price": 163.3,
-      "pct": 0.0
+      "price": 158.884,
+      "pct": -2.7042
     },
     "GOLD": {
-      "price": 4109.7998,
-      "pct": 0.2366
+      "price": 4106.7998,
+      "pct": 0.1634
     },
     "OIL": {
-      "price": 84.94,
-      "pct": 1.615
+      "price": 84.85,
+      "pct": 1.5074
     }
   },
   "gainers": {
@@ -279,65 +279,58 @@
       {
         "name": "Amazon",
         "ticker": "AMZN",
-        "price": "USD270.82",
-        "change": "+USD35.32",
-        "pct": "15.00%"
+        "price": "USD270.84",
+        "change": "+USD35.34",
+        "pct": "15.01%"
       },
       {
         "name": "DexCom",
         "ticker": "DXCM",
-        "price": "USD83.43",
-        "change": "+USD8.89",
-        "pct": "11.93%"
+        "price": "USD83.91",
+        "change": "+USD9.37",
+        "pct": "12.57%"
       },
       {
         "name": "Monolithic Power Systems",
         "ticker": "MPWR",
-        "price": "USD1430.06",
-        "change": "+USD113.88",
-        "pct": "8.65%"
+        "price": "USD1427.60",
+        "change": "+USD111.42",
+        "pct": "8.47%"
       },
       {
         "name": "Alphabet Inc.",
         "ticker": "GOOG",
-        "price": "USD354.60",
-        "change": "+USD20.92",
-        "pct": "6.27%"
+        "price": "USD355.62",
+        "change": "+USD21.94",
+        "pct": "6.58%"
       },
       {
         "name": "Alphabet Inc.",
         "ticker": "GOOGL",
-        "price": "USD354.49",
-        "change": "+USD20.83",
-        "pct": "6.24%"
+        "price": "USD355.52",
+        "change": "+USD21.86",
+        "pct": "6.55%"
       },
       {
         "name": "Astera Labs",
         "ticker": "ALAB",
-        "price": "USD317.77",
-        "change": "+USD18.08",
-        "pct": "6.03%"
+        "price": "USD317.96",
+        "change": "+USD18.27",
+        "pct": "6.10%"
       },
       {
         "name": "Marvell Technology",
         "ticker": "MRVL",
-        "price": "USD193.32",
-        "change": "+USD10.01",
-        "pct": "5.46%"
+        "price": "USD192.68",
+        "change": "+USD9.38",
+        "pct": "5.11%"
       },
       {
         "name": "Lumentum",
         "ticker": "LITE",
-        "price": "USD727.02",
-        "change": "+USD33.78",
-        "pct": "4.87%"
-      },
-      {
-        "name": "Western Digital",
-        "ticker": "WDC",
-        "price": "USD557.66",
-        "change": "+USD24.62",
-        "pct": "4.62%"
+        "price": "USD728.30",
+        "change": "+USD35.06",
+        "pct": "5.06%"
       },
       {
         "name": "Fortinet",
@@ -345,78 +338,85 @@
         "price": "USD161.35",
         "change": "+USD7.10",
         "pct": "4.61%"
+      },
+      {
+        "name": "Western Digital",
+        "ticker": "WDC",
+        "price": "USD554.67",
+        "change": "+USD21.63",
+        "pct": "4.06%"
       }
     ],
     "nyse": [
       {
-        "name": "Vertiv",
-        "ticker": "VRT",
-        "price": "USD245.57",
-        "change": "+USD18.07",
-        "pct": "7.94%"
-      },
-      {
         "name": "Eaton Corporation",
         "ticker": "ETN",
-        "price": "USD415.53",
-        "change": "+USD28.64",
-        "pct": "7.40%"
+        "price": "USD416.02",
+        "change": "+USD29.12",
+        "pct": "7.53%"
+      },
+      {
+        "name": "Vertiv",
+        "ticker": "VRT",
+        "price": "USD244.56",
+        "change": "+USD17.06",
+        "pct": "7.50%"
       },
       {
         "name": "Coherent Corp.",
         "ticker": "COHR",
-        "price": "USD265.17",
-        "change": "+USD16.11",
-        "pct": "6.47%"
+        "price": "USD265.76",
+        "change": "+USD16.70",
+        "pct": "6.71%"
       },
       {
         "name": "Arista Networks",
         "ticker": "ANET",
-        "price": "USD181.07",
-        "change": "+USD10.04",
-        "pct": "5.87%"
+        "price": "USD180.64",
+        "change": "+USD9.62",
+        "pct": "5.63%"
       },
       {
         "name": "Weyerhaeuser",
         "ticker": "WY",
-        "price": "USD24.80",
-        "change": "+USD1.30",
-        "pct": "5.51%"
+        "price": "USD24.76",
+        "change": "+USD1.26",
+        "pct": "5.38%"
       },
       {
         "name": "Corning Inc.",
         "ticker": "GLW",
-        "price": "USD141.76",
-        "change": "+USD6.54",
-        "pct": "4.84%"
-      },
-      {
-        "name": "First Solar",
-        "ticker": "FSLR",
-        "price": "USD215.62",
-        "change": "+USD9.61",
-        "pct": "4.66%"
+        "price": "USD141.28",
+        "change": "+USD6.06",
+        "pct": "4.48%"
       },
       {
         "name": "F5, Inc.",
         "ticker": "FFIV",
-        "price": "USD405.64",
-        "change": "+USD16.89",
-        "pct": "4.34%"
+        "price": "USD404.66",
+        "change": "+USD15.91",
+        "pct": "4.09%"
       },
       {
         "name": "Trane Technologies",
         "ticker": "TT",
-        "price": "USD457.33",
-        "change": "+USD17.05",
-        "pct": "3.87%"
+        "price": "USD456.95",
+        "change": "+USD16.67",
+        "pct": "3.79%"
       },
       {
-        "name": "Comfort Systems USA",
-        "ticker": "FIX",
-        "price": "USD1760.06",
-        "change": "+USD62.22",
-        "pct": "3.66%"
+        "name": "Cboe Global Markets",
+        "ticker": "CBOE",
+        "price": "USD307.50",
+        "change": "+USD10.98",
+        "pct": "3.70%"
+      },
+      {
+        "name": "First Solar",
+        "ticker": "FSLR",
+        "price": "USD213.28",
+        "change": "+USD7.27",
+        "pct": "3.53%"
       }
     ],
     "xetra": [
@@ -920,62 +920,62 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 4834.5,
-          "price": "USD199.60"
+          "mcap_b": 4813.4,
+          "price": "USD198.73"
         },
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 4424.5,
-          "price": "USD301.24"
+          "mcap_b": 4434.4,
+          "price": "USD301.92"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOG",
-          "mcap_b": 4338.9,
-          "price": "USD354.78"
+          "mcap_b": 4349.3,
+          "price": "USD355.63"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 4337.0,
-          "price": "USD354.62"
+          "mcap_b": 4349.3,
+          "price": "USD355.62"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 3418.3,
-          "price": "USD460.35"
+          "mcap_b": 3434.1,
+          "price": "USD462.48"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 2913.0,
-          "price": "USD270.80"
+          "mcap_b": 2913.3,
+          "price": "USD270.83"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1846.7,
-          "price": "USD388.17"
+          "mcap_b": 1849.4,
+          "price": "USD388.72"
         },
         {
           "name": "SpaceX",
           "ticker": "SPCX",
-          "mcap_b": 1434.9,
-          "price": "USD108.92"
+          "mcap_b": 1424.5,
+          "price": "USD108.13"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
-          "mcap_b": 1400.1,
-          "price": "USD549.59"
+          "mcap_b": 1399.9,
+          "price": "USD549.50"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1229.9,
-          "price": "USD311.39"
+          "mcap_b": 1225.7,
+          "price": "USD310.34"
         }
       ]
     },
