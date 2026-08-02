@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T11:09:09Z",
+  "generated_at": "2026-08-02T11:41:30Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate, with Nasdaq 100 leading on ILLIQ (0.0025% per $1M traded) and turnover ratio (1.3470%) despite a wider AR spread of 0.8432%, while NYSE shows tighter spreads (0.6578%) with stronger absolute volume ($223.4M comparable). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange form a resilient mid-pack: Tokyo stands out for exceptional turnover (2.8225%), offsetting higher ILLIQ (0.0352% per $1M traded), suggesting retail-driven activity masking underlying execution costs. The secondary tier—SIX Swiss Exchange, Xetra, and London Stock Exchange—shows material ILLIQ deterioration (0.0450%–0.0797% per $1M traded) and fragmented volumes below $10M, though SIX's tight AR spread (0.4993%) hints at order-book quality despite poor turnover (0.1543%). Korea Exchange ranks last by a wide margin, with ILLIQ of 0.1547% per $1M traded and AR spread of 1.6274%, reflecting structural liquidity constraints. The divergence between Tokyo's high turnover but middling ILLIQ illustrates the importance of adjusting for composition: elevated turnover does not guarantee execution efficiency.",
   "news": [
@@ -449,25 +449,11 @@
         "pct": "2.31%"
       },
       {
-        "name": "RWE",
-        "ticker": "RWE",
-        "price": "EUR57.18",
-        "change": "+EUR0.92",
-        "pct": "1.64%"
-      },
-      {
         "name": "SAP",
         "ticker": "SAP",
         "price": "EUR157.68",
         "change": "+EUR1.76",
         "pct": "1.13%"
-      },
-      {
-        "name": "MTU Aero Engines",
-        "ticker": "MTX",
-        "price": "EUR361.80",
-        "change": "+EUR3.60",
-        "pct": "1.01%"
       },
       {
         "name": "TUI",
@@ -484,11 +470,25 @@
         "pct": "0.88%"
       },
       {
-        "name": "Siemens Energy",
-        "ticker": "ENR",
-        "price": "EUR147.44",
-        "change": "+EUR1.28",
-        "pct": "0.88%"
+        "name": "Daimler Truck",
+        "ticker": "DTG",
+        "price": "EUR48.94",
+        "change": "+EUR0.23",
+        "pct": "0.47%"
+      },
+      {
+        "name": "Allianz",
+        "ticker": "ALV",
+        "price": "EUR432.50",
+        "change": "+EUR1.00",
+        "pct": "0.23%"
+      },
+      {
+        "name": "Aurubis",
+        "ticker": "NDA",
+        "price": "EUR181.60",
+        "change": "+EUR0.20",
+        "pct": "0.11%"
       }
     ],
     "six": [
@@ -542,6 +542,13 @@
         "pct": "0.37%"
       },
       {
+        "name": "Swiss Reinsurance Company Ltd",
+        "ticker": "SREN",
+        "price": "CHF134.85",
+        "change": "+CHF0.35",
+        "pct": "0.26%"
+      },
+      {
         "name": "Zurich Insurance Group AG",
         "ticker": "ZURN",
         "price": "CHF615.80",
@@ -553,13 +560,6 @@
         "ticker": "PGHN",
         "price": "CHF672.00",
         "change": "+CHF0.40",
-        "pct": "0.06%"
-      },
-      {
-        "name": "Roche Holding AG",
-        "ticker": "ROP",
-        "price": "CHF353.60",
-        "change": "+CHF0.20",
         "pct": "0.06%"
       }
     ],
