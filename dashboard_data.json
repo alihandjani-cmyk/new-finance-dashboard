@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T12:38:32Z",
+  "generated_at": "2026-08-02T13:06:55Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate, with Nasdaq 100 leading on ILLIQ (0.0025% per $1M traded) and turnover ratio (1.3470%) despite a wider AR spread of 0.8432%, while NYSE shows tighter spreads (0.6578%) with stronger absolute volume ($223.4M comparable). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange form a resilient mid-pack: Tokyo stands out for exceptional turnover (2.8225%), offsetting higher ILLIQ (0.0352% per $1M traded), suggesting retail-driven activity masking underlying execution costs. The secondary tier—SIX Swiss Exchange, Xetra, and London Stock Exchange—shows material ILLIQ deterioration (0.0450%–0.0797% per $1M traded) and fragmented volumes below $10M, though SIX's tight AR spread (0.4993%) hints at order-book quality despite poor turnover (0.1543%). Korea Exchange ranks last by a wide margin, with ILLIQ of 0.1547% per $1M traded and AR spread of 1.6274%, reflecting structural liquidity constraints. The divergence between Tokyo's high turnover but middling ILLIQ illustrates the importance of adjusting for composition: elevated turnover does not guarantee execution efficiency.",
   "news": [
@@ -240,6 +240,13 @@
         "pct": "3.99%"
       },
       {
+        "name": "Brunello Cucinelli",
+        "ticker": "BC",
+        "price": "EUR87.92",
+        "change": "+EUR2.52",
+        "pct": "2.95%"
+      },
+      {
         "name": "Fincantieri",
         "ticker": "FCT",
         "price": "EUR13.56",
@@ -266,13 +273,6 @@
         "price": "EUR55.12",
         "change": "+EUR1.40",
         "pct": "2.61%"
-      },
-      {
-        "name": "Tenaris",
-        "ticker": "TEN",
-        "price": "EUR24.94",
-        "change": "+EUR0.59",
-        "pct": "2.42%"
       }
     ],
     "ndx": [
@@ -470,6 +470,13 @@
         "pct": "1.01%"
       },
       {
+        "name": "TUI",
+        "ticker": "TUI1",
+        "price": "EUR7.51",
+        "change": "+EUR0.07",
+        "pct": "0.97%"
+      },
+      {
         "name": "Commerzbank",
         "ticker": "CBK",
         "price": "EUR37.67",
@@ -482,16 +489,16 @@
         "price": "EUR147.44",
         "change": "+EUR1.28",
         "pct": "0.88%"
-      },
-      {
-        "name": "Talanx",
-        "ticker": "TLX",
-        "price": "EUR115.30",
-        "change": "+EUR0.50",
-        "pct": "0.44%"
       }
     ],
     "six": [
+      {
+        "name": "Swatch",
+        "ticker": "UHR",
+        "price": "CHF180.30",
+        "change": "+CHF3.30",
+        "pct": "1.86%"
+      },
       {
         "name": "Sika AG",
         "ticker": "SIKA",
@@ -535,6 +542,13 @@
         "pct": "0.42%"
       },
       {
+        "name": "Swiss Life Holding AG",
+        "ticker": "SLHN",
+        "price": "CHF954.80",
+        "change": "+CHF3.80",
+        "pct": "0.40%"
+      },
+      {
         "name": "Helvetia Bâloise",
         "ticker": "HBAN",
         "price": "CHF216.80",
@@ -542,25 +556,11 @@
         "pct": "0.37%"
       },
       {
-        "name": "Zurich Insurance Group AG",
-        "ticker": "ZURN",
-        "price": "CHF615.80",
-        "change": "+CHF1.00",
-        "pct": "0.16%"
-      },
-      {
-        "name": "Partners Group Holding AG",
-        "ticker": "PGHN",
-        "price": "CHF672.00",
-        "change": "+CHF0.40",
-        "pct": "0.06%"
-      },
-      {
-        "name": "Roche Holding AG",
-        "ticker": "ROP",
-        "price": "CHF353.60",
-        "change": "+CHF0.20",
-        "pct": "0.06%"
+        "name": "Swiss Reinsurance Company Ltd",
+        "ticker": "SREN",
+        "price": "CHF134.85",
+        "change": "+CHF0.35",
+        "pct": "0.26%"
       }
     ],
     "tse": [
