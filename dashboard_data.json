@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T22:35:41Z",
+  "generated_at": "2026-08-02T23:06:53Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate, with Nasdaq 100 leading on ILLIQ (0.0025% per $1M traded) and turnover ratio (1.3470%) despite a wider AR spread of 0.8432%, while NYSE shows tighter spreads (0.6578%) with stronger absolute volume ($223.4M comparable). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange form a resilient mid-pack: Tokyo stands out for exceptional turnover (2.8225%), offsetting higher ILLIQ (0.0352% per $1M traded), suggesting retail-driven activity masking underlying execution costs. The secondary tier—SIX Swiss Exchange, Xetra, and London Stock Exchange—shows material ILLIQ deterioration (0.0450%–0.0797% per $1M traded) and fragmented volumes below $10M, though SIX's tight AR spread (0.4993%) hints at order-book quality despite poor turnover (0.1543%). Korea Exchange ranks last by a wide margin, with ILLIQ of 0.1547% per $1M traded and AR spread of 1.6274%, reflecting structural liquidity constraints. The divergence between Tokyo's high turnover but middling ILLIQ illustrates the importance of adjusting for composition: elevated turnover does not guarantee execution efficiency.",
   "news": [
@@ -106,24 +106,28 @@
       "pct": 17.9115
     },
     "GBPUSD": {
-      "price": 1.35,
-      "pct": 0.293
+      "price": 1.3495,
+      "pct": 0.2564
     },
     "EURUSD": {
       "price": 1.1553,
       "pct": 0.253
     },
     "EURGBP": {
-      "price": 0.8555,
-      "pct": -0.0607
+      "price": 0.8558,
+      "pct": -0.0304
+    },
+    "USDJPY": {
+      "price": 157.271,
+      "pct": -1.8179
     },
     "GOLD": {
-      "price": 4126.1001,
-      "pct": 1.9017
+      "price": 4121.0,
+      "pct": 1.7757
     },
     "OIL": {
-      "price": 80.51,
-      "pct": -4.9132
+      "price": 81.09,
+      "pct": -4.2282
     }
   },
   "gainers": {
@@ -201,11 +205,25 @@
     ],
     "enx": [
       {
+        "name": "Teleperformance",
+        "ticker": "TEP",
+        "price": "EUR69.00",
+        "change": "+EUR8.02",
+        "pct": "13.15%"
+      },
+      {
         "name": "Amplifon",
         "ticker": "AMP",
         "price": "EUR12.15",
         "change": "+EUR0.92",
         "pct": "8.19%"
+      },
+      {
+        "name": "Saint-Gobain",
+        "ticker": "SGO",
+        "price": "EUR81.28",
+        "change": "+EUR5.24",
+        "pct": "6.89%"
       },
       {
         "name": "Diasorin",
@@ -255,20 +273,6 @@
         "price": "EUR55.12",
         "change": "+EUR1.40",
         "pct": "2.61%"
-      },
-      {
-        "name": "Tenaris",
-        "ticker": "TEN",
-        "price": "EUR24.94",
-        "change": "+EUR0.59",
-        "pct": "2.42%"
-      },
-      {
-        "name": "Sanofi",
-        "ticker": "SAN",
-        "price": "EUR74.47",
-        "change": "+EUR1.70",
-        "pct": "2.34%"
       }
     ],
     "ndx": [
@@ -489,6 +493,13 @@
     ],
     "six": [
       {
+        "name": "Swatch",
+        "ticker": "UHR",
+        "price": "CHF180.30",
+        "change": "+CHF3.30",
+        "pct": "1.86%"
+      },
+      {
         "name": "Sika AG",
         "ticker": "SIKA",
         "price": "CHF181.85",
@@ -531,6 +542,13 @@
         "pct": "0.42%"
       },
       {
+        "name": "Swiss Life Holding AG",
+        "ticker": "SLHN",
+        "price": "CHF954.80",
+        "change": "+CHF3.80",
+        "pct": "0.40%"
+      },
+      {
         "name": "Helvetia Bâloise",
         "ticker": "HBAN",
         "price": "CHF216.80",
@@ -538,25 +556,11 @@
         "pct": "0.37%"
       },
       {
-        "name": "Zurich Insurance Group AG",
-        "ticker": "ZURN",
-        "price": "CHF615.80",
-        "change": "+CHF1.00",
-        "pct": "0.16%"
-      },
-      {
-        "name": "Partners Group Holding AG",
-        "ticker": "PGHN",
-        "price": "CHF672.00",
-        "change": "+CHF0.40",
-        "pct": "0.06%"
-      },
-      {
-        "name": "Roche Holding AG",
-        "ticker": "ROP",
-        "price": "CHF353.60",
-        "change": "+CHF0.20",
-        "pct": "0.06%"
+        "name": "Swiss Reinsurance Company Ltd",
+        "ticker": "SREN",
+        "price": "CHF134.85",
+        "change": "+CHF0.35",
+        "pct": "0.26%"
       }
     ],
     "tse": [
