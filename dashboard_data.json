@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T05:06:36Z",
+  "generated_at": "2026-08-03T05:37:22Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate, with Nasdaq 100 leading on ILLIQ (0.0025% per $1M traded) and turnover ratio (1.3470%) despite a wider AR spread of 0.8432%, while NYSE shows tighter spreads (0.6578%) with stronger absolute volume ($223.4M comparable). Euronext, Tokyo Stock Exchange, and Hong Kong Stock Exchange form a resilient mid-pack: Tokyo stands out for exceptional turnover (2.8225%), offsetting higher ILLIQ (0.0352% per $1M traded), suggesting retail-driven activity masking underlying execution costs. The secondary tier—SIX Swiss Exchange, Xetra, and London Stock Exchange—shows material ILLIQ deterioration (0.0450%–0.0797% per $1M traded) and fragmented volumes below $10M, though SIX's tight AR spread (0.4993%) hints at order-book quality despite poor turnover (0.1543%). Korea Exchange ranks last by a wide margin, with ILLIQ of 0.1547% per $1M traded and AR spread of 1.6274%, reflecting structural liquidity constraints. The divergence between Tokyo's high turnover but middling ILLIQ illustrates the importance of adjusting for composition: elevated turnover does not guarantee execution efficiency.",
   "news": [
@@ -94,16 +94,20 @@
       "pct": 0.5305
     },
     "NIKKEI": {
-      "price": 63690.6992,
-      "pct": -1.043
+      "price": 63601.1484,
+      "pct": -1.1822
     },
     "HSI": {
-      "price": 25895.4395,
-      "pct": 0.0425
+      "price": 25901.6602,
+      "pct": 0.0666
     },
     "KOSPI": {
-      "price": 6262.79,
-      "pct": -5.0438
+      "price": 6246.7998,
+      "pct": -5.2862
+    },
+    "GBPUSD": {
+      "price": 1.3474,
+      "pct": 0.0943
     },
     "EURUSD": {
       "price": 1.1538,
@@ -111,18 +115,18 @@
     },
     "EURGBP": {
       "price": 0.8561,
-      "pct": 0.0129
+      "pct": 0.007
     },
     "USDJPY": {
-      "price": 156.43,
-      "pct": -2.3429
+      "price": 156.461,
+      "pct": -2.3236
     },
     "GOLD": {
-      "price": 4126.2002,
+      "price": 4112.6001,
       "pct": 0.0
     },
     "OIL": {
-      "price": 79.59,
+      "price": 79.52,
       "pct": 0.0
     }
   },
@@ -489,13 +493,6 @@
     ],
     "six": [
       {
-        "name": "Swatch",
-        "ticker": "UHR",
-        "price": "CHF180.30",
-        "change": "+CHF3.30",
-        "pct": "1.86%"
-      },
-      {
         "name": "Sika AG",
         "ticker": "SIKA",
         "price": "CHF181.85",
@@ -538,13 +535,6 @@
         "pct": "0.42%"
       },
       {
-        "name": "Swiss Life Holding AG",
-        "ticker": "SLHN",
-        "price": "CHF954.80",
-        "change": "+CHF3.80",
-        "pct": "0.40%"
-      },
-      {
         "name": "Helvetia Bâloise",
         "ticker": "HBAN",
         "price": "CHF216.80",
@@ -552,106 +542,120 @@
         "pct": "0.37%"
       },
       {
-        "name": "Swiss Reinsurance Company Ltd",
-        "ticker": "SREN",
-        "price": "CHF134.85",
-        "change": "+CHF0.35",
-        "pct": "0.26%"
+        "name": "Zurich Insurance Group AG",
+        "ticker": "ZURN",
+        "price": "CHF615.80",
+        "change": "+CHF1.00",
+        "pct": "0.16%"
+      },
+      {
+        "name": "Partners Group Holding AG",
+        "ticker": "PGHN",
+        "price": "CHF672.00",
+        "change": "+CHF0.40",
+        "pct": "0.06%"
+      },
+      {
+        "name": "Roche Holding AG",
+        "ticker": "ROP",
+        "price": "CHF353.60",
+        "change": "+CHF0.20",
+        "pct": "0.06%"
       }
     ],
     "tse": [
       {
         "name": "Renesas Electronics",
         "ticker": "6723",
-        "price": "JPY3972.00",
-        "change": "+JPY530.00",
-        "pct": "15.40%"
+        "price": "JPY3912.00",
+        "change": "+JPY470.00",
+        "pct": "13.65%"
       },
       {
         "name": "Lasertec",
         "ticker": "6920",
-        "price": "JPY41010.00",
-        "change": "+JPY3100.00",
-        "pct": "8.18%"
+        "price": "JPY40830.00",
+        "change": "+JPY2920.00",
+        "pct": "7.70%"
       },
       {
         "name": "Kioxia Holdings Corp.",
         "ticker": "285A",
-        "price": "JPY49840.00",
-        "change": "+JPY3340.00",
-        "pct": "7.18%"
+        "price": "JPY49340.00",
+        "change": "+JPY2840.00",
+        "pct": "6.11%"
       },
       {
         "name": "Socionext Inc.",
         "ticker": "6526",
-        "price": "JPY2021.00",
-        "change": "+JPY108.50",
-        "pct": "5.67%"
+        "price": "JPY2024.50",
+        "change": "+JPY112.00",
+        "pct": "5.86%"
       },
       {
         "name": "Aozora Bank , Ltd.",
         "ticker": "8304",
-        "price": "JPY3207.00",
-        "change": "+JPY169.00",
-        "pct": "5.56%"
-      },
-      {
-        "name": "Disco Corporation Ltd.",
-        "ticker": "6146",
-        "price": "JPY61200.00",
-        "change": "+JPY2720.00",
-        "pct": "4.65%"
-      },
-      {
-        "name": "SUMCO Corp.",
-        "ticker": "3436",
-        "price": "JPY3506.00",
-        "change": "+JPY149.00",
-        "pct": "4.44%"
+        "price": "JPY3214.00",
+        "change": "+JPY176.00",
+        "pct": "5.79%"
       },
       {
         "name": "Otsuka Holdings Co., Ltd.",
         "ticker": "4578",
-        "price": "JPY11515.00",
-        "change": "+JPY415.00",
-        "pct": "3.74%"
+        "price": "JPY11590.00",
+        "change": "+JPY490.00",
+        "pct": "4.41%"
+      },
+      {
+        "name": "Disco Corporation Ltd.",
+        "ticker": "6146",
+        "price": "JPY60930.00",
+        "change": "+JPY2450.00",
+        "pct": "4.19%"
       },
       {
         "name": "Nitori Holdings Co., Ltd.",
         "ticker": "9843",
-        "price": "JPY2630.00",
-        "change": "+JPY91.50",
-        "pct": "3.60%"
+        "price": "JPY2639.00",
+        "change": "+JPY100.50",
+        "pct": "3.96%"
       },
       {
-        "name": "TDK Corp.",
-        "ticker": "6762",
-        "price": "JPY3115.00",
-        "change": "+JPY107.00",
-        "pct": "3.56%"
+        "name": "SUMCO Corp.",
+        "ticker": "3436",
+        "price": "JPY3483.00",
+        "change": "+JPY126.00",
+        "pct": "3.75%"
+      },
+      {
+        "name": "Sumitomo Dainippon Pharma Co., Ltd.",
+        "ticker": "4506",
+        "price": "JPY1292.50",
+        "change": "+JPY44.50",
+        "pct": "3.57%"
       }
     ],
     "hkg": [
       {
         "name": "Xinyi Solar",
         "ticker": "0968",
-        "price": "HKD2.40",
-        "change": "+HKD0.20",
-        "pct": "9.32%"
+        "price": "HKD2.41",
+        "change": "+HKD0.21",
+        "pct": "9.55%"
       },
       {
         "name": "Alibaba Group",
         "ticker": "9988",
-        "price": "HKD124.90",
-        "change": "+HKD7.90",
-        "pct": "6.75%"
+        "price": "HKD124.70",
+        "change": "+HKD7.70",
+        "pct": "6.58%"
       },
       {
         "name": "Baidu",
         "ticker": "9888",
-        "price": "HKD110.00",
-        "change": "+HKD4.10",
-        "pct": "3.87%"
+        "price": "HKD110.10",
+        "change": "+HKD4.20",
+        "pct": "3.97%"
       },
       {
         "name": "Tencent Holdings Limited",
@@ -661,118 +665,118 @@
         "pct": "2.99%"
       },
       {
-        "name": "Kuaishou",
-        "ticker": "1024",
-        "price": "HKD45.00",
-        "change": "+HKD1.30",
-        "pct": "2.97%"
-      },
-      {
         "name": "BYD Electronics",
         "ticker": "0285",
-        "price": "HKD24.10",
-        "change": "+HKD0.62",
-        "pct": "2.64%"
+        "price": "HKD24.12",
+        "change": "+HKD0.64",
+        "pct": "2.73%"
       },
       {
         "name": "ZTO Express",
         "ticker": "2057",
-        "price": "HKD191.50",
-        "change": "+HKD4.70",
-        "pct": "2.52%"
+        "price": "HKD191.60",
+        "change": "+HKD4.80",
+        "pct": "2.57%"
+      },
+      {
+        "name": "Kuaishou",
+        "ticker": "1024",
+        "price": "HKD44.70",
+        "change": "+HKD1.00",
+        "pct": "2.29%"
       },
       {
         "name": "Lenovo",
         "ticker": "0992",
-        "price": "HKD24.38",
-        "change": "+HKD0.52",
-        "pct": "2.18%"
+        "price": "HKD24.34",
+        "change": "+HKD0.48",
+        "pct": "2.01%"
       },
       {
         "name": "JD.com",
         "ticker": "9618",
-        "price": "HKD129.40",
-        "change": "+HKD2.30",
-        "pct": "1.81%"
+        "price": "HKD129.20",
+        "change": "+HKD2.10",
+        "pct": "1.65%"
       },
       {
         "name": "China Resources Mixc Lifestyle",
         "ticker": "1209",
-        "price": "HKD40.60",
-        "change": "+HKD0.68",
-        "pct": "1.70%"
+        "price": "HKD40.46",
+        "change": "+HKD0.54",
+        "pct": "1.35%"
       }
     ],
     "krx": [
       {
         "name": "Foosung",
         "ticker": "093370",
-        "price": "KRW9680.00",
-        "change": "+KRW680.00",
-        "pct": "7.56%"
+        "price": "KRW9650.00",
+        "change": "+KRW650.00",
+        "pct": "7.22%"
       },
       {
         "name": "APR",
         "ticker": "278470",
-        "price": "KRW338500.00",
-        "change": "+KRW18500.00",
-        "pct": "5.78%"
+        "price": "KRW338000.00",
+        "change": "+KRW18000.00",
+        "pct": "5.62%"
       },
       {
         "name": "Hanall Biopharma",
         "ticker": "009420",
-        "price": "KRW45850.00",
-        "change": "+KRW2450.00",
-        "pct": "5.65%"
-      },
-      {
-        "name": "Doosan",
-        "ticker": "000150",
-        "price": "KRW1233000.00",
-        "change": "+KRW63000.00",
-        "pct": "5.38%"
+        "price": "KRW45800.00",
+        "change": "+KRW2400.00",
+        "pct": "5.53%"
       },
       {
         "name": "Hanjin KAL",
         "ticker": "180640",
-        "price": "KRW117600.00",
-        "change": "+KRW5900.00",
-        "pct": "5.28%"
-      },
-      {
-        "name": "HL Mando",
-        "ticker": "204320",
-        "price": "KRW47050.00",
-        "change": "+KRW2350.00",
-        "pct": "5.26%"
+        "price": "KRW117200.00",
+        "change": "+KRW5500.00",
+        "pct": "4.92%"
       },
       {
         "name": "Hyundai AutoEver",
         "ticker": "307950",
-        "price": "KRW383500.00",
-        "change": "+KRW19000.00",
-        "pct": "5.21%"
+        "price": "KRW381000.00",
+        "change": "+KRW16500.00",
+        "pct": "4.53%"
+      },
+      {
+        "name": "HL Mando",
+        "ticker": "204320",
+        "price": "KRW46700.00",
+        "change": "+KRW2000.00",
+        "pct": "4.47%"
+      },
+      {
+        "name": "DL E&C",
+        "ticker": "375500",
+        "price": "KRW61000.00",
+        "change": "+KRW2500.00",
+        "pct": "4.27%"
       },
       {
         "name": "Doosan Robotics",
         "ticker": "454910",
-        "price": "KRW64600.00",
-        "change": "+KRW3000.00",
-        "pct": "4.87%"
-      },
-      {
-        "name": "Hanmi Pharm",
-        "ticker": "128940",
-        "price": "KRW349500.00",
-        "change": "+KRW16000.00",
-        "pct": "4.80%"
+        "price": "KRW64200.00",
+        "change": "+KRW2600.00",
+        "pct": "4.22%"
       },
       {
         "name": "Daewoo E&C",
         "ticker": "047040",
-        "price": "KRW13350.00",
-        "change": "+KRW570.00",
-        "pct": "4.46%"
+        "price": "KRW13310.00",
+        "change": "+KRW530.00",
+        "pct": "4.15%"
+      },
+      {
+        "name": "Hanmi Pharm",
+        "ticker": "128940",
+        "price": "KRW346500.00",
+        "change": "+KRW13000.00",
+        "pct": "3.90%"
       }
     ]
   },
@@ -1180,62 +1184,62 @@
         {
           "name": "Mitsubishi UFJ Financial Group , Inc.",
           "ticker": "8306",
-          "mcap_b": 40055.5,
-          "price": "JPY3552.00"
+          "mcap_b": 40078.0,
+          "price": "JPY3554.00"
         },
         {
           "name": "Toyota Motor Corp.",
           "ticker": "7203",
-          "mcap_b": 34901.5,
-          "price": "JPY2947.50"
+          "mcap_b": 35008.1,
+          "price": "JPY2956.50"
         },
         {
           "name": "SoftBank Group Corp.",
           "ticker": "9984",
-          "mcap_b": 30694.4,
-          "price": "JPY5386.00"
+          "mcap_b": 30722.9,
+          "price": "JPY5391.00"
         },
         {
           "name": "Kioxia Holdings Corp.",
           "ticker": "285A",
-          "mcap_b": 27230.8,
-          "price": "JPY49760.00"
+          "mcap_b": 27017.4,
+          "price": "JPY49370.00"
         },
         {
           "name": "Sumitomo Mitsui Financial Group , Inc.",
           "ticker": "8316",
-          "mcap_b": 25182.1,
-          "price": "JPY6606.00"
+          "mcap_b": 25201.1,
+          "price": "JPY6611.00"
         },
         {
           "name": "Tokyo Electron Ltd.",
           "ticker": "8035",
-          "mcap_b": 24864.9,
-          "price": "JPY54690.00"
+          "mcap_b": 24764.9,
+          "price": "JPY54470.00"
         },
         {
           "name": "Fast Retailing Co., Ltd.",
           "ticker": "9983",
-          "mcap_b": 24271.9,
-          "price": "JPY79100.00"
+          "mcap_b": 24229.0,
+          "price": "JPY78960.00"
         },
         {
           "name": "Hitachi , Ltd.",
           "ticker": "6501",
-          "mcap_b": 23816.7,
-          "price": "JPY5311.00"
+          "mcap_b": 23740.5,
+          "price": "JPY5294.00"
         },
         {
           "name": "Advantest Corp.",
           "ticker": "6857",
-          "mcap_b": 22783.2,
-          "price": "JPY31470.00"
+          "mcap_b": 22544.3,
+          "price": "JPY31140.00"
         },
         {
           "name": "Sony Corp.",
           "ticker": "6758",
-          "mcap_b": 20999.9,
-          "price": "JPY3576.00"
+          "mcap_b": 21005.8,
+          "price": "JPY3577.00"
         }
       ]
     },
@@ -1252,32 +1256,32 @@
         {
           "name": "HSBC Holdings plc",
           "ticker": "0005",
-          "mcap_b": 2856.9,
-          "price": "HKD166.60"
+          "mcap_b": 2867.2,
+          "price": "HKD167.20"
         },
         {
           "name": "Industrial and Commercial Bank of China",
           "ticker": "1398",
-          "mcap_b": 2646.3,
+          "mcap_b": 2649.9,
           "price": "HKD7.43"
         },
         {
           "name": "Alibaba Group",
           "ticker": "9988",
-          "mcap_b": 2395.0,
-          "price": "HKD124.90"
+          "mcap_b": 2389.2,
+          "price": "HKD124.60"
         },
         {
           "name": "China Construction Bank",
           "ticker": "0939",
-          "mcap_b": 2384.5,
+          "mcap_b": 2383.2,
           "price": "HKD9.11"
         },
         {
           "name": "China Mobile Ltd",
           "ticker": "0941",
-          "mcap_b": 1807.3,
-          "price": "HKD83.50"
+          "mcap_b": 1806.2,
+          "price": "HKD83.45"
         },
         {
           "name": "PetroChina Company Limited",
@@ -1294,14 +1298,14 @@
         {
           "name": "China Merchants Bank",
           "ticker": "3968",
-          "mcap_b": 1276.1,
-          "price": "HKD50.60"
+          "mcap_b": 1269.8,
+          "price": "HKD50.35"
         },
         {
           "name": "CNOOC Limited",
           "ticker": "0883",
-          "mcap_b": 1123.6,
-          "price": "HKD23.64"
+          "mcap_b": 1119.8,
+          "price": "HKD23.56"
         }
       ]
     },
@@ -1312,14 +1316,14 @@
         {
           "name": "Samsung Electronics",
           "ticker": "005930",
-          "mcap_b": 1579258.4,
-          "price": "KRW240500.00"
+          "mcap_b": 1566125.3,
+          "price": "KRW238500.00"
         },
         {
           "name": "SK Hynix",
           "ticker": "000660",
-          "mcap_b": 1123700.3,
-          "price": "KRW1583000.00"
+          "mcap_b": 1116601.7,
+          "price": "KRW1573000.00"
         },
         {
           "name": "SK Square",
@@ -1330,32 +1334,32 @@
         {
           "name": "Hyundai Motor",
           "ticker": "005380",
-          "mcap_b": 102508.0,
-          "price": "KRW391500.00"
+          "mcap_b": 102115.3,
+          "price": "KRW390000.00"
         },
         {
           "name": "Samsung Electro-Mechanics",
           "ticker": "009150",
-          "mcap_b": 88768.0,
-          "price": "KRW1175000.00"
+          "mcap_b": 87937.0,
+          "price": "KRW1164000.00"
         },
         {
           "name": "LG Energy Solution",
           "ticker": "373220",
-          "mcap_b": 73827.0,
-          "price": "KRW315500.00"
+          "mcap_b": 73593.0,
+          "price": "KRW314500.00"
         },
         {
           "name": "Samsung Biologics",
           "ticker": "207940",
-          "mcap_b": 65733.2,
-          "price": "KRW1420000.00"
+          "mcap_b": 65455.4,
+          "price": "KRW1414000.00"
         },
         {
           "name": "KB Financial",
           "ticker": "105560",
-          "mcap_b": 58915.6,
-          "price": "KRW167800.00"
+          "mcap_b": 59020.9,
+          "price": "KRW168100.00"
         },
         {
           "name": "Samsung C&T",
@@ -1366,8 +1370,8 @@
         {
           "name": "Samsung Life",
           "ticker": "032830",
-          "mcap_b": 50280.9,
-          "price": "KRW280000.00"
+          "mcap_b": 50999.2,
+          "price": "KRW284000.00"
         }
       ]
     }
