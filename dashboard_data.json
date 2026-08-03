@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T15:12:20Z",
+  "generated_at": "2026-08-03T15:41:36Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary — 31 July 2026\n\nThe US exchanges dominate the liquidity hierarchy. NYSE leads decisively with the lowest ILLIQ metric at 0.0059% per $1M traded and commanding comparable volume of $223.4M, while Nasdaq 100 follows closely with the tightest absolute spreads at 0.8432% AR spread but superior price stability at 0.0025% per $1M traded and higher turnover at 1.3470%. European and Asian tier-one markets—Euronext, Tokyo, and Hong Kong—form a solid middle tier, each posting ILLIQ readings between 0.0301% and 0.0377% per $1M traded with comparable volumes ranging from $15.2M to $49.8M. A notable divergence emerges in SIX Swiss Exchange, which offers the tightest spreads at 0.4993% AR spread yet carries minimal comparable volume of $3.1M and middling ILLIQ costs of 0.0451% per $1M traded, suggesting tight tick-level pricing masks low absolute liquidity. The secondary tier—Xetra and London—show elevated execution costs, with LSE's ILLIQ reaching 0.0798% per $1M traded and 0.8179% spreads despite modest turnover. Korea Exchange lags substantially, with ILLIQ of 0.1559% per $1M traded and the widest spreads at 1.5734% AR spread, though its 1.4018% turnover ratio hints at domestic activity concentration misaligned with international comparable liquidity.",
   "news": [
@@ -66,32 +66,32 @@
   ],
   "tickers": {
     "FTSE": {
-      "price": 10838.0996,
-      "pct": -0.276
+      "price": 10837.8301,
+      "pct": -0.2785
     },
     "DAX": {
-      "price": 26056.1094,
-      "pct": 1.6656
+      "price": 26034.9609,
+      "pct": 1.583
     },
     "CAC40": {
-      "price": 8628.9404,
-      "pct": 1.4019
+      "price": 8625.1201,
+      "pct": 1.3571
     },
     "SMI": {
-      "price": 14361.7803,
-      "pct": 0.109
+      "price": 14364.1299,
+      "pct": 0.1254
     },
     "SP500": {
-      "price": 7577.1299,
-      "pct": 1.1671
+      "price": 7577.3301,
+      "pct": 1.1697
     },
     "NDX": {
-      "price": 28665.9688,
-      "pct": 1.3856
+      "price": 28636.4062,
+      "pct": 1.2811
     },
     "DJI": {
-      "price": 53056.4492,
-      "pct": 1.0887
+      "price": 53034.3789,
+      "pct": 1.0467
     },
     "NIKKEI": {
       "price": 64362.0195,
@@ -106,23 +106,27 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3436,
-      "pct": -0.1841
+      "price": 1.3428,
+      "pct": -0.2444
     },
     "EURUSD": {
-      "price": 1.1515,
-      "pct": -0.0702
+      "price": 1.1507,
+      "pct": -0.1392
     },
     "EURGBP": {
-      "price": 0.8568,
-      "pct": 0.09
+      "price": 0.8567,
+      "pct": 0.0759
+    },
+    "USDJPY": {
+      "price": 156.767,
+      "pct": -2.1326
     },
     "GOLD": {
-      "price": 4092.1001,
+      "price": 4092.5,
       "pct": 0.0
     },
     "OIL": {
-      "price": 79.38,
+      "price": 79.55,
       "pct": 0.0
     }
   },
@@ -138,23 +142,9 @@
       {
         "name": "Ceres Power",
         "ticker": "CWR",
-        "price": "365p",
-        "change": "+18p",
-        "pct": "5.39%"
-      },
-      {
-        "name": "Smith & Nephew",
-        "ticker": "SN",
-        "price": "1204p",
-        "change": "+46p",
-        "pct": "3.99%"
-      },
-      {
-        "name": "ICG",
-        "ticker": "ICG",
-        "price": "1960p",
-        "change": "+72p",
-        "pct": "3.81%"
+        "price": "366p",
+        "change": "+19p",
+        "pct": "5.48%"
       },
       {
         "name": "Rosebank Industries",
@@ -164,11 +154,11 @@
         "pct": "3.57%"
       },
       {
-        "name": "Barratt Redrow",
-        "ticker": "BTRW",
-        "price": "303p",
-        "change": "+10p",
-        "pct": "3.48%"
+        "name": "ICG",
+        "ticker": "ICG",
+        "price": "1955p",
+        "change": "+67p",
+        "pct": "3.55%"
       },
       {
         "name": "SSP Group",
@@ -178,378 +168,392 @@
         "pct": "3.46%"
       },
       {
+        "name": "Barratt Redrow",
+        "ticker": "BTRW",
+        "price": "303p",
+        "change": "+10p",
+        "pct": "3.41%"
+      },
+      {
         "name": "Bellway",
         "ticker": "BWY",
-        "price": "2056p",
-        "change": "+68p",
-        "pct": "3.42%"
+        "price": "2054p",
+        "change": "+66p",
+        "pct": "3.32%"
+      },
+      {
+        "name": "Ocado Group",
+        "ticker": "OCDO",
+        "price": "218p",
+        "change": "+6p",
+        "pct": "3.21%"
+      },
+      {
+        "name": "Smith & Nephew",
+        "ticker": "SN",
+        "price": "1195p",
+        "change": "+37p",
+        "pct": "3.19%"
       },
       {
         "name": "Taylor Wimpey",
         "ticker": "TW",
-        "price": "80.56p",
+        "price": "80.32p",
         "change": "+2p",
-        "pct": "3.28%"
-      },
-      {
-        "name": "Spirax Group",
-        "ticker": "SPX",
-        "price": "7150p",
-        "change": "+205p",
-        "pct": "2.95%"
+        "pct": "2.97%"
       }
     ],
     "enx": [
       {
         "name": "Brunello Cucinelli",
         "ticker": "BC",
-        "price": "EUR92.40",
-        "change": "+EUR4.48",
-        "pct": "5.10%"
+        "price": "EUR92.98",
+        "change": "+EUR5.06",
+        "pct": "5.76%"
       },
       {
         "name": "Diasorin",
         "ticker": "DIA",
-        "price": "EUR75.42",
-        "change": "+EUR3.56",
-        "pct": "4.95%"
-      },
-      {
-        "name": "Renault",
-        "ticker": "RNO",
-        "price": "EUR28.59",
-        "change": "+EUR1.33",
-        "pct": "4.88%"
-      },
-      {
-        "name": "Dassault Systèmes",
-        "ticker": "DSY",
-        "price": "EUR21.01",
-        "change": "+EUR0.96",
-        "pct": "4.79%"
-      },
-      {
-        "name": "Adyen",
-        "ticker": "ADYEN",
-        "price": "EUR917.50",
-        "change": "+EUR40.60",
-        "pct": "4.63%"
+        "price": "EUR75.58",
+        "change": "+EUR3.72",
+        "pct": "5.18%"
       },
       {
         "name": "Capgemini",
         "ticker": "CAP",
-        "price": "EUR107.10",
-        "change": "+EUR4.60",
-        "pct": "4.49%"
+        "price": "EUR107.25",
+        "change": "+EUR4.75",
+        "pct": "4.63%"
       },
       {
-        "name": "EssilorLuxottica",
-        "ticker": "EL",
-        "price": "EUR170.70",
-        "change": "+EUR6.65",
-        "pct": "4.05%"
+        "name": "Renault",
+        "ticker": "RNO",
+        "price": "EUR28.50",
+        "change": "+EUR1.24",
+        "pct": "4.55%"
       },
       {
-        "name": "Saint-Gobain",
-        "ticker": "SGO",
-        "price": "EUR84.46",
-        "change": "+EUR3.18",
-        "pct": "3.91%"
+        "name": "Dassault Systèmes",
+        "ticker": "DSY",
+        "price": "EUR20.96",
+        "change": "+EUR0.91",
+        "pct": "4.54%"
       },
       {
         "name": "Avio",
         "ticker": "AVIO",
-        "price": "EUR30.13",
-        "change": "+EUR1.10",
-        "pct": "3.79%"
+        "price": "EUR30.27",
+        "change": "+EUR1.24",
+        "pct": "4.27%"
+      },
+      {
+        "name": "EssilorLuxottica",
+        "ticker": "EL",
+        "price": "EUR170.80",
+        "change": "+EUR6.75",
+        "pct": "4.11%"
+      },
+      {
+        "name": "Adyen",
+        "ticker": "ADYEN",
+        "price": "EUR912.50",
+        "change": "+EUR35.60",
+        "pct": "4.06%"
+      },
+      {
+        "name": "Saint-Gobain",
+        "ticker": "SGO",
+        "price": "EUR84.30",
+        "change": "+EUR3.02",
+        "pct": "3.72%"
       },
       {
         "name": "Safran",
         "ticker": "SAF",
-        "price": "EUR350.70",
-        "change": "+EUR12.30",
-        "pct": "3.63%"
+        "price": "EUR350.50",
+        "change": "+EUR12.10",
+        "pct": "3.58%"
       }
     ],
     "ndx": [
       {
         "name": "CoreWeave",
         "ticker": "CRWV",
-        "price": "USD81.46",
-        "change": "+USD9.69",
-        "pct": "13.50%"
+        "price": "USD82.54",
+        "change": "+USD10.78",
+        "pct": "15.01%"
       },
       {
         "name": "Nebius Group",
         "ticker": "NBIS",
-        "price": "USD214.36",
-        "change": "+USD23.95",
-        "pct": "12.58%"
-      },
-      {
-        "name": "Lumentum",
-        "ticker": "LITE",
-        "price": "USD762.37",
-        "change": "+USD48.43",
-        "pct": "6.78%"
+        "price": "USD212.95",
+        "change": "+USD22.54",
+        "pct": "11.84%"
       },
       {
         "name": "Axon Enterprise",
         "ticker": "AXON",
-        "price": "USD561.82",
-        "change": "+USD34.06",
-        "pct": "6.45%"
+        "price": "USD564.68",
+        "change": "+USD36.92",
+        "pct": "7.00%"
       },
       {
         "name": "Meta Platforms",
         "ticker": "META",
-        "price": "USD591.10",
-        "change": "+USD34.39",
-        "pct": "6.18%"
-      },
-      {
-        "name": "Rocket Lab",
-        "ticker": "RKLB",
-        "price": "USD68.94",
-        "change": "+USD3.99",
-        "pct": "6.14%"
+        "price": "USD594.80",
+        "change": "+USD38.09",
+        "pct": "6.84%"
       },
       {
         "name": "Alnylam Pharmaceuticals",
         "ticker": "ALNY",
-        "price": "USD217.57",
-        "change": "+USD12.04",
-        "pct": "5.86%"
+        "price": "USD218.56",
+        "change": "+USD13.04",
+        "pct": "6.34%"
+      },
+      {
+        "name": "Rocket Lab",
+        "ticker": "RKLB",
+        "price": "USD68.93",
+        "change": "+USD3.98",
+        "pct": "6.13%"
+      },
+      {
+        "name": "Lumentum",
+        "ticker": "LITE",
+        "price": "USD757.43",
+        "change": "+USD43.49",
+        "pct": "6.09%"
       },
       {
         "name": "Intuitive Surgical",
         "ticker": "ISRG",
-        "price": "USD371.20",
-        "change": "+USD17.87",
-        "pct": "5.06%"
+        "price": "USD372.79",
+        "change": "+USD19.46",
+        "pct": "5.51%"
       },
       {
         "name": "Amazon",
         "ticker": "AMZN",
-        "price": "USD284.39",
-        "change": "+USD12.81",
-        "pct": "4.72%"
+        "price": "USD286.14",
+        "change": "+USD14.56",
+        "pct": "5.36%"
       },
       {
         "name": "Microsoft",
         "ticker": "MSFT",
-        "price": "USD483.56",
-        "change": "+USD18.84",
-        "pct": "4.05%"
+        "price": "USD487.44",
+        "change": "+USD22.72",
+        "pct": "4.89%"
       }
     ],
     "nyse": [
       {
         "name": "First Solar",
         "ticker": "FSLR",
-        "price": "USD239.26",
-        "change": "+USD28.24",
-        "pct": "13.38%"
+        "price": "USD237.15",
+        "change": "+USD26.12",
+        "pct": "12.38%"
       },
       {
         "name": "Coherent Corp.",
         "ticker": "COHR",
-        "price": "USD286.67",
-        "change": "+USD23.78",
-        "pct": "9.05%"
-      },
-      {
-        "name": "Builders FirstSource",
-        "ticker": "BLDR",
-        "price": "USD71.28",
-        "change": "+USD4.84",
-        "pct": "7.28%"
-      },
-      {
-        "name": "Vertiv",
-        "ticker": "VRT",
-        "price": "USD256.95",
-        "change": "+USD15.38",
-        "pct": "6.37%"
-      },
-      {
-        "name": "United Airlines Holdings",
-        "ticker": "UAL",
-        "price": "USD128.92",
-        "change": "+USD7.59",
-        "pct": "6.26%"
-      },
-      {
-        "name": "Ares Management",
-        "ticker": "ARES",
-        "price": "USD134.96",
-        "change": "+USD6.88",
-        "pct": "5.37%"
+        "price": "USD285.52",
+        "change": "+USD22.63",
+        "pct": "8.61%"
       },
       {
         "name": "GoDaddy",
         "ticker": "GDDY",
-        "price": "USD87.15",
-        "change": "+USD4.41",
-        "pct": "5.33%"
+        "price": "USD88.18",
+        "change": "+USD5.44",
+        "pct": "6.57%"
+      },
+      {
+        "name": "Builders FirstSource",
+        "ticker": "BLDR",
+        "price": "USD70.60",
+        "change": "+USD4.16",
+        "pct": "6.26%"
       },
       {
         "name": "Baxter International",
         "ticker": "BAX",
-        "price": "USD27.52",
-        "change": "+USD1.36",
-        "pct": "5.22%"
+        "price": "USD27.75",
+        "change": "+USD1.59",
+        "pct": "6.10%"
       },
       {
         "name": "Oracle Corporation",
         "ticker": "ORCL",
-        "price": "USD136.53",
-        "change": "+USD6.66",
-        "pct": "5.13%"
+        "price": "USD137.37",
+        "change": "+USD7.50",
+        "pct": "5.78%"
       },
       {
-        "name": "Boeing",
-        "ticker": "BA",
-        "price": "USD226.67",
-        "change": "+USD10.53",
-        "pct": "4.87%"
+        "name": "Vertiv",
+        "ticker": "VRT",
+        "price": "USD255.25",
+        "change": "+USD13.68",
+        "pct": "5.66%"
+      },
+      {
+        "name": "United Airlines Holdings",
+        "ticker": "UAL",
+        "price": "USD128.12",
+        "change": "+USD6.79",
+        "pct": "5.60%"
+      },
+      {
+        "name": "Ares Management",
+        "ticker": "ARES",
+        "price": "USD134.99",
+        "change": "+USD6.90",
+        "pct": "5.39%"
+      },
+      {
+        "name": "Corning Inc.",
+        "ticker": "GLW",
+        "price": "USD145.48",
+        "change": "+USD7.23",
+        "pct": "5.23%"
       }
     ],
     "xetra": [
       {
         "name": "Hensoldt",
         "ticker": "HAG",
-        "price": "EUR86.86",
-        "change": "+EUR7.10",
-        "pct": "8.90%"
+        "price": "EUR86.76",
+        "change": "+EUR7.00",
+        "pct": "8.78%"
       },
       {
         "name": "Siemens Healthineers",
         "ticker": "SHL",
-        "price": "EUR38.96",
-        "change": "+EUR2.10",
-        "pct": "5.70%"
+        "price": "EUR39.12",
+        "change": "+EUR2.26",
+        "pct": "6.13%"
       },
       {
         "name": "Deutsche Telekom",
         "ticker": "DTE",
-        "price": "EUR28.03",
-        "change": "+EUR1.27",
-        "pct": "4.75%"
-      },
-      {
-        "name": "Siltronic",
-        "ticker": "WAF",
-        "price": "EUR79.40",
-        "change": "+EUR3.30",
-        "pct": "4.34%"
+        "price": "EUR28.10",
+        "change": "+EUR1.34",
+        "pct": "5.01%"
       },
       {
         "name": "SAP",
         "ticker": "SAP",
-        "price": "EUR164.37",
-        "change": "+EUR6.69",
-        "pct": "4.24%"
-      },
-      {
-        "name": "Rheinmetall",
-        "ticker": "RHM",
-        "price": "EUR1185.00",
-        "change": "+EUR45.00",
-        "pct": "3.95%"
-      },
-      {
-        "name": "TUI",
-        "ticker": "TUI1",
-        "price": "EUR7.81",
-        "change": "+EUR0.29",
-        "pct": "3.91%"
+        "price": "EUR165.34",
+        "change": "+EUR7.66",
+        "pct": "4.86%"
       },
       {
         "name": "Adidas",
         "ticker": "ADS",
-        "price": "EUR165.60",
-        "change": "+EUR6.20",
-        "pct": "3.89%"
+        "price": "EUR166.05",
+        "change": "+EUR6.65",
+        "pct": "4.17%"
       },
       {
-        "name": "Aixtron",
-        "ticker": "AIXA",
-        "price": "EUR37.67",
-        "change": "+EUR1.40",
-        "pct": "3.86%"
+        "name": "TUI",
+        "ticker": "TUI1",
+        "price": "EUR7.82",
+        "change": "+EUR0.31",
+        "pct": "4.10%"
       },
       {
-        "name": "KION Group",
-        "ticker": "KGX",
-        "price": "EUR40.35",
-        "change": "+EUR1.42",
-        "pct": "3.65%"
+        "name": "Siltronic",
+        "ticker": "WAF",
+        "price": "EUR79.12",
+        "change": "+EUR3.03",
+        "pct": "3.98%"
+      },
+      {
+        "name": "Zalando",
+        "ticker": "ZAL",
+        "price": "EUR29.33",
+        "change": "+EUR1.07",
+        "pct": "3.79%"
+      },
+      {
+        "name": "Nordex",
+        "ticker": "NDX1",
+        "price": "EUR39.66",
+        "change": "+EUR1.22",
+        "pct": "3.17%"
+      },
+      {
+        "name": "Rheinmetall",
+        "ticker": "RHM",
+        "price": "EUR1176.00",
+        "change": "+EUR36.00",
+        "pct": "3.16%"
       }
     ],
     "six": [
       {
         "name": "SIG",
         "ticker": "SIGN",
-        "price": "CHF15.42",
-        "change": "+CHF0.73",
-        "pct": "4.97%"
-      },
-      {
-        "name": "Sonova",
-        "ticker": "SOON",
-        "price": "CHF229.00",
-        "change": "+CHF9.00",
-        "pct": "4.09%"
+        "price": "CHF15.35",
+        "change": "+CHF0.66",
+        "pct": "4.49%"
       },
       {
         "name": "Logitech International SA",
         "ticker": "LOGN",
-        "price": "CHF85.28",
-        "change": "+CHF3.20",
-        "pct": "3.90%"
+        "price": "CHF85.42",
+        "change": "+CHF3.34",
+        "pct": "4.07%"
       },
       {
         "name": "Adecco",
         "ticker": "ADEN",
-        "price": "CHF23.32",
-        "change": "+CHF0.82",
-        "pct": "3.64%"
+        "price": "CHF23.38",
+        "change": "+CHF0.88",
+        "pct": "3.91%"
+      },
+      {
+        "name": "Sonova",
+        "ticker": "SOON",
+        "price": "CHF228.60",
+        "change": "+CHF8.60",
+        "pct": "3.91%"
       },
       {
         "name": "Partners Group Holding AG",
         "ticker": "PGHN",
-        "price": "CHF695.60",
-        "change": "+CHF23.60",
-        "pct": "3.51%"
+        "price": "CHF693.60",
+        "change": "+CHF21.60",
+        "pct": "3.21%"
       },
       {
         "name": "Temenos",
         "ticker": "TEMN",
-        "price": "CHF68.85",
-        "change": "+CHF1.90",
-        "pct": "2.84%"
-      },
-      {
-        "name": "Straumann",
-        "ticker": "STMN",
-        "price": "CHF102.35",
-        "change": "+CHF2.47",
-        "pct": "2.47%"
+        "price": "CHF69.05",
+        "change": "+CHF2.10",
+        "pct": "3.14%"
       },
       {
         "name": "Amrize AG",
         "ticker": "AMRZ",
-        "price": "CHF40.66",
-        "change": "+CHF0.98",
-        "pct": "2.47%"
+        "price": "CHF40.86",
+        "change": "+CHF1.18",
+        "pct": "2.97%"
+      },
+      {
+        "name": "Straumann",
+        "ticker": "STMN",
+        "price": "CHF102.45",
+        "change": "+CHF2.57",
+        "pct": "2.57%"
       },
       {
         "name": "Geberit AG",
         "ticker": "GEBN",
-        "price": "CHF545.20",
-        "change": "+CHF13.00",
-        "pct": "2.44%"
+        "price": "CHF545.80",
+        "change": "+CHF13.60",
+        "pct": "2.56%"
       },
       {
         "name": "Georg Fischer",
@@ -784,61 +788,61 @@
         {
           "name": "HSBC",
           "ticker": "HSBA",
-          "mcap_b": 272.7,
-          "price": "1590p"
+          "mcap_b": 273.4,
+          "price": "1594p"
         },
         {
           "name": "Shell plc",
           "ticker": "SHEL",
-          "mcap_b": 186.8,
-          "price": "3376p"
+          "mcap_b": 187.5,
+          "price": "3389p"
         },
         {
           "name": "AstraZeneca",
           "ticker": "AZN",
-          "mcap_b": 178.5,
-          "price": "11512p"
+          "mcap_b": 177.6,
+          "price": "11450p"
         },
         {
           "name": "Rolls-Royce Holdings",
           "ticker": "RR",
-          "mcap_b": 124.1,
-          "price": "1501p"
+          "mcap_b": 123.8,
+          "price": "1498p"
         },
         {
           "name": "Rio Tinto",
           "ticker": "RIO",
           "mcap_b": 115.6,
-          "price": "7107p"
+          "price": "7111p"
         },
         {
           "name": "Unilever",
           "ticker": "ULVR",
-          "mcap_b": 102.1,
-          "price": "4740p"
+          "mcap_b": 102.3,
+          "price": "4753p"
         },
         {
           "name": "British American Tobacco",
           "ticker": "BATS",
           "mcap_b": 96.1,
-          "price": "4455p"
+          "price": "4457p"
         },
         {
           "name": "BP",
           "ticker": "BP",
-          "mcap_b": 84.5,
-          "price": "546p"
+          "mcap_b": 84.8,
+          "price": "548p"
         },
         {
           "name": "GSK plc",
           "ticker": "GSK",
-          "mcap_b": 76.5,
-          "price": "1908p"
+          "mcap_b": 76.6,
+          "price": "1910p"
         },
         {
           "name": "Barclays",
           "ticker": "BARC",
-          "mcap_b": 69.2,
+          "mcap_b": 69.3,
           "price": "513p"
         }
       ]
@@ -850,62 +854,62 @@
         {
           "name": "ASML Holding",
           "ticker": "ASML",
-          "mcap_b": 546.5,
-          "price": "EUR1422.80"
+          "mcap_b": 545.4,
+          "price": "EUR1420.00"
         },
         {
           "name": "LVMH",
           "ticker": "MC",
-          "mcap_b": 241.2,
-          "price": "EUR489.20"
+          "mcap_b": 240.9,
+          "price": "EUR488.45"
         },
         {
           "name": "Shell plc",
           "ticker": "SHELL",
-          "mcap_b": 218.9,
-          "price": "EUR39.55"
+          "mcap_b": 219.7,
+          "price": "EUR39.71"
         },
         {
           "name": "L'Oréal",
           "ticker": "OR",
-          "mcap_b": 208.0,
-          "price": "EUR390.60"
+          "mcap_b": 207.8,
+          "price": "EUR390.40"
         },
         {
           "name": "TotalEnergies",
           "ticker": "TTE",
-          "mcap_b": 169.1,
-          "price": "EUR76.18"
-        },
-        {
-          "name": "Airbus",
-          "ticker": "AIR",
-          "mcap_b": 164.2,
-          "price": "EUR208.60"
+          "mcap_b": 169.5,
+          "price": "EUR76.34"
         },
         {
           "name": "Hermès",
           "ticker": "RMS",
-          "mcap_b": 164.0,
-          "price": "EUR1565.50"
+          "mcap_b": 164.3,
+          "price": "EUR1569.00"
+        },
+        {
+          "name": "Airbus",
+          "ticker": "AIR",
+          "mcap_b": 163.7,
+          "price": "EUR208.00"
         },
         {
           "name": "Schneider Electric",
           "ticker": "SU",
-          "mcap_b": 163.6,
-          "price": "EUR290.25"
+          "mcap_b": 163.4,
+          "price": "EUR289.95"
         },
         {
           "name": "Safran",
           "ticker": "SAF",
-          "mcap_b": 145.3,
-          "price": "EUR350.60"
+          "mcap_b": 145.2,
+          "price": "EUR350.40"
         },
         {
           "name": "UniCredit",
           "ticker": "UCG",
           "mcap_b": 125.6,
-          "price": "EUR83.81"
+          "price": "EUR83.84"
         }
       ]
     },
@@ -916,62 +920,62 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "mcap_b": 5007.9,
+          "mcap_b": 5007.8,
           "price": "USD206.76"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOGL",
-          "mcap_b": 4510.6,
-          "price": "USD368.82"
+          "mcap_b": 4566.5,
+          "price": "USD373.39"
         },
         {
           "name": "Alphabet Inc.",
           "ticker": "GOOG",
-          "mcap_b": 4504.6,
-          "price": "USD368.33"
+          "mcap_b": 4562.6,
+          "price": "USD373.07"
         },
         {
           "name": "Apple Inc.",
           "ticker": "AAPL",
-          "mcap_b": 4485.1,
-          "price": "USD305.37"
+          "mcap_b": 4463.3,
+          "price": "USD303.89"
         },
         {
           "name": "Microsoft",
           "ticker": "MSFT",
-          "mcap_b": 3584.3,
-          "price": "USD482.70"
+          "mcap_b": 3620.2,
+          "price": "USD487.53"
         },
         {
           "name": "Amazon",
           "ticker": "AMZN",
-          "mcap_b": 3056.4,
-          "price": "USD284.12"
+          "mcap_b": 3076.2,
+          "price": "USD285.97"
         },
         {
           "name": "Broadcom",
           "ticker": "AVGO",
-          "mcap_b": 1846.3,
-          "price": "USD388.08"
+          "mcap_b": 1845.5,
+          "price": "USD387.90"
         },
         {
           "name": "Meta Platforms",
           "ticker": "META",
-          "mcap_b": 1503.1,
-          "price": "USD590.02"
+          "mcap_b": 1512.7,
+          "price": "USD593.80"
         },
         {
           "name": "SpaceX",
           "ticker": "SPCX",
-          "mcap_b": 1476.7,
-          "price": "USD112.09"
+          "mcap_b": 1456.1,
+          "price": "USD110.53"
         },
         {
           "name": "Tesla, Inc.",
           "ticker": "TSLA",
-          "mcap_b": 1272.8,
-          "price": "USD322.26"
+          "mcap_b": 1279.7,
+          "price": "USD324.00"
         }
       ]
     },
@@ -1048,62 +1052,62 @@
         {
           "name": "Siemens",
           "ticker": "SIE",
-          "mcap_b": 217.4,
-          "price": "EUR285.00"
+          "mcap_b": 217.3,
+          "price": "EUR284.85"
         },
         {
           "name": "SAP",
           "ticker": "SAP",
-          "mcap_b": 189.9,
-          "price": "EUR164.50"
+          "mcap_b": 190.9,
+          "price": "EUR165.42"
         },
         {
           "name": "Allianz",
           "ticker": "ALV",
-          "mcap_b": 164.6,
-          "price": "EUR433.90"
+          "mcap_b": 164.8,
+          "price": "EUR434.50"
         },
         {
           "name": "Airbus",
           "ticker": "AIR",
           "mcap_b": 164.0,
-          "price": "EUR208.35"
+          "price": "EUR208.30"
         },
         {
           "name": "Deutsche Telekom",
           "ticker": "DTE",
-          "mcap_b": 135.6,
-          "price": "EUR28.03"
+          "mcap_b": 136.0,
+          "price": "EUR28.11"
         },
         {
           "name": "Siemens Energy",
           "ticker": "ENR",
-          "mcap_b": 126.7,
-          "price": "EUR148.88"
+          "mcap_b": 126.2,
+          "price": "EUR148.28"
         },
         {
           "name": "Infineon Technologies",
           "ticker": "IFX",
-          "mcap_b": 80.5,
-          "price": "EUR61.93"
+          "mcap_b": 80.3,
+          "price": "EUR61.82"
         },
         {
           "name": "Munich Re",
           "ticker": "MUV2",
-          "mcap_b": 66.7,
-          "price": "EUR521.40"
+          "mcap_b": 66.8,
+          "price": "EUR522.20"
         },
         {
           "name": "Deutsche Post",
           "ticker": "DHL",
-          "mcap_b": 64.7,
-          "price": "EUR57.78"
+          "mcap_b": 64.6,
+          "price": "EUR57.76"
         },
         {
           "name": "Merck",
           "ticker": "MRK",
           "mcap_b": 62.2,
-          "price": "EUR143.10"
+          "price": "EUR143.05"
         }
       ]
     },
@@ -1114,62 +1118,62 @@
         {
           "name": "Roche",
           "ticker": "RO",
-          "mcap_b": 285.1,
-          "price": "CHF357.80"
+          "mcap_b": 285.6,
+          "price": "CHF358.40"
         },
         {
           "name": "Roche Holding AG",
           "ticker": "ROP",
-          "mcap_b": 281.6,
-          "price": "CHF353.40"
+          "mcap_b": 282.5,
+          "price": "CHF354.60"
         },
         {
           "name": "Novartis International AG",
           "ticker": "NOVN",
-          "mcap_b": 236.6,
-          "price": "CHF124.48"
+          "mcap_b": 237.3,
+          "price": "CHF124.86"
         },
         {
           "name": "Nestlé SA",
           "ticker": "NESN",
-          "mcap_b": 207.7,
-          "price": "CHF80.76"
+          "mcap_b": 207.6,
+          "price": "CHF80.70"
         },
         {
           "name": "ABB Ltd",
           "ticker": "ABBN",
-          "mcap_b": 145.4,
-          "price": "CHF80.18"
+          "mcap_b": 145.3,
+          "price": "CHF80.10"
         },
         {
           "name": "UBS Group AG",
           "ticker": "UBSG",
-          "mcap_b": 139.6,
-          "price": "CHF42.60"
+          "mcap_b": 139.5,
+          "price": "CHF42.56"
         },
         {
           "name": "Compagnie Financière Richemont SA",
           "ticker": "CFR",
-          "mcap_b": 114.3,
-          "price": "CHF194.35"
+          "mcap_b": 114.4,
+          "price": "CHF194.50"
         },
         {
           "name": "Lindt & Sprüngli",
           "ticker": "LISN",
-          "mcap_b": 103.1,
-          "price": "CHF94900.00"
+          "mcap_b": 103.2,
+          "price": "CHF95000.00"
         },
         {
           "name": "Zurich Insurance Group AG",
           "ticker": "ZURN",
           "mcap_b": 91.9,
-          "price": "CHF615.20"
+          "price": "CHF615.40"
         },
         {
           "name": "Galderma",
           "ticker": "GALD",
-          "mcap_b": 40.6,
-          "price": "CHF173.95"
+          "mcap_b": 40.7,
+          "price": "CHF174.35"
         }
       ]
     },
