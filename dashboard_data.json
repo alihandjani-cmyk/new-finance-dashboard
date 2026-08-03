@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T20:43:09Z",
+  "generated_at": "2026-08-03T21:07:43Z",
   "stale_fallback": false,
   "commentary": "# Cross-Exchange Liquidity Commentary — 31 July 2026\n\nThe US exchanges dominate the liquidity hierarchy. NYSE leads decisively with the lowest ILLIQ metric at 0.0059% per $1M traded and commanding comparable volume of $223.4M, while Nasdaq 100 follows closely with the tightest absolute spreads at 0.8432% AR spread but superior price stability at 0.0025% per $1M traded and higher turnover at 1.3470%. European and Asian tier-one markets—Euronext, Tokyo, and Hong Kong—form a solid middle tier, each posting ILLIQ readings between 0.0301% and 0.0377% per $1M traded with comparable volumes ranging from $15.2M to $49.8M. A notable divergence emerges in SIX Swiss Exchange, which offers the tightest spreads at 0.4993% AR spread yet carries minimal comparable volume of $3.1M and middling ILLIQ costs of 0.0451% per $1M traded, suggesting tight tick-level pricing masks low absolute liquidity. The secondary tier—Xetra and London—show elevated execution costs, with LSE's ILLIQ reaching 0.0798% per $1M traded and 0.8179% spreads despite modest turnover. Korea Exchange lags substantially, with ILLIQ of 0.1559% per $1M traded and the widest spreads at 1.5734% AR spread, though its 1.4018% turnover ratio hints at domestic activity concentration misaligned with international comparable liquidity.",
   "news": [
@@ -106,27 +106,27 @@
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3431,
-      "pct": -0.2216
+      "price": 1.343,
+      "pct": -0.4539
     },
     "EURUSD": {
-      "price": 1.1513,
-      "pct": -0.0933
+      "price": 1.1517,
+      "pct": -0.2361
     },
     "EURGBP": {
-      "price": 0.8569,
-      "pct": 0.1028
+      "price": 0.857,
+      "pct": 0.1625
     },
     "USDJPY": {
-      "price": 157.114,
-      "pct": -1.9159
+      "price": 157.141,
+      "pct": -1.8991
     },
     "GOLD": {
-      "price": 4111.2002,
+      "price": 4112.6001,
       "pct": 0.0
     },
     "OIL": {
-      "price": 80.15,
+      "price": 79.93,
       "pct": 0.0
     }
   },
@@ -212,11 +212,25 @@
         "pct": "5.03%"
       },
       {
+        "name": "Diasorin",
+        "ticker": "DIA",
+        "price": "EUR75.16",
+        "change": "+EUR3.30",
+        "pct": "4.59%"
+      },
+      {
         "name": "Capgemini",
         "ticker": "CAP",
         "price": "EUR107.20",
         "change": "+EUR4.70",
         "pct": "4.59%"
+      },
+      {
+        "name": "Renault",
+        "ticker": "RNO",
+        "price": "EUR28.45",
+        "change": "+EUR1.19",
+        "pct": "4.37%"
       },
       {
         "name": "Avio",
@@ -233,6 +247,20 @@
         "pct": "3.81%"
       },
       {
+        "name": "Adyen",
+        "ticker": "ADYEN",
+        "price": "EUR908.20",
+        "change": "+EUR31.30",
+        "pct": "3.57%"
+      },
+      {
+        "name": "Dassault Systèmes",
+        "ticker": "DSY",
+        "price": "EUR20.75",
+        "change": "+EUR0.70",
+        "pct": "3.49%"
+      },
+      {
         "name": "EssilorLuxottica",
         "ticker": "EL",
         "price": "EUR169.60",
@@ -245,34 +273,6 @@
         "price": "EUR253.80",
         "change": "+EUR7.90",
         "pct": "3.21%"
-      },
-      {
-        "name": "BPER Banca",
-        "ticker": "BPE",
-        "price": "EUR14.52",
-        "change": "+EUR0.45",
-        "pct": "3.18%"
-      },
-      {
-        "name": "Randstad",
-        "ticker": "RAND",
-        "price": "EUR37.61",
-        "change": "+EUR1.11",
-        "pct": "3.04%"
-      },
-      {
-        "name": "Airbus",
-        "ticker": "AIR",
-        "price": "EUR208.00",
-        "change": "+EUR5.80",
-        "pct": "2.87%"
-      },
-      {
-        "name": "Saint-Gobain",
-        "ticker": "SGO",
-        "price": "EUR83.52",
-        "change": "+EUR2.24",
-        "pct": "2.76%"
       }
     ],
     "ndx": [
@@ -435,6 +435,13 @@
         "pct": "6.10%"
       },
       {
+        "name": "Deutsche Telekom",
+        "ticker": "DTE",
+        "price": "EUR28.08",
+        "change": "+EUR1.32",
+        "pct": "4.93%"
+      },
+      {
         "name": "SAP",
         "ticker": "SAP",
         "price": "EUR164.64",
@@ -463,6 +470,13 @@
         "pct": "3.34%"
       },
       {
+        "name": "Siltronic",
+        "ticker": "WAF",
+        "price": "EUR78.60",
+        "change": "+EUR2.50",
+        "pct": "3.29%"
+      },
+      {
         "name": "TUI",
         "ticker": "TUI1",
         "price": "EUR7.75",
@@ -470,25 +484,11 @@
         "pct": "3.22%"
       },
       {
-        "name": "Zalando",
-        "ticker": "ZAL",
-        "price": "EUR29.11",
-        "change": "+EUR0.85",
-        "pct": "3.01%"
-      },
-      {
-        "name": "Airbus",
-        "ticker": "AIR",
-        "price": "EUR208.00",
-        "change": "+EUR5.80",
-        "pct": "2.87%"
-      },
-      {
-        "name": "KION Group",
-        "ticker": "KGX",
-        "price": "EUR39.90",
-        "change": "+EUR0.97",
-        "pct": "2.49%"
+        "name": "Rheinmetall",
+        "ticker": "RHM",
+        "price": "EUR1175.00",
+        "change": "+EUR35.00",
+        "pct": "3.07%"
       }
     ],
     "six": [
@@ -514,6 +514,13 @@
         "pct": "3.91%"
       },
       {
+        "name": "Adecco",
+        "ticker": "ADEN",
+        "price": "CHF23.32",
+        "change": "+CHF0.82",
+        "pct": "3.64%"
+      },
+      {
         "name": "Partners Group Holding AG",
         "ticker": "PGHN",
         "price": "CHF694.00",
@@ -521,11 +528,25 @@
         "pct": "3.27%"
       },
       {
+        "name": "Temenos",
+        "ticker": "TEMN",
+        "price": "CHF69.10",
+        "change": "+CHF2.15",
+        "pct": "3.21%"
+      },
+      {
         "name": "Straumann",
         "ticker": "STMN",
         "price": "CHF102.90",
         "change": "+CHF3.02",
         "pct": "3.02%"
+      },
+      {
+        "name": "Amrize AG",
+        "ticker": "AMRZ",
+        "price": "CHF40.87",
+        "change": "+CHF1.19",
+        "pct": "3.00%"
       },
       {
         "name": "Sika AG",
@@ -540,27 +561,6 @@
         "price": "CHF546.60",
         "change": "+CHF14.40",
         "pct": "2.71%"
-      },
-      {
-        "name": "Alcon Inc",
-        "ticker": "ALC",
-        "price": "CHF56.62",
-        "change": "+CHF1.24",
-        "pct": "2.24%"
-      },
-      {
-        "name": "Belimo",
-        "ticker": "BEAN",
-        "price": "CHF855.00",
-        "change": "+CHF15.00",
-        "pct": "1.79%"
-      },
-      {
-        "name": "Avolta",
-        "ticker": "AVOL",
-        "price": "CHF49.08",
-        "change": "+CHF0.74",
-        "pct": "1.53%"
       }
     ],
     "tse": [
@@ -1328,7 +1328,7 @@
         {
           "name": "SK Square",
           "ticker": "402340",
-          "mcap_b": 135103.4,
+          "mcap_b": 135103.7,
           "price": "KRW1025000.00"
         },
         {
