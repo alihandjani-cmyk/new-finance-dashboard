@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T21:41:38Z",
+  "generated_at": "2026-08-05T22:07:32Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate with minimal price impact (0.0024% and 0.0058% per $1M traded respectively) and exceptional comparable volumes ($340.5M and $198.7M), establishing a US-equity anchor. The mid-tier—Tokyo Stock Exchange, Euronext, Hong Kong Stock Exchange, and London Stock Exchange—exhibits moderate price impact (0.0281% to 0.0362% per $1M) but diverges sharply on turnover: TSX shows robust 3.0065% turnover despite lower comparable volume ($54.1M), while Euronext and Hong Kong manage just 0.4388% and 0.4311% respectively on minimal activity ($11.0M and $12.1M). The laggard tier comprises Xetra, SIX Swiss Exchange, and Korea Exchange, where elevated ILLIQ values (0.0492% to 0.1577% per $1M) and wide spreads (0.5678% to 1.5545%) signal structural constraints. Korea Exchange stands apart as the outlier: despite ranking ninth in ILLIQ, its 1.5545% AR spread is substantially wider than peers, suggesting intraday volatility or order-book fragmentation that the price-impact metric alone fails to capture—a critical warning for execution desks targeting that market.",
   "news": [
@@ -70,16 +70,16 @@
       "pct": 0.0818
     },
     "DAX": {
-      "price": 26126.3008,
-      "pct": -0.2902
+      "price": 26202.3496,
+      "pct": 0.0
     },
     "CAC40": {
-      "price": 8669.2998,
-      "pct": 0.0308
+      "price": 8666.6299,
+      "pct": 0.0
     },
     "SMI": {
-      "price": 14551.5596,
-      "pct": 0.6107
+      "price": 14463.2305,
+      "pct": 0.0
     },
     "SP500": {
       "price": 7723.5498,
@@ -107,19 +107,19 @@
     },
     "GBPUSD": {
       "price": 1.3469,
-      "pct": 0.3095
+      "pct": 0.132
     },
     "EURUSD": {
-      "price": 1.1555,
-      "pct": 0.4171
+      "price": 1.1557,
+      "pct": 0.2103
     },
     "EURGBP": {
-      "price": 0.8576,
-      "pct": 0.077
+      "price": 0.858,
+      "pct": 0.1214
     },
     "USDJPY": {
-      "price": 157.697,
-      "pct": 0.1066
+      "price": 157.682,
+      "pct": 0.0971
     },
     "GOLD": {
       "price": 4308.0,
@@ -205,74 +205,39 @@
     ],
     "enx": [
       {
-        "name": "Publicis",
-        "ticker": "PUB",
-        "price": "EUR97.16",
-        "change": "+EUR2.88",
-        "pct": "3.05%"
+        "name": "Galp Energia",
+        "ticker": "GALP",
+        "price": "EUR19.88",
+        "change": "+EUR0.08",
+        "pct": "0.43%"
       },
       {
-        "name": "Edenred",
-        "ticker": "EDEN",
-        "price": "EUR29.29",
-        "change": "+EUR0.69",
-        "pct": "2.41%"
+        "name": "Banco Comercial Português",
+        "ticker": "BCP",
+        "price": "EUR1.09",
+        "change": "+EUR0.00",
+        "pct": "0.41%"
       },
       {
-        "name": "Heineken",
-        "ticker": "HEIA",
-        "price": "EUR79.40",
-        "change": "+EUR1.70",
-        "pct": "2.19%"
+        "name": "Energias de Portugal",
+        "ticker": "EDP",
+        "price": "EUR4.47",
+        "change": "+EUR0.01",
+        "pct": "0.27%"
       },
       {
-        "name": "Randstad",
-        "ticker": "RAND",
-        "price": "EUR38.39",
-        "change": "+EUR0.79",
-        "pct": "2.10%"
+        "name": "Jerónimo Martins",
+        "ticker": "JMT",
+        "price": "EUR17.35",
+        "change": "EUR-0.09",
+        "pct": "-0.52%"
       },
       {
-        "name": "Brunello Cucinelli",
-        "ticker": "BC",
-        "price": "EUR92.90",
-        "change": "+EUR1.68",
-        "pct": "1.84%"
-      },
-      {
-        "name": "Kering",
-        "ticker": "KER",
-        "price": "EUR284.30",
-        "change": "+EUR5.00",
-        "pct": "1.79%"
-      },
-      {
-        "name": "Accor",
-        "ticker": "AC",
-        "price": "EUR47.33",
-        "change": "+EUR0.79",
-        "pct": "1.70%"
-      },
-      {
-        "name": "Banca Monte dei Paschi di Siena",
-        "ticker": "BMPS",
-        "price": "EUR11.87",
-        "change": "+EUR0.19",
-        "pct": "1.64%"
-      },
-      {
-        "name": "DSM Firmenich AG",
-        "ticker": "DSFIR",
-        "price": "EUR93.20",
-        "change": "+EUR1.42",
-        "pct": "1.55%"
-      },
-      {
-        "name": "Leonardo",
-        "ticker": "LDO",
-        "price": "EUR57.40",
-        "change": "+EUR0.87",
-        "pct": "1.54%"
+        "name": "EDP Renováveis",
+        "ticker": "EDPR",
+        "price": "EUR13.22",
+        "change": "EUR-0.24",
+        "pct": "-1.78%"
       }
     ],
     "ndx": [
@@ -867,7 +832,7 @@
           "name": "Shell plc",
           "ticker": "SHELL",
           "mcap_b": 212.6,
-          "price": "EUR38.42"
+          "price": "EUR38.41"
         },
         {
           "name": "L'Oréal",
