@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T23:37:54Z",
+  "generated_at": "2026-08-05T00:11:40Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy divides sharply into three tiers. North American venues dominate: Nasdaq 100 leads decisively with 0.0024% per $1M ILLIQ and 0.8593% AR spread, while NYSE follows with 0.0060% per $1M ILLIQ despite a tighter 0.6638% spread and lower turnover at 0.7209%. The mid-pack comprises Tokyo (0.0343% per $1M ILLIQ, robust 3.1123% turnover), Euronext (0.0303% per $1M ILLIQ, tightest spread at 0.5496%), Hong Kong (0.0362% per $1M ILLIQ), London (0.0803% per $1M ILLIQ), and Xetra (0.0532% per $1M ILLIQ with tight 0.5432% spread). Notably, Xetra shows metric divergence: tight spreads mask middling price-impact costs, suggesting execution challenges despite narrow quoted margins. The laggards—Korea Exchange (0.1586% per $1M ILLIQ, widest 1.5294% spread) and SIX Swiss (0.0460% per $1M ILLIQ but minimal 0.1705% turnover)—reflect structural constraints. Volume concentration remains extreme: Nasdaq's $408.5M comparable volume dwarfs all peers, with the entire European and Asian mid-pack combined below $100M.",
   "news": [
@@ -81,6 +81,10 @@
       "price": 14371.7695,
       "pct": 0.0
     },
+    "SP500": {
+      "price": 7736.52,
+      "pct": 1.7896
+    },
     "NDX": {
       "price": 29733.1602,
       "pct": 3.3234
@@ -90,7 +94,7 @@
       "pct": 1.7065
     },
     "NIKKEI": {
-      "price": 63754.8984,
+      "price": 63957.5312,
       "pct": 0.0
     },
     "HSI": {
@@ -98,32 +102,32 @@
       "pct": 0.0
     },
     "KOSPI": {
-      "price": 6257.4502,
+      "price": 6358.9502,
       "pct": 0.0
     },
     "GBPUSD": {
       "price": 1.345,
-      "pct": 0.1692
+      "pct": 0.1746
     },
     "EURUSD": {
-      "price": 1.1534,
-      "pct": 0.2318
+      "price": 1.1535,
+      "pct": 0.2434
     },
     "EURGBP": {
       "price": 0.8573,
-      "pct": 0.042
+      "pct": 0.0443
     },
     "USDJPY": {
-      "price": 157.786,
-      "pct": 0.1631
+      "price": 157.735,
+      "pct": 0.1308
     },
     "GOLD": {
-      "price": 4128.1001,
-      "pct": 2.3403
+      "price": 4127.8999,
+      "pct": 2.3353
     },
     "OIL": {
-      "price": 75.12,
-      "pct": -6.4974
+      "price": 75.21,
+      "pct": -6.3854
     }
   },
   "gainers": {
@@ -743,7 +747,7 @@
   },
   "market_cap": {
     "lse": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "GBP",
       "top10": [
         {
@@ -779,7 +783,7 @@
         {
           "name": "Unilever",
           "ticker": "ULVR",
-          "mcap_b": 102.2,
+          "mcap_b": 102.3,
           "price": "4748p"
         },
         {
@@ -809,7 +813,7 @@
       ]
     },
     "enx": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "EUR",
       "top10": [
         {
@@ -837,21 +841,21 @@
           "price": "EUR387.50"
         },
         {
+          "name": "Airbus",
+          "ticker": "AIR",
+          "mcap_b": 169.5,
+          "price": "EUR214.10"
+        },
+        {
           "name": "Schneider Electric",
           "ticker": "SU",
           "mcap_b": 168.7,
           "price": "EUR299.25"
         },
         {
-          "name": "Airbus",
-          "ticker": "AIR",
-          "mcap_b": 168.5,
-          "price": "EUR214.10"
-        },
-        {
           "name": "TotalEnergies",
           "ticker": "TTE",
-          "mcap_b": 164.9,
+          "mcap_b": 164.7,
           "price": "EUR74.25"
         },
         {
@@ -875,7 +879,7 @@
       ]
     },
     "ndx": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "USD",
       "top10": [
         {
@@ -1007,7 +1011,7 @@
       ]
     },
     "xetra": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "EUR",
       "top10": [
         {
@@ -1025,7 +1029,7 @@
         {
           "name": "Airbus",
           "ticker": "AIR",
-          "mcap_b": 168.5,
+          "mcap_b": 169.5,
           "price": "EUR214.10"
         },
         {
@@ -1073,7 +1077,7 @@
       ]
     },
     "six": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "CHF",
       "top10": [
         {
@@ -1139,7 +1143,7 @@
       ]
     },
     "tse": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "JPY",
       "top10": [
         {
@@ -1205,7 +1209,7 @@
       ]
     },
     "hkg": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "HKD",
       "top10": [
         {
@@ -1271,7 +1275,7 @@
       ]
     },
     "krx": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "currency": "KRW",
       "top10": [
         {
