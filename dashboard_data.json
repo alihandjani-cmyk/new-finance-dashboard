@@ -1,8 +1,14 @@
 {
-  "generated_at": "2026-08-05T21:13:50Z",
+  "generated_at": "2026-08-05T21:41:38Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate with minimal price impact (0.0024% and 0.0058% per $1M traded respectively) and exceptional comparable volumes ($340.5M and $198.7M), establishing a US-equity anchor. The mid-tier—Tokyo Stock Exchange, Euronext, Hong Kong Stock Exchange, and London Stock Exchange—exhibits moderate price impact (0.0281% to 0.0362% per $1M) but diverges sharply on turnover: TSX shows robust 3.0065% turnover despite lower comparable volume ($54.1M), while Euronext and Hong Kong manage just 0.4388% and 0.4311% respectively on minimal activity ($11.0M and $12.1M). The laggard tier comprises Xetra, SIX Swiss Exchange, and Korea Exchange, where elevated ILLIQ values (0.0492% to 0.1577% per $1M) and wide spreads (0.5678% to 1.5545%) signal structural constraints. Korea Exchange stands apart as the outlier: despite ranking ninth in ILLIQ, its 1.5545% AR spread is substantially wider than peers, suggesting intraday volatility or order-book fragmentation that the price-impact metric alone fails to capture—a critical warning for execution desks targeting that market.",
   "news": [
+    {
+      "title": "Iran says it has agreed Strait of Hormuz shipping route with Oman",
+      "link": "https://www.bbc.co.uk/news/articles/ckg9d3eyeggo?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 05 Aug 2026 21:21:51 GMT",
+      "source": "BBC Business"
+    },
     {
       "title": "Prioritise new jobs over green targets to win public contracts, firms told",
       "link": "https://www.bbc.co.uk/news/articles/ckgdmv7elg8o?at_medium=RSS&at_campaign=rss",
@@ -28,15 +34,15 @@
       "source": "BBC Business"
     },
     {
-      "title": "The cost of being single – and how friends are teaming up to beat it",
-      "link": "https://www.bbc.co.uk/news/articles/cly7dqprlnvo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Tue, 04 Aug 2026 23:21:08 GMT",
-      "source": "BBC Business"
-    },
-    {
       "title": "How tech is helping in the battle against wildfires",
       "link": "https://www.bbc.co.uk/news/articles/c62enveg1dpo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 04 Aug 2026 23:21:47 GMT",
+      "source": "BBC Business"
+    },
+    {
+      "title": "The cost of being single – and how friends are teaming up to beat it",
+      "link": "https://www.bbc.co.uk/news/articles/cly7dqprlnvo?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Tue, 04 Aug 2026 23:21:08 GMT",
       "source": "BBC Business"
     },
     {
@@ -55,12 +61,6 @@
       "title": "Fashion brand Jaded has ad banned for 'glamorising smoking'",
       "link": "https://www.bbc.co.uk/news/articles/cly843vd3jmo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 04 Aug 2026 23:20:12 GMT",
-      "source": "BBC Business"
-    },
-    {
-      "title": "Trump says Iran will be 'hit very hard' if Hormuz Strait not open soon as oil prices fall",
-      "link": "https://www.bbc.co.uk/news/articles/cpw9v0gnzxwo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Wed, 05 Aug 2026 03:44:30 GMT",
       "source": "BBC Business"
     }
   ],
@@ -107,27 +107,27 @@
     },
     "GBPUSD": {
       "price": 1.3469,
-      "pct": 0.1374
+      "pct": 0.3095
     },
     "EURUSD": {
-      "price": 1.1563,
-      "pct": 0.2683
+      "price": 1.1555,
+      "pct": 0.4171
     },
     "EURGBP": {
-      "price": 0.8579,
-      "pct": 0.0607
+      "price": 0.8576,
+      "pct": 0.077
     },
     "USDJPY": {
-      "price": 157.713,
-      "pct": 0.0133
+      "price": 157.697,
+      "pct": 0.1066
     },
     "GOLD": {
-      "price": 4305.1001,
-      "pct": 5.1204
+      "price": 4308.0,
+      "pct": 5.1912
     },
     "OIL": {
-      "price": 75.0,
-      "pct": -1.0162
+      "price": 75.08,
+      "pct": -0.9106
     }
   },
   "gainers": {
@@ -1263,7 +1263,7 @@
           "name": "Industrial and Commercial Bank of China",
           "ticker": "1398",
           "mcap_b": 2567.9,
-          "price": "HKD7.21"
+          "price": "HKD7.20"
         },
         {
           "name": "Alibaba Group",
