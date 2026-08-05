@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T23:29:14Z",
+  "generated_at": "2026-08-05T23:42:12Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate with minimal price impact (0.0024% and 0.0058% per $1M traded respectively) and exceptional comparable volumes ($340.5M and $198.7M), establishing a US-equity anchor. The mid-tier—Tokyo Stock Exchange, Euronext, Hong Kong Stock Exchange, and London Stock Exchange—exhibits moderate price impact (0.0281% to 0.0362% per $1M) but diverges sharply on turnover: TSX shows robust 3.0065% turnover despite lower comparable volume ($54.1M), while Euronext and Hong Kong manage just 0.4388% and 0.4311% respectively on minimal activity ($11.0M and $12.1M). The laggard tier comprises Xetra, SIX Swiss Exchange, and Korea Exchange, where elevated ILLIQ values (0.0492% to 0.1577% per $1M) and wide spreads (0.5678% to 1.5545%) signal structural constraints. Korea Exchange stands apart as the outlier: despite ranking ninth in ILLIQ, its 1.5545% AR spread is substantially wider than peers, suggesting intraday volatility or order-book fragmentation that the price-impact metric alone fails to capture—a critical warning for execution desks targeting that market.",
   "news": [
@@ -10,9 +10,27 @@
       "source": "BBC Business"
     },
     {
+      "title": "Shorts, strappy tops and sandals: Can my boss tell me what to wear in summer?",
+      "link": "https://www.bbc.co.uk/news/articles/cre49389g1qo?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 05 Aug 2026 23:22:17 GMT",
+      "source": "BBC Business"
+    },
+    {
+      "title": "Infantino sorry for errors but stays Fifa president",
+      "link": "https://www.bbc.co.uk/sport/football/articles/clyq3el5gkqo?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 05 Aug 2026 21:37:08 GMT",
+      "source": "BBC Business"
+    },
+    {
       "title": "Prioritise new jobs over green targets to win public contracts, firms told",
       "link": "https://www.bbc.co.uk/news/articles/ckgdmv7elg8o?at_medium=RSS&at_campaign=rss",
       "pubDate": "Wed, 05 Aug 2026 10:10:02 GMT",
+      "source": "BBC Business"
+    },
+    {
+      "title": "What's causing record high US beef prices?",
+      "link": "https://www.bbc.co.uk/news/articles/cdrv0k0j662o?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 05 Aug 2026 23:23:05 GMT",
       "source": "BBC Business"
     },
     {
@@ -34,12 +52,6 @@
       "source": "BBC Business"
     },
     {
-      "title": "How tech is helping in the battle against wildfires",
-      "link": "https://www.bbc.co.uk/news/articles/c62enveg1dpo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Tue, 04 Aug 2026 23:21:47 GMT",
-      "source": "BBC Business"
-    },
-    {
       "title": "The cost of being single – and how friends are teaming up to beat it",
       "link": "https://www.bbc.co.uk/news/articles/cly7dqprlnvo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 04 Aug 2026 23:21:08 GMT",
@@ -49,18 +61,6 @@
       "title": "SpaceX shares sink after first earnings report reveals huge AI spending plans",
       "link": "https://www.bbc.co.uk/news/articles/c0qvpveg20vo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Wed, 05 Aug 2026 14:04:43 GMT",
-      "source": "BBC Business"
-    },
-    {
-      "title": "'I feel like I dug my own grave': The workers caught in the AI transition",
-      "link": "https://www.bbc.co.uk/news/articles/cgr7nxve05go?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Tue, 04 Aug 2026 22:10:00 GMT",
-      "source": "BBC Business"
-    },
-    {
-      "title": "Fashion brand Jaded has ad banned for 'glamorising smoking'",
-      "link": "https://www.bbc.co.uk/news/articles/cly843vd3jmo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Tue, 04 Aug 2026 23:20:12 GMT",
       "source": "BBC Business"
     }
   ],
@@ -107,27 +107,27 @@
     },
     "GBPUSD": {
       "price": 1.3469,
-      "pct": 0.136
+      "pct": 0.1306
     },
     "EURUSD": {
-      "price": 1.1559,
-      "pct": 0.2335
+      "price": 1.1558,
+      "pct": 0.2219
     },
     "EURGBP": {
-      "price": 0.8579,
-      "pct": 0.0665
+      "price": 0.858,
+      "pct": 0.0711
     },
     "USDJPY": {
-      "price": 157.627,
-      "pct": -0.0412
+      "price": 157.646,
+      "pct": -0.0292
     },
     "GOLD": {
-      "price": 4312.2002,
-      "pct": 5.2938
+      "price": 4316.7998,
+      "pct": 5.4061
     },
     "OIL": {
-      "price": 75.09,
-      "pct": -0.8975
+      "price": 75.0,
+      "pct": -1.0162
     }
   },
   "gainers": {
@@ -765,7 +765,7 @@
         {
           "name": "Shell plc",
           "ticker": "SHEL",
-          "mcap_b": 181.4,
+          "mcap_b": 181.5,
           "price": "3280p"
         },
         {
@@ -777,7 +777,7 @@
         {
           "name": "Rio Tinto",
           "ticker": "RIO",
-          "mcap_b": 122.2,
+          "mcap_b": 122.1,
           "price": "7511p"
         },
         {
@@ -1293,7 +1293,7 @@
         {
           "name": "SK Square",
           "ticker": "402340",
-          "mcap_b": 147493.3,
+          "mcap_b": 147493.7,
           "price": "KRW1119000.00"
         },
         {
