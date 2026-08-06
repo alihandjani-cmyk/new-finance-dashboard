@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T23:42:12Z",
+  "generated_at": "2026-08-06T00:09:59Z",
   "stale_fallback": false,
   "commentary": "The liquidity hierarchy splits into three clear tiers. Nasdaq 100 and NYSE dominate with minimal price impact (0.0024% and 0.0058% per $1M traded respectively) and exceptional comparable volumes ($340.5M and $198.7M), establishing a US-equity anchor. The mid-tier—Tokyo Stock Exchange, Euronext, Hong Kong Stock Exchange, and London Stock Exchange—exhibits moderate price impact (0.0281% to 0.0362% per $1M) but diverges sharply on turnover: TSX shows robust 3.0065% turnover despite lower comparable volume ($54.1M), while Euronext and Hong Kong manage just 0.4388% and 0.4311% respectively on minimal activity ($11.0M and $12.1M). The laggard tier comprises Xetra, SIX Swiss Exchange, and Korea Exchange, where elevated ILLIQ values (0.0492% to 0.1577% per $1M) and wide spreads (0.5678% to 1.5545%) signal structural constraints. Korea Exchange stands apart as the outlier: despite ranking ninth in ILLIQ, its 1.5545% AR spread is substantially wider than peers, suggesting intraday volatility or order-book fragmentation that the price-impact metric alone fails to capture—a critical warning for execution desks targeting that market.",
   "news": [
@@ -19,6 +19,12 @@
       "title": "Infantino sorry for errors but stays Fifa president",
       "link": "https://www.bbc.co.uk/sport/football/articles/clyq3el5gkqo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Wed, 05 Aug 2026 21:37:08 GMT",
+      "source": "BBC Business"
+    },
+    {
+      "title": "Disney agrees deal to let TikTokers use its films and TV shows in videos",
+      "link": "https://www.bbc.co.uk/news/articles/c235ev9knm4o?at_medium=RSS&at_campaign=rss",
+      "pubDate": "Wed, 05 Aug 2026 13:06:43 GMT",
       "source": "BBC Business"
     },
     {
@@ -56,12 +62,6 @@
       "link": "https://www.bbc.co.uk/news/articles/cly7dqprlnvo?at_medium=RSS&at_campaign=rss",
       "pubDate": "Tue, 04 Aug 2026 23:21:08 GMT",
       "source": "BBC Business"
-    },
-    {
-      "title": "SpaceX shares sink after first earnings report reveals huge AI spending plans",
-      "link": "https://www.bbc.co.uk/news/articles/c0qvpveg20vo?at_medium=RSS&at_campaign=rss",
-      "pubDate": "Wed, 05 Aug 2026 14:04:43 GMT",
-      "source": "BBC Business"
     }
   ],
   "tickers": {
@@ -94,7 +94,7 @@
       "pct": 0.4867
     },
     "NIKKEI": {
-      "price": 63957.5312,
+      "price": 66300.4375,
       "pct": 0.0
     },
     "HSI": {
@@ -102,32 +102,32 @@
       "pct": 0.0
     },
     "KOSPI": {
-      "price": 6358.9502,
+      "price": 6598.2598,
       "pct": 0.0
     },
     "GBPUSD": {
-      "price": 1.3469,
-      "pct": 0.1306
+      "price": 1.3468,
+      "pct": 0.1252
     },
     "EURUSD": {
-      "price": 1.1558,
-      "pct": 0.2219
+      "price": 1.1559,
+      "pct": 0.2335
     },
     "EURGBP": {
       "price": 0.858,
-      "pct": 0.0711
+      "pct": 0.077
     },
     "USDJPY": {
-      "price": 157.646,
-      "pct": -0.0292
+      "price": 157.648,
+      "pct": -0.0279
     },
     "GOLD": {
-      "price": 4316.7998,
-      "pct": 5.4061
+      "price": 4334.0,
+      "pct": 5.8261
     },
     "OIL": {
-      "price": 75.0,
-      "pct": -1.0162
+      "price": 75.02,
+      "pct": -0.9898
     }
   },
   "gainers": {
@@ -747,7 +747,7 @@
   },
   "market_cap": {
     "lse": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "GBP",
       "top10": [
         {
@@ -765,7 +765,7 @@
         {
           "name": "Shell plc",
           "ticker": "SHEL",
-          "mcap_b": 181.5,
+          "mcap_b": 181.4,
           "price": "3280p"
         },
         {
@@ -777,7 +777,7 @@
         {
           "name": "Rio Tinto",
           "ticker": "RIO",
-          "mcap_b": 122.1,
+          "mcap_b": 122.2,
           "price": "7511p"
         },
         {
@@ -813,7 +813,7 @@
       ]
     },
     "enx": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "EUR",
       "top10": [
         {
@@ -879,7 +879,7 @@
       ]
     },
     "ndx": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "USD",
       "top10": [
         {
@@ -1011,7 +1011,7 @@
       ]
     },
     "xetra": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "EUR",
       "top10": [
         {
@@ -1077,7 +1077,7 @@
       ]
     },
     "six": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "CHF",
       "top10": [
         {
@@ -1143,7 +1143,7 @@
       ]
     },
     "tse": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "JPY",
       "top10": [
         {
@@ -1209,7 +1209,7 @@
       ]
     },
     "hkg": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "HKD",
       "top10": [
         {
@@ -1275,7 +1275,7 @@
       ]
     },
     "krx": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "currency": "KRW",
       "top10": [
         {
@@ -1293,7 +1293,7 @@
         {
           "name": "SK Square",
           "ticker": "402340",
-          "mcap_b": 147493.7,
+          "mcap_b": 147493.3,
           "price": "KRW1119000.00"
         },
         {
